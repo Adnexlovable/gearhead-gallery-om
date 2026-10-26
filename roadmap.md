@@ -1,0 +1,19 @@
+# Roadmap
+- [ ] Apply approved SEO fixes: site icon, crawler rules and sitemap
+- [ ] Create and apply a fresh migration for bookings, enquiries, products, site sections and roadmap
+- [x] Separate the complete storefront into /store and add prominent Store navigation
+- [x] Build an executive vision, strategic investor deck and future roadmap homepage in charcoal and amber
+- [x] Home hero + Corporate Foundation block (Adnan Trading Services LLC, CR: 1634293) with NDA investor-deck request
+- [x] Home: Commercial Thesis & Execution Roadmap section (Track-to-Retail Synergy feature card + Bousher/Qurum two-phase expansion)
+- [x] Verify home-to-store navigation, storefront interactions and mobile layouts
+- [ ] Shop: confirm retail prices (OMR) with the owner — current figures are cost-price ranges from the inventory PDF
+- [x] Email sending set up on notify.gearheadrc.store (app emails + branded sign-in emails)
+- [x] Book a Visit + product enquiries + investor requests: email each one to the GearHead RC inbox
+- [ ] Book a Visit form and product enquiry button are not shown on any page since the /store split — ask owner whether to add them back
+- [x] Admin dashboard for bookings/products, admin account adnexadmin@gmail.com
+- [ ] Editable opening hours and contact details in Sections, reflected on website and launch roadmap; screenshot-inspired dashboard layout
+- [x] Set WhatsApp to +968 9867 5132 and contact email to adnant.t636@gmail.com on the website
+- [x] Google Search Console: verification guidance + a place in the dashboard to record property details for monitoring searches and pages
+- [ ] First ad campaign: agree goal and audience, then platform, creative and launch
+- [ ] Use "GearHead RC" name everywhere; optimise /store title, description and local business structured data (RC cars, parts, track — Bausher, Muscat)
+- [ ] Admin: AI helper where staff enter product details and get search-friendly titles, descriptions and local keywords

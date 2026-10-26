@@ -1,0 +1,1950 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+  --color-silver: var(--silver);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --font-display: "Bricolage Grotesque", "Manrope", sans-serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --shadow-gold: 0 10px 40px -10px color-mix(in oklab, var(--gold) 40%, transparent);
+  --shadow-vitrine: 0 30px 80px -30px rgba(0, 0, 0, 0.8), 0 0 0 1px color-mix(in oklab, var(--gold) 18%, transparent);
+}
+
+:root, .dark {
+  --radius: 0.5rem;
+
+  /* Brand palette */
+  --background: oklch(0.16 0.003 70);          /* Matte charcoal */
+  --surface:    oklch(0.20 0.003 70);          /* Raised charcoal */
+  --surface-2:  oklch(0.24 0.003 70);
+  --foreground: oklch(0.93 0.015 80);            /* #EDE7DC off-white */
+
+  --card:       oklch(0.21 0.003 70);
+  --card-foreground: oklch(0.93 0.015 80);
+  --popover:    oklch(0.20 0.003 70);
+  --popover-foreground: oklch(0.93 0.015 80);
+
+  --primary:    oklch(0.76 0.16 60);            /* Warm amber */
+  --primary-foreground: oklch(0.16 0.003 70);
+  --gold:       oklch(0.76 0.16 60);
+  --gold-soft:  oklch(0.86 0.11 70);
+
+  --secondary:  oklch(0.26 0.003 70);
+  --secondary-foreground: oklch(0.93 0.015 80);
+  --muted:      oklch(0.25 0.003 70);
+  --muted-foreground: oklch(0.72 0.01 80);       /* silver-ish */
+  --silver:     oklch(0.74 0.005 0);             /* #B0B0B0 */
+
+  --accent:     oklch(0.76 0.16 60);
+  --accent-foreground: oklch(0.16 0.003 70);
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+
+  --border: oklch(1 0 0 / 8%);
+  --input:  oklch(1 0 0 / 12%);
+  --ring:   oklch(0.76 0.16 60 / 60%);
+
+  --chart-1: oklch(0.76 0.16 60);
+  --chart-2: oklch(0.6 0.12 158);
+  --chart-3: oklch(0.74 0.005 0);
+  --chart-4: oklch(0.5 0.18 25);
+  --chart-5: oklch(0.55 0.1 158);
+
+  --sidebar: oklch(0.20 0.003 70);
+  --sidebar-foreground: oklch(0.93 0.015 80);
+  --sidebar-primary: oklch(0.76 0.16 60);
+  --sidebar-primary-foreground: oklch(0.16 0.003 70);
+  --sidebar-accent: oklch(0.26 0.003 70);
+  --sidebar-accent-foreground: oklch(0.93 0.015 80);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.76 0.16 60 / 60%);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html, body { background: var(--background); color: var(--foreground); }
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: color-mix(in oklab, var(--gold) 60%, transparent); color: var(--background); }
+}
+
+/* ============ Utilities ============ */
+
+@utility font-display { font-family: var(--font-display); letter-spacing: 0; }
+@utility font-mono-tag { font-family: var(--font-mono); letter-spacing: 0; text-transform: uppercase; }
+
+@utility text-gold-gradient {
+  background: linear-gradient(135deg, var(--gold-soft) 0%, var(--gold) 50%, var(--gold-soft) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility glass {
+  background: color-mix(in oklab, var(--surface) 35%, transparent);
+  backdrop-filter: blur(14px) saturate(140%);
+  border: 1px solid color-mix(in oklab, var(--gold) 18%, transparent);
+}
+
+@utility glass-strong {
+  background: color-mix(in oklab, var(--background) 60%, transparent);
+  backdrop-filter: blur(18px) saturate(160%);
+  border-bottom: 1px solid color-mix(in oklab, var(--gold) 12%, transparent);
+}
+
+@utility pill {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  background: color-mix(in oklab, var(--surface) 50%, transparent);
+  backdrop-filter: blur(10px);
+  border: 1px solid color-mix(in oklab, var(--gold) 25%, transparent);
+  color: var(--gold-soft);
+}
+
+@utility btn-gold {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  letter-spacing: 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--gold-soft), var(--gold));
+  color: var(--background);
+  box-shadow: var(--shadow-gold);
+  transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
+  cursor: pointer;
+  border: 1px solid color-mix(in oklab, var(--gold) 50%, transparent);
+  &:hover { transform: translateY(-2px); filter: brightness(1.08); }
+}
+
+@utility btn-ghost-gold {
+  display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  letter-spacing: 0;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  background: color-mix(in oklab, var(--surface) 30%, transparent);
+  backdrop-filter: blur(10px);
+  color: var(--gold-soft);
+  border: 1px solid color-mix(in oklab, var(--gold) 45%, transparent);
+  transition: transform .3s ease, background .3s ease;
+  cursor: pointer;
+  &:hover { transform: translateY(-2px); background: color-mix(in oklab, var(--gold) 12%, transparent); }
+}
+
+@utility vitrine {
+  position: relative;
+  background: linear-gradient(180deg, oklch(0.24 0.003 70) 0%, oklch(0.16 0.003 70) 100%);
+  border: 1px solid color-mix(in oklab, var(--gold) 22%, transparent);
+  box-shadow: var(--shadow-vitrine);
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+/* Museum spotlight glow from top */
+@utility vitrine-light {
+  &::before {
+    content: "";
+    position: absolute;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(ellipse at top,
+      color-mix(in oklab, var(--gold) 28%, transparent) 0%,
+      transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
+}
+
+/* Scanline / glass reflection overlay */
+@utility scanlines {
+  &::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(
+        180deg,
+        rgba(255,255,255,0.025) 0px,
+        rgba(255,255,255,0.025) 1px,
+        transparent 1px,
+        transparent 3px
+      ),
+      linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 45%, transparent 60%, rgba(255,255,255,0.04) 100%);
+    pointer-events: none;
+    z-index: 2;
+    mix-blend-mode: overlay;
+  }
+}
+
+@utility letterbox-top {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.7) 40%, transparent 100%);
+}
+@utility letterbox-bottom {
+  background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 40%, transparent 100%);
+}
+
+@utility radial-grade {
+  background: radial-gradient(ellipse at center,
+    transparent 0%,
+    color-mix(in oklab, var(--background) 45%, transparent) 55%,
+    color-mix(in oklab, var(--background) 92%, transparent) 100%);
+}
+
+/* Marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@utility animate-marquee { animation: marquee 40s linear infinite; }
+
+/* Reveal */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s cubic-bezier(0.16,1,0.3,1), transform 1s cubic-bezier(0.16,1,0.3,1);
+}
+@utility reveal-in {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+/* Cursor */
+.no-cursor, .no-cursor * { cursor: none !important; }
+
+@keyframes pulse-ring {
+  0%   { transform: translate(-50%,-50%) scale(0.9); opacity: 1; }
+  100% { transform: translate(-50%,-50%) scale(2.2); opacity: 0; }
+}
+@utility scroll-chevron {
+  animation: bounceY 2s ease-in-out infinite;
+}
+@keyframes bounceY {
+  0%, 100% { transform: translateY(0); opacity: .7; }
+  50%      { transform: translateY(10px); opacity: 1; }
+}
+
+/* Track-to-retail floor study */
+@keyframes dashRun { to { stroke-dashoffset: -240; } }
+@utility track-dash { animation: dashRun 7s linear infinite; }
+@keyframes trackPulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.9); }
+  50% { opacity: 0.9; transform: scale(1.1); }
+}
+@utility track-pulse { animation: trackPulse 3.2s ease-in-out infinite; }
+
+/* Loader */
+@keyframes loaderSweep {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+@utility loader-sweep { animation: loaderSweep 1.6s ease-in-out infinite; }
+
+/* Hotspot detail panel */
+@utility hotspot-panel {
+  transition:
+    opacity 320ms cubic-bezier(0.16,1,0.3,1),
+    transform 420ms cubic-bezier(0.16,1,0.3,1),
+    filter 320ms ease;
+  will-change: opacity, transform;
+}
+@utility hotspot-panel-closed {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.96);
+  filter: blur(6px);
+  pointer-events: none;
+}
+@utility hotspot-panel-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  pointer-events: auto;
+}
+
+/* Executive brand surfaces */
+:root, .dark {
+  --hero-grade: linear-gradient(90deg, color-mix(in oklab, var(--background) 93%, transparent), color-mix(in oklab, var(--background) 50%, transparent) 48%, transparent 78%), linear-gradient(0deg, var(--background), transparent 30%);
+  --carbon-weave: repeating-linear-gradient(45deg, color-mix(in oklab, var(--foreground) 2%, transparent) 0 1px, transparent 1px 5px), repeating-linear-gradient(-45deg, color-mix(in oklab, var(--foreground) 2%, transparent) 0 1px, transparent 1px 5px);
+  --executive-glass: linear-gradient(135deg, color-mix(in oklab, var(--foreground) 5%, transparent), color-mix(in oklab, var(--foreground) 1%, transparent));
+}
+html { scroll-behavior: smooth; scroll-padding-top: 100px; }
+.vision-hero { min-height: min(820px, 85svh); }
+.vision-grade { background: var(--hero-grade); }
+.vision-title { animation: executive-arrive 850ms cubic-bezier(.16,1,.3,1) both; }
+.carbon-surface { background-color: var(--surface); background-image: var(--carbon-weave); }
+.executive-card { background: var(--executive-glass); border: 1px solid var(--border); border-radius: 4px; backdrop-filter: blur(14px); }
+.deck-label { display: flex; align-items: center; gap: 12px; font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; color: var(--primary); }
+@keyframes executive-arrive { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 767px) {
+  .vision-hero { min-height: 680px; }
+  .vision-image { object-position: 64% center; }
+  .vision-grade { background: linear-gradient(90deg, color-mix(in oklab, var(--background) 86%, transparent), color-mix(in oklab, var(--background) 25%, transparent)), linear-gradient(0deg, var(--background), transparent 55%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+
+/* Investor cover: cinematic amber light, fine-film texture and restrained motion. */
+.cinematic-hero-glow {
+  background: radial-gradient(ellipse 46% 55% at 76% 46%, color-mix(in oklab, var(--gold) 15%, transparent), transparent 76%);
+  mix-blend-mode: screen;
+  animation: cinematicGlow 9s ease-in-out infinite alternate;
+}
+.cinematic-hero-grain {
+  opacity: .12;
+  background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(255,255,255,.06) 3px 4px);
+  mask-image: linear-gradient(to bottom, transparent, black 22%, black 78%, transparent);
+  pointer-events: none;
+}
+@keyframes cinematicGlow {
+  from { opacity: .5; transform: translateX(-2%) scale(1); }
+  to { opacity: .9; transform: translateX(2%) scale(1.07); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cinematic-hero-glow { animation: none; }
+}
+
+/* GearHead RC investor preview — premium midnight navy / copper-orange.
+   Scoped through existing brand tokens so every section remains consistent. */
+:root, .dark {
+  --background: oklch(0.215 0.025 250);
+  --surface: oklch(0.265 0.028 248);
+  --surface-2: oklch(0.315 0.03 247);
+  --foreground: oklch(0.965 0.012 85);
+  --card: oklch(0.28 0.028 248);
+  --card-foreground: oklch(0.965 0.012 85);
+  --popover: oklch(0.265 0.028 248);
+  --popover-foreground: oklch(0.965 0.012 85);
+  --primary: oklch(0.76 0.17 54);
+  --primary-foreground: oklch(0.18 0.02 248);
+  --gold: oklch(0.76 0.17 54);
+  --gold-soft: oklch(0.86 0.105 67);
+  --secondary: oklch(0.34 0.028 245);
+  --secondary-foreground: oklch(0.965 0.012 85);
+  --muted: oklch(0.33 0.023 245);
+  --muted-foreground: oklch(0.81 0.016 85);
+  --accent: oklch(0.76 0.17 54);
+  --accent-foreground: oklch(0.18 0.02 248);
+  --border: oklch(0.93 0.012 85 / 15%);
+  --input: oklch(0.93 0.012 85 / 20%);
+  --ring: oklch(0.76 0.17 54 / 65%);
+  --sidebar: oklch(0.255 0.028 248);
+  --sidebar-foreground: oklch(0.965 0.012 85);
+  --sidebar-primary: oklch(0.76 0.17 54);
+  --sidebar-primary-foreground: oklch(0.18 0.02 248);
+  --sidebar-accent: oklch(0.34 0.028 245);
+  --sidebar-accent-foreground: oklch(0.965 0.012 85);
+  --sidebar-border: oklch(0.93 0.012 85 / 15%);
+  --sidebar-ring: oklch(0.76 0.17 54 / 65%);
+}
+
+
+/* ===============================================================
+   GearHead RC Hub — immersive investor/retail homepage design
+   Inspired by the user's orange metallic 20-page brand blueprint.
+   Scoped to .gearhead-home so /store and /admin remain unchanged.
+   =============================================================== */
+.gearhead-home {
+  --gh-deep: #07101c;
+  --gh-surface: #101d29;
+  --gh-orange: #ff911e;
+  --gh-orange-light: #ffc16f;
+  --gh-paper: #fff6ec;
+  background: var(--gh-deep);
+  color: var(--gh-paper);
+  overflow: clip;
+}
+.gearhead-home .gh-capabilities {
+  position: relative;
+  z-index: 4;
+  background: linear-gradient(115deg,#090f19,#172331 50%,#090f19);
+  border-block: 2px solid #c65c12;
+  box-shadow: inset 0 3px #ffaf4e22, 0 12px 50px #0009;
+}
+.gearhead-home .gh-capabilities-inner {
+  margin-inline: auto;
+  max-width: 80rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 1rem 1.5rem;
+}
+.gearhead-home .gh-capability {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .85rem;
+  min-height: 4.5rem;
+  padding: .5rem 1rem;
+  border-right: 1px solid #ff9d3229;
+}
+.gearhead-home .gh-capability:last-child { border-right: 0; }
+.gearhead-home .gh-capability svg { color: var(--gh-orange); flex: 0 0 auto; filter: drop-shadow(0 0 10px #fb861844); }
+.gearhead-home .gh-capability strong, .gearhead-home .gh-capability span { display: block; }
+.gearhead-home .gh-capability strong { font: 800 .8rem var(--font-display); letter-spacing: .03em; }
+.gearhead-home .gh-capability span { font: 500 .65rem var(--font-sans); margin-top: .2rem; color: #cbcad0; }
+.gearhead-home .gh-chapter {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(5rem, 9vw, 8rem) 0;
+  overflow: hidden;
+  border-bottom: 2px solid #ef8c2938;
+  background: #09131e;
+  scroll-margin-top: 6rem;
+}
+.gearhead-home .gh-chapter-visual {
+  position: absolute;
+  z-index: -1;
+  inset: -90px 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: .72;
+  pointer-events: none;
+  will-change: transform;
+  transform: translate3d(0,var(--gh-parallax,0px),0) scale(1.11);
+}
+.gearhead-home .gh-chapter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(90deg,rgba(5,12,23,.84),rgba(6,15,26,.68) 52%,rgba(6,14,25,.38)),linear-gradient(180deg,rgba(9,18,30,.65),transparent 25%,transparent 70%,rgba(6,11,19,.8));
+}
+.gearhead-home .gh-chapter::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: .12;
+  background-image: repeating-linear-gradient(0deg,transparent 0 40px,#f88a1540 41px 42px,transparent 43px 85px);
+  mask-image: linear-gradient(90deg,#000,transparent 15%,transparent 85%,#000);
+}
+.gearhead-home .gh-chapter-experience::before { background: linear-gradient(90deg,#06101de6,#09111d9a 55%,#090d166b); }
+.gearhead-home .gh-chapter-catalog::before { background: linear-gradient(180deg,#081221ed 1%,#0c1825c7 58%,#0a121fd8); }
+.gearhead-home .gh-chapter-track::before { background: linear-gradient(90deg,#080f1ae8,#0a1726bc 55%,#0d162294); }
+.gearhead-home .gh-chapter-investors::before { background: linear-gradient(90deg,#050d18fc,#081424f0 52%,#071321be); }
+.gearhead-home .gh-chapter-roadmap::before { background: linear-gradient(180deg,#07101ceb,#091b29e8); }
+.gearhead-home .gh-chapter-contact::before { background: linear-gradient(90deg,#060c16fa,#0a1423e8 68%,#08111fd6); }
+.gearhead-home .gh-chapter-inner {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 2.5rem, 80rem);
+  margin-inline: auto;
+}
+.gearhead-home .gh-feature-grid { display: grid; grid-template-columns: 1fr .9fr; gap: clamp(1rem,4vw,3rem); align-items: center; }
+.gearhead-home .gh-metal-frame {
+  position: relative;
+  min-width: 0;
+  border: 1px solid #e47c2b9c;
+  border-radius: 1rem;
+  background: linear-gradient(135deg,rgba(23,32,44,.96),rgba(9,17,29,.93) 55%,rgba(19,28,39,.96));
+  box-shadow: 0 20px 55px #0008, inset 0 1px #ffe4ae44, inset 0 0 22px #f78a1010, 0 0 0 4px #05091099;
+  backdrop-filter: blur(10px);
+}
+.gearhead-home .gh-metal-frame::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid #f7a23c2c;
+  border-radius: calc(1rem - 5px);
+  pointer-events: none;
+}
+.gearhead-home .gh-frame-dark { padding: clamp(1.4rem,4vw,3rem); }
+.gearhead-home .gh-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  color: var(--gh-orange-light);
+  font: 750 .67rem var(--font-mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.gearhead-home .gh-eyebrow-bolt {
+  display: inline-block;
+  width: 1.4rem;
+  height: .25rem;
+  background: linear-gradient(90deg,#f78516,#ffe39a);
+  border-radius: 4px;
+  box-shadow: 0 0 18px #ff9924a1;
+}
+.gearhead-home .gh-chapter-title {
+  margin-top: 1.15rem;
+  max-width: 20ch;
+  color: #fff8f2;
+  font: 900 clamp(2.15rem,4.35vw,4.55rem)/1.06 var(--font-display);
+  letter-spacing: -.048em;
+  text-wrap: balance;
+  text-shadow: 0 7px 23px #000b;
+}
+.gearhead-home .gh-chapter-title em {
+  color: #ff9a2f;
+  font-style: normal;
+  text-shadow: 0 3px 24px #ff880b30;
+}
+.gearhead-home .gh-chapter-desc,
+.gearhead-home .gh-prose {
+  max-width: 44rem;
+  margin-top: 1.45rem;
+  color: #f0edf0;
+  font: 450 clamp(.91rem,1.2vw,1.07rem)/1.9 var(--font-sans);
+  text-shadow: 0 2px 9px #0009;
+}
+.gearhead-home .gh-disclaimer { margin-top: 1.25rem; color: #c7c2be; font: 450 .76rem/1.7 var(--font-sans); max-width: 50rem; }
+.gearhead-home .gh-stat-row { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #ff9f3a4d; }
+.gearhead-home .gh-stat-row strong, .gearhead-home .gh-stat-row span { display: block; }
+.gearhead-home .gh-stat-row strong { color: #ffa02c; font: 900 clamp(1.35rem,2.3vw,2.1rem) var(--font-display); white-space: nowrap; }
+.gearhead-home .gh-stat-row small { font-size: .44em; color: #fed3a0; }
+.gearhead-home .gh-stat-row span { margin-top: .35rem; font: 600 .64rem/1.4 var(--font-sans); color: #d7d5d6; }
+.gearhead-home .gh-brand-line { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; color: #f2d6b3; margin-top: 2rem; font-size: .7rem; }
+.gearhead-home .gh-brand-line svg { color: #ff9b30; flex: 0 0 auto; }
+.gearhead-home .gh-brand-line span { color: #ffb65d; font-weight: 800; }
+.gearhead-home .gh-industrial-border {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #e889319e;
+  border-radius: 1rem;
+  background: #0b111e;
+  box-shadow: 0 22px 54px #000a,0 0 0 5px #100b0b, inset 0 0 40px #0006;
+}
+.gearhead-home .gh-feature-photo { min-height: 450px; height: 100%; }
+.gearhead-home .gh-feature-photo img, .gearhead-home .gh-experience-grid img { height: 100%; width: 100%; object-fit: cover; transition: transform 900ms cubic-bezier(.2,.7,.15,1); }
+.gearhead-home .gh-industrial-border:hover img { transform: scale(1.035); }
+.gearhead-home .gh-photo-caption, .gearhead-home .gh-experience-grid figcaption {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: 2.1rem 1.3rem 1rem;
+  background: linear-gradient(transparent,#040a15e8 65%);
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+.gearhead-home .gh-photo-caption span { font: 700 .65rem var(--font-mono); color: #ffb563; }
+.gearhead-home .gh-photo-caption strong { font-weight: 800; color: white; }
+.gearhead-home .gh-experience-grid { margin-top: 2.25rem; display: grid; grid-template-columns: 1.4fr .86fr; gap: 1.15rem; }
+.gearhead-home .gh-showcase-main { min-height: 470px; }
+.gearhead-home .gh-showcase-stack { display: grid; grid-template-rows: 1fr 1fr; gap: 1.15rem; min-height: 470px; }
+.gearhead-home .gh-showcase-stack figure { min-height: 0; }
+.gearhead-home .gh-experience-grid figcaption strong { font: 850 .95rem var(--font-display); color: white; }
+.gearhead-home .gh-experience-grid figcaption span { color: #ffc378; font-size: .75rem; }
+.gearhead-home .gh-category-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1rem; margin-top: 2.5rem; }
+.gearhead-home .gh-category-card { padding: 1.55rem 1.2rem; overflow: hidden; transition: transform .3s ease,border-color .3s ease; }
+.gearhead-home .gh-category-card:hover { border-color: #ffc168; transform: translateY(-5px); }
+.gearhead-home .gh-category-icon { display: grid; width: 3.6rem; height: 3.6rem; place-items: center; color: #ff9b2f; border: 1px solid #ed933f79; background: #ff932015; border-radius: .65rem; margin-bottom: 1.45rem; }
+.gearhead-home .gh-card-eyebrow { font: 700 .58rem var(--font-mono); color: #ffc584; text-transform: uppercase; letter-spacing: .1em; }
+.gearhead-home .gh-category-card h3 { margin-top: .75rem; font: 850 1.35rem/1.15 var(--font-display); color: white; }
+.gearhead-home .gh-category-card p { margin-top: .8rem; color: #d1ced0; font-size: .81rem; }
+.gearhead-home .gh-category-card ul { margin-top: 1.3rem; padding-top: 1rem; border-top: 1px solid #df89374b; display: grid; gap: .8rem; }
+.gearhead-home .gh-category-card li { display: flex; align-items: flex-start; gap: .3rem; color: #f0edef; font: 550 .77rem/1.5 var(--font-sans); }
+.gearhead-home .gh-category-card li svg { color: #f59632; flex: 0 0 auto; margin-top: .12rem; }
+.gearhead-home .gh-small-action { margin-top: 1.8rem; }
+.gearhead-home .gh-solid-action, .gearhead-home .gh-outline-action {
+  display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+  padding: .9rem 1.35rem; border-radius: .55rem; cursor: pointer;
+  font: 800 .77rem var(--font-display); letter-spacing: .02em; transition: transform .2s ease,filter .2s ease;
+  text-decoration: none;
+}
+.gearhead-home .gh-solid-action { color: #10131c; border: 1px solid #ffcc7f; background: linear-gradient(120deg,#ffc66a,#ff951e 58%,#f57606); box-shadow: 0 12px 35px #ff751138; }
+.gearhead-home .gh-outline-action { color: #fff4e8; border: 1px solid #e48a3a; background: #111925c9; }
+.gearhead-home .gh-solid-action:hover, .gearhead-home .gh-outline-action:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.gearhead-home .gh-track-grid { display: grid; grid-template-columns: .82fr 1fr; gap: 1.5rem; margin-top: 2.3rem; }
+.gearhead-home .gh-track-summary { display: flex; flex-direction: column; justify-content: center; padding: 2.2rem; }
+.gearhead-home .gh-big-number { font: 900 clamp(4rem,7vw,7rem)/1 var(--font-display); color: #ff9b29; text-shadow: 0 12px 30px #0007; }
+.gearhead-home .gh-big-number span { color: #fff3e4; font-size: .28em; }
+.gearhead-home .gh-track-summary h3 { margin-top: 1rem; color: white; font: 850 1.45rem var(--font-display); }
+.gearhead-home .gh-track-summary p { margin-top: .8rem; color: #f0edef; line-height: 1.8; font-size: .9rem; }
+.gearhead-home .gh-track-capsules { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: 1.5rem; }
+.gearhead-home .gh-track-capsules span { color: #ffc27b; background: #ff9a1512; border: 1px solid #dd853a65; border-radius: 2px; padding: .45rem .55rem; font: 700 .54rem var(--font-mono); }
+.gearhead-home .gh-track-steps { display: grid; gap: 1rem; }
+.gearhead-home .gh-track-step { display: flex; gap: 1.5rem; align-items: center; padding: 1.45rem 1.6rem; }
+.gearhead-home .gh-track-num { color: #ffa32e; font: 900 2rem var(--font-display); }
+.gearhead-home .gh-track-step h3 { color: white; font: 850 1.15rem var(--font-display); }
+.gearhead-home .gh-track-step p { color: #ddd9dc; line-height: 1.6; margin-top: .35rem; font-size: .82rem; }
+.gearhead-home .gh-investor-grid { display: grid; grid-template-columns: 1.17fr .83fr; align-items: center; gap: 1.35rem; }
+.gearhead-home .gh-investor-copy { padding: clamp(1.5rem,4vw,3.2rem); }
+.gearhead-home .gh-investment-number { margin-top: 1.7rem; padding: 1.1rem 1.3rem; border-radius: .6rem; border: 1px solid #ffa14a7a; background: linear-gradient(100deg,#ff8c201d,#100f16c9); }
+.gearhead-home .gh-investment-number span { display: block; color: #ffc38b; font: 700 .58rem var(--font-mono); letter-spacing: .05em; }
+.gearhead-home .gh-investment-number strong { display: block; color: #ffa32e; font: 900 clamp(2rem,4vw,3.5rem) var(--font-display); }
+.gearhead-home .gh-investment-number small { color: #fff2e6; font-size: .43em; }
+.gearhead-home .gh-investor-copy .gh-solid-action { margin-top: 1.6rem; }
+.gearhead-home .gh-investor-points { display: grid; gap: .85rem; }
+.gearhead-home .gh-investor-point { display: flex; align-items: flex-start; gap: .95rem; padding: 1.3rem; }
+.gearhead-home .gh-investor-point > svg { color: #ffa22f; flex: 0 0 auto; }
+.gearhead-home .gh-investor-point strong { display: block; color: white; font: 800 1rem var(--font-display); }
+.gearhead-home .gh-investor-point span { display: block; color: #dcd5d3; margin-top: .35rem; font-size: .78rem; line-height: 1.55; }
+.gearhead-home .gh-milestones { margin-top: 2.4rem; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 1rem; }
+.gearhead-home .gh-milestone { padding: 1.4rem; }
+.gearhead-home .gh-milestone-number { display: block; font: 900 2.8rem var(--font-display); color: #ff951f; }
+.gearhead-home .gh-milestone > svg { margin-top: .7rem; color: #ffd09c; }
+.gearhead-home .gh-milestone h3 { margin-top: 1.3rem; font: 850 1.17rem var(--font-display); }
+.gearhead-home .gh-milestone p { margin-top: .7rem; color: #e0d9d8; font-size: .82rem; line-height: 1.7; }
+.gearhead-home .gh-contact-box { max-width: 60rem; padding: clamp(1.5rem,5vw,4rem); }
+.gearhead-home .gh-contact-actions { margin-top: 1.6rem; display: flex; gap: .8rem; flex-wrap: wrap; }
+.gearhead-home .gh-contact-location { margin-top: 1.7rem; display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; color: #f5dfcb; font-size: .78rem; }
+.gearhead-home .gh-contact-location svg { color: #ffa72e; }
+.gearhead-home .gh-contact-location span { color: #ffa72e; }
+.gearhead-home .gh-chapter-title, .gearhead-home .gh-category-card h3 { overflow-wrap: normal; }
+
+@media (max-width: 1023px) {
+  .gearhead-home .gh-feature-grid,.gearhead-home .gh-investor-grid { grid-template-columns: 1fr; }
+  .gearhead-home .gh-feature-photo { height: 320px; min-height: 320px; }
+  .gearhead-home .gh-category-grid,.gearhead-home .gh-milestones { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+@media (max-width: 700px) {
+  .gearhead-home .gh-capabilities-inner { grid-template-columns: repeat(2,minmax(0,1fr)); padding: .6rem .4rem; }
+  .gearhead-home .gh-capability { justify-content: flex-start; padding: .8rem .75rem; border-bottom: 1px solid #ff9d3229; }
+  .gearhead-home .gh-capability:nth-child(2) { border-right: 0; }
+  .gearhead-home .gh-capability:nth-last-child(-n+2) { border-bottom: 0; }
+  .gearhead-home .gh-capability strong { font-size: .7rem; }
+  .gearhead-home .gh-capability span { font-size: .59rem; }
+  .gearhead-home .gh-chapter { padding-block: 4.5rem; }
+  .gearhead-home .gh-chapter-inner { width: min(100% - 2rem,80rem); }
+  .gearhead-home .gh-chapter-title { font-size: clamp(2rem,9vw,3.5rem); }
+  .gearhead-home .gh-stat-row { gap: .65rem; }
+  .gearhead-home .gh-stat-row strong { font-size: 1.22rem; }
+  .gearhead-home .gh-stat-row span { font-size: .56rem; }
+  .gearhead-home .gh-experience-grid,.gearhead-home .gh-track-grid { grid-template-columns: 1fr; }
+  .gearhead-home .gh-showcase-main { min-height: 270px; height: 290px; }
+  .gearhead-home .gh-showcase-stack { grid-template-columns: 1fr 1fr; grid-template-rows: none; height: 200px; min-height: 0; gap: .65rem; }
+  .gearhead-home .gh-experience-grid figcaption { padding: 1.4rem .65rem .65rem; }
+  .gearhead-home .gh-experience-grid figcaption strong { font-size: .74rem; }
+  .gearhead-home .gh-experience-grid figcaption span { font-size: .59rem; }
+  .gearhead-home .gh-category-grid { gap: .7rem; }
+  .gearhead-home .gh-category-card { padding: 1rem .85rem; }
+  .gearhead-home .gh-category-card h3 { font-size: 1.1rem; }
+  .gearhead-home .gh-category-card p { font-size: .69rem; }
+  .gearhead-home .gh-category-card li { font-size: .67rem; }
+  .gearhead-home .gh-milestones { gap: .7rem; }
+  .gearhead-home .gh-milestone { padding: 1rem; }
+  .gearhead-home .gh-milestone h3 { font-size: 1.02rem; }
+  .gearhead-home .gh-milestone p { font-size: .72rem; }
+  .gearhead-home .gh-track-summary { padding: 1.5rem; }
+  .gearhead-home .gh-track-step { padding: 1.05rem 1rem; gap: 1rem; }
+  .gearhead-home .gh-track-step p { font-size: .75rem; }
+  .gearhead-home .gh-solid-action,.gearhead-home .gh-outline-action { width: 100%; }
+  .gearhead-home .gh-chapter-visual { will-change: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gearhead-home .gh-chapter-visual { transform: none !important; will-change: auto; }
+  .gearhead-home .gh-category-card,.gearhead-home .gh-experience-grid img { transition: none; }
+}
+
+
+/* GearHead mobile reference hero / v2: faithfully follows approved orange RC artwork.
+   Fixes former full-viewport blank band and preserves functional React headings and links. */
+.gearhead-home .gh-reference-hero {
+  position: relative;
+  isolation: isolate;
+  height: clamp(590px, 58vw, 790px);
+  min-height: 0;
+  overflow: hidden;
+  background: #08121f;
+  border-bottom: 1px solid #fc872b;
+}
+.gearhead-home .gh-hero-sky {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 48% 70% at 95% 40%,rgba(255,134,11,.76),rgba(241,103,20,.23) 55%,transparent 86%),
+    radial-gradient(ellipse 55% 45% at 48% 60%,rgba(247,83,16,.27),transparent 82%),
+    linear-gradient(168deg,#050d18 0%,#111b29 45%,#4d281e 78%,#130f15 100%);
+}
+.gearhead-home .gh-hero-buggy {
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  right: 0;
+  bottom: -2%;
+  height: 82%;
+  background-size: 130% auto;
+  background-position: center 37%;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  will-change: transform;
+  transform: scale(1.035);
+  -webkit-mask-image: linear-gradient(to bottom,transparent 0%,#000 16%,#000 100%);
+  mask-image: linear-gradient(to bottom,transparent 0%,#000 16%,#000 100%);
+}
+.gearhead-home .gh-hero-vignette {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg,rgba(4,10,19,.83) 0%,rgba(4,10,19,.50) 22%,transparent 43%,transparent 83%,rgba(5,8,13,.43) 100%),
+    linear-gradient(90deg,rgba(4,10,19,.4),transparent 47%);
+}
+.gearhead-home .gh-hero-inner {
+  position: relative;
+  z-index: 4;
+  width: min(100% - 2.3rem, 83rem);
+  margin-inline: auto;
+  height: 100%;
+  pointer-events: none;
+}
+.gearhead-home .gh-hero-copy {
+  position: absolute;
+  top: clamp(105px,10.6vw,147px);
+  left: 1%;
+  max-width: min(67vw,780px);
+  pointer-events: auto;
+}
+.gearhead-home .gh-hero-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: var(--font-display),Impact,"Arial Black",sans-serif;
+  font-style: italic;
+  font-weight: 1000;
+  letter-spacing: -.065em;
+  line-height: .82;
+  text-transform: uppercase;
+  filter: drop-shadow(0 8px 10px #000b);
+  transform: skew(-5deg) rotate(-1deg);
+  transform-origin: left center;
+}
+.gearhead-home .gh-hero-steel {
+  display: block;
+  font-size: clamp(4.5rem,7.8vw,8.5rem);
+  background: linear-gradient(165deg,#fff 2%,#fff 31%,#b9c3d0 53%,#fafaff 69%,#7c879b 98%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: .4px rgba(255,255,255,.5);
+  text-shadow: 2px 5px 0 rgba(0,0,0,.18);
+  white-space: nowrap;
+}
+.gearhead-home .gh-hero-copper {
+  display: block;
+  margin-left: 7%;
+  margin-top: .16em;
+  font-size: clamp(4.5rem,8.35vw,9.1rem);
+  white-space: nowrap;
+  background: linear-gradient(170deg,#fff09c 0%,#ffb53b 27%,#ff8913 51%,#e45707 81%,#942909 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: .4px #ffaf4399;
+  text-shadow: 2px 6px 0 #0003;
+}
+.gearhead-home .gh-hero-tagline {
+  color: #fff8f0;
+  font-weight: 800;
+  letter-spacing: .25em;
+  line-height: 1.4;
+  font-size: clamp(.65rem,1.55vw,1.18rem);
+  text-shadow: 0 3px 10px #000e;
+  margin-top: 1.35rem;
+  margin-left: 6%;
+  white-space: nowrap;
+}
+.gearhead-home .gh-hero-adventure {
+  position: absolute;
+  top: clamp(166px,16vw,250px);
+  right: 3%;
+  width: 25%;
+  text-align: center;
+  color: #ffb744;
+  font-family: "Brush Script MT","Segoe Script",cursive;
+  font-size: clamp(1.25rem,3.5vw,3.35rem);
+  font-style: italic;
+  line-height: 1.04;
+  text-shadow: 0 3px 15px #000b,0 0 14px #ff841661;
+  transform: rotate(-10deg);
+}
+.gearhead-home .gh-hero-adventure span { display: block; }
+.gearhead-home .gh-hero-cta-row {
+  pointer-events: auto;
+  position: absolute;
+  top: clamp(235px,22vw,345px);
+  left: 6%;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  white-space: nowrap;
+}
+.gearhead-home .gh-hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  min-height: 42px;
+  padding: .65rem 1rem;
+  border-radius: 6px;
+  font-family: var(--font-display),Arial,sans-serif;
+  font-size: .75rem;
+  font-weight: 900;
+  text-decoration: none;
+  transition: transform .2s ease,filter .2s ease;
+  backdrop-filter: blur(6px);
+}
+.gearhead-home .gh-hero-button:hover { transform: translateY(-2px); filter: brightness(1.1); }
+.gearhead-home .gh-hero-button-primary {
+  color: #111b26;
+  background: linear-gradient(120deg,#ffd081,#ff921c);
+  border: 1px solid #ffd18a;
+  box-shadow: 0 6px 30px #0007;
+}
+.gearhead-home .gh-hero-button-secondary { color: #fff6ea; border: 1px solid #ff9f41ad; background: #0b1424dc; }
+
+/* The five actual clickable app categories remain on one horizontal line, including phones. */
+.gearhead-home .gh-approved-category-strip {
+  position: relative;
+  z-index: 6;
+  margin: 0;
+  padding: .7rem clamp(.6rem,3vw,2rem);
+  background: linear-gradient(140deg,#060b13,#14202d 50%,#080b13);
+  border-top: 2px solid #d46c1d;
+  border-bottom: 2px solid #f4952d;
+  box-shadow: 0 12px 38px #000a, inset 0 1px #ffad5970;
+}
+.gearhead-home .gh-approved-category-strip .gh-capabilities-inner {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  width: min(100%,80rem);
+  padding: .65rem .5rem;
+  border-radius: 12px;
+  border: 1px solid #ec862ab5;
+  box-shadow: 0 0 0 3px #0c0e14, inset 0 0 20px #f583191a;
+  background: linear-gradient(180deg,rgba(25,31,40,.9),rgba(5,10,17,.96));
+}
+.gearhead-home .gh-approved-category-strip .gh-capability {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: .55rem;
+  padding: .3rem .4rem;
+  min-width: 0;
+  border-bottom: 0;
+  border-right: 1px solid #fda34e40;
+  text-decoration: none;
+  transition: background .2s ease;
+}
+.gearhead-home .gh-approved-category-strip .gh-capability:last-child { border-right: 0; }
+.gearhead-home .gh-approved-category-strip .gh-capability:hover { background: #ff8e1f1b; }
+.gearhead-home .gh-approved-category-strip .gh-capability svg {
+  color: #ff9120;
+  width: 28px; height: 28px;
+  filter: drop-shadow(0 0 9px #ff932b58);
+}
+.gearhead-home .gh-approved-category-strip .gh-capability strong {
+  color: #fff7e9;
+  font-family: var(--font-display),Arial,sans-serif;
+  font-size: clamp(.68rem,1.05vw,1.02rem);
+  font-weight: 900;
+  white-space: nowrap;
+}
+.gearhead-home .gh-approved-category-strip .gh-capability span {
+  font-family: var(--font-sans),Arial,sans-serif;
+  color: #d8d2d2;
+  font-size: clamp(.59rem,.85vw,.78rem);
+}
+
+/* Immediately visible showroom cover, as in user's screenshot; linking to /store. */
+.gearhead-home .gh-approved-showroom {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(335px,32vw,450px);
+  overflow: hidden;
+  border-bottom: 2px solid #fa872b;
+  background: #090f18;
+}
+.gearhead-home .gh-approved-showroom-photo {
+  position: absolute;
+  inset: -3% -2% -3% 25%;
+  z-index: 0;
+  pointer-events: none;
+  background-position: center;
+  background-size: cover;
+  filter: contrast(1.09) saturate(1.12);
+  transform: translate3d(0,var(--gh-parallax,0px),0) scale(1.07);
+  will-change: transform;
+}
+.gearhead-home .gh-approved-showroom-shade {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg,rgba(4,9,16,.99) 0%,rgba(5,10,18,.97) 27%,rgba(5,11,18,.68) 50%,rgba(6,11,18,.13) 100%);
+}
+.gearhead-home .gh-approved-showroom-inner {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 2.8rem,80rem);
+  margin: auto;
+  min-height: inherit;
+  display: flex;
+  align-items: center;
+}
+.gearhead-home .gh-approved-showroom-copy {
+  width: min(47%,470px);
+  padding-block: 2.8rem;
+  text-shadow: 0 2px 12px #000;
+}
+.gearhead-home .gh-showroom-kicker {
+  color: #ffa736;
+  font-family: var(--font-mono),monospace;
+  font-size: .75rem;
+  font-weight: 850;
+  letter-spacing: .33em;
+  margin-bottom: .65rem;
+}
+.gearhead-home .gh-approved-showroom-copy h2 {
+  font-family: var(--font-display),Impact,Arial,sans-serif;
+  font-size: clamp(2.15rem,4.1vw,4.7rem);
+  font-weight: 1000;
+  line-height: 1.04;
+  letter-spacing: -.045em;
+  color: white;
+}
+.gearhead-home .gh-approved-showroom-copy h2 span { display: block; color: #ff8e19; }
+.gearhead-home .gh-approved-showroom-copy p {
+  margin-top: 1rem;
+  max-width: 25rem;
+  color: #f5eddf;
+  font-size: clamp(.8rem,1.13vw,1rem);
+  line-height: 1.7;
+}
+.gearhead-home .gh-approved-shop-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  margin-top: 1.2rem;
+  min-height: 44px;
+  padding: .72rem 1.45rem;
+  font-family: var(--font-display),Arial,sans-serif;
+  font-weight: 900;
+  font-size: .82rem;
+  color: #16171c;
+  background: linear-gradient(120deg,#ffbc58,#ff830e);
+  border: 1px solid #ffc985;
+  border-radius: 22px;
+  box-shadow: 0 8px 25px #0009;
+  text-decoration: none;
+}
+.gearhead-home .gh-approved-shop-button:hover { filter: brightness(1.13); }
+.gearhead-home .gh-showroom-footnote {
+  position: absolute;
+  z-index: 2;
+  bottom: .45rem;
+  right: 1rem;
+  color: #e2ded6;
+  text-shadow: 0 2px 6px #000;
+  font-size: .63rem;
+  font-weight: 600;
+}
+
+/* Mobile must have no overlapping navbar, no invisible/blank hero, and no two-column category wrap. */
+.gearhead-home > header {
+  background: rgba(5,11,19,.94);
+  border-bottom: 1px solid rgba(255,143,31,.5);
+  backdrop-filter: blur(16px);
+}
+@media (max-width: 767px) {
+  .gearhead-home .gh-reference-hero { height: clamp(500px,133.33vw,680px); }
+  .gearhead-home .gh-hero-inner { width: calc(100% - 1.3rem); }
+  .gearhead-home .gh-hero-copy { top: 91px; left: 2%; max-width: 96%; }
+  .gearhead-home .gh-hero-brand { letter-spacing: -.055em; }
+  .gearhead-home .gh-hero-steel { font-size: clamp(2.65rem,10.1vw,4.4rem); }
+  .gearhead-home .gh-hero-copper { font-size: clamp(3.3rem,13.4vw,5.8rem); }
+  .gearhead-home .gh-hero-tagline {
+    font-size: clamp(.56rem,2.45vw,.82rem);
+    letter-spacing: .16em;
+    margin-top: 1rem;
+    margin-left: 2%;
+  }
+  .gearhead-home .gh-hero-adventure {
+    top: 46%; right: 5%; width: 42%;
+    font-size: clamp(1.2rem,5vw,1.9rem);
+  }
+  .gearhead-home .gh-hero-buggy {
+    bottom: -1%;
+    height: 65%;
+    background-size: 193% auto;
+    background-position: center 39%;
+  }
+  .gearhead-home .gh-hero-vignette {
+    background: linear-gradient(180deg,#050d19ef 0%,#050d19ce 30%,transparent 49%,transparent 80%,#050a10a3 100%);
+  }
+  .gearhead-home .gh-hero-cta-row {
+    top: auto; bottom: 12px; left: 2%; right: 2%;
+    justify-content: center; gap: .45rem;
+  }
+  .gearhead-home .gh-hero-button { padding: .52rem .55rem; min-height: 38px; font-size: .66rem; gap: .25rem; }
+  .gearhead-home .gh-hero-button svg { width: 13px; height: 13px; }
+  .gearhead-home .gh-approved-category-strip { padding: .5rem .25rem; }
+  .gearhead-home .gh-approved-category-strip .gh-capabilities-inner {
+    grid-template-columns: repeat(5,minmax(0,1fr));
+    padding: .55rem .1rem;
+  }
+  .gearhead-home .gh-approved-category-strip .gh-capability {
+    gap: .34rem;
+    padding: .4rem .06rem;
+    border-bottom: 0 !important;
+  }
+  .gearhead-home .gh-approved-category-strip .gh-capability:nth-child(2) { border-right: 1px solid #fda34e40; }
+  .gearhead-home .gh-approved-category-strip .gh-capability svg { width: 19px; height: 19px; }
+  .gearhead-home .gh-approved-category-strip .gh-capability strong { font-size: clamp(.51rem,2vw,.76rem); letter-spacing: -.02em; }
+  .gearhead-home .gh-approved-category-strip .gh-capability span { font-size: clamp(.43rem,1.6vw,.63rem); line-height: 1.15; }
+  .gearhead-home .gh-approved-showroom { min-height: 395px; }
+  .gearhead-home .gh-approved-showroom-photo { inset: 0 0 0 0; background-position: center; }
+  .gearhead-home .gh-approved-showroom-shade {
+    background: linear-gradient(90deg,#050c16f2 0%,#06101be0 44%,#06101b8c 72%,#06101b33 100%);
+  }
+  .gearhead-home .gh-approved-showroom-inner { width: calc(100% - 2rem); }
+  .gearhead-home .gh-approved-showroom-copy { width: min(80%,320px); padding-block: 2rem; }
+  .gearhead-home .gh-showroom-kicker { font-size: .58rem; }
+  .gearhead-home .gh-approved-showroom-copy h2 { font-size: clamp(2.1rem,8vw,3rem); }
+  .gearhead-home .gh-approved-showroom-copy p { font-size: .77rem; line-height: 1.56; }
+  .gearhead-home .gh-approved-shop-button { margin-top: 1rem; }
+  .gearhead-home .gh-showroom-footnote { font-size: .48rem; right: .45rem; }
+  .gearhead-home > header { padding-block: .52rem; }
+  .gearhead-home > header .gh-navbar-brand { gap: .45rem; }
+  .gearhead-home > header .gh-navbar-brand-mark { width: 34px; height: 34px; }
+  .gearhead-home > header .gh-navbar-brand-copy { gap: 0; }
+  .gearhead-home > header .gh-navbar-brand-main { font-size: 13px; line-height: 1; }
+  .gearhead-home > header .gh-navbar-brand-rc { font-size: 9px; line-height: 1; margin-top: .15rem; }
+  .gearhead-home > header .gh-navbar-brand-prefix { font-size: 6px; line-height: 1; margin-top: .1rem; }
+  .gearhead-home > header .gh-navbar-brand-parent { font-size: 8px; line-height: 1; margin-top: .1rem; }
+}
+@media (max-width: 360px) {
+  .gearhead-home .gh-approved-category-strip .gh-capability strong { font-size: .47rem; }
+  .gearhead-home .gh-approved-category-strip .gh-capability span { font-size: .43rem; }
+  .gearhead-home .gh-hero-button { font-size: .59rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gearhead-home .gh-hero-buggy,.gearhead-home .gh-approved-showroom-photo { transform: none !important; }
+}
+
+
+/* GearHead reference category cover cards — cards are actual product entry points. */
+.gearhead-home .gh-category-grid .gh-category-card {
+  padding: 0;
+  overflow: hidden;
+  border-color: #f38b298f;
+  background: linear-gradient(180deg,#0f1927,#09101c);
+}
+.gearhead-home .gh-category-grid .gh-category-card::before { inset: 5px; border-radius: .7rem; z-index: 1; }
+.gearhead-home .gh-category-cover {
+  position: relative;
+  display: block;
+  height: clamp(130px,13vw,180px);
+  overflow: hidden;
+  background: #0b1420;
+  border-bottom: 2px solid #fa962e;
+}
+.gearhead-home .gh-category-cover img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .4s ease;
+}
+.gearhead-home .gh-category-card:hover .gh-category-cover img { transform: scale(1.07); }
+.gearhead-home .gh-category-cover::after {
+  content: ""; pointer-events: none; position:absolute; inset:0;
+  background: linear-gradient(180deg,transparent 40%,#020913bd 100%);
+}
+.gearhead-home .gh-category-cover .gh-category-icon {
+  position: absolute;
+  bottom: .7rem;
+  left: .8rem;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 38px; height: 38px; margin: 0;
+  background: #07121bdd; border-color: #ffa43d;
+  box-shadow: 0 0 15px #ff931c3d;
+}
+.gearhead-home .gh-category-body { position: relative; z-index: 2; padding: 1.2rem; }
+.gearhead-home .gh-category-open {
+  display: inline-flex; align-items:center; justify-content:space-between; gap: .5rem;
+  text-decoration: none;
+  margin-top: 1.25rem; padding: .68rem .8rem; width: 100%;
+  font: 800 .7rem var(--font-display),Arial,sans-serif;
+  background: linear-gradient(110deg,#111a28,#172639);
+  color: #ffbd70; border-radius: .4rem; border: 1px solid #f38f3299;
+}
+.gearhead-home .gh-category-open:hover { color:white; border-color:#ffbd6a; background:#283544; }
+@media (max-width: 700px) {
+  .gearhead-home .gh-category-cover { height: clamp(105px,29vw,155px); }
+  .gearhead-home .gh-category-body { padding: .85rem .7rem; }
+  .gearhead-home .gh-category-cover .gh-category-icon { width: 28px; height: 28px; bottom: .4rem; left: .5rem; }
+  .gearhead-home .gh-category-cover .gh-category-icon svg { width: 18px; height: 18px; }
+  .gearhead-home .gh-category-body ul { display: none; }
+  .gearhead-home .gh-category-open { font-size: .6rem; padding: .6rem .52rem; }
+}
+
+
+/* GearHead official brand refresh 2026-10-26
+   Preserve the submitted GearHead emblem, reveal actual RC chapter imagery,
+   and use text-forward glass framing rather than solid black boxes. */
+.gearhead-home {
+  background: #080d16;
+}
+.gearhead-home .gh-chapter {
+  background: #101722;
+  border-bottom: 2px solid rgba(255,143,36,.65);
+}
+.gearhead-home .gh-chapter-visual {
+  opacity: .98;
+  filter: saturate(1.24) contrast(1.07) brightness(1.06);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.gearhead-home .gh-chapter::before {
+  background: linear-gradient(91deg,
+    rgba(2,9,17,.79) 0%,
+    rgba(4,12,20,.56) 35%,
+    rgba(4,11,20,.28) 66%,
+    rgba(4,10,18,.29) 100%),
+    linear-gradient(180deg,rgba(5,9,17,.45),transparent 27%,transparent 72%,rgba(4,8,17,.44));
+}
+.gearhead-home .gh-chapter-catalog::before {
+  background: linear-gradient(180deg,rgba(4,9,17,.79),rgba(4,11,21,.43) 40%,rgba(6,13,24,.56));
+}
+.gearhead-home .gh-chapter-experience::before {
+  background: linear-gradient(90deg,rgba(2,9,16,.73) 0%,rgba(4,11,17,.36) 55%,rgba(4,10,17,.18));
+}
+.gearhead-home .gh-chapter-track::before {
+  background: linear-gradient(90deg,rgba(3,9,17,.78) 0%,rgba(5,12,21,.47) 45%,rgba(4,9,16,.21));
+}
+.gearhead-home .gh-chapter-investors::before {
+  background: linear-gradient(90deg,rgba(4,9,17,.82),rgba(5,12,22,.50) 49%,rgba(4,11,17,.34));
+}
+.gearhead-home .gh-chapter-roadmap::before {
+  background: linear-gradient(180deg,rgba(4,9,16,.67),rgba(5,12,20,.37),rgba(3,8,13,.52));
+}
+.gearhead-home .gh-chapter-contact::before {
+  background: linear-gradient(90deg,rgba(3,10,18,.76),rgba(4,11,18,.40) 62%,rgba(3,9,18,.25));
+}
+.gearhead-home .gh-metal-frame {
+  background: linear-gradient(135deg,rgba(7,16,27,.50),rgba(10,19,29,.21) 58%,rgba(6,15,24,.35));
+  border-color: rgba(255,163,67,.58);
+  box-shadow: 0 10px 32px rgba(0,0,0,.18),inset 0 1px rgba(255,206,153,.22);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.gearhead-home .gh-metal-frame::before {
+  border-color: rgba(255,160,68,.12);
+}
+.gearhead-home .gh-frame-dark,
+.gearhead-home .gh-investor-copy,
+.gearhead-home .gh-contact-box {
+  background: linear-gradient(96deg,rgba(4,10,19,.70),rgba(7,14,24,.38) 65%,rgba(7,14,24,.18));
+}
+.gearhead-home .gh-investor-point,
+.gearhead-home .gh-track-step,
+.gearhead-home .gh-milestone {
+  background: linear-gradient(100deg,rgba(7,15,24,.30),rgba(7,15,24,.07));
+  border-color: rgba(255,146,42,.37);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.gearhead-home .gh-chapter-title,
+.gearhead-home .gh-track-summary h3,
+.gearhead-home .gh-track-step h3,
+.gearhead-home .gh-investor-point strong,
+.gearhead-home .gh-milestone h3 {
+  text-shadow: 0 3px 9px rgba(0,0,0,.90),0 5px 18px rgba(0,0,0,.70);
+}
+.gearhead-home .gh-chapter-desc,
+.gearhead-home .gh-prose,
+.gearhead-home .gh-track-summary p,
+.gearhead-home .gh-track-step p,
+.gearhead-home .gh-investor-point span,
+.gearhead-home .gh-milestone p {
+  color: #fff6ed;
+  text-shadow: 0 2px 7px rgba(0,0,0,.94),0 4px 15px rgba(0,0,0,.65);
+}
+.gearhead-home .gh-category-grid .gh-category-card {
+  background: linear-gradient(180deg,rgba(10,16,26,.20),rgba(7,14,22,.48));
+  backdrop-filter: blur(2px);
+}
+.gearhead-home .gh-category-cover img {
+  filter: contrast(1.06) saturate(1.23);
+}
+.gearhead-home .gh-category-body h3,
+.gearhead-home .gh-category-body p,
+.gearhead-home .gh-category-body .gh-card-eyebrow {
+  text-shadow: 0 2px 7px rgba(0,0,0,.92);
+}
+.gearhead-home .gh-investment-number {
+  background: linear-gradient(100deg,rgba(23,24,29,.29),rgba(6,10,17,.28));
+  border-color: rgba(255,157,53,.66);
+}
+.gearhead-home .gh-track-summary {
+  background: linear-gradient(100deg,rgba(3,9,17,.63),rgba(6,13,21,.20));
+}
+
+/* Footer now belongs to the same off-road story as the Hero and RC sections. */
+.gearhead-home .gh-theme-footer {
+  position: relative;
+  isolation: isolate;
+  background-color: #09111b;
+  background-image:
+    linear-gradient(90deg,rgba(2,8,15,.76),rgba(4,10,17,.50) 55%,rgba(2,8,15,.54)),
+    linear-gradient(0deg,rgba(2,6,11,.69),transparent 35%,rgba(3,8,14,.48)),
+    url("https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a42db62-b4c4-4df2-b2e1-d82e50c20cb4.png");
+  background-size: cover,cover,cover;
+  background-position: center,center,center 62%;
+  box-shadow: inset 0 3px 32px rgba(253,117,13,.19);
+}
+.gearhead-home .gh-theme-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .52;
+  background: radial-gradient(ellipse at 72% 40%,rgba(242,100,15,.33),transparent 59%);
+}
+.gearhead-home .gh-footer-logo {
+  filter: drop-shadow(0 9px 14px rgba(0,0,0,.9)) drop-shadow(0 0 11px rgba(255,145,34,.18));
+}
+.gearhead-home .gh-footer-heading,
+.gearhead-home .gh-footer-link,
+.gearhead-home .gh-footer-brand p,
+.gearhead-home .gh-theme-footer p {
+  text-shadow: 0 2px 10px rgba(0,0,0,.95),0 4px 14px rgba(0,0,0,.7);
+}
+.gearhead-home .gh-theme-footer nav,
+.gearhead-home .gh-theme-footer .gh-footer-brand {
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .gearhead-home .gh-theme-footer {
+    background-attachment: scroll,scroll,fixed;
+  }
+}
+@media (max-width: 700px) {
+  .gearhead-home .gh-chapter-visual { opacity: .98; }
+  .gearhead-home .gh-metal-frame { backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); }
+  .gearhead-home .gh-chapter::before {
+    background: linear-gradient(92deg,rgba(4,11,19,.70),rgba(4,10,18,.43) 59%,rgba(4,10,18,.28)),
+      linear-gradient(0deg,rgba(3,8,14,.46),transparent 30%,rgba(4,8,15,.35));
+  }
+  .gearhead-home .gh-theme-footer {
+    background-attachment: scroll;
+    background-position: center,center,62% center;
+    background-image:
+      linear-gradient(90deg,rgba(3,9,16,.78),rgba(4,9,16,.53)),
+      linear-gradient(0deg,rgba(2,6,11,.62),transparent 57%,rgba(3,8,14,.47)),
+      url("https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a42db62-b4c4-4df2-b2e1-d82e50c20cb4.png");
+  }
+  .gearhead-home .gh-theme-footer .gh-footer-logo {
+    width: 152px;
+    max-width: 55vw;
+  }
+  .gearhead-home .gh-investor-point,
+  .gearhead-home .gh-track-step,
+  .gearhead-home .gh-milestone { background: rgba(4,11,20,.17); }
+  .gearhead-home .gh-frame-dark,
+  .gearhead-home .gh-investor-copy,
+  .gearhead-home .gh-contact-box {
+    background: linear-gradient(105deg,rgba(4,11,19,.60),rgba(4,11,19,.21));
+  }
+}
+
+
+/* Editorial text treatment: the cinematic scene is the design,
+   rather than opaque cards sitting over the scene. */
+.gearhead-home .gh-frame-dark,
+.gearhead-home .gh-investor-copy,
+.gearhead-home .gh-contact-box {
+  background: linear-gradient(90deg,rgba(4,11,19,.25),rgba(4,11,19,.08));
+  border-color: rgba(255,157,57,.23);
+  box-shadow: none;
+  backdrop-filter: blur(.5px);
+  -webkit-backdrop-filter: blur(.5px);
+}
+.gearhead-home .gh-frame-dark::before,
+.gearhead-home .gh-investor-copy::before,
+.gearhead-home .gh-contact-box::before { border-color: transparent; }
+.gearhead-home .gh-track-step,
+.gearhead-home .gh-investor-point,
+.gearhead-home .gh-milestone {
+  border: 0;
+  border-left: 2px solid rgba(255,158,42,.55);
+  border-radius: .35rem;
+  background: linear-gradient(90deg,rgba(4,11,18,.31),rgba(4,11,18,.03));
+  padding-inline: clamp(.9rem,2vw,1.45rem);
+}
+.gearhead-home .gh-track-summary {
+  background: linear-gradient(90deg,rgba(4,10,18,.30),rgba(4,11,19,.07));
+  border-color: rgba(255,155,48,.27);
+  box-shadow: none;
+  backdrop-filter: blur(.8px);
+  -webkit-backdrop-filter: blur(.8px);
+}
+.gearhead-home .gh-chapter::before { opacity: .86; }
+.gearhead-home .gh-theme-footer {
+  background-position: center,center,center 50%;
+}
+.gearhead-home .gh-theme-footer .gh-footer-shell {
+  column-gap: clamp(2rem,6vw,6rem);
+}
+@media (max-width: 700px) {
+  .gearhead-home .gh-frame-dark,
+  .gearhead-home .gh-investor-copy,
+  .gearhead-home .gh-contact-box {
+    background: linear-gradient(90deg,rgba(4,11,19,.27),rgba(4,11,19,.06));
+    border-color: rgba(255,157,57,.15);
+  }
+  .gearhead-home .gh-theme-footer {
+    background-position: center,center,59% center;
+  }
+  .gearhead-home .gh-track-step,
+  .gearhead-home .gh-investor-point,
+  .gearhead-home .gh-milestone {
+    border-left-width: 2px;
+    background: rgba(4,11,19,.19);
+  }
+}
+
+
+/* GearHead cinema clips + responsive CTA 2026-10-26.
+   Motion is decorative, lazy and is disabled for reduced-motion visitors. */
+.gearhead-home .gh-chapter-visual,
+.gearhead-home .gh-approved-showroom-photo {
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+.gearhead-home .gh-cover-video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: .92;
+  pointer-events: none;
+}
+.gearhead-home .gh-showcase-motion {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+}
+.gearhead-home .gh-showcase-motion .gh-cover-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.gearhead-home .gh-feature-photo .gh-photo-caption,
+.gearhead-home .gh-experience-grid figcaption {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+.gearhead-home .gh-showcase-stack {
+  grid-template-rows: repeat(3,minmax(0,1fr));
+}
+.gearhead-home .gh-showcase-stack figure {
+  position: relative;
+  min-height: 0;
+}
+.gearhead-home .gh-hero-cta-row {
+  top: clamp(310px,31.5vw,460px);
+  width: min(440px,92%);
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  column-gap: .8rem;
+  align-items: stretch;
+  white-space: normal;
+}
+.gearhead-home .gh-hero-cta-row .gh-hero-button {
+  min-height: 46px;
+  width: 100%;
+  padding: .55rem .75rem;
+  text-align: center;
+  line-height: 1.25;
+  gap: .4rem;
+  font-size: clamp(.71rem,.95vw,.82rem);
+}
+.gearhead-home .gh-hero-cta-row .gh-hero-button svg {
+  flex-shrink: 0;
+}
+.gearhead-home .gh-hero-cta-row .gh-hero-button:focus-visible {
+  outline: 2px solid #ffe5aa;
+  outline-offset: 4px;
+}
+.gearhead-home .gh-stat-row span {
+  color: #fff6e7;
+  font-size: clamp(.7rem,1.05vw,.9rem);
+  font-weight: 750;
+  letter-spacing: .01em;
+  line-height: 1.5;
+  text-shadow: 0 2px 9px #030711;
+}
+.gearhead-home .gh-photo-caption strong {
+  font-family: var(--font-display),Arial,sans-serif;
+  font-size: clamp(.99rem,1.35vw,1.25rem);
+  font-weight: 900;
+  text-shadow: 0 3px 12px #000;
+}
+.gearhead-home .gh-experience-grid figcaption strong {
+  font-size: clamp(.85rem,1.3vw,1.08rem);
+  letter-spacing: .025em;
+  text-shadow: 0 2px 9px #000;
+}
+@media (min-width: 768px) {
+  .gearhead-home .gh-showcase-main,
+  .gearhead-home .gh-showcase-stack { min-height: 490px; }
+}
+@media (max-width: 767px) {
+  .gearhead-home .gh-hero-cta-row {
+    top: auto;
+    bottom: 12px;
+    left: 2%;
+    right: 2%;
+    width: auto;
+    gap: .45rem;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+  .gearhead-home .gh-hero-cta-row .gh-hero-button {
+    min-height: 42px;
+    padding: .45rem .4rem;
+    font-size: clamp(.6rem,2.5vw,.72rem);
+    gap: .22rem;
+  }
+  .gearhead-home .gh-hero-cta-row .gh-hero-button svg {
+    width: 13px;
+    height: 13px;
+  }
+  .gearhead-home .gh-stat-row span {
+    font-size: .67rem;
+    line-height: 1.45;
+  }
+  .gearhead-home .gh-showcase-stack {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    grid-template-rows: repeat(2,minmax(0,1fr));
+    height: 360px;
+    min-height: 0;
+  }
+  .gearhead-home .gh-showcase-stack figure:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+  .gearhead-home .gh-experience-grid figcaption strong {
+    font-size: .7rem;
+  }
+  .gearhead-home .gh-feature-photo .gh-cover-video,
+  .gearhead-home .gh-showcase-motion .gh-cover-video {
+    object-position: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gearhead-home .gh-cover-video { display: none !important; }
+  .gearhead-home .gh-showcase-motion,
+  .gearhead-home .gh-approved-showroom-photo,
+  .gearhead-home .gh-chapter-visual {
+    transform: none !important;
+  }
+}
+
+
+/* GearHead approved final clarity: four equal showroom media tiles */
+/* No full-page movie: keep the approved RC-vehicle hero and shop-photo backgrounds. */
+.gearhead-home .gh-four-media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(.75rem, 1.4vw, 1.2rem);
+  max-width: 1000px;
+  margin-inline: auto;
+  align-items: stretch;
+}
+.gearhead-home .gh-four-media-grid > figure,
+.gearhead-home .gh-four-media-grid > .gh-showcase-main {
+  display: block;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  margin: 0;
+  border-radius: .85rem;
+  background-color: #101b24;
+}
+.gearhead-home .gh-four-media-grid > figure .gh-showcase-motion {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+}
+.gearhead-home .gh-four-media-grid > figure .gh-cover-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  filter: none;
+  opacity: 1;
+  transition: transform .35s ease;
+}
+.gearhead-home .gh-four-media-grid > figure figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  background: linear-gradient(0deg,rgba(2,6,14,.93),rgba(3,10,18,.6) 57%,transparent);
+  padding: 2.8rem 1rem .85rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem .8rem;
+}
+.gearhead-home .gh-four-media-grid > figure figcaption strong {
+  font-size: clamp(.91rem,1.6vw,1.27rem);
+  font-weight: 900;
+  text-shadow: 0 2px 7px #000;
+  letter-spacing: .01em;
+}
+.gearhead-home .gh-four-media-grid > figure figcaption span {
+  font-size: clamp(.66rem,1vw,.83rem);
+  color: #ffcf98;
+}
+@media (hover: hover) and (pointer: fine) {
+  .gearhead-home .gh-four-media-grid > figure:hover .gh-cover-video {
+    transform: scale(1.04);
+  }
+}
+/* Premium interactive category covers without ongoing background animation. */
+.gearhead-home #catalog .gh-category-card {
+  transition: transform .28s ease, border-color .28s ease, box-shadow .28s ease;
+}
+.gearhead-home #catalog .gh-category-cover img {
+  transition: transform .4s ease, filter .3s ease;
+}
+@media (hover: hover) and (pointer: fine) {
+  .gearhead-home #catalog .gh-category-card:hover {
+    transform: translateY(-5px);
+    border-color: #ffc17a;
+    box-shadow: 0 17px 35px rgba(0,0,0,.44), 0 0 0 1px rgba(255,154,50,.22);
+  }
+  .gearhead-home #catalog .gh-category-card:hover .gh-category-cover img {
+    transform: scale(1.045);
+    filter: brightness(.82) blur(.65px) saturate(1.25);
+  }
+}
+.gearhead-home #catalog .gh-category-card:focus-within {
+  border-color: #ffe0a0;
+  box-shadow: 0 0 0 2px rgba(255,186,78,.75);
+}
+.gearhead-home #catalog .gh-category-open {
+  transition: background .2s ease, border-color .2s ease, transform .15s ease;
+}
+.gearhead-home #catalog .gh-category-open:active {
+  transform: translateY(2px);
+  background: #202a36;
+}
+/* Main investor and partnership chapter backgrounds must remain crisp,
+   with only a subtle dark scrim for contrast. No full-section blur. */
+.gearhead-home .gh-chapter-investors > .gh-chapter-visual,
+.gearhead-home .gh-chapter-contact > .gh-chapter-visual {
+  filter: none;
+  opacity: 1;
+}
+.gearhead-home .gh-chapter-investors::before {
+  background: linear-gradient(95deg,rgba(3,8,17,.63),rgba(4,10,18,.20) 58%,rgba(5,11,17,.18));
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.gearhead-home .gh-chapter-contact::before {
+  background: linear-gradient(95deg,rgba(3,8,16,.57),rgba(4,10,17,.19) 61%,rgba(4,10,18,.14));
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.gearhead-home .gh-chapter-investors .gh-investor-copy,
+.gearhead-home .gh-chapter-contact .gh-contact-box {
+  background: linear-gradient(100deg,rgba(3,8,16,.28),rgba(3,9,17,.08));
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+.gearhead-home .gh-chapter-investors .gh-investor-copy::before,
+.gearhead-home .gh-chapter-contact .gh-contact-box::before {
+  display: none;
+}
+.gearhead-home .gh-chapter-investors .gh-investor-point {
+  background: linear-gradient(120deg,rgba(8,17,29,.72),rgba(7,16,27,.57));
+  border: 1px solid rgba(255,165,62,.42);
+  box-shadow: 0 4px 15px rgba(0,0,0,.17);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.gearhead-home .gh-chapter-investors .gh-investor-point::before {
+  display: none;
+}
+.gearhead-home .gh-chapter-investors .gh-investor-copy .gh-chapter-title,
+.gearhead-home .gh-chapter-contact .gh-contact-box .gh-chapter-title {
+  text-shadow: 0 3px 12px rgba(0,0,0,.86);
+}
+/* Preserve exact original headline and its location, improve steel depth
+   and remove excessive hazy shadows around the lettering. */
+.gearhead-home .gh-hero-brand {
+  filter: drop-shadow(1px 4px 1px rgba(0,0,0,.83));
+}
+.gearhead-home .gh-hero-steel {
+  background-image: linear-gradient(174deg,#fff 0%,#f3f6fb 23%,#c5ced9 43%,#fcfcff 57%,#8496aa 80%,#5e6a7a 100%);
+  -webkit-text-stroke: .75px rgba(220,230,246,.73);
+  text-shadow: 1px 2px 0 rgba(32,40,54,.55), 2px 4px 0 rgba(16,19,28,.43);
+}
+.gearhead-home .gh-hero-copper {
+  background-image: linear-gradient(174deg,#ffec9c 0%,#ffbf55 24%,#ff921c 45%,#e65c08 77%,#9b3007 100%);
+  -webkit-text-stroke: .65px rgba(255,153,43,.66);
+  text-shadow: 1px 2px 0 rgba(99,38,13,.66), 2px 4px 0 rgba(31,17,12,.50);
+}
+@media (min-width: 1100px) {
+  .gearhead-home .gh-hero-steel { font-size: clamp(5.3rem,8.5vw,9rem); }
+  .gearhead-home .gh-hero-copper { font-size: clamp(5.3rem,8.9vw,9.4rem); }
+}
+@media (max-width: 700px) {
+  .gearhead-home .gh-four-media-grid {
+    grid-template-columns: minmax(0,1fr);
+    gap: .75rem;
+    width: 100%;
+  }
+  .gearhead-home .gh-four-media-grid > figure,
+  .gearhead-home .gh-four-media-grid > .gh-showcase-main {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+  }
+  .gearhead-home .gh-four-media-grid figcaption strong { font-size: .96rem; }
+  .gearhead-home .gh-chapter-investors::before {
+    background: linear-gradient(100deg,rgba(4,10,18,.63),rgba(4,10,18,.22));
+  }
+  .gearhead-home .gh-chapter-contact::before {
+    background: linear-gradient(100deg,rgba(4,10,18,.61),rgba(4,10,18,.23));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gearhead-home #catalog .gh-category-card,
+  .gearhead-home #catalog .gh-category-cover img,
+  .gearhead-home .gh-four-media-grid .gh-cover-video {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+
+/* GearHead responsive cinematic bento and mobile navigation / October 2026 */
+
+/* Four deliberately different media tiles: one 9:16 portrait, one 16:9
+ * widescreen, plus two balanced supporting tiles. */
+.gearhead-home .gh-four-media-grid {
+  display: grid !important;
+  width: min(100%, 1100px);
+  max-width: 1100px;
+  height: clamp(500px, 62.5vw, 690px);
+  margin: 2rem auto 0;
+  grid-template-columns: 36% minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 56fr) minmax(0, 44fr);
+  gap: clamp(9px, 1.15vw, 14px);
+  align-items: stretch;
+}
+.gearhead-home .gh-four-media-grid > figure,
+.gearhead-home .gh-four-media-grid > .gh-showcase-main {
+  position: relative;
+  min-height: 0 !important;
+  height: 100% !important;
+  width: 100%;
+  aspect-ratio: auto !important;
+  margin: 0;
+  overflow: hidden;
+  border-radius: .8rem;
+  border: 1px solid rgba(255,155,46,.83);
+  box-shadow: inset 0 0 17px rgba(0,0,0,.15),0 9px 25px rgba(0,0,0,.29);
+  background: #112337;
+}
+.gearhead-home .gh-four-media-grid > figure:nth-child(1) {
+  grid-area: 1 / 1 / 3 / 2;
+}
+.gearhead-home .gh-four-media-grid > figure:nth-child(2) {
+  grid-area: 1 / 2 / 2 / 4;
+}
+.gearhead-home .gh-four-media-grid > figure:nth-child(3) {
+  grid-area: 2 / 2 / 3 / 3;
+}
+.gearhead-home .gh-four-media-grid > figure:nth-child(4) {
+  grid-area: 2 / 3 / 3 / 4;
+}
+.gearhead-home .gh-four-media-grid .gh-showcase-motion {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  border-radius: inherit;
+}
+.gearhead-home .gh-four-media-grid .gh-cover-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: none;
+  opacity: 1;
+}
+.gearhead-home .gh-four-media-grid > figure:nth-child(2) .gh-cover-video {
+  object-position: center 44%;
+}
+.gearhead-home .gh-four-media-grid figcaption {
+  position: absolute;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 3rem 1.05rem 1rem;
+  background: linear-gradient(0deg,rgba(3,10,19,.94),rgba(5,12,23,.58) 60%,transparent);
+  pointer-events: none;
+}
+.gearhead-home .gh-four-media-grid figcaption strong {
+  font-size: clamp(.95rem,1.55vw,1.2rem);
+  color: #fffaf1;
+}
+.gearhead-home .gh-four-media-grid figcaption span {
+  color: #ffc88c;
+  font-size: clamp(.65rem, .86vw, .8rem);
+}
+.gearhead-home #experience-detail .gh-chapter-visual {
+  opacity: 1;
+  filter: brightness(1.07) saturate(1.17) contrast(1.06);
+}
+.gearhead-home #experience-detail::before {
+  background: linear-gradient(180deg,rgba(6,12,20,.44),rgba(6,12,20,.27) 52%,rgba(5,10,18,.39));
+}
+.gearhead-home #catalog .gh-chapter-visual {
+  opacity: 1;
+  filter: saturate(1.12) brightness(1.09);
+}
+.gearhead-home #catalog::before {
+  background: linear-gradient(180deg,rgba(5,11,21,.65),rgba(6,14,23,.33) 48%,rgba(5,11,20,.48));
+}
+.gearhead-home #catalog .gh-category-card {
+  background: linear-gradient(165deg,rgba(5,14,25,.43),rgba(9,18,28,.55));
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+}
+.gearhead-home .gh-four-media-grid figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255,175,68,.18);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 3;
+}
+@media (hover:hover) and (pointer:fine) {
+  .gearhead-home .gh-four-media-grid > figure {
+    transition: border-color .25s ease, transform .25s ease;
+  }
+  .gearhead-home .gh-four-media-grid > figure:hover {
+    border-color: #ffd08e;
+    transform: translateY(-2px);
+  }
+}
+
+/* Crisp high-contrast silver/chrome and anodized-orange letter faces.
+   The text stays editable and selectable, independent of its RC image. */
+.gearhead-home .gh-hero-brand {
+  filter: drop-shadow(1px 3px 1px rgba(1,4,9,.82));
+}
+.gearhead-home .gh-hero-steel {
+  background-image: linear-gradient(176deg,#fffefd 0%,#fdfdfd 17%,#b3becb 32%,#ffffff 46%,#c1cbd7 57%,#8293a5 71%,#e7ebf1 87%,#58687e 100%);
+  -webkit-text-stroke: .6px rgba(225,237,248,.75);
+  text-shadow: 1px 2px 0 rgba(24,35,52,.68),2px 4px 0 rgba(12,19,30,.51),3px 5px 1px rgba(5,10,19,.54);
+}
+.gearhead-home .gh-hero-copper {
+  background-image: linear-gradient(174deg,#ffc65f 0%,#ffab2f 18%,#ff8a11 33%,#fe9c21 47%,#e75f0a 69%,#b94406 82%,#7c250b 100%);
+  -webkit-text-stroke: .6px rgba(255,140,40,.73);
+  text-shadow: 1px 2px 0 rgba(100,39,11,.67),2px 4px 0 rgba(61,27,13,.62),3px 5px 1px rgba(12,13,17,.65);
+}
+@media (min-width: 768px) {
+  .gearhead-home .gh-hero-cta-row { top: clamp(365px, 31.5vw, 460px); }
+}
+/* Section-aware header design. Current page is always visible in the
+   orange location strip, even with the mobile menu closed. */
+.gearhead-home .gh-primary-header {
+  box-shadow: 0 3px 24px rgba(1,6,12,.40);
+}
+.gearhead-home .gh-location-strip {
+  border-top: 1px solid rgba(247,154,56,.15);
+  margin-top: 5px;
+  min-height: 24px;
+  padding-top: 4px;
+  line-height: 1.45;
+}
+.gearhead-home .gh-location-current {
+  letter-spacing: .012em;
+}
+.gearhead-home .gh-nav-group-caption {
+  font: 900 10px/1.4 var(--font-mono),monospace;
+  letter-spacing: .14em;
+  color: #ffa538;
+}
+.gearhead-home .gh-nav-drawer-link.is-active,
+.gearhead-home .gh-page-nav-item.is-active,
+.gearhead-home .gh-section-menu-item.is-active {
+  box-shadow: inset 3px 0 0 #ffac46;
+}
+.gearhead-home .gh-mobile-menu-toggle {
+  box-shadow: inset 0 0 14px rgba(246,132,27,.11);
+}
+.gearhead-home .gh-mobile-menu-toggle[aria-expanded="true"] {
+  background: rgba(250,144,29,.22);
+  border-color: #ffcb80;
+}
+.gearhead-home .gh-mobile-drawer {
+  overscroll-behavior: contain;
+  scrollbar-color: #e9973a #071321;
+}
+.gearhead-home .gh-sections-dropdown > summary::-webkit-details-marker { display:none; }
+.gearhead-home .gh-sections-flyout { max-height: min(70vh,520px); scrollbar-color: #ec9a44 #081320; }
+
+/* Enough safe separation between sticky header and native hash scrolling. */
+.gearhead-home section[id],
+.gearhead-home nav[id] {
+  scroll-margin-top: 116px;
+}
+.gearhead-home .gh-reference-hero,
+.gearhead-home #top { scroll-margin-top: 0; }
+
+@media (max-width: 767px) {
+  /* Staggered editorial media on phones: widescreen, two portrait videos,
+     and another widescreen frame. This is intentionally NOT four squares. */
+  .gearhead-home .gh-four-media-grid {
+    height: auto !important;
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    grid-template-rows: auto !important;
+    gap: .65rem;
+    align-items: stretch;
+  }
+  .gearhead-home .gh-four-media-grid > figure,
+  .gearhead-home .gh-four-media-grid > .gh-showcase-main {
+    grid-column: auto;
+    grid-row: auto;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: auto;
+  }
+  .gearhead-home .gh-four-media-grid > figure:nth-child(1) {
+    grid-area: auto / 1 / auto / 3;
+    aspect-ratio: 16 / 9 !important;
+  }
+  .gearhead-home .gh-four-media-grid > figure:nth-child(2) {
+    grid-area: auto / 1 / auto / 2;
+    aspect-ratio: 9 / 16 !important;
+  }
+  .gearhead-home .gh-four-media-grid > figure:nth-child(3) {
+    grid-area: auto / 2 / auto / 3;
+    aspect-ratio: 9 / 16 !important;
+  }
+  .gearhead-home .gh-four-media-grid > figure:nth-child(4) {
+    grid-area: auto / 1 / auto / 3;
+    aspect-ratio: 16 / 9 !important;
+  }
+  .gearhead-home .gh-four-media-grid figcaption {
+    padding: 2.3rem .68rem .7rem;
+    align-items: flex-start;
+    gap: .18rem;
+    flex-direction: column;
+  }
+  .gearhead-home .gh-four-media-grid figcaption strong {
+    font-size: clamp(.67rem,2.8vw,.94rem);
+    line-height: 1.14;
+  }
+  .gearhead-home .gh-four-media-grid figcaption span { font-size: clamp(.5rem,2.1vw,.72rem); }
+  .gearhead-home .gh-hero-copy { top: 112px; }
+  .gearhead-home .gh-reference-hero { min-height: 520px; }
+  .gearhead-home .gh-location-strip { min-height: 23px; }
+  .gearhead-home .gh-mobile-drawer { max-height: calc(100dvh - 118px); }
+}
+@media (max-width: 359px) {
+  .gearhead-home .gh-four-media-grid > figure:nth-child(2) figcaption strong,
+  .gearhead-home .gh-four-media-grid > figure:nth-child(3) figcaption strong {
+    font-size: .62rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gearhead-home .gh-four-media-grid > figure { transition: none !important; }
+}
+
+/* Browser already reserves 100px scroll-padding for its sticky header.
+   Adding 116px scroll-margin would double-offset all section links.
+   Keep just 16px additional room so menu destinations and active labels agree. */
+.gearhead-home section[id],
+.gearhead-home nav[id] {
+  scroll-margin-top: 16px;
+}
+.gearhead-home #top,
+.gearhead-home .gh-reference-hero {
+  scroll-margin-top: 0;
+}
