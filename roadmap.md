@@ -17,3 +17,5 @@
 - [ ] First ad campaign: agree goal and audience, then platform, creative and launch
 - [ ] Use "GearHead RC" name everywhere; optimise /store title, description and local business structured data (RC cars, parts, track — Bausher, Muscat)
 - [ ] Admin: AI helper where staff enter product details and get search-friendly titles, descriptions and local keywords
+- [ ] Optimise home and store for iPhone 14 Pro full screen (safe areas, full-height sections, no sideways scroll)
+- [ ] Link the Google Search Console account that manages gearheadrc.store and review its search performance
