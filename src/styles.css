@@ -1971,7 +1971,7 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
     max-height: 940px;
   }
   .gearhead-home .gh-hero-copy { top: calc(env(safe-area-inset-top) + 112px); }
-  .gearhead-home .gh-hero-buggy { height: 70%; background-size: 210% auto; }
+  .gearhead-home .gh-hero-buggy { height: 68%; background-size: auto 230%; background-position: center 39%; }
   .gearhead-home .gh-hero-cta-row { bottom: calc(env(safe-area-inset-bottom) + 22px); }
   .gearhead-home .gh-mobile-drawer { max-height: calc(100dvh - 118px - env(safe-area-inset-top)); }
   .gearhead-home.gh-has-bottomnav { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
