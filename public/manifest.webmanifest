@@ -1,0 +1,19 @@
+{
+  "name": "GearHead RC Hub",
+  "short_name": "GearHead RC",
+  "description": "RC cars, scale crawlers, parts and an indoor track planned for Bausher, Muscat.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#050d18",
+  "theme_color": "#050d18",
+  "icons": [
+    {
+      "src": "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/7a9feae0-8f03-4152-b52c-8f109c2253b1.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -73,7 +73,7 @@ export const Route = createFileRoute("/store")({
 function StorePage() {
   useHashScroll();
   return (
-    <div className="gearhead-home min-h-screen bg-[#07101c] text-white">
+    <div className="gearhead-home gh-has-bottomnav min-h-screen bg-[#07101c] text-white">
       <AppNavbar />
       <main>
         <section id="top" className="relative isolate flex min-h-[65svh] items-center overflow-hidden border-b-2 border-[#ef8c29]/70 px-6 py-36">
