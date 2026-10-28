@@ -179,33 +179,6 @@ function ShopHome() {
           </div>
         </section>
 
-        {/* Featured products */}
-        <section id="featured" className="ghx-section ghx-section-alt">
-          <div className="ghx-wrap">
-            <div className="ghx-head-row">
-              <SectionHead kicker="Picked from every category" title={<>Featured <em>RC picks.</em></>} />
-              <Link to="/store" className="ghx-link">Full collection <ArrowRight size={15} /></Link>
-            </div>
-            <div className="ghx-rail" data-lenis-prevent-wheel>
-              {featured.map((p) => <div key={p.slug} className="ghx-rail-item"><ProductCard product={p} categoryName={catName.get(p.category)} /></div>)}
-            </div>
-          </div>
-        </section>
-
-        {/* 4. Flagship */}
-        <section id="flagship" className="gh-approved-showroom" aria-labelledby="ghx-flagship-heading">
-          <CinematicScene className="gh-approved-showroom-photo" poster={art.showroom} mobileSrc={motion.showroomMobile} desktopSrc={motion.showroomDesktop} />
-          <div className="gh-approved-showroom-shade" aria-hidden="true" />
-          <div className="gh-approved-showroom-inner">
-            <div className="gh-approved-showroom-copy">
-              <div className="gh-showroom-kicker">EXPLORE OUR FLAGSHIP</div>
-              <h2 id="ghx-flagship-heading">RC SHOWROOM <span>EXPERIENCE</span></h2>
-              <p>Retail, an indoor crawler track, a service bench and a complete hobby experience at the Bausher sand dunes, Muscat.</p>
-              <Link to="/store" className="gh-approved-shop-button">Explore the Shop <ArrowUpRight size={18} aria-hidden="true" /></Link>
-            </div>
-          </div>
-          <div className="gh-showroom-footnote">Bausher sand dunes flagship • Interior design concept</div>
-        </section>
 
         {/* Service */}
         <section id="service" className="ghx-section" data-parallax-section>
