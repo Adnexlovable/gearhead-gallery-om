@@ -2888,3 +2888,9 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   .ghh-hero .ghh-img { top: auto !important; bottom: 0 !important; height: auto !important; object-fit: contain !important;
     -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9%) !important; mask-image: linear-gradient(180deg, transparent 0, #000 9%) !important; }
 }
+
+/* Owner poster hero (2026-10-28): whole poster shown, never cropped, title baked in */
+.ghh-hero.ghh-poster { min-height: 0 !important; height: auto !important; aspect-ratio: auto !important; background: #1a0f08 !important; padding: 0 !important; display: block !important; overflow: hidden; }
+.ghh-hero.ghh-poster .ghh-poster-img { display: block; width: 100%; height: auto; max-width: 720px; margin: 0 auto; object-fit: contain !important; }
+.ghh-hero.ghh-poster .ghh-scene, .ghh-hero.ghh-poster .ghh-shade, .ghh-hero.ghh-poster .ghh-copy { display: none !important; }
+.ghh-showcase-below { border-top: 2px solid #E86C1F; box-shadow: inset 0 0 0 1px rgba(217,119,6,.35); }
