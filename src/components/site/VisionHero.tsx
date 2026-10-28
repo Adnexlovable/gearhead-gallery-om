@@ -4,7 +4,7 @@ import { ArrowLeftRight, ArrowUpRight, ShoppingBag } from "lucide-react";
 
 // User-approved cinematic reference. The RC vehicle area is composed
 // separately from accessible headline text and functional navigation.
-const referenceVisual = "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/f17b4c0a-2cef-4fbb-baac-2536b2ce0018.jpg";
+import referenceVisual from "@/assets/hero-rc-bright.jpg";
 
 export function VisionHero({ mode = "investor" }: { mode?: "investor" | "app" }) {
   const sceneRef = useRef<HTMLDivElement>(null);
