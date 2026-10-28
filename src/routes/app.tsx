@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
-  ArrowLeftRight, ArrowRight, ArrowUpRight, CarFront, CheckCircle2, Facebook, Instagram, Mail, MapPin, MessageCircle,
+  ArrowLeftRight, ArrowRight, CarFront, CheckCircle2, Facebook, Instagram, Mail, MapPin, MessageCircle,
   Mountain, PackageCheck, Phone, Route as TrackIcon, ShoppingBag, Wrench,
 } from "lucide-react";
 import { AppNavbar } from "@/components/site/AppNavbar";
