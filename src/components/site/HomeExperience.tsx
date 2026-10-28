@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { InvestorDeckRequest } from "./InvestorDeckRequest";
 import { CinematicScene } from "./CinematicScene";
+import { HeroShowcase } from "./HeroShowcase";
 
 // Images are visual concepts from the GearHead RC shop-design references.
 // They do not represent photographs of a finished or trading storefront.
@@ -16,6 +17,14 @@ const art = {
   display: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
   interior: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/f92c9489-55d1-4c7d-9819-a7294ce8a7cd.jpg",
   concept: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a42db62-b4c4-4df2-b2e1-d82e50c20cb4.png",
+};
+
+// Owner's real shop interior photos — the background theme behind every section.
+const shopBg = {
+  floor: "/__l5e/assets-v1/e2266917-8c41-453c-a855-2b979985d7d0/shop-floor-wide.jpg",
+  service: "/__l5e/assets-v1/6fbcc918-b427-4625-8ee8-8f2bbd38c4c0/shop-service-room.jpg",
+  counter: "/__l5e/assets-v1/bde5ca85-8db4-46fd-9b1d-74f4533e2e6b/shop-counter.jpg",
+  shelves: "/__l5e/assets-v1/e5253946-90bd-4199-a520-84fada5ede81/shop-shelves.jpg",
 };
 
 const motion = {
@@ -51,14 +60,6 @@ function Heading({ eyebrow, children, description }: { eyebrow: string; children
     </div>
   );
 }
-
-const domains = [
-  { icon: CarFront, label: "RC CARS", sub: "Racing & Fun", href: "/store#performance" },
-  { icon: Mountain, label: "CRAWLERS", sub: "Scale & Adventure", href: "/store#crawlers" },
-  { icon: PackageCheck, label: "SPARE PARTS", sub: "Wide Selection", href: "/store#parts" },
-  { icon: Wrench, label: "SERVICE", sub: "Tuning & Repairs", href: "/#commercial-thesis" },
-  { icon: Route, label: "INDOOR TRACK", sub: "Test & Play", href: "/#commercial-thesis" },
-];
 
 const categories = [
   {
@@ -123,7 +124,7 @@ export function HomeExperience() {
 
 
       <section id="catalog" className="gh-chapter gh-chapter-catalog">
-        <Atmosphere image="/__l5e/assets-v1/e8537d8d-05d6-493d-998d-d2b9082c1171/showroom-2.jpg" position="center" />
+        <Atmosphere image={shopBg.floor} position="center" />
         <div className="gh-chapter-inner">
           <Heading eyebrow="03 / Inventory Blueprint">Explore the <em>RC world.</em> 
           </Heading>
@@ -152,7 +153,7 @@ export function HomeExperience() {
       </section>
 
       <section id="commercial-thesis" className="gh-chapter gh-chapter-track">
-        <Atmosphere image={art.concept} position="center" />
+        <Atmosphere image={shopBg.service} position="center" />
         <div className="gh-chapter-inner">
           <Heading eyebrow="04 / Our Model">More than a store. <em>A place to drive.</em></Heading>
           <div className="gh-track-grid">
@@ -175,7 +176,7 @@ export function HomeExperience() {
       </section>
 
       <section id="foundation" className="gh-chapter gh-chapter-foundation">
-        <Atmosphere image={art.display} position="70% center" />
+        <Atmosphere image={shopBg.counter} position="center" />
         <div className="gh-chapter-inner gh-feature-grid">
           <div className="gh-metal-frame gh-frame-dark">
             <Heading eyebrow="01 / The Vision">Built for <em>real RC adventure.</em></Heading>
@@ -199,7 +200,7 @@ export function HomeExperience() {
       </section>
 
       <section id="experience-detail" className="gh-chapter gh-chapter-experience">
-        <Atmosphere image={art.showroom} position="center" />
+        <Atmosphere image={shopBg.shelves} position="center" />
         <div className="gh-chapter-inner">
           <Heading eyebrow="02 / Bousher Showroom">The <em>shop experience.</em></Heading>
           <p className="gh-chapter-desc">The proposed 84 m² site combines retail displays, an RC trial course, a dedicated service workshop and a practical customer journey.</p>
@@ -226,7 +227,7 @@ export function HomeExperience() {
       </section>
 
       <section id="investor-deck" className="gh-chapter gh-chapter-investors">
-        <Atmosphere image={art.desert} position="right center" />
+        <Atmosphere image={shopBg.floor} position="center" />
         <div className="gh-chapter-inner gh-investor-grid">
           <div className="gh-metal-frame gh-investor-copy" style={{ backdropFilter: "none", WebkitBackdropFilter: "none" }}>
             <Heading eyebrow="05 / Investment Opportunity">Fuel the next <em>RC destination.</em></Heading>
@@ -249,7 +250,7 @@ export function HomeExperience() {
       </section>
 
       <section id="future-roadmap" className="gh-chapter gh-chapter-roadmap">
-        <Atmosphere image={art.showroom} position="center" />
+        <Atmosphere image={shopBg.counter} position="center" />
         <div className="gh-chapter-inner">
           <Heading eyebrow="06 / Launch Roadmap">From blueprint <em>to reality.</em></Heading>
           <div className="gh-milestones">
@@ -267,7 +268,7 @@ export function HomeExperience() {
       </section>
 
       <section id="partnerships" className="gh-chapter gh-chapter-contact">
-        <Atmosphere image={art.display} position="60% center" />
+        <Atmosphere image={shopBg.service} position="center" />
         <div className="gh-chapter-inner">
           <div className="gh-metal-frame gh-contact-box" style={{ backdropFilter: "none", WebkitBackdropFilter: "none" }}>
             <Heading eyebrow="07 / Connect With GearHead">Let's build the <em>RC future.</em></Heading>
