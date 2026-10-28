@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import { InvestorDeckRequest } from "./InvestorDeckRequest";
 import { CinematicScene } from "./CinematicScene";
-import { HeroShowcase } from "./HeroShowcase";
 
 // Images are visual concepts from the GearHead RC shop-design references.
 // They do not represent photographs of a finished or trading storefront.
@@ -119,7 +118,6 @@ export function HomeExperience() {
 
   return (
     <>
-      <HeroShowcase variant="investor" />
 
 
 
