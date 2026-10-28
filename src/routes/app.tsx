@@ -9,6 +9,7 @@ import { Footer } from "@/components/site/Footer";
 import { CinematicScene } from "@/components/site/CinematicScene";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { ProductFinder } from "@/components/shop/ProductFinder";
+import { SectionHead } from "@/components/shop/SectionHead";
 import { shopCatalogQuery } from "@/lib/shop-queries";
 import { useHashScroll } from "@/hooks/useHashScroll";
 import { WHATSAPP_NUMBER } from "@/lib/shop";
@@ -252,16 +253,6 @@ function ShopHome() {
         </section>
       </main>
       <Footer variant="app" />
-    </div>
-  );
-}
-
-export function SectionHead({ kicker, title, text }: { kicker: string; title: React.ReactNode; text?: string }) {
-  return (
-    <div className="ghx-section-head">
-      <div className="ghx-kicker"><span aria-hidden="true" />{kicker}</div>
-      <h2>{title}</h2>
-      {text && <p>{text}</p>}
     </div>
   );
 }
