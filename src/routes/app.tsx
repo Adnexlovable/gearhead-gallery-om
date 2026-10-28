@@ -2,8 +2,7 @@ import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
-  ArrowLeftRight, ArrowRight, CarFront, CheckCircle2, Facebook, Instagram, Mail, MapPin, MessageCircle,
-  Mountain, PackageCheck, Phone, Route as TrackIcon, ShoppingBag, Wrench,
+  ArrowRight, CheckCircle2, Facebook, Instagram, Mail, MapPin, MessageCircle, Phone,
 } from "lucide-react";
 import { AppNavbar } from "@/components/site/AppNavbar";
 import { Footer } from "@/components/site/Footer";
@@ -13,7 +12,8 @@ import { shopCatalogQuery } from "@/lib/shop-queries";
 import { useHashScroll } from "@/hooks/useHashScroll";
 import { WHATSAPP_NUMBER } from "@/lib/shop";
 import { DEFAULT_SHOP_DETAILS } from "@/lib/shop-details";
-import heroImage from "@/assets/home-hero-916.jpg";
+import { VisionHero } from "@/components/site/VisionHero";
+import { HeroShowcase } from "@/components/site/HeroShowcase";
 
 const art = {
   showroom: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a7fbbad-e215-4d63-a8c3-550220dcd0c3.jpg",
@@ -28,14 +28,6 @@ const motion = {
 
 
 };
-
-const tiles = [
-  { icon: CarFront, name: "RC Cars", sub: "Racing & Fun", category: "performance" },
-  { icon: Mountain, name: "Crawlers", sub: "Scale & Adventure", category: "crawlers" },
-  { icon: PackageCheck, name: "Spare Parts", sub: "Wide Selection", category: "parts" },
-  { icon: Wrench, name: "Service", sub: "Tuning & Repairs", hash: "service" },
-  { icon: TrackIcon, name: "Indoor Track", sub: "Test & Play", hash: "explore-rc-world" },
-] as const;
 
 const milestones = [
   { no: "01", title: "Secure the shop", note: "Finalise the Bausher premises and approvals." },
@@ -75,44 +67,10 @@ function ShopHome() {
     <div className="gearhead-home ghx-shop" style={siteMediaStyle(siteMedia)}>
       <AppNavbar />
       <main>
-        {/* 1. Hero */}
-        <section id="top" className="ghx-hero" aria-label="GearHead RC Hub">
-          <img src={siteMedia.hero || heroImage} alt="" className="ghx-hero-img" data-parallax="0.18" width={1080} height={1920} fetchPriority="high" />
-          <div className="ghx-hero-shade" aria-hidden="true" />
-          <div className="ghx-hero-inner">
-            <h1 className="ghx-hero-title gh-hero-brand" aria-label="GearHead RC Hub">
-              <span className="gh-hero-steel">GEARHEAD</span>
-              <span className="gh-hero-copper">RC HUB</span>
-            </h1>
-            <p className="ghx-hero-tagline">A NEW RC EXPERIENCE FOR OMAN</p>
-            <div className="ghx-hero-ctas">
-              <a href="#categories" className="ghx-btn ghx-btn-primary ghx-btn-lg"><ShoppingBag size={18} aria-hidden="true" /> Explore RC Products <ArrowRight size={17} aria-hidden="true" /></a>
-              <a href="#explore-rc-world" className="ghx-btn ghx-btn-outline ghx-btn-lg"><TrackIcon size={18} aria-hidden="true" /> Visit Our Indoor Track <ArrowRight size={17} aria-hidden="true" /></a>
-            </div>
-            <nav className="ghx-tiles" aria-label="Quick links">
-              {tiles.map((t) => {
-                const Icon = t.icon;
-                const inner = <><Icon size={26} strokeWidth={1.8} aria-hidden="true" /><strong>{t.name}</strong><span>{t.sub}</span></>;
-                return "category" in t
-                  ? <Link key={t.name} to="/collection/$category" params={{ category: t.category }} className="ghx-tile">{inner}</Link>
-                  : <a key={t.name} href={`#${t.hash}`} className="ghx-tile">{inner}</a>;
-              })}
-            </nav>
-          </div>
-        </section>
+        {/* 1. Hero — same 9:16 cover as the investor home */}
+        <VisionHero mode="app" portraitSrc={siteMedia.hero} />
+        <HeroShowcase variant="app" />
 
-        <div className="ghx-feature-cards">
-          {[
-            { label: "Off-road", strong: "Adventure", img: cover("crawlers"), to: "crawlers" },
-            { label: "Parts &", strong: "Upgrades", img: cover("parts"), to: "parts" },
-            { label: "Service &", strong: "Tuning", img: art.workshop, hash: "service" },
-          ].map((c) => {
-            const body = <><img src={c.img} alt="" loading="lazy" width={600} height={400} /><span className="ghx-feature-copy">{c.label}<strong>{c.strong}</strong></span><span className="ghx-round"><ArrowRight size={18} /></span></>;
-            return c.to
-              ? <Link key={c.strong} to="/collection/$category" params={{ category: c.to }} className="ghx-feature-card">{body}</Link>
-              : <a key={c.strong} href={`#${c.hash}`} className="ghx-feature-card">{body}</a>;
-          })}
-        </div>
 
         {/* 2. About / Explore RC World */}
         <section id="explore-rc-world" className="ghx-section" data-parallax-section>

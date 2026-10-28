@@ -5,7 +5,8 @@ import { useEffect, useRef } from "react";
 import heroPortrait from "@/assets/home-hero-916-flag.jpg";
 import heroWide from "@/assets/home-hero-169-flag.jpg";
 
-export function VisionHero(_props: { mode?: "investor" | "app" }) {
+export function VisionHero({ portraitSrc }: { mode?: "investor" | "app"; portraitSrc?: string }) {
+  const portrait = portraitSrc || heroPortrait;
   const sceneRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -31,12 +32,12 @@ export function VisionHero(_props: { mode?: "investor" | "app" }) {
       id="top"
       className="ghh-hero"
       aria-label="GearHead RC Hub — A New RC Experience for Oman"
-      style={{ ["--ghh-portrait" as string]: `url("${heroPortrait}")` }}
+      style={{ ["--ghh-portrait" as string]: `url("${portrait}")` }}
     >
       <div ref={sceneRef} className="ghh-scene" aria-hidden="true">
         <picture>
           <source media="(min-aspect-ratio: 1/1)" srcSet={heroWide} />
-          <img src={heroPortrait} alt="" className="ghh-img" width={1072} height={1920} fetchPriority="high" decoding="async" />
+          <img src={portrait} alt="" className="ghh-img" width={1072} height={1920} fetchPriority="high" decoding="async" />
         </picture>
       </div>
       <div className="ghh-shade" aria-hidden="true" />
