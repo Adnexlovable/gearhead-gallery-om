@@ -46,8 +46,8 @@ export function VisionHero({ portraitSrc }: { mode?: "investor" | "app"; portrai
           <span className="ghh-steel">GEARHEAD</span>
           <span className="ghh-orange">RC HUB</span>
         </h1>
-        <p className="ghh-brand">A brand of <span>ADNEX.WORLD</span></p>
         <p className="ghh-tagline">A NEW RC EXPERIENCE FOR OMAN</p>
+        <p className="ghh-brand">A brand of <span>ADNEX.WORLD</span></p>
       </div>
     </section>
   );
