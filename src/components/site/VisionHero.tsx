@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 // Owner's 9:16 cover (phones) and a wide version (computers) of the same scene:
 // sunset sky, the whole white-and-red RC crawler, and the GEARHEAD feather flag.
-import heroPortrait from "@/assets/home-hero-916-flag.jpg";
+import heroPortrait from "@/assets/home-hero-916-v2.jpg";
 import heroWide from "@/assets/home-hero-169-flag.jpg";
 import titleArt from "@/assets/hero-title-3d.png";
 import { HeroShowcase } from "./HeroShowcase";
@@ -30,6 +30,7 @@ export function VisionHero({ portraitSrc, mode }: { mode?: "investor" | "app"; p
   }, []);
 
   return (
+    <>
     <section
       id="top"
       className="ghh-hero"
@@ -39,7 +40,7 @@ export function VisionHero({ portraitSrc, mode }: { mode?: "investor" | "app"; p
       <div ref={sceneRef} className="ghh-scene" aria-hidden="true">
         <picture>
           <source media="(min-aspect-ratio: 1/1)" srcSet={heroWide} />
-          <img src={portrait} alt="" className="ghh-img" width={1072} height={1920} fetchPriority="high" decoding="async" />
+          <img src={portrait} alt="" className="ghh-img" width={1088} height={1920} fetchPriority="high" decoding="async" />
         </picture>
       </div>
       <div className="ghh-shade" aria-hidden="true" />
@@ -50,9 +51,10 @@ export function VisionHero({ portraitSrc, mode }: { mode?: "investor" | "app"; p
         <p className="ghh-tagline ghh-tag4">A NEW RC EXPERIENCE FOR OMAN</p>
         <p className="ghh-brand">A brand of <span>ADNEX.WORLD</span></p>
       </div>
-      <div className="ghh-showcase-in">
+    </section>
+      <div className="ghh-showcase-below">
         <HeroShowcase variant={mode === "app" ? "app" : "investor"} />
       </div>
-    </section>
+    </>
   );
 }

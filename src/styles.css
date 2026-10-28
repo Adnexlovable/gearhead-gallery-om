@@ -2860,3 +2860,31 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 @media (min-aspect-ratio: 1/1) { .ghh-title-img img { width: min(46vw, 760px); } }
 .ghh-tag4 { font: italic 800 clamp(.7rem, 3.1vw, 1.3rem)/1.2 "Saira", sans-serif !important; font-stretch: 125%; letter-spacing: .18em !important; color: #fff !important; margin-top: .5rem !important; text-shadow: 0 2px 6px rgba(0,0,0,.8); }
 .ghh-copy .ghh-tag4 { display: block !important; opacity: 1 !important; visibility: visible !important; }
+
+/* ===== Owner 2026-10-28 (brief 4): uncropped cover, boxes below cover, uniform crystal blur ===== */
+.ghh-img { object-fit: cover !important; object-position: center bottom !important; }
+.ghh-tag4 { font: 700 clamp(.68rem, 3vw, 1.2rem)/1.25 "Saira", sans-serif !important; font-style: normal !important; font-stretch: 112%; letter-spacing: .16em !important; -webkit-text-stroke: 0 !important; filter: none !important; transform: none !important; background: none !important; color: #fff !important; text-shadow: 0 2px 8px rgba(0,0,0,.85) !important; }
+.ghh-showcase-below { position: relative; z-index: 2; margin-top: -1px;
+  background: linear-gradient(180deg, rgba(20,10,4,.35), rgba(20,10,4,.55)), url("/__l5e/assets-v1/ccc97a20-b247-4797-af26-9f43ea2c54ff/shop-bridge-track.jpg") center / cover no-repeat; }
+.ghh-showcase-below .ghs-showcase { background: transparent !important; margin: 0 !important; }
+.ghh-showcase-below .ghs-showcase::before { display: none !important; }
+.ghx-shop .ghx-section:nth-of-type(4n+1) { --ghx-shop-photo: var(--ghx-bg1, url("/__l5e/assets-v1/ccc97a20-b247-4797-af26-9f43ea2c54ff/shop-bridge-track.jpg")); }
+/* brighter, matching the cover's golden tone, no flat orange */
+.gh-chapter-visual { filter: brightness(1.15) saturate(1.1) !important; }
+/* one crystal-blur look for every box/card */
+.gh-category-card, .gh-category-body, .gh-card, .gh-category-open, .gh-outline-action,
+.ghx-cat-card, .ghx-card, .ghs-tile, .ghs-cta-secondary, .ghx-glass, .gh-glass {
+  background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(20,12,6,.38)) !important;
+  backdrop-filter: blur(14px) saturate(140%) !important;
+  border: 1px solid rgba(232,108,31,.55) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 10px 26px rgba(0,0,0,.35) !important; }
+.gh-category-body, .gh-category-open { background: rgba(20,12,6,.22) !important; }
+.ghh-hero .ghh-scene { position: absolute !important; inset: 0 !important; top: 0 !important; height: 100% !important; }
+.ghh-hero .ghh-scene picture, .ghh-hero .ghh-img { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; max-width: none !important; -webkit-mask-image: none !important; mask-image: none !important; }
+.ghh-hero .ghh-shade { background: linear-gradient(180deg, rgba(0,0,0,.35), transparent 30%) !important; }
+/* phone: never crop the sides — fit width, anchor at bottom, extend the sky above */
+@media (max-aspect-ratio: 1088/1920) {
+  .ghh-hero { background: linear-gradient(180deg, #4b4250 0%, #635660 60%, #6a5c64 100%) !important; }
+  .ghh-hero .ghh-img { top: auto !important; bottom: 0 !important; height: auto !important; object-fit: contain !important;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9%) !important; mask-image: linear-gradient(180deg, transparent 0, #000 9%) !important; }
+}

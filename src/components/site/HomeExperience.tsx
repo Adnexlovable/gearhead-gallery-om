@@ -20,7 +20,7 @@ const art = {
 
 // Owner's real shop interior photos — the background theme behind every section.
 const shopBg = {
-  floor: "/__l5e/assets-v1/e2266917-8c41-453c-a855-2b979985d7d0/shop-floor-wide.jpg",
+  floor: "/__l5e/assets-v1/ccc97a20-b247-4797-af26-9f43ea2c54ff/shop-bridge-track.jpg",
   service: "/__l5e/assets-v1/6fbcc918-b427-4625-8ee8-8f2bbd38c4c0/shop-service-room.jpg",
   counter: "/__l5e/assets-v1/bde5ca85-8db4-46fd-9b1d-74f4533e2e6b/shop-counter.jpg",
   shelves: "/__l5e/assets-v1/e5253946-90bd-4199-a520-84fada5ede81/shop-shelves.jpg",
