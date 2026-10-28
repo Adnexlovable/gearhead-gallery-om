@@ -14,6 +14,7 @@
 - [ ] Admin AI helper: write search-friendly product titles and descriptions
 
 ## Done
+- [x] Plain boxes turned into see-through crystal glass on every page; big service photo frame removed
 - [x] Removed the extra showroom frame and the repeated product picks; catalogue background now the dark shop photo theme
 - [x] Slimmer top bars on every page, about the height of the logo
 - [x] Investor home at / (vision, deck, corporate foundation, expansion roadmap)

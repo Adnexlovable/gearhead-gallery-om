@@ -188,7 +188,6 @@ function ShopHome() {
                 <Link to="/collection/$category" params={{ category: "parts" }} className="ghx-btn ghx-btn-outline">Browse spare parts <ArrowRight size={16} /></Link>
               </div>
             </div>
-            <div className="ghx-media ghx-media-tall"><img src={art.workshop} alt="GearHead service bench design" loading="lazy" /></div>
           </div>
         </section>
 
