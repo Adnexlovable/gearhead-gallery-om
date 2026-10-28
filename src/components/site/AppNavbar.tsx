@@ -8,7 +8,6 @@ import { shopCatalogQuery } from "@/lib/shop-queries";
 import { WHATSAPP_NUMBER } from "@/lib/shop";
 
 import headerLogo from "@/assets/gearhead-header-logo.png";
-const logo = "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/d33cbb38-c247-46d7-9fa2-08cdf797e71c.png";
 
 const NAV = [
   { label: "Home", to: "/app" },
