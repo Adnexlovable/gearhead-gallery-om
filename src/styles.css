@@ -2577,4 +2577,3 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 /* Smooth parallax: each section's shop photo drifts slower than the page. */
 .ghx-shop .ghx-section { overflow: clip; }
 .ghx-shop .ghx-section::before { inset: -90px 0 !important; transform: translate3d(0, calc(var(--gh-parallax, 0px) * 1.6), 0); will-change: transform; background-attachment: scroll !important; }
-html { scroll-behavior: smooth; }
