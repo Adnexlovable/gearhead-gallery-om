@@ -2577,3 +2577,11 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 /* Smooth parallax: each section's shop photo drifts slower than the page. */
 .ghx-shop .ghx-section { overflow: clip; }
 .ghx-shop .ghx-section::before { inset: -90px 0 !important; transform: translate3d(0, calc(var(--gh-parallax, 0px) * 1.6), 0); will-change: transform; background-attachment: scroll !important; }
+
+/* Owner's horizontal header logo (transparent, glowing, logo-height bar) */
+.ghx-shop .ghx-brand img.ghx-brand-logo,
+.gearhead-home .gh-header-logo {
+  width: auto !important; height: 38px !important; max-width: 46vw; object-fit: contain; flex-shrink: 0;
+  filter: drop-shadow(0 0 6px rgba(255,140,30,.55)) drop-shadow(0 2px 4px rgba(0,0,0,.6)) !important;
+}
+@media (min-width: 768px) { .ghx-shop .ghx-brand img.ghx-brand-logo, .gearhead-home .gh-header-logo { height: 44px !important; } }

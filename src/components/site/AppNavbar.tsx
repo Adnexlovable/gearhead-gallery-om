@@ -7,6 +7,7 @@ import { useCartCount } from "@/lib/cart";
 import { shopCatalogQuery } from "@/lib/shop-queries";
 import { WHATSAPP_NUMBER } from "@/lib/shop";
 
+import headerLogo from "@/assets/gearhead-header-logo.png";
 const logo = "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/d33cbb38-c247-46d7-9fa2-08cdf797e71c.png";
 
 const NAV = [
@@ -63,11 +64,7 @@ export function AppNavbar() {
             </button>
           )}
           <Link to="/app" className="ghx-brand" aria-label="GearHead RC Hub shop home">
-            <img src={logo} alt="" width={48} height={48} />
-            <span className="ghx-brand-copy">
-              <span className="ghx-brand-name">GEAR<em>HEAD</em> <small>RC HUB</small></span>
-              <span className="ghx-brand-sub">A brand of <strong>ADNEX.WORLD</strong></span>
-            </span>
+            <img src={headerLogo} alt="GearHead RC Hub, a brand of ADNEX.WORLD" width={900} height={287} className="ghx-brand-logo" />
           </Link>
           </div>
           <nav className="ghx-nav" aria-label="Shop pages">
