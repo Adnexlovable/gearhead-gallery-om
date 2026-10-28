@@ -14,6 +14,8 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CartRouteImport } from './routes/cart'
+import { Route as IndoorTrackRouteImport } from './routes/indoor-track'
+import { Route as ServiceRouteImport } from './routes/service'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StoreRouteImport } from './routes/store'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -45,6 +47,16 @@ const AuthRoute = AuthRouteImport.update({
 const CartRoute = CartRouteImport.update({
   id: '/cart',
   path: '/cart',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndoorTrackRoute = IndoorTrackRouteImport.update({
+  id: '/indoor-track',
+  path: '/indoor-track',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServiceRoute = ServiceRouteImport.update({
+  id: '/service',
+  path: '/service',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -94,6 +106,8 @@ export interface FileRoutesByFullPath {
   '/app': typeof AppRoute
   '/auth': typeof AuthRoute
   '/cart': typeof CartRoute
+  '/indoor-track': typeof IndoorTrackRoute
+  '/service': typeof ServiceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -108,6 +122,8 @@ export interface FileRoutesByTo {
   '/app': typeof AppRoute
   '/auth': typeof AuthRoute
   '/cart': typeof CartRoute
+  '/indoor-track': typeof IndoorTrackRoute
+  '/service': typeof ServiceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -124,6 +140,8 @@ export interface FileRoutesById {
   '/app': typeof AppRoute
   '/auth': typeof AuthRoute
   '/cart': typeof CartRoute
+  '/indoor-track': typeof IndoorTrackRoute
+  '/service': typeof ServiceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -140,6 +158,8 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/cart'
+    | '/indoor-track'
+    | '/service'
     | '/sitemap.xml'
     | '/store'
     | '/admin'
@@ -154,6 +174,8 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/cart'
+    | '/indoor-track'
+    | '/service'
     | '/sitemap.xml'
     | '/store'
     | '/admin'
@@ -169,6 +191,8 @@ export interface FileRouteTypes {
     | '/app'
     | '/auth'
     | '/cart'
+    | '/indoor-track'
+    | '/service'
     | '/sitemap.xml'
     | '/store'
     | '/_authenticated/admin'
@@ -185,6 +209,8 @@ export interface RootRouteChildren {
   AppRoute: typeof AppRoute
   AuthRoute: typeof AuthRoute
   CartRoute: typeof CartRoute
+  IndoorTrackRoute: typeof IndoorTrackRoute
+  ServiceRoute: typeof ServiceRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StoreRoute: typeof StoreRoute
   CollectionCategoryRoute: typeof CollectionCategoryRoute
@@ -229,6 +255,20 @@ declare module '@tanstack/react-router' {
       path: '/cart'
       fullPath: '/cart'
       preLoaderRoute: typeof CartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/indoor-track': {
+      id: '/indoor-track'
+      path: '/indoor-track'
+      fullPath: '/indoor-track'
+      preLoaderRoute: typeof IndoorTrackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/service': {
+      id: '/service'
+      path: '/service'
+      fullPath: '/service'
+      preLoaderRoute: typeof ServiceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -307,6 +347,8 @@ const rootRouteChildren: RootRouteChildren = {
   AppRoute: AppRoute,
   AuthRoute: AuthRoute,
   CartRoute: CartRoute,
+  IndoorTrackRoute: IndoorTrackRoute,
+  ServiceRoute: ServiceRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StoreRoute: StoreRoute,
   CollectionCategoryRoute: CollectionCategoryRoute,
