@@ -2899,3 +2899,4 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghh-hero.ghh-poster .ghh-showcase-on { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; max-width: 720px; margin: 0 auto; }
 .ghh-showcase-on .ghs-showcase { background: transparent !important; margin: 0 !important; padding-bottom: 1rem; }
 .ghh-showcase-on .ghs-showcase::before { display: none !important; }
+.ghh-hero.ghh-poster { padding-top: 52px !important; background: #24170f !important; }
