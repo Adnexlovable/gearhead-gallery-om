@@ -22,6 +22,14 @@ export function AppNavbar() {
   const [searching, setSearching] = useState(false);
   const count = useCartCount();
   const { data } = useQuery({ ...shopCatalogQuery, enabled: open });
+  const [scrolled, setScrolled] = useState(false);
+  const overHero = pathname === "/app" || pathname.startsWith("/collection/");
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => { setOpen(false); }, [pathname]);
   useEffect(() => {
@@ -36,7 +44,7 @@ export function AppNavbar() {
 
   return (
     <>
-      <header className="ghx-header gh-primary-header">
+      <header className={`ghx-header gh-primary-header ${overHero && !scrolled && !open ? "is-clear" : ""}`}>
         <div className="ghx-header-row">
           <Link to="/app" className="ghx-brand" aria-label="GearHead RC Hub shop home">
             <img src={logo} alt="" width={48} height={48} />

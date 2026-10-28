@@ -2341,3 +2341,8 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 }
 .gearhead-home .gh-hero-steel, .gearhead-home .gh-hero-copper { -webkit-text-stroke: 0 transparent; }
 .ghx-shop .ghx-hero-title .gh-hero-steel { background-image: linear-gradient(176deg,#ffffff 0%,#f4f6fa 22%,#b9c4d1 40%,#ffffff 55%,#9aa8b8 74%,#e9edf2 100%); }
+/* Header sits see-through over hero photos until the visitor scrolls (owner request). */
+.gearhead-home .gh-primary-header.gh-header-clear { background: linear-gradient(180deg, rgba(5,10,18,.72), rgba(5,10,18,0)); border-bottom: 1px solid transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.gearhead-home .gh-primary-header.gh-header-solid { background: rgba(5,13,24,.94); border-bottom: 1px solid rgba(238,144,52,.45); backdrop-filter: blur(8px); }
+.ghx-shop .ghx-header { transition: background-color .3s ease, border-color .3s ease, backdrop-filter .3s ease; }
+.ghx-shop .ghx-header.is-clear { background: linear-gradient(180deg, rgba(23,18,14,.7), rgba(23,18,14,0)); border-bottom-color: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
