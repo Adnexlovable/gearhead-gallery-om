@@ -9,6 +9,8 @@
 - [ ] First ad campaign (WhatsApp, dune fans, English + Arabic): approve goal, creative and launch date
 
 ## To do
+- [ ] Owner admin account to add, edit and delete shop products
+- [ ] Top bar slimmer on every page (investor + shop)
 - [ ] Review gearheadrc.store search results once Google has a few days of data
 - [ ] "GearHead RC" name everywhere + local business details for search (Bausher, Muscat)
 - [ ] Admin AI helper: write search-friendly product titles and descriptions
