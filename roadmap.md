@@ -3,7 +3,7 @@
 ## Waiting on the owner
 - [ ] Retail prices (OMR) for each product — shop shows "price on request" until confirmed
 - [ ] Opening hours — needed for the website, booking and launch roadmap
-- [ ] Admin account: owner signs up at /auth and confirms the email, then I switch on admin access (add, edit, delete products)
+- [ ] Super admin login: sign up at /auth with adkinadnexsolution@gmail.com and confirm the email — admin access switches on by itself
 - [ ] Email adnex@gearheadrc.store: finish email setup and pick a mailbox provider for receiving
 - [ ] Book a Visit form: decide whether to show it on the shop page again
 - [ ] First ad campaign (WhatsApp, dune fans, English + Arabic): approve goal, creative and launch date
@@ -16,6 +16,11 @@
 - [ ] Admin: edit section texts and add new pages (not built yet — owner to confirm if wanted)
 
 ## Done
+- [x] Super admin panel: only adkinadnexsolution@gmail.com (checked by the database)
+- [x] Admin: edit cover, 5 box photos and 4 backgrounds (live on /, /app, /store)
+- [x] Admin: products, photos, categories, OMR prices, stock
+- [x] Admin: Orders tab (saved from the WhatsApp cart) with status, total and customer details
+- [x] Admin: enquiries with status and quoted price
 - [x] Admin Shop photos tab: change cover + 4 background photos
 - [x] Brighter orange sky; hero name centred, no black outline, animated shine
 - [x] Bigger category cards on phones; finder section removed from shop home
