@@ -74,7 +74,7 @@ function ShopHome() {
   const d = DEFAULT_SHOP_DETAILS;
 
   return (
-    <div className="gearhead-home ghx-shop gh-has-bottomnav">
+    <div className="gearhead-home ghx-shop">
       <AppNavbar />
       <main>
         {/* 1. Hero */}

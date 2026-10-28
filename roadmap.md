@@ -1,38 +1,28 @@
 # Roadmap
-- [ ] Apply approved SEO fixes: site icon, crawler rules and sitemap
-- [ ] Create and apply a fresh migration for bookings, enquiries, products, site sections and roadmap
-- [x] Separate the complete storefront into /store and add prominent Store navigation
-- [x] Build an executive vision, strategic investor deck and future roadmap homepage in charcoal and amber
-- [x] Home hero + Corporate Foundation block (Adnan Trading Services LLC, CR: 1634293) with NDA investor-deck request
-- [x] Home: Commercial Thesis & Execution Roadmap section (Track-to-Retail Synergy feature card + Bousher/Qurum two-phase expansion)
-- [x] Verify home-to-store navigation, storefront interactions and mobile layouts
-- [ ] Shop: confirm retail prices (OMR) with the owner — current figures are cost-price ranges from the inventory PDF
-- [x] Email sending set up on notify.gearheadrc.store (app emails + branded sign-in emails)
-- [x] Book a Visit + product enquiries + investor requests: email each one to the GearHead RC inbox
-- [ ] Book a Visit form and product enquiry button are not shown on any page since the /store split — ask owner whether to add them back
-- [x] Admin dashboard for bookings/products, admin account adnexadmin@gmail.com
-- [ ] Editable opening hours and contact details in Sections, reflected on website and launch roadmap; screenshot-inspired dashboard layout
-- [x] Set WhatsApp to +968 9867 5132 and contact email to adnant.t636@gmail.com on the website
-- [x] Google Search Console: verification guidance + a place in the dashboard to record property details for monitoring searches and pages
-- [ ] First ad campaign: agree goal and audience, then platform, creative and launch
-- [ ] Use "GearHead RC" name everywhere; optimise /store title, description and local business structured data (RC cars, parts, track — Bausher, Muscat)
-- [ ] Admin: AI helper where staff enter product details and get search-friendly titles, descriptions and local keywords
-- [x] Optimise home and store for iPhone 14 Pro full screen (safe areas, full-height sections, no sideways scroll)
-- [x] Link the Google Search Console account that manages gearheadrc.store (verified under contactadnex@gmail.com, sitemap submitted)
-- [ ] Review gearheadrc.store search performance once Google has 2–3 days of data
-- [ ] Email address adnex@gearheadrc.store: site emails now sent as adnex@ — owner must finish email setup for this project and choose a mailbox provider for receiving
-- [x] Owner brief (Oct 28): shop home lives at /app (owner chose to keep the investor home at /); about, categories, flagship and roadmap sections built
-- [x] Category pages (Performance RC, Scale Crawler, Diecast, Parts & Accessories, Realistic RC, Construction RC…) with scale/size/collection filters, then product pages with colour swipe, add to cart and WhatsApp enquiry — styled like the owner's two phone mockups
-- [x] Navbar: Home, Investors, RC Collection, Accessories, Cart, Search, Contact
-- [x] Background: less pure black (superseded: owner wants the earlier deep-blue theme)
-- [x] Smooth parallax scrolling on every page
-- [x] Polish the hero name font on the app and investor pages
-- [x] Owner catalogue PDFs (Part 1 + 2): every item in its own correct category (no mixing), 3 photos per item in different styles
-- [x] AI product finder: shoppers describe the model, vehicle or budget they want and get matching catalogue products
-- [x] Shop super-admin page: manage products, their photos and categories (and page titles/descriptions) from the dashboard, feeding the live shop app
-- [x] Add Instagram (gearhead_oman) and Facebook links to the site
-- [x] Shop app hero and category section styled like the owner's phone/desktop mockups (photo hero with chrome GEARHEAD / orange RC HUB, two buttons, quick tiles, image category cards)
-- [x] No solid nav bar over the hero: drop the "Investor Home > Home / Hero" strip; header transparent over hero photo until scrolling
-- [x] Hero name lettering like the owner photo: bright chrome GEARHEAD, glossy orange RC HUB, dark outline; crawler-at-sunset cover photo
-- [x] Shop background back to the earlier deep-blue site theme, no extra charcoal black
-- [ ] Admin sign-in for this remixed project: no accounts exist yet — owner signs up, then gets the admin role
+
+## Waiting on the owner
+- [ ] Retail prices (OMR) for each product — shop shows "price on request" until confirmed
+- [ ] Opening hours — needed for the website, booking and launch roadmap
+- [ ] Admin sign-in: owner creates an account, then it gets the admin role
+- [ ] Email adnex@gearheadrc.store: finish email setup and pick a mailbox provider for receiving
+- [ ] Book a Visit form: decide whether to show it on the shop page again
+- [ ] First ad campaign (WhatsApp, dune fans, English + Arabic): approve goal, creative and launch date
+
+## To do
+- [ ] Review gearheadrc.store search results once Google has a few days of data
+- [ ] "GearHead RC" name everywhere + local business details for search (Bausher, Muscat)
+- [ ] Admin AI helper: write search-friendly product titles and descriptions
+
+## Done
+- [x] Investor home at / (vision, deck, corporate foundation, expansion roadmap)
+- [x] Shop home at /app: full-car cover photo, chrome GEARHEAD + orange RC HUB, 2 buttons, 5 tiles, see-through slim header
+- [x] Shop background: owner's 4 shop photos, faded, warm dark tone with dark orange
+- [x] Full collection (/store), 9 category pages, product pages with 3 photos each, WhatsApp order cart
+- [x] Catalogue from the owner's PDFs: 57 items, each in its own category, no costs shown
+- [x] AI product finder
+- [x] Admin: shop catalogue (products, photos, categories), bookings, sections, Search Console notes
+- [x] Contact, WhatsApp, Instagram and Facebook links
+- [x] Smooth scrolling and iPhone full-screen layout
+- [x] Search Console linked for gearheadrc.store, sitemap submitted, SEO checks passing
+- [x] Booking, enquiry and investor requests saved and emailed to the shop inbox
+- [x] Removed the bottom bar, switch button, and old buttons that led to missing sections

@@ -26,7 +26,7 @@ function CartPage() {
   const lines = useCart();
   const total = lines.reduce((n, l) => n + l.qty, 0);
   return (
-    <div className="gearhead-home ghx-shop gh-has-bottomnav">
+    <div className="gearhead-home ghx-shop">
       <AppNavbar />
       <main className="ghx-page ghx-wrap ghx-cart">
         <SectionHead as="h1" kicker="WhatsApp order" title={<>Your <em>order.</em></>} text="Pick your items here, then send the list to GearHead on WhatsApp. We confirm price, stock and pickup with you. No online payment." />

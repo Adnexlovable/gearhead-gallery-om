@@ -53,7 +53,7 @@ function CollectionPage() {
   const others = data.categories.filter((c) => c.slug !== slug);
 
   return (
-    <div className="gearhead-home ghx-shop gh-has-bottomnav">
+    <div className="gearhead-home ghx-shop">
       <AppNavbar />
       <main className="ghx-page">
         <section className="ghx-cat-hero" data-parallax-section>

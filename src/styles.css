@@ -2467,3 +2467,18 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   .ghx-shop .ghx-hero { min-height: 0; }
   .ghx-shop .ghx-hero-inner { padding-top: calc(40svh + 14px); padding-bottom: 1.2rem; }
 }
+/* Owner 2026-10-28: phone cover shows the whole RC car (like the reference photo), a little darker with a dark-orange glow, bolder lettering. */
+.ghx-shop .ghx-hero { background: radial-gradient(120% 55% at 70% 28%, #3d1f0d 0%, #24170f 55%, #1b1512 100%); }
+.ghx-shop .ghx-hero-img { filter: brightness(.86) saturate(1.12) contrast(1.05); }
+.ghx-shop .ghx-hero-shade { background: linear-gradient(180deg, rgba(20,12,8,.55) 0%, rgba(20,12,8,.05) 18%, rgba(60,25,5,.12) 50%, rgba(27,21,18,.75) 78%, #1b1512 100%) !important; }
+@media (max-width: 767px) {
+  .ghx-shop .ghx-hero-img { max-width: none; inset: auto; top: 44px; left: -66.7vw; width: 177.8vw; height: auto; min-height: 0; object-fit: fill;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9%, #000 62%, transparent 92%); mask-image: linear-gradient(180deg, transparent 0, #000 9%, #000 62%, transparent 92%); }
+  .ghx-shop .ghx-hero-shade { background: linear-gradient(180deg, rgba(20,12,8,.4) 0%, rgba(20,12,8,0) 14%, rgba(20,12,8,0) 48%, rgba(27,21,18,.55) 70%, #1b1512 100%) !important; }
+  .ghx-shop .ghx-hero-inner { padding-top: calc(36px + 76vw); }
+}
+.ghx-shop .ghx-hero-title .gh-hero-steel { font-weight: 900; font-style: italic; letter-spacing: -.02em; }
+.ghx-shop .ghx-hero-title .gh-hero-copper { font-weight: 900; font-style: italic; letter-spacing: -.01em;
+  background-image: linear-gradient(178deg, #ffc46b 0%, #ff8a1f 38%, #e2560c 68%, #a8380a 100%) !important;
+  filter: drop-shadow(0 2px 0 #3a1404) drop-shadow(0 6px 14px rgba(0,0,0,.65)); }
+.ghx-shop .ghx-hero-tagline { font-weight: 900; color: #ffe2c2; letter-spacing: .3em; }
