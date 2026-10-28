@@ -2489,3 +2489,9 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghx-shop .ghx-header-row { min-height: 44px !important; padding-block: 3px; }
 .ghx-shop .ghx-brand img { width: 38px !important; height: 38px !important; }
 .ghx-shop .ghx-icon-btn { width: 38px; height: 38px; }
+/* Owner 2026-10-28: every top bar only as tall as its logo. */
+.ghx-shop .ghx-header-row { min-height: 40px !important; padding-block: 2px; }
+.ghx-shop .ghx-brand img { width: 34px !important; height: 34px !important; }
+.ghx-shop .ghx-icon-btn { width: 34px; height: 34px; }
+.gearhead-home .gh-primary-header:not(.ghx-header) { padding-block: 3px !important; }
+.gearhead-home .gh-navbar-brand-copy { line-height: 1; }
