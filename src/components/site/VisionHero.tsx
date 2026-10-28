@@ -4,8 +4,10 @@ import { useEffect, useRef } from "react";
 // sunset sky, the whole white-and-red RC crawler, and the GEARHEAD feather flag.
 import heroPortrait from "@/assets/home-hero-916-flag.jpg";
 import heroWide from "@/assets/home-hero-169-flag.jpg";
+import titleArt from "@/assets/hero-title-3d.png";
+import { HeroShowcase } from "./HeroShowcase";
 
-export function VisionHero({ portraitSrc }: { mode?: "investor" | "app"; portraitSrc?: string }) {
+export function VisionHero({ portraitSrc, mode }: { mode?: "investor" | "app"; portraitSrc?: string }) {
   const portrait = portraitSrc || heroPortrait;
   const sceneRef = useRef<HTMLDivElement>(null);
 
@@ -42,12 +44,14 @@ export function VisionHero({ portraitSrc }: { mode?: "investor" | "app"; portrai
       </div>
       <div className="ghh-shade" aria-hidden="true" />
       <div className="ghh-copy">
-        <h1 className="ghh-title" aria-label="GEARHEAD RC HUB">
-          <span className="ghh-steel">GEARHEAD</span>
-          <span className="ghh-orange">RC HUB</span>
+        <h1 className="ghh-title-img">
+          <img src={titleArt} alt="GEARHEAD RC HUB — A New RC Experience for Oman" width={1200} height={400} />
         </h1>
-        <p className="ghh-tagline">A NEW RC EXPERIENCE FOR OMAN</p>
+        <p className="ghh-tagline ghh-tag4">A NEW RC EXPERIENCE FOR OMAN</p>
         <p className="ghh-brand">A brand of <span>ADNEX.WORLD</span></p>
+      </div>
+      <div className="ghh-showcase-in">
+        <HeroShowcase variant={mode === "app" ? "app" : "investor"} />
       </div>
     </section>
   );

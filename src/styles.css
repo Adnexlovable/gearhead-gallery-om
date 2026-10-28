@@ -2849,3 +2849,14 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   .ghh-orange { font-size: clamp(4.3rem, 8.9vw, 10.1rem) !important; }
   .ghh-tagline { font-size: clamp(.8rem, 1.45vw, 1.35rem) !important; }
 }
+
+/* ===== Owner 2026-10-28 (brief 4): title = owner's own 3D artwork; buttons + 5 boxes inside the cover ===== */
+.ghh-title-img { margin: 0; line-height: 0; }
+.ghh-title-img img { display: block; width: min(74vw, 620px); height: auto; filter: drop-shadow(0 8px 14px rgba(0,0,0,.6)); }
+.ghh-hero { position: relative; }
+.ghh-showcase-in { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; padding-bottom: env(safe-area-inset-bottom); }
+.ghh-showcase-in .ghs-showcase { background: linear-gradient(180deg, transparent, rgba(10,6,4,.55) 40%) !important; margin: 0 !important; }
+.ghh-showcase-in .ghs-showcase::before { display: none !important; }
+@media (min-aspect-ratio: 1/1) { .ghh-title-img img { width: min(46vw, 760px); } }
+.ghh-tag4 { font: italic 800 clamp(.7rem, 3.1vw, 1.3rem)/1.2 "Saira", sans-serif !important; font-stretch: 125%; letter-spacing: .18em !important; color: #fff !important; margin-top: .5rem !important; text-shadow: 0 2px 6px rgba(0,0,0,.8); }
+.ghh-copy .ghh-tag4 { display: block !important; opacity: 1 !important; visibility: visible !important; }
