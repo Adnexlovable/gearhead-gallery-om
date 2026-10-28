@@ -2884,7 +2884,7 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghh-hero .ghh-shade { background: linear-gradient(180deg, rgba(0,0,0,.35), transparent 30%) !important; }
 /* phone: never crop the sides — fit width, anchor at bottom, extend the sky above */
 @media (max-aspect-ratio: 1088/1920) {
-  .ghh-hero { background: linear-gradient(180deg, #4a3f4a 0%, #7a5a4e 60%, #a8704a 100%) !important; }
+  .ghh-hero { background: linear-gradient(180deg, #2a2228 0%, #5a4c55 70%, #695c64 100%) !important; }
   .ghh-hero .ghh-img { top: auto !important; bottom: 0 !important; height: auto !important; object-fit: contain !important;
     -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9%) !important; mask-image: linear-gradient(180deg, transparent 0, #000 9%) !important; }
 }
