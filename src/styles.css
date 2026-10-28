@@ -2689,3 +2689,15 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 
 /* Home cover: 9:16 photo, whole truck visible */
 .gearhead-home .gh-hero-buggy { background-position: center 62% !important; }
+
+/* Home cover: full-screen 9:16 photo, no black gap, title on the rocks below the car */
+.gearhead-home .gh-reference-hero { height: 100vh !important; height: 100dvh !important; min-height: 100dvh !important; max-height: none !important; overflow: hidden !important; background: #2a1408 !important; }
+.gearhead-home .gh-hero-buggy { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; background-size: cover !important; background-position: center 45% !important; -webkit-mask-image: none !important; mask-image: none !important; transform: none !important; }
+.gearhead-home .gh-hero-vignette { background: linear-gradient(180deg, rgba(10,6,4,.45) 0%, transparent 14%, transparent 55%, rgba(14,8,4,.55) 100%) !important; }
+.gearhead-home .gh-hero-inner { position: absolute !important; inset: 0 !important; height: 100% !important; }
+.gearhead-home .gh-hero-copy { top: auto !important; bottom: calc(env(safe-area-inset-bottom) + 120px) !important; }
+.gearhead-home .gh-hero-cta-row { top: auto !important; bottom: calc(env(safe-area-inset-bottom) + 28px) !important; }
+@media (min-width: 768px) {
+  .gearhead-home .gh-hero-buggy { background-position: center 55% !important; }
+  .gearhead-home .gh-hero-copy { bottom: 130px !important; }
+}
