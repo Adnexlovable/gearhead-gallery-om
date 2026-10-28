@@ -32,12 +32,12 @@ export function VisionHero({ portraitSrc }: { mode?: "investor" | "app"; portrai
       id="top"
       className="ghh-hero"
       aria-label="GearHead RC Hub — A New RC Experience for Oman"
-      style={{ ["--ghh-portrait" as string]: `url("${heroPortrait}")` }}
+      style={{ ["--ghh-portrait" as string]: `url("${portrait}")` }}
     >
       <div ref={sceneRef} className="ghh-scene" aria-hidden="true">
         <picture>
           <source media="(min-aspect-ratio: 1/1)" srcSet={heroWide} />
-          <img src={heroPortrait} alt="" className="ghh-img" width={1072} height={1920} fetchPriority="high" decoding="async" />
+          <img src={portrait} alt="" className="ghh-img" width={1072} height={1920} fetchPriority="high" decoding="async" />
         </picture>
       </div>
       <div className="ghh-shade" aria-hidden="true" />
