@@ -28,3 +28,4 @@
 - [ ] Smooth parallax scrolling on every page
 - [ ] Polish the hero name font on the app and investor pages
 - [ ] Owner catalogue PDFs (Part 1 + 2): every item in its own correct category (no mixing), 3 photos per item in different styles
+- [ ] AI product finder: shoppers describe the model, vehicle or budget they want and get matching catalogue products
