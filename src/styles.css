@@ -2329,3 +2329,8 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   .ghx-shop [data-parallax] { transform: none !important; }
   .ghx-shop .ghx-card-media img, .ghx-shop .ghx-cat-media img, .ghx-shop .ghx-feature-card img { transition: none; }
 }
+@media (max-width: 767px) {
+  .ghx-shop .ghx-hero-img { inset: 0 0 auto; height: 66%; object-position: 76% 35%; }
+  .ghx-shop .ghx-hero-shade { background: linear-gradient(180deg, rgba(23,18,14,.5) 0%, rgba(23,18,14,0) 18%, rgba(23,18,14,0) 40%, rgba(23,18,14,.85) 60%, var(--ghx-bg-2) 72%); }
+  .ghx-shop .ghx-media-grid .ghx-media:last-child { grid-column: 1 / -1; aspect-ratio: 16/9; }
+}
