@@ -2882,3 +2882,9 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghh-hero .ghh-scene { position: absolute !important; inset: 0 !important; top: 0 !important; height: 100% !important; }
 .ghh-hero .ghh-scene picture, .ghh-hero .ghh-img { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; max-width: none !important; -webkit-mask-image: none !important; mask-image: none !important; }
 .ghh-hero .ghh-shade { background: linear-gradient(180deg, rgba(0,0,0,.35), transparent 30%) !important; }
+/* phone: never crop the sides — fit width, anchor at bottom, extend the sky above */
+@media (max-aspect-ratio: 1088/1920) {
+  .ghh-hero { background: linear-gradient(180deg, #4a3f4a 0%, #7a5a4e 60%, #a8704a 100%) !important; }
+  .ghh-hero .ghh-img { top: auto !important; bottom: 0 !important; height: auto !important; object-fit: contain !important;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9%) !important; mask-image: linear-gradient(180deg, transparent 0, #000 9%) !important; }
+}
