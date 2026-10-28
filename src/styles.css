@@ -2359,3 +2359,36 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   background-image: linear-gradient(180deg,#ffe08a 0%,#ffb12e 26%,#ff8a12 48%,#f06a05 66%,#ffa02a 82%,#c94a04 100%) !important;
   filter: drop-shadow(0 1px 0 #3d1a05) drop-shadow(0 -1px 0 #3d1a05) drop-shadow(1px 0 0 #3d1a05) drop-shadow(-1px 0 0 #3d1a05) drop-shadow(0 6px 10px rgba(0,0,0,.65));
 }
+/* Owner follow-up: keep the earlier deep-blue site background, no extra charcoal black. */
+.ghx-shop {
+  --ghx-bg: #0a1521;
+  --ghx-bg-2: #0d1a28;
+  --ghx-surface: #122233;
+  --ghx-surface-2: #172a3d;
+  --ghx-border: #22384d;
+  --ghx-border-strong: #2e4a63;
+  --ghx-muted: #c3cbd6;
+  background:
+    radial-gradient(1200px 600px at 85% -10%, rgba(255,140,30,.12), transparent 60%),
+    radial-gradient(900px 500px at -10% 40%, rgba(255,120,20,.06), transparent 60%),
+    linear-gradient(180deg, var(--ghx-bg-2), var(--ghx-bg) 40%, var(--ghx-bg-2));
+}
+.ghx-shop .ghx-header, .ghx-shop .ghx-bottomnav { background: rgba(10,21,33,.92); }
+.ghx-shop .ghx-header.is-clear { background: linear-gradient(180deg, rgba(10,21,33,.7), rgba(10,21,33,0)); }
+.ghx-shop .ghx-hero-shade { background:
+  linear-gradient(180deg, rgba(10,21,33,.55) 0%, rgba(10,21,33,0) 22%, rgba(10,21,33,0) 38%, rgba(10,21,33,.72) 62%, var(--ghx-bg-2) 100%),
+  linear-gradient(90deg, rgba(10,21,33,.55), rgba(10,21,33,0) 60%); }
+.ghx-shop .ghx-cat-hero-shade { background: linear-gradient(90deg, rgba(10,21,33,.94), rgba(10,21,33,.55) 60%, rgba(10,21,33,.3)), linear-gradient(180deg, transparent 50%, var(--ghx-bg-2)); }
+.ghx-shop .ghx-tile { background: rgba(10,21,33,.72); }
+.ghx-shop .ghx-btn-outline { background: rgba(10,21,33,.45); }
+.ghx-shop .ghx-chip { background: rgba(10,21,33,.85); }
+.ghx-shop .ghx-feature-card::after, .ghx-shop .ghx-media figcaption, .ghx-shop .ghx-mini-cat span { background: linear-gradient(180deg, transparent, rgba(8,17,27,.92)); }
+.ghx-shop .ghx-feature-card::after { background: linear-gradient(180deg, transparent 25%, rgba(8,17,27,.9)); }
+.ghx-shop .ghx-spot-arrow { background: rgba(10,21,33,.75); }
+.ghx-overlay { background: rgba(6,12,20,.82); }
+.ghx-search-panel { background: #0d1a28; border-color: #2e4a63; }
+.ghx-search-bar { border-bottom-color: #22384d; }
+.ghx-search-row:hover { background: #172a3d; }
+@media (max-width: 767px) {
+  .ghx-shop .ghx-hero-shade { background: linear-gradient(180deg, rgba(10,21,33,.45) 0%, rgba(10,21,33,0) 16%, rgba(10,21,33,0) 34%, rgba(10,21,33,.8) 50svh, var(--ghx-bg-2) 60svh); }
+}

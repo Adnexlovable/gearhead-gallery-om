@@ -24,7 +24,7 @@
 - [ ] Owner brief (Oct 28): main home "/" becomes the GearHead shop home (hero → about/Explore RC World with track, shop size, showroom videos/photos → product categories with photos → flagship section → clean roadmap); investor content moves to its own investors-only page
 - [ ] Category pages (Performance RC, Scale Crawler, Diecast, Parts & Accessories, Realistic RC, Construction RC…) with scale/size/collection filters, then product pages with colour swipe, add to cart and WhatsApp enquiry — styled like the owner's two phone mockups
 - [ ] Navbar: Home, Investors, RC Collection, Accessories, Cart, Search, Contact
-- [ ] Background: less pure black, shop theme a little darker; charcoal-black borders
+- [x] Background: less pure black (superseded: owner wants the earlier deep-blue theme)
 - [ ] Smooth parallax scrolling on every page
 - [ ] Polish the hero name font on the app and investor pages
 - [ ] Owner catalogue PDFs (Part 1 + 2): every item in its own correct category (no mixing), 3 photos per item in different styles
@@ -34,3 +34,4 @@
 - [ ] Shop app hero and category section styled like the owner's phone/desktop mockups (photo hero with chrome GEARHEAD / orange RC HUB, two buttons, quick tiles, image category cards)
 - [ ] No solid nav bar over the hero: drop the "Investor Home > Home / Hero" strip; header transparent over hero photo until scrolling
 - [ ] Hero name lettering like the owner photo: bright chrome GEARHEAD, glossy orange RC HUB, dark outline; crawler-at-sunset cover photo
+- [ ] Shop background back to the earlier deep-blue site theme, no extra charcoal black
