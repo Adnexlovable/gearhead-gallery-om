@@ -2859,3 +2859,4 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghh-showcase-in .ghs-showcase::before { display: none !important; }
 @media (min-aspect-ratio: 1/1) { .ghh-title-img img { width: min(46vw, 760px); } }
 .ghh-tag4 { font: italic 800 clamp(.7rem, 3.1vw, 1.3rem)/1.2 "Saira", sans-serif !important; font-stretch: 125%; letter-spacing: .18em !important; color: #fff !important; margin-top: .5rem !important; text-shadow: 0 2px 6px rgba(0,0,0,.8); }
+.ghh-copy .ghh-tag4 { display: block !important; opacity: 1 !important; visibility: visible !important; }
