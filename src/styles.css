@@ -2901,3 +2901,6 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghh-showcase-on .ghs-showcase::before { display: none !important; }
 .ghh-hero.ghh-poster { padding-top: calc(66px + env(safe-area-inset-top, 0px)) !important; background: #24170f !important; }
 .ghh-hero.ghh-poster { padding-top: 0 !important; }
+/* real photos inside the 5 boxes (rail track, crawler, service room, parts, RC car) */
+.ghs-tile { padding-top: .25rem !important; }
+.ghs-tile .ghs-tile-photo { width: calc(100% + 0rem); aspect-ratio: 1 / 1; object-fit: cover; border-radius: .55rem; border: 1px solid rgba(232,108,31,.6); margin-bottom: .15rem; }
