@@ -2592,5 +2592,5 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghx-shop #top .ghx-hero-tagline { margin-top: 1.1rem !important; }
 @media (max-width: 767px) { .ghx-shop section#top.ghx-hero { min-height: 0 !important; height: auto !important; max-height: none !important; } .ghx-shop section#top .ghx-hero-inner { padding-top: calc(48px + 86vw) !important; padding-bottom: 2.6rem !important; } }
 .ghx-shop .ghx-brand, .gearhead-home .gh-navbar-brand { position: relative; }
-.gh-logo-sub { position: absolute; left: 30%; right: 2%; bottom: -1px; text-align: center; font: 800 7.5px/1 "Bricolage Grotesque", sans-serif; letter-spacing: .14em; color: #ffd21f; text-shadow: 0 1px 2px rgba(0,0,0,.9); white-space: nowrap; pointer-events: none; }
-@media (min-width: 768px) { .gh-logo-sub { font-size: 8.5px; } }
+.gh-logo-sub { position: absolute; left: 30%; right: 2%; bottom: -1px; text-align: center; font: 800 6.4px/1 "Bricolage Grotesque", sans-serif; letter-spacing: .06em; color: #ffd21f; text-shadow: 0 1px 2px rgba(0,0,0,.9); white-space: nowrap; pointer-events: none; }
+@media (min-width: 768px) { .gh-logo-sub { font-size: 7.4px; } }
