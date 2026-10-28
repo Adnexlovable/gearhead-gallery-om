@@ -2600,3 +2600,9 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   .ghx-shop section#top.ghx-hero { background: linear-gradient(180deg, #1c0f08 0%, #4a210b 22%, #7a3510 34%, #3a1d0c 60%, #160f0b 100%) !important; }
   .ghx-shop section#top .ghx-hero-inner { padding-top: calc(108px + 86vw) !important; }
 }
+/* Owner: bigger category cards on phones */
+@media (max-width: 767px) {
+  .ghx-shop .ghx-cat-grid, .gearhead-home .gh-category-grid { grid-auto-columns: 86% !important; }
+  .ghx-shop .ghx-cat-card img, .ghx-shop .ghx-cat-card .ghx-cat-media { aspect-ratio: 4 / 3.4 !important; height: auto !important; }
+  .ghx-shop .ghx-cat-card h3 { font-size: 1.35rem !important; }
+}

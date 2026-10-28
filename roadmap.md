@@ -13,7 +13,10 @@
 - [ ] "GearHead RC" name everywhere + local business details for search (Bausher, Muscat)
 - [ ] Admin AI helper: write search-friendly product titles and descriptions
 
+- [ ] Admin: owner adds, edits and deletes shop photos, sections and pages (scope question asked)
+
 ## Done
+- [x] Bigger category cards on phones; finder section removed from shop home
 - [x] Smooth parallax: shop photos drift gently while scrolling
 - [x] Back arrow beside the logo on every inner shop page
 - [x] Top bar = logo height on every page; photo backgrounds sharp and a bit darker; bolder stylish headings
