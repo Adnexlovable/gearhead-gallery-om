@@ -1,3 +1,4 @@
+import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
@@ -29,8 +30,9 @@ export const Route = createFileRoute("/store")({
 function StorePage() {
   useHashScroll();
   const { data } = useSuspenseQuery(shopCatalogQuery);
+  const siteMedia = useSiteMedia();
   return (
-    <div className="gearhead-home ghx-shop">
+    <div className="gearhead-home ghx-shop" style={siteMediaStyle(siteMedia)}>
       <AppNavbar />
       <main className="ghx-page">
         <div className="ghx-wrap">

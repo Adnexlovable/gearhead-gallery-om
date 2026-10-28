@@ -2439,10 +2439,10 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghx-shop .ghx-section { isolation: isolate; border-top: 0; }
 .ghx-shop .ghx-section::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: linear-gradient(180deg, rgba(27,21,18,.93), rgba(27,21,18,.8) 40%, rgba(27,21,18,.8) 60%, rgba(27,21,18,.95)), var(--ghx-shop-photo) center / cover no-repeat; }
-.ghx-shop .ghx-section:nth-of-type(4n+1) { --ghx-shop-photo: url("/__l5e/assets-v1/e8537d8d-05d6-493d-998d-d2b9082c1171/showroom-2.jpg"); }
-.ghx-shop .ghx-section:nth-of-type(4n+2) { --ghx-shop-photo: url("/__l5e/assets-v1/0dee0380-258a-4fcf-a0ad-d6ba154d5488/showroom-4.jpg"); }
-.ghx-shop .ghx-section:nth-of-type(4n+3) { --ghx-shop-photo: url("/__l5e/assets-v1/95d69199-e613-44a1-9865-4a9afa783051/showroom-3.jpg"); }
-.ghx-shop .ghx-section:nth-of-type(4n+4) { --ghx-shop-photo: url("/__l5e/assets-v1/ab007a30-9ef8-4781-8d42-771bd39f51fd/showroom-1.jpg"); }
+.ghx-shop .ghx-section:nth-of-type(4n+1) { --ghx-shop-photo: var(--ghx-bg1, url("/__l5e/assets-v1/e8537d8d-05d6-493d-998d-d2b9082c1171/showroom-2.jpg")); }
+.ghx-shop .ghx-section:nth-of-type(4n+2) { --ghx-shop-photo: var(--ghx-bg2, url("/__l5e/assets-v1/0dee0380-258a-4fcf-a0ad-d6ba154d5488/showroom-4.jpg")); }
+.ghx-shop .ghx-section:nth-of-type(4n+3) { --ghx-shop-photo: var(--ghx-bg3, url("/__l5e/assets-v1/95d69199-e613-44a1-9865-4a9afa783051/showroom-3.jpg")); }
+.ghx-shop .ghx-section:nth-of-type(4n+4) { --ghx-shop-photo: var(--ghx-bg4, url("/__l5e/assets-v1/ab007a30-9ef8-4781-8d42-771bd39f51fd/showroom-1.jpg")); }
 .ghx-shop .ghx-page { position: relative; isolation: isolate; }
 .ghx-shop .ghx-page::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background: linear-gradient(180deg, rgba(27,21,18,.9), rgba(27,21,18,.86)), url("/__l5e/assets-v1/e8537d8d-05d6-493d-998d-d2b9082c1171/showroom-2.jpg") center / cover no-repeat; }
@@ -2606,3 +2606,31 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   .ghx-shop .ghx-cat-card img, .ghx-shop .ghx-cat-card .ghx-cat-media { aspect-ratio: 4 / 3.4 !important; height: auto !important; }
   .ghx-shop .ghx-cat-card h3 { font-size: 1.35rem !important; }
 }
+/* Owner: stronger, brighter orange sky above the RC car */
+@media (max-width: 767px) {
+  .ghx-shop section#top.ghx-hero { background: linear-gradient(180deg, #5a2208 0%, #c2500f 12%, #f07a1c 22%, #ff9a3a 30%, #b9531a 44%, #3a1d0c 66%, #160f0b 100%) !important; }
+  .ghx-shop .ghx-hero-img { -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 10%, #000 100%) !important; mask-image: linear-gradient(180deg, transparent 0%, #000 10%, #000 100%) !important; }
+  .ghx-shop .ghx-hero-shade { background: linear-gradient(180deg, rgba(14,10,8,.35) 0%, rgba(14,10,8,0) 10%, rgba(14,10,8,0) 42%, rgba(14,10,8,.72) 60%, rgba(14,10,8,.9) 76%, #160f0b 100%) !important; }
+}
+/* Owner: hero name centred, no black outline, bold animated 3D shine */
+.ghx-shop #top .ghx-hero-inner { text-align: center; }
+.ghx-shop #top .ghx-hero-title { display: flex; flex-direction: column; align-items: center; text-align: center; margin-inline: auto; }
+.ghx-shop #top .ghx-hero-tagline { text-align: center; }
+.ghx-shop #top .ghx-hero-title .gh-hero-steel,
+.ghx-shop #top .ghx-hero-title .gh-hero-copper {
+  -webkit-text-stroke: 0 transparent !important; background-size: 100% 220% !important;
+  -webkit-background-clip: text !important; background-clip: text !important; color: transparent !important;
+  animation: ghx-shine 4.5s ease-in-out infinite, ghx-float 6s ease-in-out infinite;
+}
+.ghx-shop #top .ghx-hero-title .gh-hero-steel {
+  background-image: linear-gradient(175deg,#ffffff 0%,#eef3f9 22%,#cfd8e3 40%,#ffffff 50%,#dfe6ee 62%,#ffffff 80%,#e9eef4 100%) !important;
+  filter: drop-shadow(0 1px 0 #c9d2dd) drop-shadow(0 2px 0 #aeb8c5) drop-shadow(0 3px 0 #8f9aa8) drop-shadow(0 0 14px rgba(255,170,80,.45)) drop-shadow(0 10px 16px rgba(0,0,0,.5)) !important;
+}
+.ghx-shop #top .ghx-hero-title .gh-hero-copper {
+  background-image: linear-gradient(175deg,#fff1b8 0%,#ffc23d 24%,#ff8a12 46%,#ffd27a 56%,#ff7a0a 72%,#ffb347 100%) !important;
+  filter: drop-shadow(0 1px 0 #ff9a2a) drop-shadow(0 2px 0 #e06a0c) drop-shadow(0 3px 0 #b8520a) drop-shadow(0 0 18px rgba(255,130,20,.65)) drop-shadow(0 10px 16px rgba(0,0,0,.5)) !important;
+  animation-delay: .6s, .3s;
+}
+@keyframes ghx-shine { 0%,100% { background-position: 50% 0%; } 50% { background-position: 50% 100%; } }
+@keyframes ghx-float { 0%,100% { transform: translateY(0) perspective(600px) rotateX(0deg); } 50% { transform: translateY(-4px) perspective(600px) rotateX(6deg); } }
+@media (prefers-reduced-motion: reduce) { .ghx-shop #top .ghx-hero-title .gh-hero-steel, .ghx-shop #top .ghx-hero-title .gh-hero-copper { animation: none; } }

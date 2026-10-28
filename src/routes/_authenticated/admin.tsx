@@ -5,9 +5,10 @@ import type { Tables } from "@/integrations/supabase/types";
 import { Button } from "@/components/ui/button";
 import { ShopDetailsEditor } from "@/components/admin/ShopDetailsEditor";
 import { SearchConsolePanel } from "@/components/admin/SearchConsolePanel";
+import { ShopPhotosAdmin } from "@/components/admin/ShopPhotosAdmin";
 import { ShopCatalogAdmin } from "@/components/admin/ShopCatalogAdmin";
 import { parseShopDetails } from "@/lib/shop-details";
-import { ArrowUpRight, RefreshCw, LogOut, Inbox as InboxIcon, CalendarDays, Package, Layers, ListChecks, Clock, CheckCircle2, Search } from "lucide-react";
+import { ArrowUpRight, RefreshCw, LogOut, Inbox as InboxIcon, CalendarDays, Package, Layers, ListChecks, Clock, CheckCircle2, Search, Image as ImageIcon } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   staticData: { sitemap: false },
@@ -25,8 +26,8 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-const TABS = ["Inbox", "Bookings", "Shop catalogue", "Sections", "Roadmap", "Search"] as const;
-const TAB_ICONS = [InboxIcon, CalendarDays, Package, Layers, ListChecks, Search];
+const TABS = ["Inbox", "Bookings", "Shop catalogue", "Shop photos", "Sections", "Roadmap", "Search"] as const;
+const TAB_ICONS = [InboxIcon, CalendarDays, Package, ImageIcon, Layers, ListChecks, Search];
 type Tab = (typeof TABS)[number];
 
 function AdminPage() {
@@ -75,6 +76,7 @@ function AdminPage() {
         {tab === "Inbox" && <Inbox />}
         {tab === "Bookings" && <Bookings />}
         {tab === "Shop catalogue" && <ShopCatalogAdmin />}
+        {tab === "Shop photos" && <ShopPhotosAdmin />}
         {tab === "Sections" && <Sections />}
         {tab === "Roadmap" && <Roadmap />}
         {tab === "Search" && <SearchConsolePanel />}

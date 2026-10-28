@@ -1,3 +1,4 @@
+import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { useMemo, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -52,8 +53,9 @@ function CollectionPage() {
   const hero: ShopProduct | undefined = spotlight[slide];
   const others = data.categories.filter((c) => c.slug !== slug);
 
+  const siteMedia = useSiteMedia();
   return (
-    <div className="gearhead-home ghx-shop">
+    <div className="gearhead-home ghx-shop" style={siteMediaStyle(siteMedia)}>
       <AppNavbar />
       <main className="ghx-page">
         <section className="ghx-cat-hero" data-parallax-section>

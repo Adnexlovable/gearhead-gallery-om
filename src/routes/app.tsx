@@ -1,3 +1,4 @@
+import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
@@ -69,13 +70,14 @@ function ShopHome() {
   const cover = (slug: string) => data.categories.find((c) => c.slug === slug)?.cover;
   const d = DEFAULT_SHOP_DETAILS;
 
+  const siteMedia = useSiteMedia();
   return (
-    <div className="gearhead-home ghx-shop">
+    <div className="gearhead-home ghx-shop" style={siteMediaStyle(siteMedia)}>
       <AppNavbar />
       <main>
         {/* 1. Hero */}
         <section id="top" className="ghx-hero" aria-label="GearHead RC Hub">
-          <img src={heroImage} alt="" className="ghx-hero-img" data-parallax="0.18" width={1920} height={1280} fetchPriority="high" />
+          <img src={siteMedia.hero || heroImage} alt="" className="ghx-hero-img" data-parallax="0.18" width={1920} height={1280} fetchPriority="high" />
           <div className="ghx-hero-shade" aria-hidden="true" />
           <div className="ghx-hero-inner">
             <h1 className="ghx-hero-title gh-hero-brand" aria-label="GearHead RC Hub">

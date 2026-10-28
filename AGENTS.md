@@ -18,3 +18,4 @@
 - Keep the shop catalogue in public.shop_categories + public.products, edited only through the admin Shop catalogue tab, and upload photos under products/ in the gearhead-product-images bucket; the storefront, sitemap and AI finder all read these tables so there is one source of truth.
 - Keep the shop app theme scoped under the .ghx-shop wrapper in src/styles.css so investor pages keep their own look.
 - Unit tests live next to their module as src/**/*.test.ts and run with vitest via vitest.config.ts, which stays separate from the app's Vite config.
+- Keep owner-replaceable shop photos (cover + 4 backgrounds) in public.site_media slots, edited in the admin Shop photos tab; pages fall back to the built-in photos when a slot is empty so nothing breaks.

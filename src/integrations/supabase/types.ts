@@ -302,6 +302,24 @@ export type Database = {
         }
         Relationships: []
       }
+      site_media: {
+        Row: {
+          slot: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          slot: string
+          updated_at?: string
+          url?: string
+        }
+        Update: {
+          slot?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
       site_sections: {
         Row: {
           contact_details: Json
