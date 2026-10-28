@@ -4,9 +4,11 @@ import { Navbar } from "@/components/site/Navbar";
 import { VisionHero } from "@/components/site/VisionHero";
 import { HomeExperience } from "@/components/site/HomeExperience";
 import { Footer } from "@/components/site/Footer";
+import { siteMediaQuery } from "@/lib/site-media";
 
 export const Route = createFileRoute("/")({
   staticData: { sitemap: true },
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteMediaQuery),
   head: () => ({
     meta: [
       { title: "GearHead RC Hub — A New RC Experience for Oman · Bousher, Muscat" },

@@ -1,26 +1,30 @@
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { queryOptions, useQuery } from "@tanstack/react-query";
+import { getSiteMedia } from "@/lib/shop.functions";
 
+/** Owner-replaceable photos. Empty slot = the built-in photo, so nothing breaks. */
 export const SITE_MEDIA_SLOTS = [
-  { slot: "hero", label: "Cover photo (shop home)" },
-  { slot: "bg1", label: "Background photo 1" },
-  { slot: "bg2", label: "Background photo 2" },
-  { slot: "bg3", label: "Background photo 3" },
-  { slot: "bg4", label: "Background photo 4" },
+  { slot: "hero", group: "Cover", label: "Home cover (/ and /app)", hint: "Tall 9:16 photo, shown whole. The bottom quarter sits under the 2 buttons + 5 boxes." },
+  { slot: "tile_cars", group: "5 boxes", label: "Box: RC CARS", hint: "Square photo works best." },
+  { slot: "tile_crawlers", group: "5 boxes", label: "Box: CRAWLERS", hint: "Square photo works best." },
+  { slot: "tile_parts", group: "5 boxes", label: "Box: SPARE PARTS", hint: "Square photo works best." },
+  { slot: "tile_service", group: "5 boxes", label: "Box: SERVICE", hint: "Square photo works best." },
+  { slot: "tile_track", group: "5 boxes", label: "Box: INDOOR TRACK", hint: "Square photo works best." },
+  { slot: "bg1", group: "Backgrounds", label: "Background 1 · track / floor", hint: "Wide shop photo behind page sections." },
+  { slot: "bg2", group: "Backgrounds", label: "Background 2 · counter", hint: "Wide shop photo behind page sections." },
+  { slot: "bg3", group: "Backgrounds", label: "Background 3 · service room", hint: "Wide shop photo behind page sections." },
+  { slot: "bg4", group: "Backgrounds", label: "Background 4 · shelves", hint: "Wide shop photo behind page sections." },
 ] as const;
 
 export const siteMediaQueryKey = ["site-media"] as const;
 
-export async function fetchSiteMedia(): Promise<Record<string, string>> {
-  const { data } = await supabase.from("site_media").select("slot,url");
-  const out: Record<string, string> = {};
-  for (const r of data ?? []) if (r.url) out[r.slot] = r.url;
-  return out;
-}
+export const siteMediaQuery = queryOptions({
+  queryKey: siteMediaQueryKey,
+  queryFn: () => getSiteMedia(),
+  staleTime: 30_000,
+});
 
-/** Owner-uploaded shop photos; empty map means "use the built-in photos". */
-export function useSiteMedia() {
-  return useQuery({ queryKey: siteMediaQueryKey, queryFn: fetchSiteMedia, staleTime: 60_000 }).data ?? {};
+export function useSiteMedia(): Record<string, string> {
+  return useQuery(siteMediaQuery).data ?? {};
 }
 
 /** CSS variables for the shop wrapper so custom background photos replace the defaults. */
