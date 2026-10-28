@@ -14,6 +14,8 @@
 - [ ] Admin AI helper: write search-friendly product titles and descriptions
 
 ## Done
+- [x] Catalogue cards swipe sideways on phones; all pages fit iPhone 14 Pro (no sideways overflow)
+- [x] Crystal boxes clearer: less brown tint, glossy edge (owner: no plain backgrounds)
 - [x] Admin dashboard background uses the owner's real shop photo
 - [x] Crystal glass boxes fixed for iPhone and other browsers (smoky frosted tint, readable text)
 - [x] Plain boxes turned into see-through crystal glass on every page; big service photo frame removed
