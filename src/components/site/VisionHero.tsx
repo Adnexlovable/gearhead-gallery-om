@@ -47,6 +47,7 @@ export function VisionHero({ portraitSrc, mode }: { mode?: "investor" | "app"; p
         <h1 className="ghh-title-img">
           <img src={titleArt} alt="GEARHEAD RC HUB — A New RC Experience for Oman" width={1200} height={400} />
         </h1>
+        <p className="ghh-tagline ghh-tag4">A NEW RC EXPERIENCE FOR OMAN</p>
         <p className="ghh-brand">A brand of <span>ADNEX.WORLD</span></p>
       </div>
       <div className="ghh-showcase-in">
