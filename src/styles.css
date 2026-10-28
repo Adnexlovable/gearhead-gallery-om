@@ -2472,7 +2472,7 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghx-shop .ghx-hero-img { filter: brightness(.86) saturate(1.12) contrast(1.05); }
 .ghx-shop .ghx-hero-shade { background: linear-gradient(180deg, rgba(20,12,8,.55) 0%, rgba(20,12,8,.05) 18%, rgba(60,25,5,.12) 50%, rgba(27,21,18,.75) 78%, #1b1512 100%) !important; }
 @media (max-width: 767px) {
-  .ghx-shop .ghx-hero-img { inset: auto; top: 44px; left: -66.7vw; width: 177.8vw; height: auto; min-height: 0; object-fit: fill;
+  .ghx-shop .ghx-hero-img { max-width: none; inset: auto; top: 44px; left: -66.7vw; width: 177.8vw; height: auto; min-height: 0; object-fit: fill;
     -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9%, #000 62%, transparent 92%); mask-image: linear-gradient(180deg, transparent 0, #000 9%, #000 62%, transparent 92%); }
   .ghx-shop .ghx-hero-shade { background: linear-gradient(180deg, rgba(20,12,8,.4) 0%, rgba(20,12,8,0) 14%, rgba(20,12,8,0) 48%, rgba(27,21,18,.55) 70%, #1b1512 100%) !important; }
   .ghx-shop .ghx-hero-inner { padding-top: calc(36px + 76vw); }
