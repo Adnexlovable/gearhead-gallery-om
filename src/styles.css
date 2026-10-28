@@ -2581,7 +2581,7 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 /* Owner's horizontal header logo (transparent, glowing, logo-height bar) */
 .ghx-shop .ghx-brand img.ghx-brand-logo,
 .gearhead-home .gh-header-logo {
-  width: auto !important; height: 38px !important; max-width: 46vw; object-fit: contain; flex-shrink: 0;
+  width: auto !important; height: 46px !important; max-width: 50vw; object-fit: contain; flex-shrink: 0;
   filter: drop-shadow(0 0 6px rgba(255,140,30,.55)) drop-shadow(0 2px 4px rgba(0,0,0,.6)) !important;
 }
-@media (min-width: 768px) { .ghx-shop .ghx-brand img.ghx-brand-logo, .gearhead-home .gh-header-logo { height: 44px !important; } }
+@media (min-width: 768px) { .ghx-shop .ghx-brand img.ghx-brand-logo, .gearhead-home .gh-header-logo { height: 52px !important; } }
