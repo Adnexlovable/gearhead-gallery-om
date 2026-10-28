@@ -45,3 +45,4 @@
 - [x] Home cover: flag smaller and further back behind the car
 - [x] Home cover: top bar must not cover the title
 - [x] Top bar logo must not be cropped or messy
+- [x] Home cover: clean sky at top, no dark gap, nothing cropped
