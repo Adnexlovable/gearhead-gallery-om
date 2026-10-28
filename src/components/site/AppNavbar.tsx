@@ -64,6 +64,7 @@ export function AppNavbar() {
           )}
           <Link to="/app" className="ghx-brand" aria-label="GearHead RC Hub shop home">
             <img src={headerLogo} alt="GearHead RC Hub, a brand of ADNEX.WORLD" width={900} height={287} className="ghx-brand-logo" />
+            <span className="gh-logo-sub">A BRAND OF ADNEX.WORLD</span>
           </Link>
           </div>
           <nav className="ghx-nav" aria-label="Shop pages">
