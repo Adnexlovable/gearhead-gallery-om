@@ -149,7 +149,7 @@ function ShopHome() {
               <SectionHead kicker="Shop by category" title={<>Explore <em>RC categories.</em></>} />
               <Link to="/store" className="ghx-link">View all products <ArrowRight size={15} /></Link>
             </div>
-            <div className="ghx-cat-grid">
+            <div className="ghx-cat-grid" data-lenis-prevent-wheel>
               {data.categories.map((c) => (
                 <Link key={c.slug} to="/collection/$category" params={{ category: c.slug }} className="ghx-cat-card">
                   <div className="ghx-cat-media"><img src={c.cover} alt={c.name} loading="lazy" width={600} height={400} /></div>

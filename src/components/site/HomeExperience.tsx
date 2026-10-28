@@ -136,7 +136,7 @@ export function HomeExperience() {
           <Heading eyebrow="03 / Inventory Blueprint">Explore the <em>RC world.</em> 
           </Heading>
           <p className="gh-chapter-desc">Four focused product departments from the GearHead inventory plan. These are proposed sourcing categories, not a claim of stock availability or retail pricing.</p>
-          <div className="gh-category-grid">
+          <div className="gh-category-grid" data-lenis-prevent-wheel>
             {categories.map(({ icon: Icon, cover, href, eyebrow, title, subtitle, models }) => (
               <article className="gh-category-card gh-metal-frame" key={title}>
                 <a href={href} className="gh-category-cover" aria-label={"Explore " + title}>
