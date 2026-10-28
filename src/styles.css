@@ -2507,3 +2507,4 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 }
 .ghx-shop .ghx-card-media, .ghx-shop .ghx-spot-media, .ghx-shop .ghx-card-noimg { background: rgba(255,255,255,.04) !important; }
 .gearhead-home .gh-category-body { background: transparent !important; }
+.ghx-shop #service .ghx-split { grid-template-columns: 1fr; }
