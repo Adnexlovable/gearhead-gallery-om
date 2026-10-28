@@ -15,6 +15,10 @@ import { useHashScroll } from "@/hooks/useHashScroll";
 import { WHATSAPP_NUMBER } from "@/lib/shop";
 import { DEFAULT_SHOP_DETAILS } from "@/lib/shop-details";
 import heroImage from "@/assets/shop-hero.jpg";
+import shop1 from "@/assets/showroom/showroom-1.jpg.asset.json";
+import shop2 from "@/assets/showroom/showroom-2.jpg.asset.json";
+import shop3 from "@/assets/showroom/showroom-3.jpg.asset.json";
+import shop4 from "@/assets/showroom/showroom-4.jpg.asset.json";
 
 const art = {
   showroom: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a7fbbad-e215-4d63-a8c3-550220dcd0c3.jpg",
@@ -140,6 +144,16 @@ function ShopHome() {
               <figure className="ghx-media"><CinematicScene className="ghx-media-fill" poster={art.display} mobileSrc={motion.retail} /><figcaption><strong>Display racks</strong><span>RC cars · Parts</span></figcaption></figure>
               <figure className="ghx-media"><CinematicScene className="ghx-media-fill" poster={art.workshop} mobileSrc={motion.service} /><figcaption><strong>Service bench</strong><span>Repairs · Upgrades</span></figcaption></figure>
               <figure className="ghx-media"><img src={art.showroom} alt="GearHead showroom interior design" loading="lazy" /><figcaption><strong>Showroom interior</strong><span>Design concept</span></figcaption></figure>
+            </div>
+            <div className="ghx-showroom-row">
+              {[
+                [shop1.url, "Crawler track and service area"],
+                [shop2.url, "Counter and RC shelves"],
+                [shop3.url, "RC car display wall"],
+                [shop4.url, "Spare parts counter"],
+              ].map(([src, label]) => (
+                <figure key={label} className="ghx-media ghx-media-tall"><img src={src} alt={`GearHead shop: ${label}`} loading="lazy" /><figcaption><strong>{label}</strong></figcaption></figure>
+              ))}
             </div>
             <p className="ghx-note">Interior photos and videos are design concepts for the shop.</p>
           </div>

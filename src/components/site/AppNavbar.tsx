@@ -44,7 +44,10 @@ export function AppNavbar() {
 
   return (
     <>
-      <header className={`ghx-header gh-primary-header ${overHero && !scrolled && !open ? "is-clear" : ""}`}>
+      <header
+        className={`ghx-header gh-primary-header ${overHero && !scrolled && !open ? "is-clear" : ""}`}
+        style={overHero && !scrolled && !open ? { backdropFilter: "none", WebkitBackdropFilter: "none", boxShadow: "none" } : undefined}
+      >
         <div className="ghx-header-row">
           <Link to="/app" className="ghx-brand" aria-label="GearHead RC Hub shop home">
             <img src={logo} alt="" width={48} height={48} />
