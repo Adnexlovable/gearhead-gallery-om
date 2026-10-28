@@ -86,10 +86,10 @@ export function Navbar() {
   };
 
   return (
-    <header className={`gh-primary-header fixed inset-x-0 top-0 z-[110] transition-[padding,background-color,border-color] duration-300 ${scrolled || open ? "gh-header-solid py-1.5 md:py-2" : "gh-header-clear py-2 md:py-3"}`}>
+    <header className={`gh-primary-header fixed inset-x-0 top-0 z-[110] transition-[padding,background-color,border-color] duration-300 ${scrolled || open ? "gh-header-solid py-1" : "gh-header-clear py-1"}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 md:px-8">
         <Link to="/" onClick={() => setOpen(false)} className="gh-navbar-brand flex min-w-0 shrink-0 items-center gap-2.5" aria-label="GearHead RC Hub — Investor Home">
-          <img src={logo} width={52} height={52} decoding="async" alt="" className="gh-navbar-brand-mark h-11 w-11 shrink-0 object-contain drop-shadow-[0_2px_6px_rgba(255,122,24,.35)] md:h-12 md:w-12" />
+          <img src={logo} width={52} height={52} decoding="async" alt="" className="gh-navbar-brand-mark h-10 w-10 shrink-0 object-contain drop-shadow-[0_2px_6px_rgba(255,122,24,.35)] md:h-11 md:w-11" />
           <span className="gh-navbar-brand-copy flex min-w-0 flex-col items-start leading-none">
             <span className="gh-navbar-brand-main font-display text-[15px] font-black tracking-tight text-white">GEAR<span className="text-[#ff981e]">HEAD</span></span>
             <span className="gh-navbar-brand-rc mt-0.5 font-display text-[10px] font-bold tracking-[.14em] text-[#ffd29a]">RC HUB</span>

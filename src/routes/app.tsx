@@ -7,7 +7,6 @@ import {
 import { AppNavbar } from "@/components/site/AppNavbar";
 import { Footer } from "@/components/site/Footer";
 import { CinematicScene } from "@/components/site/CinematicScene";
-import { ProductCard } from "@/components/shop/ProductCard";
 import { ProductFinder } from "@/components/shop/ProductFinder";
 import { SectionHead } from "@/components/shop/SectionHead";
 import { shopCatalogQuery } from "@/lib/shop-queries";
@@ -26,8 +25,8 @@ const motion = {
   track: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/19986706-a56f-4ac1-8542-9f1a432b8c92.mp4",
   service: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/3b8318e1-4713-4c93-9673-c8c1798ac307.mp4",
   retail: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/c396cda3-deca-4982-8354-ebe8d13e06d8.mp4",
-  showroomMobile: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/68499411-3243-4bb8-b263-693c499e95ef.mp4",
-  showroomDesktop: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/240fa4da-8a24-4bd5-b52d-ec77257493fd.mp4",
+
+
 };
 
 const tiles = [
@@ -68,8 +67,6 @@ function ShopHome() {
   const { data } = useSuspenseQuery(shopCatalogQuery);
   const count = (slug: string) => data.products.filter((p) => p.category === slug).length;
   const scales = (slug: string) => [...new Set(data.products.filter((p) => p.category === slug).map((p) => p.scale))].slice(0, 4).join(" · ");
-  const featured = data.categories.flatMap((c) => data.products.filter((p) => p.category === c.slug).slice(0, 1)).slice(0, 8);
-  const catName = new Map(data.categories.map((c) => [c.slug, c.name]));
   const cover = (slug: string) => data.categories.find((c) => c.slug === slug)?.cover;
   const d = DEFAULT_SHOP_DETAILS;
 
