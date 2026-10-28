@@ -2495,3 +2495,15 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghx-shop .ghx-icon-btn { width: 34px; height: 34px; }
 .gearhead-home .gh-primary-header:not(.ghx-header) { padding-block: 3px !important; }
 .gearhead-home .gh-navbar-brand-copy { line-height: 1; }
+/* Owner 2026-10-28: no plain/solid boxes — every panel is see-through "crystal" glass over the shop photo theme. */
+.ghx-shop .ghx-stats div, .ghx-shop .ghx-offer, .ghx-shop .ghx-cat-card, .ghx-shop .ghx-card, .ghx-shop .ghx-finder-form,
+.ghx-shop .ghx-roadmap li, .ghx-shop .ghx-contact-item, .ghx-shop .ghx-spotlight, .ghx-shop .ghx-coming, .ghx-shop .ghx-cart-line,
+.ghx-shop .ghx-tile, .ghx-shop .ghx-qty, .ghx-shop .ghx-drawer, .ghx-shop .ghx-pill,
+.gearhead-home .gh-category-card, .gearhead-home .gh-metal-frame {
+  background: linear-gradient(145deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.035) 45%, rgba(255,170,90,.05) 100%) !important;
+  border: 1px solid rgba(255,235,215,.18) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 10px 30px -14px rgba(0,0,0,.6) !important;
+  backdrop-filter: blur(14px) saturate(1.25); -webkit-backdrop-filter: blur(14px) saturate(1.25);
+}
+.ghx-shop .ghx-card-media, .ghx-shop .ghx-spot-media, .ghx-shop .ghx-card-noimg { background: rgba(255,255,255,.04) !important; }
+.gearhead-home .gh-category-body { background: transparent !important; }
