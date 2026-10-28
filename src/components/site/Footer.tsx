@@ -1,3 +1,4 @@
+import footerLogo from "@/assets/gearhead-footer-logo.png";
 import { ArrowLeftRight, ArrowUpRight, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { DEFAULT_SHOP_DETAILS } from "@/lib/shop-details";
 
@@ -29,13 +30,13 @@ export function Footer({ variant = "investor" }: { variant?: "investor" | "app" 
         <div className="gh-footer-brand">
           <a href={variant === "app" ? "/app" : "/"} aria-label="GearHead RC Hub home" className="inline-block">
             <img
-              src="https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/d33cbb38-c247-46d7-9fa2-08cdf797e71c.png"
-              width={226}
-              height={216}
+              src={footerLogo}
+              width={520}
+              height={393}
               alt="GearHead RC Hub — Jeep Wrangler, gear ring and mountain emblem"
               loading="lazy"
               decoding="async"
-              className="gh-footer-logo h-auto w-[155px] object-contain drop-shadow-[0_8px_28px_rgba(0,0,0,.75)] sm:w-[195px]"
+              className="gh-footer-logo h-auto w-[200px] object-contain drop-shadow-[0_0_14px_rgba(255,140,30,.35)] sm:w-[230px]"
             />
           </a>
           <div className="mt-1 text-[9px] font-medium uppercase tracking-[.18em] text-[#ffe0b0]">A brand of <span className="font-extrabold text-[#ffab38]">ADNEX.WORLD</span></div>
