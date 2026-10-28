@@ -2569,3 +2569,5 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghx-shop .ghx-header .ghx-icon-btn { width: 34px; height: 34px; }
 .gearhead-home .gh-primary-header:not(.ghx-header) .gh-mobile-menu-toggle { width: 34px; height: 34px; }
 .gearhead-home .gh-primary-header:not(.ghx-header) .gh-navbar-brand-mark { width: 34px; height: 34px; }
+.ghx-shop .ghx-header { padding-bottom: 0 !important; }
+.gearhead-home .gh-primary-header:not(.ghx-header) .gh-mobile-menu-toggle { min-height: 34px !important; min-width: 34px !important; height: 34px !important; width: 34px !important; }
