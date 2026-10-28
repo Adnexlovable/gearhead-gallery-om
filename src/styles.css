@@ -2908,8 +2908,8 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 /* ===== Owner 2026-10-28 (3 small fixes) ===== */
 /* 1) Small yellow "A BRAND OF ADNEX.WORLD" line, left-aligned directly under the logo, max ~65% of logo width */
 .ghx-shop .ghx-brand, .gearhead-home .gh-navbar-brand { display: inline-flex !important; flex-direction: column; align-items: flex-start !important; justify-content: center; gap: 2px !important; }
-.gh-logo-sub { position: static !important; display: block; width: max-content; max-width: 65%; margin: 0; padding-left: 2px; text-align: left !important;
-  font-size: 5.6px !important; letter-spacing: .04em !important; line-height: 1 !important; overflow: hidden; }
-@media (min-width: 768px) { .gh-logo-sub { font-size: 6.4px !important; } }
+.gh-logo-sub { position: static !important; display: block; width: max-content; max-width: none; margin: 0; padding: 0 0 0 1px; text-align: left !important;
+  font-size: 5.1px !important; letter-spacing: .03em !important; line-height: 1 !important; overflow: visible; }
+@media (min-width: 768px) { .gh-logo-sub { font-size: 5.8px !important; } }
 /* 2) 2 buttons + 5 boxes at the very bottom of the cover, subtle dark fade behind for readability */
 .ghh-hero.ghh-poster .ghh-showcase-on { background: linear-gradient(180deg, rgba(10,6,4,0) 0%, rgba(10,6,4,.45) 30%, rgba(10,6,4,.72) 100%); padding-bottom: env(safe-area-inset-bottom, 0px); }
