@@ -2506,3 +2506,11 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
     url("/__l5e/assets-v1/0dee0380-258a-4fcf-a0ad-d6ba154d5488/showroom-4.jpg") center / cover no-repeat; }
 .gh-admin-shell .rounded-xl, .gh-admin-shell .rounded-2xl, .gh-admin-shell .rounded-3xl {
   background-color: rgba(255,255,255,.05); backdrop-filter: blur(12px) saturate(1.2); }
+/* Frosted tint so the crystal boxes stay readable even where the phone skips the blur. */
+.ghx-shop .ghx-stats div, .ghx-shop .ghx-offer, .ghx-shop .ghx-cat-card, .ghx-shop .ghx-card, .ghx-shop .ghx-finder-form,
+.ghx-shop .ghx-roadmap li, .ghx-shop .ghx-contact-item, .ghx-shop .ghx-spotlight, .ghx-shop .ghx-coming, .ghx-shop .ghx-cart-line,
+.ghx-shop .ghx-tile, .ghx-shop .ghx-qty, .ghx-shop .ghx-drawer, .ghx-shop .ghx-pill,
+.gearhead-home .gh-category-card, .gearhead-home .gh-metal-frame {
+  background: linear-gradient(145deg, rgba(255,255,255,.13) 0%, rgba(255,255,255,.04) 50%, rgba(255,160,70,.06) 100%), rgba(22,16,12,.58) !important;
+  backdrop-filter: blur(16px) saturate(1.3);
+}
