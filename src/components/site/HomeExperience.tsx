@@ -118,16 +118,8 @@ export function HomeExperience() {
 
   return (
     <>
-      <nav className="gh-capabilities gh-approved-category-strip" aria-label="Explore GearHead RC categories">
-        <div className="gh-capabilities-inner">
-          {domains.map(({ icon: Icon, label, sub, href }) => (
-            <a href={href} className="gh-capability" key={label} aria-label={label + " — " + sub}>
-              <Icon aria-hidden="true" size={25} strokeWidth={1.9} />
-              <div><strong>{label}</strong><span>{sub}</span></div>
-            </a>
-          ))}
-        </div>
-      </nav>
+      <HeroShowcase variant="investor" />
+
 
 
       <section id="catalog" className="gh-chapter gh-chapter-catalog">
