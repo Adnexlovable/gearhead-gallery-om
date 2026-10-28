@@ -84,7 +84,7 @@ function AdminPage() {
 }
 
 function Shell({ children }: { children: React.ReactNode }) {
-  return <main className="min-h-screen bg-background px-5 py-10 md:px-10 md:py-14"><div className="mx-auto max-w-6xl">{children}</div></main>;
+  return <main className="gh-admin-shell min-h-screen bg-background px-5 py-10 md:px-10 md:py-14"><div className="mx-auto max-w-6xl">{children}</div></main>;
 }
 
 function useRows<T>(table: "enquiries" | "bookings" | "products" | "site_sections" | "roadmap_tasks", order: string, asc: boolean) {

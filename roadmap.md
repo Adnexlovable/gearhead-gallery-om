@@ -14,6 +14,8 @@
 - [ ] Admin AI helper: write search-friendly product titles and descriptions
 
 ## Done
+- [x] Admin dashboard background uses the owner's real shop photo
+- [x] Crystal glass boxes fixed for iPhone and other browsers (smoky frosted tint, readable text)
 - [x] Plain boxes turned into see-through crystal glass on every page; big service photo frame removed
 - [x] Removed the extra showroom frame and the repeated product picks; catalogue background now the dark shop photo theme
 - [x] Slimmer top bars on every page, about the height of the logo

@@ -1177,7 +1177,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
   border-color: rgba(255,163,67,.58);
   box-shadow: 0 10px 32px rgba(0,0,0,.18),inset 0 1px rgba(255,206,153,.22);
   backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
 }
 .gearhead-home .gh-metal-frame::before {
   border-color: rgba(255,160,68,.12);
@@ -1275,7 +1274,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 }
 @media (max-width: 700px) {
   .gearhead-home .gh-chapter-visual { opacity: .98; }
-  .gearhead-home .gh-metal-frame { backdrop-filter: blur(1.5px); -webkit-backdrop-filter: blur(1.5px); }
+  .gearhead-home .gh-metal-frame { backdrop-filter: blur(1.5px);}
   .gearhead-home .gh-chapter::before {
     background: linear-gradient(92deg,rgba(4,11,19,.70),rgba(4,10,18,.43) 59%,rgba(4,10,18,.28)),
       linear-gradient(0deg,rgba(3,8,14,.46),transparent 30%,rgba(4,8,15,.35));
@@ -1312,7 +1311,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
   border-color: rgba(255,157,57,.23);
   box-shadow: none;
   backdrop-filter: blur(.5px);
-  -webkit-backdrop-filter: blur(.5px);
 }
 .gearhead-home .gh-frame-dark::before,
 .gearhead-home .gh-investor-copy::before,
@@ -1331,7 +1329,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
   border-color: rgba(255,155,48,.27);
   box-shadow: none;
   backdrop-filter: blur(.8px);
-  -webkit-backdrop-filter: blur(.8px);
 }
 .gearhead-home .gh-chapter::before { opacity: .86; }
 .gearhead-home .gh-theme-footer {
@@ -1610,18 +1607,15 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 .gearhead-home .gh-chapter-investors::before {
   background: linear-gradient(95deg,rgba(3,8,17,.63),rgba(4,10,18,.20) 58%,rgba(5,11,17,.18));
   backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 }
 .gearhead-home .gh-chapter-contact::before {
   background: linear-gradient(95deg,rgba(3,8,16,.57),rgba(4,10,17,.19) 61%,rgba(4,10,18,.14));
   backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 }
 .gearhead-home .gh-chapter-investors .gh-investor-copy,
 .gearhead-home .gh-chapter-contact .gh-contact-box {
   background: linear-gradient(100deg,rgba(3,8,16,.28),rgba(3,9,17,.08));
   backdrop-filter: none;
-  -webkit-backdrop-filter: none;
   border-color: transparent;
   box-shadow: none;
 }
@@ -1634,7 +1628,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
   border: 1px solid rgba(255,165,62,.42);
   box-shadow: 0 4px 15px rgba(0,0,0,.17);
   backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
 }
 .gearhead-home .gh-chapter-investors .gh-investor-point::before {
   display: none;
@@ -1789,7 +1782,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 .gearhead-home #catalog .gh-category-card {
   background: linear-gradient(165deg,rgba(5,14,25,.43),rgba(9,18,28,.55));
   backdrop-filter: blur(1px);
-  -webkit-backdrop-filter: blur(1px);
 }
 .gearhead-home .gh-four-media-grid figure::after {
   content: "";
@@ -2047,7 +2039,7 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghx-shop .ghx-badge-sm { top: -6px; right: -10px; }
 
 /* Header */
-.ghx-shop .ghx-header { position: fixed; inset: 0 0 auto; z-index: 110; padding-top: env(safe-area-inset-top); background: rgba(23,18,14,.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--ghx-border); }
+.ghx-shop .ghx-header { position: fixed; inset: 0 0 auto; z-index: 110; padding-top: env(safe-area-inset-top); background: rgba(23,18,14,.88); backdrop-filter: blur(14px);border-bottom: 1px solid var(--ghx-border); }
 .ghx-shop .ghx-header-row { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: .75rem; width: min(100% - 1.5rem, 82rem); margin-inline: auto; min-height: 68px; padding-inline: env(safe-area-inset-left) env(safe-area-inset-right); }
 .ghx-shop .ghx-brand { display: flex; align-items: center; gap: .6rem; min-width: 0; }
 .ghx-shop .ghx-brand img { width: 46px; height: 46px; object-fit: contain; flex-shrink: 0; filter: drop-shadow(0 0 8px rgba(255,148,42,.35)); }
@@ -2342,10 +2334,10 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .gearhead-home .gh-hero-steel, .gearhead-home .gh-hero-copper { -webkit-text-stroke: 0 transparent; }
 .ghx-shop .ghx-hero-title .gh-hero-steel { background-image: linear-gradient(176deg,#ffffff 0%,#f4f6fa 22%,#b9c4d1 40%,#ffffff 55%,#9aa8b8 74%,#e9edf2 100%); }
 /* Header sits see-through over hero photos until the visitor scrolls (owner request). */
-.gearhead-home .gh-primary-header.gh-header-clear { background: linear-gradient(180deg, rgba(5,10,18,.72), rgba(5,10,18,0)); border-bottom: 1px solid transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.gearhead-home .gh-primary-header.gh-header-clear { background: linear-gradient(180deg, rgba(5,10,18,.72), rgba(5,10,18,0)); border-bottom: 1px solid transparent; backdrop-filter: none;}
 .gearhead-home .gh-primary-header.gh-header-solid { background: rgba(5,13,24,.94); border-bottom: 1px solid rgba(238,144,52,.45); backdrop-filter: blur(8px); }
 .ghx-shop .ghx-header { transition: background-color .3s ease, border-color .3s ease, backdrop-filter .3s ease; }
-.ghx-shop .ghx-header.is-clear { background: linear-gradient(180deg, rgba(23,18,14,.7), rgba(23,18,14,0)); border-bottom-color: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.ghx-shop .ghx-header.is-clear { background: linear-gradient(180deg, rgba(23,18,14,.7), rgba(23,18,14,0)); border-bottom-color: transparent; backdrop-filter: none;}
 /* Hero lettering matched to the owner's reference photo: bright chrome + glossy orange,
    dark outline via drop-shadows (text-shadow would paint over the clipped gradient). */
 .gearhead-home .gh-hero-brand { filter: none; }
@@ -2439,7 +2431,7 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghx-shop .ghx-showroom-row .ghx-media { aspect-ratio: 9/14; scroll-snap-align: start; }
 @media (min-width: 768px) { .ghx-shop .ghx-showroom-row { grid-auto-flow: row; grid-template-columns: repeat(4,1fr); } }
 /* Owner 2026-10-28: menu bar sits clean on the photo — no box, no blur, no shadow, tight to the top. */
-.ghx-shop .ghx-header.is-clear { background: linear-gradient(180deg, rgba(20,14,10,.55), rgba(20,14,10,0)) !important; box-shadow: none !important; border-bottom: 0 !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+.ghx-shop .ghx-header.is-clear { background: linear-gradient(180deg, rgba(20,14,10,.55), rgba(20,14,10,0)) !important; box-shadow: none !important; border-bottom: 0 !important; backdrop-filter: none !important;}
 .ghx-shop .ghx-header.is-clear .ghx-brand-name, .ghx-shop .ghx-header.is-clear .ghx-brand-sub { text-shadow: 0 1px 3px rgba(0,0,0,.85), 0 0 10px rgba(0,0,0,.5); }
 .ghx-shop .ghx-header.is-clear .ghx-icon-btn svg { filter: drop-shadow(0 1px 3px rgba(0,0,0,.8)); }
 @media (max-width: 767px) { .gearhead-home.ghx-shop .gh-primary-header { padding-top: env(safe-area-inset-top); } }
@@ -2503,8 +2495,22 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   background: linear-gradient(145deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.035) 45%, rgba(255,170,90,.05) 100%) !important;
   border: 1px solid rgba(255,235,215,.18) !important;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 10px 30px -14px rgba(0,0,0,.6) !important;
-  backdrop-filter: blur(14px) saturate(1.25); -webkit-backdrop-filter: blur(14px) saturate(1.25);
-}
+  backdrop-filter: blur(14px) saturate(1.25);}
 .ghx-shop .ghx-card-media, .ghx-shop .ghx-spot-media, .ghx-shop .ghx-card-noimg { background: rgba(255,255,255,.04) !important; }
 .gearhead-home .gh-category-body { background: transparent !important; }
 .ghx-shop #service .ghx-split { grid-template-columns: 1fr; }
+/* Owner 2026-10-28: admin dashboard sits on the owner's real shop photos. */
+.gh-admin-shell { position: relative; isolation: isolate; }
+.gh-admin-shell::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(20,14,10,.9), rgba(27,21,18,.84) 40%, rgba(20,14,10,.93)),
+    url("/__l5e/assets-v1/0dee0380-258a-4fcf-a0ad-d6ba154d5488/showroom-4.jpg") center / cover no-repeat; }
+.gh-admin-shell .rounded-xl, .gh-admin-shell .rounded-2xl, .gh-admin-shell .rounded-3xl {
+  background-color: rgba(255,255,255,.05); backdrop-filter: blur(12px) saturate(1.2); }
+/* Frosted tint so the crystal boxes stay readable even where the phone skips the blur. */
+.ghx-shop .ghx-stats div, .ghx-shop .ghx-offer, .ghx-shop .ghx-cat-card, .ghx-shop .ghx-card, .ghx-shop .ghx-finder-form,
+.ghx-shop .ghx-roadmap li, .ghx-shop .ghx-contact-item, .ghx-shop .ghx-spotlight, .ghx-shop .ghx-coming, .ghx-shop .ghx-cart-line,
+.ghx-shop .ghx-tile, .ghx-shop .ghx-qty, .ghx-shop .ghx-drawer, .ghx-shop .ghx-pill,
+.gearhead-home .gh-category-card, .gearhead-home .gh-metal-frame {
+  background: linear-gradient(145deg, rgba(255,255,255,.13) 0%, rgba(255,255,255,.04) 50%, rgba(255,160,70,.06) 100%), rgba(22,16,12,.58) !important;
+  backdrop-filter: blur(16px) saturate(1.3);
+}
