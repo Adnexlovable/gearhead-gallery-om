@@ -68,7 +68,7 @@ function ProductPage() {
   };
 
   return (
-    <div className="gearhead-home ghx-shop gh-has-bottomnav">
+    <div className="gearhead-home ghx-shop">
       <AppNavbar />
       <main className="ghx-page ghx-wrap">
         <nav className="ghx-crumbs" aria-label="Breadcrumb">

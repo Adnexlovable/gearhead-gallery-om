@@ -30,7 +30,7 @@ function StorePage() {
   useHashScroll();
   const { data } = useSuspenseQuery(shopCatalogQuery);
   return (
-    <div className="gearhead-home ghx-shop gh-has-bottomnav">
+    <div className="gearhead-home ghx-shop">
       <AppNavbar />
       <main className="ghx-page">
         <div className="ghx-wrap">
