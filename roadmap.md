@@ -21,3 +21,9 @@
 - [x] Link the Google Search Console account that manages gearheadrc.store (verified under contactadnex@gmail.com, sitemap submitted)
 - [ ] Review gearheadrc.store search performance once Google has 2–3 days of data
 - [ ] Email address adnex@gearheadrc.store: site emails now sent as adnex@ — owner must finish email setup for this project and choose a mailbox provider for receiving
+- [ ] Owner brief (Oct 28): main home "/" becomes the GearHead shop home (hero → about/Explore RC World with track, shop size, showroom videos/photos → product categories with photos → flagship section → clean roadmap); investor content moves to its own investors-only page
+- [ ] Category pages (Performance RC, Scale Crawler, Diecast, Parts & Accessories, Realistic RC, Construction RC…) with scale/size/collection filters, then product pages with colour swipe, add to cart and WhatsApp enquiry — styled like the owner's two phone mockups
+- [ ] Navbar: Home, Investors, RC Collection, Accessories, Cart, Search, Contact
+- [ ] Background: less pure black, shop theme a little darker; charcoal-black borders
+- [ ] Smooth parallax scrolling on every page
+- [ ] Polish the hero name font on the app and investor pages
