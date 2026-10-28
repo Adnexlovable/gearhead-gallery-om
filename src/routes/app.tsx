@@ -86,7 +86,6 @@ function ShopHome() {
               <span className="gh-hero-steel">GEARHEAD</span>
               <span className="gh-hero-copper">RC HUB</span>
             </h1>
-            <p className="ghx-hero-brandline">A brand of <strong>ADNEX.WORLD</strong></p>
             <p className="ghx-hero-tagline">A NEW RC EXPERIENCE FOR OMAN</p>
             <div className="ghx-hero-ctas">
               <a href="#categories" className="ghx-btn ghx-btn-primary ghx-btn-lg"><ShoppingBag size={18} aria-hidden="true" /> Explore RC Products <ArrowRight size={17} aria-hidden="true" /></a>
