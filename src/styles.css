@@ -2919,3 +2919,12 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   .ghh-hero.ghh-poster { background: linear-gradient(rgba(14,8,4,.65), rgba(14,8,4,.65)), url("/__l5e/assets-v1/ccc97a20-b247-4797-af26-9f43ea2c54ff/shop-bridge-track.jpg") center / cover no-repeat, #1a0f08 !important; }
   .ghh-hero.ghh-poster .ghh-poster-img { box-shadow: 0 0 0 1px rgba(232,108,31,.35), 0 30px 80px rgba(0,0,0,.55); }
 }
+
+/* ===== Installed-app splash (once per session, ~1.5s, fades into the page) ===== */
+.gh-splash { display: none; }
+html.gh-splash-on .gh-splash { display: grid; place-items: center; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background: radial-gradient(circle at 50% 46%, rgba(232,108,31,.32), rgba(20,11,6,0) 42%), #140b06; opacity: 1; transition: opacity .55s ease; }
+html.gh-splash-on .gh-splash img { width: min(46vw, 210px); height: auto; object-fit: contain; filter: drop-shadow(0 0 22px rgba(232,108,31,.55)); animation: gh-splash-pop 1.4s ease-out both; }
+html.gh-splash-out .gh-splash { opacity: 0; }
+@keyframes gh-splash-pop { from { transform: scale(.86); opacity: 0; } 35% { opacity: 1; } to { transform: scale(1); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { html.gh-splash-on .gh-splash img { animation: none; } }

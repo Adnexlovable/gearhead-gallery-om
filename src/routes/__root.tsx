@@ -15,6 +15,9 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { supabase } from "@/integrations/supabase/client";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { Toaster } from "@/components/ui/sonner";
+import { APP_ICON_192, APP_THEME, SPLASH_SCRIPT, pwaLinks } from "@/lib/pwa";
+import { siteSeoQuery } from "@/lib/seo.functions";
+import { verificationCode } from "@/lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -56,16 +59,21 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   staticData: { sitemap: false },
-  head: () => ({
+  loader: ({ context }) => context.queryClient.ensureQueryData(siteSeoQuery).catch(() => null),
+  head: ({ loaderData }) => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
-      { name: "theme-color", content: "#050d18" },
+      { name: "theme-color", content: APP_THEME },
+      { name: "application-name", content: "GearHead RC" },
+      { name: "msapplication-TileColor", content: APP_THEME },
       { name: "mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { name: "apple-mobile-web-app-title", content: "GearHead RC" },
       { name: "google-site-verification", content: "onFo_S52MbEFzFkgQlc8PnpmvUOoF5wf1jgZgGtFqOs" },
+      // Extra code pasted by the owner in Admin → Search (Google accepts several verification tags).
+      ...(() => { const c = verificationCode(loaderData?.googleVerification ?? ""); return c && c !== "onFo_S52MbEFzFkgQlc8PnpmvUOoF5wf1jgZgGtFqOs" ? [{ name: "google-site-verification", content: c }] : []; })(),
       { title: "GearHead RC Hub — A New RC Experience for Oman" },
       { name: "description", content: "GearHead RC Hub — performance RC cars, scale crawlers, parts and an indoor track experience planned for Bousher, Muscat, Oman." },
       { name: "author", content: "GearHead RC" },
@@ -75,14 +83,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-      { rel: "icon", type: "image/png", href: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/7a9feae0-8f03-4152-b52c-8f109c2253b1.png" },
-      { rel: "apple-touch-icon", sizes: "180x180", href: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/7a9feae0-8f03-4152-b52c-8f109c2253b1.png" },
-      { rel: "manifest", href: "/manifest.webmanifest" },
+      ...pwaLinks,
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,800;1,900&family=Saira:ital,wdth,wght@1,125,800;1,125,900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" },
     ],
+    scripts: [{ children: SPLASH_SCRIPT }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -92,9 +99,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       <head><HeadContent /></head>
-      <body>{children}<Scripts /></body>
+      <body>
+        {/* Installed-app splash: shown only when the opening script adds .gh-splash-on */}
+        <div className="gh-splash" aria-hidden="true"><img src={APP_ICON_192} alt="" width={168} height={168} /></div>
+        {children}<Scripts />
+      </body>
     </html>
   );
 }

@@ -1,19 +1,21 @@
 {
+  "id": "/",
   "name": "GearHead RC Hub",
   "short_name": "GearHead RC",
-  "description": "RC cars, scale crawlers, parts and an indoor track planned for Bausher, Muscat.",
+  "description": "RC cars, scale crawlers, parts, service and an indoor RC track in Bausher, Muscat. A brand of Adnex.World.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
   "orientation": "portrait",
-  "background_color": "#050d18",
-  "theme_color": "#050d18",
+  "background_color": "#140b06",
+  "theme_color": "#140b06",
+  "lang": "en",
+  "categories": ["shopping", "sports", "entertainment"],
   "icons": [
-    {
-      "src": "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/7a9feae0-8f03-4152-b52c-8f109c2253b1.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    }
+    { "src": "/__l5e/assets-v1/46c026f2-1e75-408f-807a-870b57d5773d/gearhead-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/__l5e/assets-v1/59a92c31-6dcb-460d-b0ac-6f0858504ec8/gearhead-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/__l5e/assets-v1/3c3c6732-f793-4204-8a8a-b79378668bee/gearhead-icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/__l5e/assets-v1/7bbecdd3-3deb-4350-ab3c-539965192c60/gearhead-icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
