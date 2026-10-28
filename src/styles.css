@@ -2461,3 +2461,5 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 @media (max-width: 767px) {
   .ghx-shop .ghx-hero-inner { padding-top: calc(30svh + 14px); }
 }
+.ghx-shop .ghx-section::before { background: linear-gradient(180deg, rgba(27,21,18,.88), rgba(27,21,18,.66) 35%, rgba(27,21,18,.66) 65%, rgba(27,21,18,.9)), var(--ghx-shop-photo) center / cover no-repeat; }
+@media (max-width: 767px) { .ghx-shop .ghx-hero-inner { padding-bottom: 11svh; } }
