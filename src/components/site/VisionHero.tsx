@@ -1,6 +1,6 @@
 // Owner's own GEARHEAD RC HUB poster (title, crawler and flag baked in), shown whole.
 // The rocky ground is extended below the tyres so the 2 buttons + 5 boxes sit on the rocks.
-import posterAsset from "@/assets/hero-cover-clean.jpg.asset.json";
+import posterAsset from "@/assets/hero-cover-title.jpg.asset.json";
 import { HeroShowcase } from "./HeroShowcase";
 
 export function VisionHero({ mode }: { mode?: "investor" | "app"; portraitSrc?: string }) {
