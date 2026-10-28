@@ -2750,3 +2750,81 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghh-steel { font-size: clamp(3.2rem, 14.5vw, 9rem); }
 .ghh-orange { font-size: clamp(3.7rem, 17vw, 10rem); }
 @media (min-aspect-ratio: 1/1) { .ghh-hero { background: #2b2a33 !important; } .ghh-steel { font-size: clamp(4rem, 8.6vw, 9.5rem); } .ghh-orange { font-size: clamp(4.4rem, 9.6vw, 10.5rem); } }
+
+/* ===== Owner 2026-10-28 (strict brief 2): unified hero, showcase strip, shop-photo backgrounds, logo-orange accents ===== */
+:root { --gh-logo-orange: #E86C1F; --gh-logo-amber: #D97706; }
+.ghx-shop { --ghx-accent: #E86C1F; --ghx-accent-2: #F08A35; --ghx-border: rgba(232,108,31,.34); --ghx-border-strong: rgba(232,108,31,.6); }
+.gearhead-home { --gh-orange: #E86C1F; }
+.gearhead-home .gh-metal-frame, .gearhead-home .gh-category-card, .ghx-shop .ghx-cat-card, .ghx-shop .ghx-card,
+.ghx-shop .ghx-stats div, .ghx-shop .ghx-offer, .ghx-shop .ghx-roadmap li, .ghx-shop .ghx-contact-item {
+  border-color: rgba(232,108,31,.55) !important; box-shadow: 0 0 0 1px rgba(217,119,6,.12), 0 10px 30px rgba(0,0,0,.35), 0 0 22px rgba(232,108,31,.12) !important; }
+
+/* Title block: clear gap from the feather flag on the right */
+@media (max-aspect-ratio: 1/1) {
+  .ghh-copy { right: auto !important; max-width: 74%; }
+  .ghh-steel { font-size: clamp(2.9rem, 13vw, 8rem) !important; }
+  .ghh-orange { font-size: clamp(3.3rem, 15vw, 9rem) !important; }
+  .ghh-brand { font-size: clamp(.72rem, 3vw, 1.1rem) !important; }
+  .ghh-tagline { font-size: clamp(.66rem, 2.8vw, 1.1rem) !important; letter-spacing: .12em !important; }
+}
+
+/* Showcase directly under the cover: 2 buttons + 5 dark-glass category boxes */
+.ghs-showcase { position: relative; isolation: isolate; padding: 1.1rem 0 1.4rem; overflow: hidden; }
+.ghs-showcase::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(12,8,5,.92) 0%, rgba(14,9,5,.7) 45%, rgba(12,8,5,.88) 100%),
+    url("/__l5e/assets-v1/e2266917-8c41-453c-a855-2b979985d7d0/shop-floor-wide.jpg") center / cover no-repeat; }
+.ghs-inner { width: min(100% - 1.5rem, 72rem); margin-inline: auto; display: grid; gap: .8rem; }
+.ghs-ctas { display: grid; grid-template-columns: 1fr 1fr; gap: .55rem; }
+.ghs-btn { display: flex; align-items: center; justify-content: center; gap: .4rem; min-height: 50px; padding: 0 .6rem; border-radius: .8rem;
+  font: 800 clamp(.68rem, 3.1vw, .98rem)/1.1 "Bricolage Grotesque", sans-serif; text-align: center; transition: transform .2s ease, box-shadow .2s ease; }
+.ghs-btn span { min-width: 0; }
+.ghs-btn svg { flex: 0 0 auto; }
+.ghs-btn:hover { transform: translateY(-1px); }
+.ghs-btn-solid { color: #1b0e04; background: linear-gradient(180deg, #F59A45 0%, #E86C1F 55%, #C2560F 100%);
+  border: 1px solid #F59A45; box-shadow: 0 8px 22px rgba(232,108,31,.38), inset 0 1px 0 rgba(255,255,255,.35); }
+.ghs-btn-glass { color: #fff; background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(0,0,0,.35));
+  border: 1.5px solid rgba(232,108,31,.85); box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 0 16px rgba(232,108,31,.18); }
+.ghs-btn-glass svg { color: #F08A35; }
+.ghs-tiles { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .4rem; }
+.ghs-tile { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .28rem; min-width: 0; padding: .7rem .2rem .6rem; border-radius: .75rem;
+  background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(0,0,0,.45));
+  border: 1px solid rgba(217,119,6,.75); box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 0 14px rgba(232,108,31,.16); transition: border-color .2s, transform .2s; }
+.ghs-tile:hover { border-color: #F59A45; transform: translateY(-2px); }
+.ghs-tile svg { color: #E86C1F; filter: drop-shadow(0 0 7px rgba(232,108,31,.75)); }
+.ghs-tile strong { color: #fff; font: 900 clamp(.5rem, 2.25vw, .82rem)/1.05 "Exo 2", sans-serif; font-style: italic; letter-spacing: .01em; white-space: nowrap; }
+.ghs-tile span { color: #F08A35; font: 600 clamp(.44rem, 1.9vw, .7rem)/1.15 "Bricolage Grotesque", sans-serif; }
+@media (min-width: 768px) {
+  .ghs-showcase { padding: 1.6rem 0 2rem; }
+  .ghs-ctas { grid-template-columns: repeat(2, minmax(0, 22rem)); justify-content: center; }
+  .ghs-tiles { gap: .8rem; }
+  .ghs-tile { padding: 1rem .4rem; gap: .4rem; }
+  .ghs-tile svg { width: 32px; height: 32px; }
+}
+
+/* Shop photos as the background behind every shop section (no flat brown) */
+.ghx-shop .ghx-section::before { display: block !important;
+  background: linear-gradient(180deg, rgba(12,8,5,.84), rgba(16,10,6,.6) 35%, rgba(16,10,6,.6) 65%, rgba(12,8,5,.86)), var(--ghx-shop-photo) center / cover no-repeat !important; }
+.ghx-shop .ghx-section:nth-of-type(4n+1) { --ghx-shop-photo: var(--ghx-bg1, url("/__l5e/assets-v1/e2266917-8c41-453c-a855-2b979985d7d0/shop-floor-wide.jpg")); }
+.ghx-shop .ghx-section:nth-of-type(4n+2) { --ghx-shop-photo: var(--ghx-bg2, url("/__l5e/assets-v1/bde5ca85-8db4-46fd-9b1d-74f4533e2e6b/shop-counter.jpg")); }
+.ghx-shop .ghx-section:nth-of-type(4n+3) { --ghx-shop-photo: var(--ghx-bg3, url("/__l5e/assets-v1/6fbcc918-b427-4625-8ee8-8f2bbd38c4c0/shop-service-room.jpg")); }
+.ghx-shop .ghx-section:nth-of-type(4n+4) { --ghx-shop-photo: var(--ghx-bg4, url("/__l5e/assets-v1/e5253946-90bd-4199-a520-84fada5ede81/shop-shelves.jpg")); }
+.ghx-shop .ghx-page::before, .gh-admin-shell::before {
+  background: linear-gradient(180deg, rgba(12,8,5,.78), rgba(16,10,6,.62) 50%, rgba(12,8,5,.8)), var(--ghx-bg1, url("/__l5e/assets-v1/e2266917-8c41-453c-a855-2b979985d7d0/shop-floor-wide.jpg")) center / cover no-repeat !important; }
+
+/* Bigger category cards: tall, wide photos */
+.gearhead-home #catalog .gh-category-cover { height: 256px !important; }
+.ghx-shop .ghx-cat-card .ghx-cat-media { aspect-ratio: auto !important; height: 256px !important; }
+.ghx-shop .ghx-cat-card .ghx-cat-media img { aspect-ratio: auto !important; height: 100% !important; }
+@media (max-width: 767px) {
+  .ghx-shop .ghx-cat-grid, .gearhead-home .gh-category-grid { grid-auto-columns: 88vw !important; }
+  .gearhead-home #catalog .gh-category-cover, .ghx-shop .ghx-cat-card .ghx-cat-media { height: 288px !important; }
+}
+
+/* Menu panels: dark crystal blur glass */
+.ghx-shop .ghx-header:has(.ghx-drawer), .gearhead-home .gh-primary-header:has(.gh-mobile-drawer) { backdrop-filter: none !important; }
+.ghx-shop .ghx-drawer, .gearhead-home .gh-mobile-drawer {
+  background: linear-gradient(180deg, rgba(18,16,18,.62), rgba(8,7,8,.7)) !important;
+  backdrop-filter: blur(24px) saturate(150%) !important;
+  border: 1px solid rgba(255,255,255,.12) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 0 0 1px rgba(232,108,31,.25), 0 24px 60px rgba(0,0,0,.6) !important; }
+.ghx-shop .ghx-drawer-link { background: rgba(255,255,255,.05) !important; border-color: rgba(255,255,255,.1) !important; color: #fff; }
+.ghx-shop .ghx-drawer-link:hover { border-color: rgba(232,108,31,.7) !important; }

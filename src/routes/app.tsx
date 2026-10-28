@@ -2,8 +2,7 @@ import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
-  ArrowLeftRight, ArrowRight, CarFront, CheckCircle2, Facebook, Instagram, Mail, MapPin, MessageCircle,
-  Mountain, PackageCheck, Phone, Route as TrackIcon, ShoppingBag, Wrench,
+  ArrowRight, CheckCircle2, Facebook, Instagram, Mail, MapPin, MessageCircle, Phone,
 } from "lucide-react";
 import { AppNavbar } from "@/components/site/AppNavbar";
 import { Footer } from "@/components/site/Footer";
@@ -29,14 +28,6 @@ const motion = {
 
 
 };
-
-const tiles = [
-  { icon: CarFront, name: "RC Cars", sub: "Racing & Fun", category: "performance" },
-  { icon: Mountain, name: "Crawlers", sub: "Scale & Adventure", category: "crawlers" },
-  { icon: PackageCheck, name: "Spare Parts", sub: "Wide Selection", category: "parts" },
-  { icon: Wrench, name: "Service", sub: "Tuning & Repairs", hash: "service" },
-  { icon: TrackIcon, name: "Indoor Track", sub: "Test & Play", hash: "explore-rc-world" },
-] as const;
 
 const milestones = [
   { no: "01", title: "Secure the shop", note: "Finalise the Bausher premises and approvals." },

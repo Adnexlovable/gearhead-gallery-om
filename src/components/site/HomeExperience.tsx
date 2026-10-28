@@ -2,8 +2,8 @@ import { useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowUpRight, BatteryCharging, CarFront, CheckCircle2, ChevronRight,
-  Gauge, Handshake, MapPin, Mountain, PackageCheck, Route, ShieldCheck, Sparkles,
-  Wrench, Zap,
+  Gauge, Handshake, MapPin, Mountain, PackageCheck, ShieldCheck, Sparkles,
+  Zap,
 } from "lucide-react";
 import { InvestorDeckRequest } from "./InvestorDeckRequest";
 import { CinematicScene } from "./CinematicScene";
