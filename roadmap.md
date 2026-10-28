@@ -19,3 +19,4 @@
 - [ ] Admin: AI helper where staff enter product details and get search-friendly titles, descriptions and local keywords
 - [x] Optimise home and store for iPhone 14 Pro full screen (safe areas, full-height sections, no sideways scroll)
 - [ ] Link the Google Search Console account that manages gearheadrc.store and review its search performance
+- [ ] Email address adnex@gearheadrc.store for the owner
