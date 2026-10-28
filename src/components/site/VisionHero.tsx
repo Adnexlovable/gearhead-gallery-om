@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 // sunset sky, the whole white-and-red RC crawler, and the GEARHEAD feather flag.
 import heroPortrait from "@/assets/home-hero-916-v2.jpg";
 import heroWide from "@/assets/home-hero-169-flag.jpg";
-import titleArt from "@/assets/hero-title-3d.png";
+import posterAsset from "@/assets/hero-poster.jpg.asset.json";
 import { HeroShowcase } from "./HeroShowcase";
 
 export function VisionHero({ portraitSrc, mode }: { mode?: "investor" | "app"; portraitSrc?: string }) {
@@ -31,26 +31,9 @@ export function VisionHero({ portraitSrc, mode }: { mode?: "investor" | "app"; p
 
   return (
     <>
-    <section
-      id="top"
-      className="ghh-hero"
-      aria-label="GearHead RC Hub — A New RC Experience for Oman"
-      style={{ ["--ghh-portrait" as string]: `url("${portrait}")` }}
-    >
-      <div ref={sceneRef} className="ghh-scene" aria-hidden="true">
-        <picture>
-          <source media="(min-aspect-ratio: 1/1)" srcSet={heroWide} />
-          <img src={portrait} alt="" className="ghh-img" width={1088} height={1920} fetchPriority="high" decoding="async" />
-        </picture>
-      </div>
-      <div className="ghh-shade" aria-hidden="true" />
-      <div className="ghh-copy">
-        <h1 className="ghh-title-img">
-          <img src={titleArt} alt="GEARHEAD RC HUB — A New RC Experience for Oman" width={1200} height={400} />
-        </h1>
-        <p className="ghh-tagline ghh-tag4">A NEW RC EXPERIENCE FOR OMAN</p>
-        <p className="ghh-brand">A brand of <span>ADNEX.WORLD</span></p>
-      </div>
+    <section id="top" className="ghh-hero ghh-poster" aria-label="GearHead RC Hub — A New RC Experience for Oman">
+      <h1 className="sr-only">GEARHEAD RC HUB — A New RC Experience for Oman</h1>
+      <img src={posterAsset.url} alt="GEARHEAD RC HUB poster with RC crawler and flag" className="ghh-poster-img" width={1072} height={1600} fetchPriority="high" />
     </section>
       <div className="ghh-showcase-below">
         <HeroShowcase variant={mode === "app" ? "app" : "investor"} />
