@@ -28,11 +28,15 @@ export function SmoothScroll() {
 
     const sectionSel = ".gh-chapter, .gh-approved-showroom, [data-parallax-section]";
     const current = new WeakMap<Element, number>();
+    // Only move elements React has already hydrated, so server HTML and the
+    // first client render always match.
+    const hydrated = (el: Element) => Object.keys(el).some((k) => k.startsWith("__reactFiber"));
     let raf = 0;
     const tick = (time: number) => {
       lenis?.raf(time);
       const vh = window.innerHeight;
       document.querySelectorAll<HTMLElement>(sectionSel).forEach((el) => {
+        if (!hydrated(el)) return;
         const box = el.getBoundingClientRect();
         if (box.bottom < -200 || box.top > vh + 200) return;
         const target = Math.max(-70, Math.min(70, ((box.top + box.height / 2 - vh / 2) / vh) * -36));
@@ -42,6 +46,7 @@ export function SmoothScroll() {
         el.style.setProperty("--gh-parallax", next.toFixed(2) + "px");
       });
       document.querySelectorAll<HTMLElement>("[data-parallax]").forEach((el) => {
+        if (!hydrated(el)) return;
         const speed = Number(el.dataset.parallax) || 0.15;
         const host = (el.parentElement ?? el).getBoundingClientRect();
         if (host.bottom < -200 || host.top > vh + 200) return;
