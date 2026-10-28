@@ -1,6 +1,6 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ArrowLeft, ChevronDown, ChevronRight, Home, Menu, Store, X, User, LogOut } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, X, User, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useActivePageSection, type PageSection } from "@/hooks/useActivePageSection";
 
@@ -31,7 +31,6 @@ export function Navbar() {
   const [signedIn, setSignedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const activeSection = useActivePageSection(pathname, SECTIONS);
-  const currentSection = SECTIONS.find((item) => item.id === activeSection)?.label ?? "Home / Hero";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 32);
@@ -87,7 +86,7 @@ export function Navbar() {
   };
 
   return (
-    <header className={`gh-primary-header fixed inset-x-0 top-0 z-[110] border-b border-[#ee9034]/60 bg-[#050d18]/95 backdrop-blur-sm transition-[padding] duration-200 ${scrolled ? "py-1.5 md:py-2" : "py-2 md:py-3"}`}>
+    <header className={`gh-primary-header fixed inset-x-0 top-0 z-[110] transition-[padding,background-color,border-color] duration-300 ${scrolled || open ? "gh-header-solid py-1.5 md:py-2" : "gh-header-clear py-2 md:py-3"}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 md:px-8">
         <Link to="/" onClick={() => setOpen(false)} className="gh-navbar-brand flex min-w-0 shrink-0 items-center gap-2.5" aria-label="GearHead RC Hub — Investor Home">
           <img src={logo} width={52} height={52} decoding="async" alt="" className="gh-navbar-brand-mark h-11 w-11 shrink-0 object-contain drop-shadow-[0_2px_6px_rgba(255,122,24,.35)] md:h-12 md:w-12" />
@@ -133,13 +132,6 @@ export function Navbar() {
         </button>
       </div>
 
-      <div className="gh-location-strip mx-auto mt-1 flex max-w-7xl items-center gap-1.5 px-4 pb-0.5 text-[10px] font-bold text-[#d4c3b3] md:px-8" aria-label="Current location">
-        <Home size={11} aria-hidden="true" className="text-[#ffae54]"/>
-        <span>Investor Home</span>
-        <ChevronRight size={11} aria-hidden="true" className="text-[#e89844]"/>
-        <span className="gh-location-current min-w-0 truncate text-[#ffc282]">{currentSection}</span>
-        <span className="ml-auto font-mono text-[9px] font-extrabold tracking-[.13em] text-[#ffab53] lg:hidden">{open ? "CLOSE MENU" : "MENU"}</span>
-      </div>
 
       {open && (
         <nav id="gh-investor-mobile-menu" aria-label="Mobile page and section navigation"

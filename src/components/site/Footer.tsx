@@ -1,4 +1,5 @@
-import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowLeftRight, ArrowUpRight, Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react";
+import { DEFAULT_SHOP_DETAILS } from "@/lib/shop-details";
 
 const quickLinks = [
   { label: "The Vision", href: "/#foundation" },
@@ -10,11 +11,14 @@ const quickLinks = [
 ];
 
 const appLinks = [
-  { label: "Shopping App Home", href: "/app" },
-  { label: "Performance RC", href: "/store#performance" },
-  { label: "Scale Crawlers", href: "/store#crawlers" },
-  { label: "Diecast & Collectibles", href: "/store#diecast" },
-  { label: "Parts & Upgrades", href: "/store#parts" },
+  { label: "Shop Home", href: "/app" },
+  { label: "Full RC Collection", href: "/store" },
+  { label: "Performance RC", href: "/collection/performance" },
+  { label: "Scale Crawlers", href: "/collection/crawlers" },
+  { label: "Diecast Models", href: "/collection/diecast" },
+  { label: "Spare Parts & Upgrades", href: "/collection/parts" },
+  { label: "Product Finder", href: "/app#finder" },
+  { label: "Your Order", href: "/cart" },
 ];
 
 export function Footer({ variant = "investor" }: { variant?: "investor" | "app" }) {
@@ -66,6 +70,10 @@ export function Footer({ variant = "investor" }: { variant?: "investor" | "app" 
           <a href="mailto:Adnant.t636@gmail.com" className="mt-3 flex items-center gap-2 break-all text-sm font-medium text-[#fff0db] hover:text-white">
             <Mail size={16} className="shrink-0 text-[#ffb45f]" /> Adnant.t636@gmail.com
           </a>
+          <div className="mt-4 flex gap-3">
+            <a href={DEFAULT_SHOP_DETAILS.instagram} target="_blank" rel="noopener noreferrer" aria-label="GearHead on Instagram" className="grid h-10 w-10 place-items-center rounded-full border border-[#ff9e39]/60 text-[#ffd098] hover:text-white"><Instagram size={18} /></a>
+            <a href={DEFAULT_SHOP_DETAILS.facebook} target="_blank" rel="noopener noreferrer" aria-label="GearHead on Facebook" className="grid h-10 w-10 place-items-center rounded-full border border-[#ff9e39]/60 text-[#ffd098] hover:text-white"><Facebook size={18} /></a>
+          </div>
           <a href="https://wa.me/96898675132" target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-2 border-b border-[#ff9e39]/70 pb-1 text-sm font-bold text-[#ffd098] hover:text-white">
             WhatsApp GearHead <ArrowUpRight size={17} />
           </a>
@@ -82,6 +90,9 @@ export function Footer({ variant = "investor" }: { variant?: "investor" | "app" 
       </div>
       <div className="relative z-10 mx-auto mt-12 flex max-w-7xl flex-wrap items-center justify-between gap-2 border-t border-[#ffa34a]/55 pt-6 text-[11px] font-medium text-[#f5ddc3]">
         <span>© {new Date().getFullYear()} GearHead RC Hub · Adnan Trading Services LLC</span>
+        <a href={variant === "app" ? "/" : "/app"} className="inline-flex items-center gap-2 rounded-full border border-[#ffa34a]/70 px-3 py-1.5 font-bold text-[#ffd098] hover:text-white">
+          <ArrowLeftRight size={14} aria-hidden="true" /> {variant === "app" ? "Switch to investor site" : "Switch to GearHead App"}
+        </a>
         <span>Muscat · Sultanate of Oman</span>
       </div>
     </footer>

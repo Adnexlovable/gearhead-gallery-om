@@ -5,6 +5,7 @@ import type { Tables } from "@/integrations/supabase/types";
 import { Button } from "@/components/ui/button";
 import { ShopDetailsEditor } from "@/components/admin/ShopDetailsEditor";
 import { SearchConsolePanel } from "@/components/admin/SearchConsolePanel";
+import { ShopCatalogAdmin } from "@/components/admin/ShopCatalogAdmin";
 import { parseShopDetails } from "@/lib/shop-details";
 import { ArrowUpRight, RefreshCw, LogOut, Inbox as InboxIcon, CalendarDays, Package, Layers, ListChecks, Clock, CheckCircle2, Search } from "lucide-react";
 
@@ -24,7 +25,7 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-const TABS = ["Inbox", "Bookings", "Products", "Sections", "Roadmap", "Search"] as const;
+const TABS = ["Inbox", "Bookings", "Shop catalogue", "Sections", "Roadmap", "Search"] as const;
 const TAB_ICONS = [InboxIcon, CalendarDays, Package, Layers, ListChecks, Search];
 type Tab = (typeof TABS)[number];
 
@@ -73,7 +74,7 @@ function AdminPage() {
         <div className="mb-6"><div className="text-xs uppercase text-muted-foreground">{tab === "Sections" ? "Website control" : "Boutique management"}</div><h2 className="mt-2 font-display text-3xl font-bold">{tab}</h2></div>
         {tab === "Inbox" && <Inbox />}
         {tab === "Bookings" && <Bookings />}
-        {tab === "Products" && <Products />}
+        {tab === "Shop catalogue" && <ShopCatalogAdmin />}
         {tab === "Sections" && <Sections />}
         {tab === "Roadmap" && <Roadmap />}
         {tab === "Search" && <SearchConsolePanel />}
@@ -145,30 +146,6 @@ function Bookings() {
           </div>
           <div className="mt-2 font-display font-bold text-foreground">{r.name} · <span className="text-gold">{r.contact}</span></div>
           {r.notes && <p className="mt-1 text-sm text-muted-foreground">{r.notes}</p>}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function Products() {
-  const { rows, load } = useRows<Tables<"products">>("products", "sort", true);
-  const update = async (id: string, patch: Partial<Tables<"products">>) => { await supabase.from("products").update(patch).eq("id", id); load(); };
-  if (!rows.length) return <Empty text="No products." />;
-  return (
-    <div className="grid gap-3 md:grid-cols-2">
-      {rows.map((r) => (
-        <div key={r.id} className={card}>
-          <div className={small}>{r.type} · {r.edition}</div>
-          <div className="mt-1 font-display font-bold text-foreground">{r.name}</div>
-          <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
-            OMR <input type="number" step="0.001" defaultValue={r.price} className={`${inputCls} w-24`} onBlur={(e) => update(r.id, { price: Number(e.target.value) })} />
-            – <input type="number" step="0.001" defaultValue={r.price_max} className={`${inputCls} w-24`} onBlur={(e) => update(r.id, { price_max: Number(e.target.value) })} />
-          </div>
-          <div className="mt-3 flex gap-2">
-            <button className={btn} onClick={() => update(r.id, { in_stock: !r.in_stock })}>{r.in_stock ? "In stock" : "Pre-order"}</button>
-            <button className={btn} onClick={() => update(r.id, { visible: !r.visible })}>{r.visible ? "Visible" : "Hidden"}</button>
-          </div>
         </div>
       ))}
     </div>

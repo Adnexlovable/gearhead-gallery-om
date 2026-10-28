@@ -21,9 +21,18 @@
 - [x] Link the Google Search Console account that manages gearheadrc.store (verified under contactadnex@gmail.com, sitemap submitted)
 - [ ] Review gearheadrc.store search performance once Google has 2–3 days of data
 - [ ] Email address adnex@gearheadrc.store: site emails now sent as adnex@ — owner must finish email setup for this project and choose a mailbox provider for receiving
-- [ ] Owner brief (Oct 28): main home "/" becomes the GearHead shop home (hero → about/Explore RC World with track, shop size, showroom videos/photos → product categories with photos → flagship section → clean roadmap); investor content moves to its own investors-only page
-- [ ] Category pages (Performance RC, Scale Crawler, Diecast, Parts & Accessories, Realistic RC, Construction RC…) with scale/size/collection filters, then product pages with colour swipe, add to cart and WhatsApp enquiry — styled like the owner's two phone mockups
-- [ ] Navbar: Home, Investors, RC Collection, Accessories, Cart, Search, Contact
-- [ ] Background: less pure black, shop theme a little darker; charcoal-black borders
-- [ ] Smooth parallax scrolling on every page
-- [ ] Polish the hero name font on the app and investor pages
+- [x] Owner brief (Oct 28): shop home lives at /app (owner chose to keep the investor home at /); about, categories, flagship and roadmap sections built
+- [x] Category pages (Performance RC, Scale Crawler, Diecast, Parts & Accessories, Realistic RC, Construction RC…) with scale/size/collection filters, then product pages with colour swipe, add to cart and WhatsApp enquiry — styled like the owner's two phone mockups
+- [x] Navbar: Home, Investors, RC Collection, Accessories, Cart, Search, Contact
+- [x] Background: less pure black (superseded: owner wants the earlier deep-blue theme)
+- [x] Smooth parallax scrolling on every page
+- [x] Polish the hero name font on the app and investor pages
+- [x] Owner catalogue PDFs (Part 1 + 2): every item in its own correct category (no mixing), 3 photos per item in different styles
+- [x] AI product finder: shoppers describe the model, vehicle or budget they want and get matching catalogue products
+- [x] Shop super-admin page: manage products, their photos and categories (and page titles/descriptions) from the dashboard, feeding the live shop app
+- [x] Add Instagram (gearhead_oman) and Facebook links to the site
+- [x] Shop app hero and category section styled like the owner's phone/desktop mockups (photo hero with chrome GEARHEAD / orange RC HUB, two buttons, quick tiles, image category cards)
+- [x] No solid nav bar over the hero: drop the "Investor Home > Home / Hero" strip; header transparent over hero photo until scrolling
+- [x] Hero name lettering like the owner photo: bright chrome GEARHEAD, glossy orange RC HUB, dark outline; crawler-at-sunset cover photo
+- [x] Shop background back to the earlier deep-blue site theme, no extra charcoal black
+- [ ] Admin sign-in for this remixed project: no accounts exist yet — owner signs up, then gets the admin role

@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowUpRight, BatteryCharging, CarFront, CheckCircle2, ChevronRight,
@@ -115,30 +115,6 @@ const milestones = [
 export function HomeExperience() {
   const [deckOpen, setDeckOpen] = useState(false);
 
-  useEffect(() => {
-    const sections = Array.from(document.querySelectorAll<HTMLElement>(".gearhead-home .gh-chapter, .gearhead-home .gh-approved-showroom"));
-    if (!sections.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const center = window.innerHeight / 2;
-      for (const section of sections) {
-        const box = section.getBoundingClientRect();
-        if (box.bottom < -150 || box.top > window.innerHeight + 150) continue;
-        const offset = (box.top + box.height / 2 - center) / window.innerHeight;
-        section.style.setProperty("--gh-parallax", Math.max(-65, Math.min(65, offset * -32)).toFixed(1) + "px");
-      }
-    };
-    const scroll = () => { if (!raf) raf = requestAnimationFrame(update); };
-    update();
-    window.addEventListener("scroll", scroll, { passive: true });
-    window.addEventListener("resize", scroll);
-    return () => {
-      window.removeEventListener("scroll", scroll);
-      window.removeEventListener("resize", scroll);
-      if (raf) cancelAnimationFrame(raf);
-    };
-  }, []);
 
   return (
     <>

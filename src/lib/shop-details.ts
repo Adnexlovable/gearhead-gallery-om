@@ -7,8 +7,8 @@ export const DEFAULT_SHOP_DETAILS = {
   whatsapp: "+968 9867 5132",
   hours: "",
   email: "adnant.t636@gmail.com",
-  instagram: "",
-  facebook: "",
+  instagram: "https://www.instagram.com/gearhead_oman",
+  facebook: "https://www.facebook.com/share/1JDk6GpKAo/",
   tiktok: "",
 };
 export type ShopDetails = typeof DEFAULT_SHOP_DETAILS;

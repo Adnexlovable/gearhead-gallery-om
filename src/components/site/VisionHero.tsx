@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, ShoppingBag } from "lucide-react";
+import { ArrowLeftRight, ArrowUpRight, ShoppingBag } from "lucide-react";
 
 // User-approved cinematic reference. The RC vehicle area is composed
 // separately from accessible headline text and functional navigation.
@@ -55,6 +55,9 @@ export function VisionHero({ mode = "investor" }: { mode?: "investor" | "app" })
               </a>
             )}
           </div>
+        <Link to={mode === "investor" ? "/app" : "/"} className="ghx-hero-switch" aria-label={mode === "investor" ? "Switch to the GearHead shop app" : "Switch to the investor site"}>
+          <ArrowLeftRight size={15} aria-hidden="true" /> {mode === "investor" ? "GearHead App" : "Investor site"}
+        </Link>
         <div className="gh-hero-adventure" aria-hidden="true">
           Built for <span>Real Adventure</span>
         </div>
