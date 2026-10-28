@@ -41,3 +41,7 @@
 - [x] Search Console linked for gearheadrc.store, sitemap submitted, SEO checks passing
 - [x] Booking, enquiry and investor requests saved and emailed to the shop inbox
 - [x] Removed the bottom bar, switch button, and old buttons that led to missing sections
+
+- [x] Home cover: flag smaller and further back behind the car
+- [x] Home cover: top bar must not cover the title
+- [x] Top bar logo must not be cropped or messy
