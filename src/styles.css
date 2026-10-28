@@ -991,7 +991,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 }
 
 /* Mobile must have no overlapping navbar, no invisible/blank hero, and no two-column category wrap. */
-.gearhead-home > header {
+.gearhead-home:not(.ghx-shop) > header {
   background: rgba(5,11,19,.94);
   border-bottom: 1px solid rgba(255,143,31,.5);
   backdrop-filter: blur(16px);
