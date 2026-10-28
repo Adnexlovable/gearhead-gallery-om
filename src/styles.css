@@ -2546,3 +2546,34 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .gearhead-home .gh-category-card, .gearhead-home .gh-metal-frame, .gh-admin-shell .rounded-xl, .gh-admin-shell .rounded-2xl, .gh-admin-shell .rounded-3xl {
   backdrop-filter: none !important;
 }
+/* Owner 2026-10-28: background photos visible (no blur), a bit darker; stronger, stylish lettering; top bar = logo height everywhere. */
+.ghx-shop .ghx-section::before { background: linear-gradient(180deg, rgba(14,10,8,.9), rgba(18,13,10,.74) 35%, rgba(18,13,10,.74) 65%, rgba(14,10,8,.92)), var(--ghx-shop-photo) center / cover no-repeat !important; filter: none !important; }
+.ghx-shop .ghx-page::before, .gh-admin-shell::before { filter: none !important; }
+.ghx-shop .ghx-hero-shade { background: linear-gradient(180deg, rgba(14,10,8,.45) 0%, rgba(14,10,8,0) 14%, rgba(14,10,8,.05) 40%, rgba(14,10,8,.72) 58%, rgba(14,10,8,.9) 75%, #160f0b 100%) !important; }
+.ghx-shop, .gearhead-home { font-family: "Bricolage Grotesque", system-ui, sans-serif; }
+.ghx-shop .ghx-section-head h1, .ghx-shop .ghx-section-head h2,
+.gearhead-home .gh-chapter-title, .gearhead-home .gh-chapter h2 {
+  font-family: "Exo 2", "Bricolage Grotesque", sans-serif !important; font-weight: 900 !important; font-style: italic; letter-spacing: -.01em;
+  text-shadow: 0 2px 0 rgba(0,0,0,.35), 0 8px 22px rgba(0,0,0,.55);
+}
+.ghx-shop .ghx-section-head em, .gearhead-home .gh-chapter h2 em {
+  background: linear-gradient(178deg, #ffc46b 0%, #ff8a1f 45%, #d9520c 100%); -webkit-background-clip: text; background-clip: text; color: transparent !important;
+}
+.ghx-shop .ghx-offer strong, .ghx-shop .ghx-roadmap li strong, .ghx-shop .ghx-cat-card h3, .ghx-shop .ghx-card h3, .ghx-shop .ghx-stats strong,
+.gearhead-home .gh-category-card h3 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; letter-spacing: -.01em; }
+.ghx-shop .ghx-section-head p, .ghx-shop .ghx-offer span, .ghx-shop .ghx-roadmap li p { font-family: "Bricolage Grotesque", sans-serif; font-weight: 500; }
+/* Top bar exactly the logo height (34px) + 3px edges, on every page. */
+.ghx-shop .ghx-header { padding-top: 0 !important; }
+@media (display-mode: standalone) { .ghx-shop .ghx-header, .gearhead-home .gh-primary-header:not(.ghx-header) { padding-top: env(safe-area-inset-top) !important; } }
+.ghx-shop .ghx-header-row { min-height: 40px !important; padding-block: 3px !important; }
+.ghx-shop .ghx-header .ghx-icon-btn { width: 34px; height: 34px; }
+.gearhead-home .gh-primary-header:not(.ghx-header) .gh-mobile-menu-toggle { width: 34px; height: 34px; }
+.gearhead-home .gh-primary-header:not(.ghx-header) .gh-navbar-brand-mark { width: 34px; height: 34px; }
+.ghx-shop .ghx-header { padding-bottom: 0 !important; }
+.gearhead-home .gh-primary-header:not(.ghx-header) .gh-mobile-menu-toggle { min-height: 34px !important; min-width: 34px !important; height: 34px !important; width: 34px !important; }
+/* Back arrow beside the logo on every inner shop page. */
+.ghx-shop .ghx-brand-wrap { display: flex; align-items: center; gap: .35rem; min-width: 0; }
+.ghx-shop .ghx-back-btn { flex-shrink: 0; color: var(--ghx-accent); border: 1px solid rgba(255,255,255,.22); border-radius: 999px; background: rgba(12,10,9,.35); }
+/* Smooth parallax: each section's shop photo drifts slower than the page. */
+.ghx-shop .ghx-section { overflow: clip; }
+.ghx-shop .ghx-section::before { inset: -90px 0 !important; transform: translate3d(0, calc(var(--gh-parallax, 0px) * 1.6), 0); will-change: transform; background-attachment: scroll !important; }

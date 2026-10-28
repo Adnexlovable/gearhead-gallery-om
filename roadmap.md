@@ -14,6 +14,9 @@
 - [ ] Admin AI helper: write search-friendly product titles and descriptions
 
 ## Done
+- [x] Smooth parallax: shop photos drift gently while scrolling
+- [x] Back arrow beside the logo on every inner shop page
+- [x] Top bar = logo height on every page; photo backgrounds sharp and a bit darker; bolder stylish headings
 - [x] Catalogue cards swipe sideways on phones; all pages fit iPhone 14 Pro (no sideways overflow)
 - [x] Crystal boxes clearer: less brown tint, glossy edge (owner: no plain backgrounds)
 - [x] Admin dashboard background uses the owner's real shop photo
