@@ -2634,3 +2634,18 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 @keyframes ghx-shine { 0%,100% { background-position: 50% 0%; } 50% { background-position: 50% 100%; } }
 @keyframes ghx-float { 0%,100% { transform: translateY(0) perspective(600px) rotateX(0deg); } 50% { transform: translateY(-4px) perspective(600px) rotateX(6deg); } }
 @media (prefers-reduced-motion: reduce) { .ghx-shop #top .ghx-hero-title .gh-hero-steel, .ghx-shop #top .ghx-hero-title .gh-hero-copper { animation: none; } }
+
+/* Investor cover: name sits lower, brighter orange sky behind the RC car */
+.gearhead-home .gh-hero-copy { top: clamp(150px,14vw,200px) !important; }
+@media (max-width: 767px) {
+  .gearhead-home .gh-hero-copy { top: calc(env(safe-area-inset-top) + 150px) !important; }
+}
+.gearhead-home .gh-hero-sky {
+  background:
+    radial-gradient(ellipse 70% 55% at 60% 58%, rgba(255,170,40,.95), rgba(255,120,20,.55) 45%, transparent 80%),
+    radial-gradient(ellipse 50% 70% at 95% 40%, rgba(255,140,20,.85), transparent 80%),
+    linear-gradient(180deg, #1a0d06 0%, #7a2c0a 30%, #e2620f 62%, #ff8a1f 78%, #2a120a 100%) !important;
+}
+.gearhead-home .gh-hero-vignette {
+  background: linear-gradient(180deg, rgba(14,8,4,.78) 0%, rgba(14,8,4,.35) 24%, transparent 42%, transparent 82%, rgba(10,6,4,.5) 100%) !important;
+}
