@@ -22,6 +22,13 @@
       "when": 1793175795411,
       "tag": "0002_super_admin_orders_enquiry_status",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1793176383345,
+      "tag": "0003_google_verification_tag",
+      "breakpoints": true
     }
   ]
 }
