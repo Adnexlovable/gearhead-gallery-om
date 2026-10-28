@@ -44,3 +44,4 @@
 
 - [ ] Home cover: flag smaller and further back behind the car
 - [ ] Home cover: top bar must not cover the title
+- [ ] Top bar logo must not be cropped or messy
