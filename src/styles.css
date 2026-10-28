@@ -2585,3 +2585,7 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   filter: drop-shadow(0 0 6px rgba(255,140,30,.55)) drop-shadow(0 2px 4px rgba(0,0,0,.6)) !important;
 }
 @media (min-width: 768px) { .ghx-shop .ghx-brand img.ghx-brand-logo, .gearhead-home .gh-header-logo { height: 52px !important; } }
+
+/* Owner: a bit more space under the hero name, slightly taller cover */
+.ghx-shop .ghx-hero h1, .ghx-shop .ghx-hero-title { margin-bottom: 1.4rem !important; }
+@media (max-width: 767px) { .ghx-shop .ghx-hero-inner { padding-bottom: 2.6rem !important; } .ghx-shop .ghx-hero { min-height: 100svh !important; } }
