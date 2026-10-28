@@ -7,7 +7,6 @@ import {
 import { AppNavbar } from "@/components/site/AppNavbar";
 import { Footer } from "@/components/site/Footer";
 import { CinematicScene } from "@/components/site/CinematicScene";
-import { ProductFinder } from "@/components/shop/ProductFinder";
 import { SectionHead } from "@/components/shop/SectionHead";
 import { shopCatalogQuery } from "@/lib/shop-queries";
 import { useHashScroll } from "@/hooks/useHashScroll";
@@ -52,7 +51,7 @@ export const Route = createFileRoute("/app")({
       { title: "GearHead RC Hub — RC Cars, Crawlers, Diecast & Parts Shop in Muscat" },
       { name: "description", content: "Shop GearHead RC Hub in Bausher, Muscat: performance RC, scale crawlers, drift & micro RC, diecast models, construction RC, batteries and spare parts. Order on WhatsApp." },
       { property: "og:title", content: "GearHead RC Hub — RC Shop & Indoor Track, Muscat" },
-      { property: "og:description", content: "Explore RC categories, find the right model with our product finder and order on WhatsApp." },
+      { property: "og:description", content: "Explore RC categories and order on WhatsApp." },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "https://gearheadrc.store/app" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -167,14 +166,6 @@ function ShopHome() {
           </div>
         </section>
 
-        {/* AI product finder */}
-        <section id="finder" className="ghx-section">
-          <div className="ghx-wrap ghx-finder-wrap">
-            <SectionHead kicker="Product finder" title={<>Tell us what you <em>want to drive.</em></>}
-              text="Describe the RC car, scale model, use or budget you have in mind. Our AI-powered finder picks matching items from the GearHead catalogue." />
-            <ProductFinder />
-          </div>
-        </section>
 
 
         {/* Service */}
