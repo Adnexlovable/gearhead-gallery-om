@@ -2701,3 +2701,45 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   .gearhead-home .gh-hero-buggy { background-position: center 55% !important; }
   .gearhead-home .gh-hero-copy { bottom: 130px !important; }
 }
+
+/* ===== Home cover rebuilt from owner's reference (9:16 phones, wide computers) ===== */
+.ghh-hero { position: relative; isolation: isolate; overflow: hidden; height: 100vh; height: 100dvh; min-height: 560px;
+  background: #2b2a33 var(--ghh-portrait) center top / cover no-repeat; }
+.ghh-scene { position: absolute; inset: 0; will-change: transform; }
+.ghh-img { position: absolute; display: block; inset: 0; width: 100%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 45%; }
+/* Phones narrower than 9:16: show the full width (whole car + flag), rocks to the very bottom */
+@media (max-aspect-ratio: 9/16) {
+  .ghh-img { top: auto; bottom: 0; height: auto; object-fit: fill;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 9%); mask-image: linear-gradient(180deg, transparent 0, #000 9%); }
+}
+/* Computers / landscape: wide photo, car + flag kept on the right */
+@media (min-aspect-ratio: 1/1) { .ghh-img { object-position: 85% 72%; } }
+.ghh-shade { position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, rgba(10,8,8,.45) 0%, rgba(10,8,8,0) 22%), linear-gradient(100deg, rgba(20,8,0,.28) 0%, transparent 48%); }
+.ghh-copy { position: absolute; z-index: 2; left: max(16px, env(safe-area-inset-left)); right: 26%;
+  top: calc(env(safe-area-inset-top) + 92px); }
+.ghh-title { margin: 0; display: flex; flex-direction: column; font-family: "Exo 2", Impact, sans-serif; font-style: italic; font-weight: 900; line-height: .86; letter-spacing: -.02em; transform: skew(-6deg); }
+.ghh-steel, .ghh-orange { display: block; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; padding-right: .08em; }
+.ghh-steel { font-size: clamp(3.6rem, 17vw, 9rem);
+  background-image: linear-gradient(180deg, #ffffff 0%, #eef1f5 30%, #9aa4b1 50%, #f7f9fb 64%, #7d8794 100%);
+  filter: drop-shadow(0 2px 0 #5d6670) drop-shadow(0 4px 0 #3a4048) drop-shadow(0 8px 12px rgba(0,0,0,.6)); }
+.ghh-orange { font-size: clamp(4rem, 19vw, 10rem); margin-left: .12em;
+  background-image: linear-gradient(180deg, #ffd27a 0%, #ffa024 32%, #ff6a00 58%, #ff8a1c 76%, #c94a00 100%);
+  filter: drop-shadow(0 2px 0 #9a3a00) drop-shadow(0 4px 0 #5a2200) drop-shadow(0 8px 14px rgba(0,0,0,.6)); }
+.ghh-brand, .ghh-tagline { margin: 0; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.85); white-space: nowrap; }
+.ghh-brand { margin-top: .55rem; margin-left: .3rem; font: 600 clamp(.82rem, 3.4vw, 1.2rem)/1.2 "Bricolage Grotesque", sans-serif; letter-spacing: .06em; }
+.ghh-brand span { color: #ffb21a; font-weight: 800; letter-spacing: .1em; }
+.ghh-tagline { margin-top: .3rem; margin-left: .15rem; font: 800 clamp(.8rem, 3.5vw, 1.25rem)/1.2 "Bricolage Grotesque", sans-serif; letter-spacing: .16em; }
+@media (min-aspect-ratio: 1/1) {
+  .ghh-copy { left: clamp(24px, 5vw, 96px); right: auto; top: clamp(96px, 16vh, 180px); }
+  .ghh-steel { font-size: clamp(4rem, 8.6vw, 9.5rem); }
+  .ghh-orange { font-size: clamp(4.4rem, 9.6vw, 10.5rem); }
+}
+
+/* Slim dark see-through top bar on the cover, new round-gear logo larger and unclipped */
+.gearhead-home .gh-primary-header.gh-header-clear { background: rgba(14,12,12,.55) !important; border-bottom: 1px solid rgba(255,255,255,.06) !important; backdrop-filter: none !important; }
+.ghx-shop .ghx-brand img.ghx-brand-logo, .gearhead-home .gh-header-logo {
+  height: 54px !important; max-width: 62vw;
+  filter: drop-shadow(0 0 5px rgba(255,140,30,.4)) drop-shadow(0 2px 3px rgba(0,0,0,.55)) brightness(1.08) saturate(1.1) !important; }
+@media (min-width: 768px) { .ghx-shop .ghx-brand img.ghx-brand-logo, .gearhead-home .gh-header-logo { height: 62px !important; } }
+.gh-logo-sub { left: 38%; right: 0; bottom: 2px; }

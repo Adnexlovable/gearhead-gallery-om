@@ -1,12 +1,11 @@
 import { useEffect, useRef } from "react";
-import { Link } from "@tanstack/react-router";
-import { ArrowLeftRight, ArrowUpRight, ShoppingBag } from "lucide-react";
 
-// User-approved cinematic reference. The RC vehicle area is composed
-// separately from accessible headline text and functional navigation.
-import referenceVisual from "@/assets/home-hero-916-v2.jpg";
+// Owner's 9:16 cover (phones) and a wide version (computers) of the same scene:
+// sunset sky, the whole white-and-red RC crawler, and the GEARHEAD feather flag.
+import heroPortrait from "@/assets/home-hero-916-flag.jpg";
+import heroWide from "@/assets/home-hero-169-flag.jpg";
 
-export function VisionHero({ mode = "investor" }: { mode?: "investor" | "app" }) {
+export function VisionHero(_props: { mode?: "investor" | "app" }) {
   const sceneRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -15,8 +14,8 @@ export function VisionHero({ mode = "investor" }: { mode?: "investor" | "app" })
     const update = () => {
       raf = 0;
       if (!sceneRef.current) return;
-      const shift = Math.min(38, Math.max(0, window.scrollY * 0.12));
-      sceneRef.current.style.transform = `translate3d(0, ${shift}px, 0) scale(1.035)`;
+      const shift = Math.min(40, Math.max(0, window.scrollY * 0.12));
+      sceneRef.current.style.transform = `translate3d(0, ${shift}px, 0)`;
     };
     const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -28,33 +27,26 @@ export function VisionHero({ mode = "investor" }: { mode?: "investor" | "app" })
   }, []);
 
   return (
-    <section id="top" className="gh-reference-hero" aria-label="GearHead RC Hub — A New RC Experience for Oman">
-      <div className="gh-hero-sky" aria-hidden="true" />
-      <div ref={sceneRef} className="gh-hero-buggy" aria-hidden="true" style={{ backgroundImage: `url("${referenceVisual}")` }} />
-      <div className="gh-hero-vignette" aria-hidden="true" />
-      <div className="gh-hero-inner">
-        <div className="gh-hero-copy">
-          <h1 className="gh-hero-brand" aria-label="GEARHEAD RC HUB">
-            <span className="gh-hero-steel">GEARHEAD</span>
-            <span className="gh-hero-copper">RC HUB</span>
-          </h1>
-          <p className="gh-hero-tagline">A NEW RC EXPERIENCE FOR OMAN</p>
-  
-        </div>
-        <div className="gh-hero-cta-row">
-            <Link to="/store" className="gh-hero-button gh-hero-button-primary">
-              <ShoppingBag size={16} aria-hidden="true" /> Explore RC Products <ArrowUpRight size={15} aria-hidden="true" />
-            </Link>
-            {mode === "investor" ? (
-              <a href="#investor-deck" className="gh-hero-button gh-hero-button-secondary">
-                Investor Opportunity <ArrowUpRight size={15} aria-hidden="true" />
-              </a>
-            ) : (
-              <a href="#app-categories" className="gh-hero-button gh-hero-button-secondary">
-                Browse Categories <ArrowUpRight size={15} aria-hidden="true" />
-              </a>
-            )}
-          </div>
+    <section
+      id="top"
+      className="ghh-hero"
+      aria-label="GearHead RC Hub — A New RC Experience for Oman"
+      style={{ ["--ghh-portrait" as string]: `url("${heroPortrait}")` }}
+    >
+      <div ref={sceneRef} className="ghh-scene" aria-hidden="true">
+        <picture>
+          <source media="(min-aspect-ratio: 1/1)" srcSet={heroWide} />
+          <img src={heroPortrait} alt="" className="ghh-img" width={1072} height={1920} fetchPriority="high" decoding="async" />
+        </picture>
+      </div>
+      <div className="ghh-shade" aria-hidden="true" />
+      <div className="ghh-copy">
+        <h1 className="ghh-title" aria-label="GEARHEAD RC HUB">
+          <span className="ghh-steel">GEARHEAD</span>
+          <span className="ghh-orange">RC HUB</span>
+        </h1>
+        <p className="ghh-brand">A brand of <span>ADNEX.WORLD</span></p>
+        <p className="ghh-tagline">A NEW RC EXPERIENCE FOR OMAN</p>
       </div>
     </section>
   );
