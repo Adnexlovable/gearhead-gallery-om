@@ -5,7 +5,8 @@ import { useEffect, useRef } from "react";
 import heroPortrait from "@/assets/home-hero-916-flag.jpg";
 import heroWide from "@/assets/home-hero-169-flag.jpg";
 
-export function VisionHero(_props: { mode?: "investor" | "app" }) {
+export function VisionHero({ portraitSrc }: { mode?: "investor" | "app"; portraitSrc?: string }) {
+  const portrait = portraitSrc || heroPortrait;
   const sceneRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
