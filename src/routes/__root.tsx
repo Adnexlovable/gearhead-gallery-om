@@ -63,6 +63,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-capable", content: "yes" },
       { name: "apple-mobile-web-app-status-bar-style", content: "black-translucent" },
       { name: "apple-mobile-web-app-title", content: "GearHead RC" },
+      { name: "google-site-verification", content: "onFo_S52MbEFzFkgQlc8PnpmvUOoF5wf1jgZgGtFqOs" },
       { title: "GearHead RC Hub — A New RC Experience for Oman" },
       { name: "description", content: "GearHead RC Hub — performance RC cars, scale crawlers, parts and an indoor track experience planned for Bousher, Muscat, Oman." },
       { name: "author", content: "GearHead RC" },
