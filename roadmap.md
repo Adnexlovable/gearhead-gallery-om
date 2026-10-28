@@ -32,3 +32,4 @@
 - [ ] Shop super-admin page: manage products, their photos and categories (and page titles/descriptions) from the dashboard, feeding the live shop app
 - [ ] Add Instagram (gearhead_oman) and Facebook links to the site
 - [ ] Shop app hero and category section styled like the owner's phone/desktop mockups (photo hero with chrome GEARHEAD / orange RC HUB, two buttons, quick tiles, image category cards)
+- [ ] No solid nav bar over the hero: drop the "Investor Home > Home / Hero" strip; header transparent over hero photo until scrolling
