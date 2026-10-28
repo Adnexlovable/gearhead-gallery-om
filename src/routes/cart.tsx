@@ -1,3 +1,4 @@
+import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MessageCircle, Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
 import { AppNavbar } from "@/components/site/AppNavbar";
@@ -25,8 +26,9 @@ export const Route = createFileRoute("/cart")({
 function CartPage() {
   const lines = useCart();
   const total = lines.reduce((n, l) => n + l.qty, 0);
+  const siteMedia = useSiteMedia();
   return (
-    <div className="gearhead-home ghx-shop">
+    <div className="gearhead-home ghx-shop" style={siteMediaStyle(siteMedia)}>
       <AppNavbar />
       <main className="ghx-page ghx-wrap ghx-cart">
         <SectionHead as="h1" kicker="WhatsApp order" title={<>Your <em>order.</em></>} text="Pick your items here, then send the list to GearHead on WhatsApp. We confirm price, stock and pickup with you. No online payment." />

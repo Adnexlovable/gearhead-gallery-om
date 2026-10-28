@@ -2439,10 +2439,10 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghx-shop .ghx-section { isolation: isolate; border-top: 0; }
 .ghx-shop .ghx-section::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: linear-gradient(180deg, rgba(27,21,18,.93), rgba(27,21,18,.8) 40%, rgba(27,21,18,.8) 60%, rgba(27,21,18,.95)), var(--ghx-shop-photo) center / cover no-repeat; }
-.ghx-shop .ghx-section:nth-of-type(4n+1) { --ghx-shop-photo: url("/__l5e/assets-v1/e8537d8d-05d6-493d-998d-d2b9082c1171/showroom-2.jpg"); }
-.ghx-shop .ghx-section:nth-of-type(4n+2) { --ghx-shop-photo: url("/__l5e/assets-v1/0dee0380-258a-4fcf-a0ad-d6ba154d5488/showroom-4.jpg"); }
-.ghx-shop .ghx-section:nth-of-type(4n+3) { --ghx-shop-photo: url("/__l5e/assets-v1/95d69199-e613-44a1-9865-4a9afa783051/showroom-3.jpg"); }
-.ghx-shop .ghx-section:nth-of-type(4n+4) { --ghx-shop-photo: url("/__l5e/assets-v1/ab007a30-9ef8-4781-8d42-771bd39f51fd/showroom-1.jpg"); }
+.ghx-shop .ghx-section:nth-of-type(4n+1) { --ghx-shop-photo: var(--ghx-bg1, url("/__l5e/assets-v1/e8537d8d-05d6-493d-998d-d2b9082c1171/showroom-2.jpg")); }
+.ghx-shop .ghx-section:nth-of-type(4n+2) { --ghx-shop-photo: var(--ghx-bg2, url("/__l5e/assets-v1/0dee0380-258a-4fcf-a0ad-d6ba154d5488/showroom-4.jpg")); }
+.ghx-shop .ghx-section:nth-of-type(4n+3) { --ghx-shop-photo: var(--ghx-bg3, url("/__l5e/assets-v1/95d69199-e613-44a1-9865-4a9afa783051/showroom-3.jpg")); }
+.ghx-shop .ghx-section:nth-of-type(4n+4) { --ghx-shop-photo: var(--ghx-bg4, url("/__l5e/assets-v1/ab007a30-9ef8-4781-8d42-771bd39f51fd/showroom-1.jpg")); }
 .ghx-shop .ghx-page { position: relative; isolation: isolate; }
 .ghx-shop .ghx-page::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background: linear-gradient(180deg, rgba(27,21,18,.9), rgba(27,21,18,.86)), url("/__l5e/assets-v1/e8537d8d-05d6-493d-998d-d2b9082c1171/showroom-2.jpg") center / cover no-repeat; }

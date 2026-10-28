@@ -1,3 +1,4 @@
+import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -67,8 +68,9 @@ function ProductPage() {
     if (image) { const i = images.indexOf(image); if (i >= 0) go(i); }
   };
 
+  const siteMedia = useSiteMedia();
   return (
-    <div className="gearhead-home ghx-shop">
+    <div className="gearhead-home ghx-shop" style={siteMediaStyle(siteMedia)}>
       <AppNavbar />
       <main className="ghx-page ghx-wrap">
         <nav className="ghx-crumbs" aria-label="Breadcrumb">
