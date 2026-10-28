@@ -2594,3 +2594,9 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghx-shop .ghx-brand, .gearhead-home .gh-navbar-brand { position: relative; }
 .gh-logo-sub { position: absolute; left: 30%; right: 2%; bottom: -1px; text-align: center; font: 700 5.4px/1 "Bricolage Grotesque", sans-serif; letter-spacing: .1em; color: #ffd21f; text-shadow: 0 1px 2px rgba(0,0,0,.9); white-space: nowrap; pointer-events: none; }
 @media (min-width: 768px) { .gh-logo-sub { font-size: 6.2px; } }
+/* Owner: RC car a bit lower, dark orange sky above */
+@media (max-width: 767px) {
+  .ghx-shop .ghx-hero-img { top: 104px !important; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 100%); }
+  .ghx-shop section#top.ghx-hero { background: linear-gradient(180deg, #1c0f08 0%, #4a210b 22%, #7a3510 34%, #3a1d0c 60%, #160f0b 100%) !important; }
+  .ghx-shop section#top .ghx-hero-inner { padding-top: calc(108px + 86vw) !important; }
+}
