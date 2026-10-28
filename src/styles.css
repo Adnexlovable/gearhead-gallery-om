@@ -2482,3 +2482,10 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   background-image: linear-gradient(178deg, #ffc46b 0%, #ff8a1f 38%, #e2560c 68%, #a8380a 100%) !important;
   filter: drop-shadow(0 2px 0 #3a1404) drop-shadow(0 6px 14px rgba(0,0,0,.65)); }
 .ghx-shop .ghx-hero-tagline { font-weight: 900; color: #ffe2c2; letter-spacing: .3em; }
+/* Owner 2026-10-28: investor catalogue section uses the shop photo theme, darker (no plain orange). */
+.gearhead-home .gh-chapter-catalog::before { background: linear-gradient(180deg, rgba(20,14,10,.9), rgba(27,21,18,.78) 45%, rgba(20,14,10,.92)) !important; }
+.gearhead-home .gh-chapter-catalog .gh-chapter-visual, .gearhead-home .gh-chapter-catalog [class*="atmosphere"] { filter: brightness(.7) saturate(.95) !important; }
+/* Top bars only as tall as the logo. */
+.ghx-shop .ghx-header-row { min-height: 44px !important; padding-block: 3px; }
+.ghx-shop .ghx-brand img { width: 38px !important; height: 38px !important; }
+.ghx-shop .ghx-icon-btn { width: 38px; height: 38px; }

@@ -14,6 +14,8 @@
 - [ ] Admin AI helper: write search-friendly product titles and descriptions
 
 ## Done
+- [x] Removed the extra showroom frame and the repeated product picks; catalogue background now the dark shop photo theme
+- [x] Slimmer top bars, about the height of the logo
 - [x] Investor home at / (vision, deck, corporate foundation, expansion roadmap)
 - [x] Shop home at /app: full-car cover photo, chrome GEARHEAD + orange RC HUB, 2 buttons, 5 tiles, see-through slim header
 - [x] Shop background: owner's 4 shop photos, faded, warm dark tone with dark orange

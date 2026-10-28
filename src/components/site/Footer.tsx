@@ -3,7 +3,7 @@ import { DEFAULT_SHOP_DETAILS } from "@/lib/shop-details";
 
 const quickLinks = [
   { label: "The Vision", href: "/#foundation" },
-  { label: "Showroom Experience", href: "/#experience" },
+  { label: "Showroom Experience", href: "/#experience-detail" },
   { label: "RC Inventory", href: "/#catalog" },
   { label: "RC Shopping App", href: "/app" },
   { label: "Indoor RC Track", href: "/#commercial-thesis" },

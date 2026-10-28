@@ -129,24 +129,9 @@ export function HomeExperience() {
         </div>
       </nav>
 
-      <section id="experience" className="gh-approved-showroom" aria-labelledby="gh-showroom-heading">
-        <div className="gh-approved-showroom-photo" style={{backgroundImage: `url("${art.showroom}")`}} aria-hidden="true" />
-        <div className="gh-approved-showroom-shade" aria-hidden="true" />
-        <div className="gh-approved-showroom-inner">
-          <div className="gh-approved-showroom-copy">
-            <div className="gh-showroom-kicker">EXPLORE OUR</div>
-            <h2 id="gh-showroom-heading">RC SHOWROOM <span>EXPERIENCE</span></h2>
-            <p>A premium RC destination planned for Muscat with retail, an indoor crawler track, a dedicated service centre and a complete hobby experience.</p>
-            <Link to="/store" className="gh-approved-shop-button">
-              Explore the Shop <ArrowUpRight size={18} aria-hidden="true" />
-            </Link>
-          </div>
-        </div>
-        <div className="gh-showroom-footnote">Proposed Bousher Sand Dunes flagship • Interior design concept</div>
-      </section>
 
       <section id="catalog" className="gh-chapter gh-chapter-catalog">
-        <Atmosphere image={art.desert} position="center 70%" />
+        <Atmosphere image="/__l5e/assets-v1/e8537d8d-05d6-493d-998d-d2b9082c1171/showroom-2.jpg" position="center" />
         <div className="gh-chapter-inner">
           <Heading eyebrow="03 / Inventory Blueprint">Explore the <em>RC world.</em> 
           </Heading>

@@ -1,13 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
-  ArrowLeftRight, ArrowRight, ArrowUpRight, CarFront, CheckCircle2, Facebook, Instagram, Mail, MapPin, MessageCircle,
+  ArrowLeftRight, ArrowRight, CarFront, CheckCircle2, Facebook, Instagram, Mail, MapPin, MessageCircle,
   Mountain, PackageCheck, Phone, Route as TrackIcon, ShoppingBag, Wrench,
 } from "lucide-react";
 import { AppNavbar } from "@/components/site/AppNavbar";
 import { Footer } from "@/components/site/Footer";
 import { CinematicScene } from "@/components/site/CinematicScene";
-import { ProductCard } from "@/components/shop/ProductCard";
 import { ProductFinder } from "@/components/shop/ProductFinder";
 import { SectionHead } from "@/components/shop/SectionHead";
 import { shopCatalogQuery } from "@/lib/shop-queries";
@@ -26,8 +25,8 @@ const motion = {
   track: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/19986706-a56f-4ac1-8542-9f1a432b8c92.mp4",
   service: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/3b8318e1-4713-4c93-9673-c8c1798ac307.mp4",
   retail: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/c396cda3-deca-4982-8354-ebe8d13e06d8.mp4",
-  showroomMobile: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/68499411-3243-4bb8-b263-693c499e95ef.mp4",
-  showroomDesktop: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/240fa4da-8a24-4bd5-b52d-ec77257493fd.mp4",
+
+
 };
 
 const tiles = [
@@ -68,8 +67,6 @@ function ShopHome() {
   const { data } = useSuspenseQuery(shopCatalogQuery);
   const count = (slug: string) => data.products.filter((p) => p.category === slug).length;
   const scales = (slug: string) => [...new Set(data.products.filter((p) => p.category === slug).map((p) => p.scale))].slice(0, 4).join(" · ");
-  const featured = data.categories.flatMap((c) => data.products.filter((p) => p.category === c.slug).slice(0, 1)).slice(0, 8);
-  const catName = new Map(data.categories.map((c) => [c.slug, c.name]));
   const cover = (slug: string) => data.categories.find((c) => c.slug === slug)?.cover;
   const d = DEFAULT_SHOP_DETAILS;
 
@@ -179,33 +176,6 @@ function ShopHome() {
           </div>
         </section>
 
-        {/* Featured products */}
-        <section id="featured" className="ghx-section ghx-section-alt">
-          <div className="ghx-wrap">
-            <div className="ghx-head-row">
-              <SectionHead kicker="Picked from every category" title={<>Featured <em>RC picks.</em></>} />
-              <Link to="/store" className="ghx-link">Full collection <ArrowRight size={15} /></Link>
-            </div>
-            <div className="ghx-rail" data-lenis-prevent-wheel>
-              {featured.map((p) => <div key={p.slug} className="ghx-rail-item"><ProductCard product={p} categoryName={catName.get(p.category)} /></div>)}
-            </div>
-          </div>
-        </section>
-
-        {/* 4. Flagship */}
-        <section id="flagship" className="gh-approved-showroom" aria-labelledby="ghx-flagship-heading">
-          <CinematicScene className="gh-approved-showroom-photo" poster={art.showroom} mobileSrc={motion.showroomMobile} desktopSrc={motion.showroomDesktop} />
-          <div className="gh-approved-showroom-shade" aria-hidden="true" />
-          <div className="gh-approved-showroom-inner">
-            <div className="gh-approved-showroom-copy">
-              <div className="gh-showroom-kicker">EXPLORE OUR FLAGSHIP</div>
-              <h2 id="ghx-flagship-heading">RC SHOWROOM <span>EXPERIENCE</span></h2>
-              <p>Retail, an indoor crawler track, a service bench and a complete hobby experience at the Bausher sand dunes, Muscat.</p>
-              <Link to="/store" className="gh-approved-shop-button">Explore the Shop <ArrowUpRight size={18} aria-hidden="true" /></Link>
-            </div>
-          </div>
-          <div className="gh-showroom-footnote">Bausher sand dunes flagship • Interior design concept</div>
-        </section>
 
         {/* Service */}
         <section id="service" className="ghx-section" data-parallax-section>
