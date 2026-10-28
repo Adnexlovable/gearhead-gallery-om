@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useRouterState } from "@tanstack/react-router";
+import { Link, useNavigate, useRouter, useRouterState } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeftRight, Home, LayoutGrid, Menu, MessageCircle, Phone, Search, ShoppingCart, Sparkles, X } from "lucide-react";
+import { ArrowLeft, ArrowLeftRight, Home, LayoutGrid, Menu, MessageCircle, Phone, Search, ShoppingCart, Sparkles, X } from "lucide-react";
 import { SearchOverlay } from "@/components/shop/SearchOverlay";
 import { useCartCount } from "@/lib/cart";
 import { shopCatalogQuery } from "@/lib/shop-queries";
@@ -23,6 +23,13 @@ export function AppNavbar() {
   const count = useCartCount();
   const { data } = useQuery({ ...shopCatalogQuery, enabled: open });
   const [scrolled, setScrolled] = useState(false);
+  const router = useRouter();
+  const navigate = useNavigate();
+  const showBack = pathname !== "/app";
+  const goBack = () => {
+    if (window.history.length > 1) router.history.back();
+    else navigate({ to: "/app" });
+  };
   const overHero = pathname === "/app" || pathname.startsWith("/collection/");
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -49,6 +56,12 @@ export function AppNavbar() {
         style={overHero && !scrolled && !open ? { backdropFilter: "none", WebkitBackdropFilter: "none", boxShadow: "none" } : undefined}
       >
         <div className="ghx-header-row">
+          <div className="ghx-brand-wrap">
+          {showBack && (
+            <button type="button" onClick={goBack} className="ghx-icon-btn ghx-back-btn" aria-label="Go back">
+              <ArrowLeft size={20} aria-hidden="true" />
+            </button>
+          )}
           <Link to="/app" className="ghx-brand" aria-label="GearHead RC Hub shop home">
             <img src={logo} alt="" width={48} height={48} />
             <span className="ghx-brand-copy">
@@ -56,6 +69,7 @@ export function AppNavbar() {
               <span className="ghx-brand-sub">A brand of <strong>ADNEX.WORLD</strong></span>
             </span>
           </Link>
+          </div>
           <nav className="ghx-nav" aria-label="Shop pages">
             {NAV.map((n) => (
               <Link key={n.label} to={n.to} params={"params" in n ? n.params : undefined} className={isActive(n.to, "params" in n ? n.params : undefined) ? "is-active" : undefined}>{n.label}</Link>

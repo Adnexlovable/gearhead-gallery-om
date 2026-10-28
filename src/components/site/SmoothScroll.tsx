@@ -26,7 +26,7 @@ export function SmoothScroll() {
       }).catch(() => undefined);
     }
 
-    const sectionSel = ".gh-chapter, .gh-approved-showroom, [data-parallax-section]";
+    const sectionSel = ".gh-chapter, .gh-approved-showroom, .ghx-section, [data-parallax-section]";
     const current = new WeakMap<Element, number>();
     // Only move elements React has already hydrated, so server HTML and the
     // first client render always match.

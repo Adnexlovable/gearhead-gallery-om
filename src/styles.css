@@ -2571,3 +2571,10 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .gearhead-home .gh-primary-header:not(.ghx-header) .gh-navbar-brand-mark { width: 34px; height: 34px; }
 .ghx-shop .ghx-header { padding-bottom: 0 !important; }
 .gearhead-home .gh-primary-header:not(.ghx-header) .gh-mobile-menu-toggle { min-height: 34px !important; min-width: 34px !important; height: 34px !important; width: 34px !important; }
+/* Back arrow beside the logo on every inner shop page. */
+.ghx-shop .ghx-brand-wrap { display: flex; align-items: center; gap: .35rem; min-width: 0; }
+.ghx-shop .ghx-back-btn { flex-shrink: 0; color: var(--ghx-accent); border: 1px solid rgba(255,255,255,.22); border-radius: 999px; background: rgba(12,10,9,.35); }
+/* Smooth parallax: each section's shop photo drifts slower than the page. */
+.ghx-shop .ghx-section { overflow: clip; }
+.ghx-shop .ghx-section::before { inset: -90px 0 !important; transform: translate3d(0, calc(var(--gh-parallax, 0px) * 1.6), 0); will-change: transform; background-attachment: scroll !important; }
+html { scroll-behavior: smooth; }
