@@ -2346,3 +2346,16 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .gearhead-home .gh-primary-header.gh-header-solid { background: rgba(5,13,24,.94); border-bottom: 1px solid rgba(238,144,52,.45); backdrop-filter: blur(8px); }
 .ghx-shop .ghx-header { transition: background-color .3s ease, border-color .3s ease, backdrop-filter .3s ease; }
 .ghx-shop .ghx-header.is-clear { background: linear-gradient(180deg, rgba(23,18,14,.7), rgba(23,18,14,0)); border-bottom-color: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
+/* Hero lettering matched to the owner's reference photo: bright chrome + glossy orange,
+   dark outline via drop-shadows (text-shadow would paint over the clipped gradient). */
+.gearhead-home .gh-hero-brand { filter: none; }
+.gearhead-home .gh-hero-steel,
+.gearhead-home .gh-hero-copper { text-shadow: none !important; -webkit-text-stroke: 0 transparent; padding-right: .06em; }
+.gearhead-home .gh-hero-steel {
+  background-image: linear-gradient(180deg,#ffffff 0%,#f7f9fc 30%,#c9d1db 46%,#7d8796 52%,#e8ecf1 64%,#ffffff 78%,#aab4c0 100%) !important;
+  filter: drop-shadow(0 1px 0 #3b4250) drop-shadow(0 -1px 0 #3b4250) drop-shadow(1px 0 0 #3b4250) drop-shadow(-1px 0 0 #3b4250) drop-shadow(0 6px 10px rgba(0,0,0,.65));
+}
+.gearhead-home .gh-hero-copper {
+  background-image: linear-gradient(180deg,#ffe08a 0%,#ffb12e 26%,#ff8a12 48%,#f06a05 66%,#ffa02a 82%,#c94a04 100%) !important;
+  filter: drop-shadow(0 1px 0 #3d1a05) drop-shadow(0 -1px 0 #3d1a05) drop-shadow(1px 0 0 #3d1a05) drop-shadow(-1px 0 0 #3d1a05) drop-shadow(0 6px 10px rgba(0,0,0,.65));
+}

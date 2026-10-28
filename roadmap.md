@@ -33,3 +33,4 @@
 - [ ] Add Instagram (gearhead_oman) and Facebook links to the site
 - [ ] Shop app hero and category section styled like the owner's phone/desktop mockups (photo hero with chrome GEARHEAD / orange RC HUB, two buttons, quick tiles, image category cards)
 - [ ] No solid nav bar over the hero: drop the "Investor Home > Home / Hero" strip; header transparent over hero photo until scrolling
+- [ ] Hero name lettering like the owner photo: bright chrome GEARHEAD, glossy orange RC HUB, dark outline; crawler-at-sunset cover photo
