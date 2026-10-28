@@ -18,5 +18,6 @@
 - [ ] Use "GearHead RC" name everywhere; optimise /store title, description and local business structured data (RC cars, parts, track — Bausher, Muscat)
 - [ ] Admin: AI helper where staff enter product details and get search-friendly titles, descriptions and local keywords
 - [x] Optimise home and store for iPhone 14 Pro full screen (safe areas, full-height sections, no sideways scroll)
-- [ ] Link the Google Search Console account that manages gearheadrc.store and review its search performance
-- [ ] Email address adnex@gearheadrc.store for the owner
+- [x] Link the Google Search Console account that manages gearheadrc.store (verified under contactadnex@gmail.com, sitemap submitted)
+- [ ] Review gearheadrc.store search performance once Google has 2–3 days of data
+- [ ] Email address adnex@gearheadrc.store: site emails now sent as adnex@ — owner must finish email setup for this project and choose a mailbox provider for receiving
