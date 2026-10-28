@@ -2539,3 +2539,10 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   backdrop-filter: blur(22px) saturate(1.5) brightness(.85);
 }
 .ghx-shop .ghx-stats div span, .ghx-shop .ghx-offer span, .ghx-shop .ghx-roadmap li p { text-shadow: 0 1px 6px rgba(0,0,0,.55); }
+/* Owner 2026-10-28: no blur behind the crystal boxes — clear glass only. */
+.ghx-shop .ghx-stats div, .ghx-shop .ghx-offer, .ghx-shop .ghx-cat-card, .ghx-shop .ghx-card, .ghx-shop .ghx-finder-form,
+.ghx-shop .ghx-roadmap li, .ghx-shop .ghx-contact-item, .ghx-shop .ghx-spotlight, .ghx-shop .ghx-coming, .ghx-shop .ghx-cart-line,
+.ghx-shop .ghx-tile, .ghx-shop .ghx-qty, .ghx-shop .ghx-drawer, .ghx-shop .ghx-pill,
+.gearhead-home .gh-category-card, .gearhead-home .gh-metal-frame, .gh-admin-shell .rounded-xl, .gh-admin-shell .rounded-2xl, .gh-admin-shell .rounded-3xl {
+  backdrop-filter: none !important;
+}
