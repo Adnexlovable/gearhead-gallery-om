@@ -10,15 +10,13 @@ import trackPhoto from "@/assets/showroom/shop-bridge-track.jpg.asset.json";
 export function HeroShowcase({ variant }: { variant: "investor" | "app" }) {
   const app = variant === "app";
   const productsHref = app ? "#categories" : "/store";
-  const trackHref = app ? "#explore-rc-world" : "#commercial-thesis";
-  const serviceHref = app ? "#service" : "#commercial-thesis";
 
   const tiles = [
     { photo: carPhoto.url, name: "RC CARS", sub: "Racing & Fun", category: "performance" },
     { photo: crawlerPhoto.url, name: "CRAWLERS", sub: "Scale & Adventure", category: "crawlers" },
     { photo: partsPhoto.url, name: "SPARE PARTS", sub: "Wide Selection", category: "parts" },
-    { photo: servicePhoto.url, name: "SERVICE", sub: "Tuning & Repairs", href: serviceHref },
-    { photo: trackPhoto.url, name: "INDOOR TRACK", sub: "Test & Play", href: trackHref },
+    { photo: servicePhoto.url, name: "SERVICE", sub: "Tuning & Repairs", page: "/service" },
+    { photo: trackPhoto.url, name: "INDOOR TRACK", sub: "Test & Play", page: "/indoor-track" },
   ] as const;
 
   return (
@@ -28,16 +26,16 @@ export function HeroShowcase({ variant }: { variant: "investor" | "app" }) {
           <a href={productsHref} className="ghs-btn ghs-btn-solid">
             <ShoppingBag size={18} aria-hidden="true" /><span>Explore RC Products</span><ArrowRight size={16} aria-hidden="true" />
           </a>
-          <a href={trackHref} className="ghs-btn ghs-btn-glass">
+          <Link to="/indoor-track" className="ghs-btn ghs-btn-glass">
             <TrackIcon size={18} aria-hidden="true" /><span>Visit Our Indoor Track</span><ArrowRight size={16} aria-hidden="true" />
-          </a>
+          </Link>
         </div>
         <nav className="ghs-tiles" aria-label="Quick links">
           {tiles.map((t) => {
             const inner = <><img src={t.photo} alt="" className="ghs-tile-photo" loading="lazy" /><strong>{t.name}</strong><span>{t.sub}</span></>;
             return "category" in t
               ? <Link key={t.name} to="/collection/$category" params={{ category: t.category }} className="ghs-tile">{inner}</Link>
-              : <a key={t.name} href={t.href} className="ghs-tile">{inner}</a>;
+              : <Link key={t.name} to={t.page} className="ghs-tile">{inner}</Link>;
           })}
         </nav>
       </div>
