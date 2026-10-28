@@ -55,9 +55,6 @@ export function VisionHero({ mode = "investor" }: { mode?: "investor" | "app" })
               </a>
             )}
           </div>
-        <div className="gh-hero-adventure" aria-hidden="true">
-          Built for <span>Real Adventure</span>
-        </div>
       </div>
     </section>
   );
