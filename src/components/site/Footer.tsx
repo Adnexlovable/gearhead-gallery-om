@@ -39,7 +39,6 @@ export function Footer({ variant = "investor" }: { variant?: "investor" | "app" 
               className="gh-footer-logo h-auto w-[200px] object-contain drop-shadow-[0_0_14px_rgba(255,140,30,.35)] sm:w-[230px]"
             />
           </a>
-          <div className="mt-1 text-[9px] font-medium uppercase tracking-[.18em] text-[#ffe0b0]">A brand of <span className="font-extrabold text-[#ffab38]">ADNEX.WORLD</span></div>
           <p className="mt-4 max-w-xs text-sm leading-7 text-[#fff2e5]">
             A new RC experience for Oman. RC vehicles, scale crawlers,
             technical service, parts and off-road hobby culture,

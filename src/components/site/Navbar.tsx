@@ -90,6 +90,7 @@ export function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 md:px-8">
         <Link to="/" onClick={() => setOpen(false)} className="gh-navbar-brand flex min-w-0 shrink-0 items-center gap-2.5" aria-label="GearHead RC Hub — Investor Home">
           <img src={headerLogo} width={900} height={287} decoding="async" alt="GearHead RC Hub, a brand of ADNEX.WORLD" className="gh-header-logo" />
+            <span className="gh-logo-sub">A BRAND OF ADNEX.WORLD</span>
         </Link>
 
         <nav className="gh-page-nav hidden items-center gap-1 lg:flex" aria-label="Main pages">
