@@ -1,4 +1,4 @@
-import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
+import { useSiteMedia, siteMediaStyle, siteMediaQuery } from "@/lib/site-media";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
@@ -11,7 +11,7 @@ import { useHashScroll } from "@/hooks/useHashScroll";
 
 export const Route = createFileRoute("/store")({
   staticData: { sitemap: true },
-  loader: ({ context }) => context.queryClient.ensureQueryData(shopCatalogQuery),
+  loader: ({ context }) => Promise.all([context.queryClient.ensureQueryData(shopCatalogQuery), context.queryClient.ensureQueryData(siteMediaQuery)]),
   head: () => ({
     meta: [
       { title: "RC Collection — Cars, Crawlers, Diecast, Parts | GearHead RC Hub Muscat" },
