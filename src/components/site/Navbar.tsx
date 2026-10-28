@@ -1,6 +1,6 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ArrowLeft, ChevronDown, ChevronRight, Home, Menu, Store, X, User, LogOut } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, X, User, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useActivePageSection, type PageSection } from "@/hooks/useActivePageSection";
 
@@ -31,7 +31,6 @@ export function Navbar() {
   const [signedIn, setSignedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const activeSection = useActivePageSection(pathname, SECTIONS);
-  const currentSection = SECTIONS.find((item) => item.id === activeSection)?.label ?? "Home / Hero";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 32);
