@@ -2463,3 +2463,7 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 }
 .ghx-shop .ghx-section::before { background: linear-gradient(180deg, rgba(27,21,18,.88), rgba(27,21,18,.66) 35%, rgba(27,21,18,.66) 65%, rgba(27,21,18,.9)), var(--ghx-shop-photo) center / cover no-repeat; }
 @media (max-width: 767px) { .ghx-shop .ghx-hero-inner { padding-bottom: 11svh; } }
+@media (max-width: 767px) {
+  .ghx-shop .ghx-hero { min-height: 0; }
+  .ghx-shop .ghx-hero-inner { padding-top: calc(40svh + 14px); padding-bottom: 1.2rem; }
+}
