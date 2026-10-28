@@ -22,7 +22,7 @@ const MAIN_PAGES = [
   { label: "Product Catalogue", href: "/store", short: "Products" },
 ] as const;
 
-const logo = "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/d33cbb38-c247-46d7-9fa2-08cdf797e71c.png";
+import headerLogo from "@/assets/gearhead-header-logo.png";
 
 export function Navbar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -89,13 +89,7 @@ export function Navbar() {
     <header className={`gh-primary-header fixed inset-x-0 top-0 z-[110] transition-[padding,background-color,border-color] duration-300 ${scrolled || open ? "gh-header-solid py-1" : "gh-header-clear py-1"}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 md:px-8">
         <Link to="/" onClick={() => setOpen(false)} className="gh-navbar-brand flex min-w-0 shrink-0 items-center gap-2.5" aria-label="GearHead RC Hub — Investor Home">
-          <img src={logo} width={52} height={52} decoding="async" alt="" className="gh-navbar-brand-mark h-9 w-9 shrink-0 object-contain drop-shadow-[0_2px_6px_rgba(255,122,24,.35)] md:h-10 md:w-10" />
-          <span className="gh-navbar-brand-copy flex min-w-0 flex-col items-start leading-none">
-            <span className="gh-navbar-brand-main font-display text-[15px] font-black tracking-tight text-white">GEAR<span className="text-[#ff981e]">HEAD</span></span>
-            <span className="gh-navbar-brand-rc mt-0 font-display text-[10px] font-bold tracking-[.14em] text-[#ffd29a]">RC HUB</span>
-            <span className="gh-navbar-brand-prefix hidden text-[7px] font-medium text-[#dfd3c7]">A brand of</span>
-            <span className="gh-navbar-brand-parent mt-0 font-display text-[9px] font-extrabold text-[#ffb45a]">ADNEX.WORLD</span>
-          </span>
+          <img src={headerLogo} width={900} height={287} decoding="async" alt="GearHead RC Hub, a brand of ADNEX.WORLD" className="gh-header-logo" />
         </Link>
 
         <nav className="gh-page-nav hidden items-center gap-1 lg:flex" aria-label="Main pages">
