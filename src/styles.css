@@ -2414,3 +2414,4 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 @media (max-width: 767px) {
   .ghx-shop .ghx-hero-shade { background: linear-gradient(180deg, rgba(42,26,14,.35) 0%, rgba(42,26,14,0) 16%, rgba(42,26,14,0) 36%, rgba(42,26,14,.8) 50svh, var(--ghx-bg-2) 60svh); }
 }
+.gearhead-home.gh-has-bottomnav.ghx-shop { padding-bottom: 0; }

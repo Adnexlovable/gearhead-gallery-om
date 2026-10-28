@@ -55,9 +55,6 @@ export function VisionHero({ mode = "investor" }: { mode?: "investor" | "app" })
               </a>
             )}
           </div>
-        <Link to={mode === "investor" ? "/app" : "/"} className="ghx-hero-switch" aria-label={mode === "investor" ? "Switch to the GearHead shop app" : "Switch to the investor site"}>
-          <ArrowLeftRight size={15} aria-hidden="true" /> {mode === "investor" ? "GearHead App" : "Investor site"}
-        </Link>
         <div className="gh-hero-adventure" aria-hidden="true">
           Built for <span>Real Adventure</span>
         </div>
