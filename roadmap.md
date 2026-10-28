@@ -46,3 +46,5 @@
 - [x] Home cover: top bar must not cover the title
 - [x] Top bar logo must not be cropped or messy
 - [x] Home cover: clean sky at top, no dark gap, nothing cropped
+- [x] 5 boxes open their own pages (3 categories, Service, Indoor track)
+- [x] Cover title letters restored in full
