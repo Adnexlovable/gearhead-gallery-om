@@ -2392,3 +2392,26 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 @media (max-width: 767px) {
   .ghx-shop .ghx-hero-shade { background: linear-gradient(180deg, rgba(10,21,33,.45) 0%, rgba(10,21,33,0) 16%, rgba(10,21,33,0) 34%, rgba(10,21,33,.8) 50svh, var(--ghx-bg-2) 60svh); }
 }
+/* Owner 2026-10-28: warm sunset/ember background like the reference photo, compact header, no bottom bar. */
+.ghx-shop {
+  --ghx-bg: #1f130b; --ghx-bg-2: #2a1a0e; --ghx-surface: #3a2414; --ghx-surface-2: #462c18;
+  --ghx-border: #5a3a20; --ghx-border-strong: #7a4e28; --ghx-muted: #e6cdb4;
+  background: radial-gradient(1200px 700px at 80% -10%, rgba(255,150,50,.28), transparent 60%),
+    radial-gradient(900px 600px at -10% 50%, rgba(220,110,40,.18), transparent 60%),
+    linear-gradient(180deg, #3a2312, #24160c 45%, #2e1c0f);
+}
+.ghx-shop .ghx-header, .ghx-shop .ghx-bottomnav { background: rgba(42,26,14,.88); }
+.ghx-shop .ghx-header.is-clear { background: transparent; }
+.ghx-shop .ghx-header-row { min-height: 54px; }
+.ghx-shop .ghx-brand img { width: 36px; height: 36px; }
+.ghx-shop .ghx-brand-name { font-size: .92rem; }
+.ghx-shop .ghx-brand-sub { font-size: .6rem; margin-top: .2rem; }
+.ghx-shop .ghx-icon-btn { width: 38px; height: 38px; }
+.ghx-shop .ghx-hero-shade { background: linear-gradient(180deg, rgba(42,26,14,.35) 0%, rgba(42,26,14,0) 18%, rgba(42,26,14,0) 45%, rgba(42,26,14,.75) 70%, var(--ghx-bg-2) 100%); }
+.ghx-shop .ghx-tile, .ghx-shop .ghx-btn-outline, .ghx-shop .ghx-chip { background: rgba(42,26,14,.6); }
+.ghx-shop .ghx-cat-hero-shade { background: linear-gradient(90deg, rgba(42,26,14,.92), rgba(42,26,14,.5) 60%, rgba(42,26,14,.25)), linear-gradient(180deg, transparent 50%, var(--ghx-bg-2)); }
+.ghx-shop.gh-has-bottomnav { padding-bottom: 0; }
+@media (max-width: 767px) {
+  .ghx-shop .ghx-hero-shade { background: linear-gradient(180deg, rgba(42,26,14,.35) 0%, rgba(42,26,14,0) 16%, rgba(42,26,14,0) 36%, rgba(42,26,14,.8) 50svh, var(--ghx-bg-2) 60svh); }
+}
+.gearhead-home.gh-has-bottomnav.ghx-shop { padding-bottom: 0; }

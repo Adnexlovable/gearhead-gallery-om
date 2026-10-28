@@ -102,7 +102,6 @@ function ShopHome() {
               })}
             </nav>
           </div>
-          <Link to="/" className="ghx-hero-switch" aria-label="Switch to the investor site"><ArrowLeftRight size={15} aria-hidden="true" /> Investor site</Link>
         </section>
 
         <div className="ghx-feature-cards">

@@ -99,15 +99,6 @@ export function AppNavbar() {
         )}
       </header>
 
-      <nav aria-label="App bottom navigation" className="ghx-bottomnav gh-app-bottomnav">
-        <Link to="/app" className={pathname === "/app" ? "is-active" : undefined}><Home size={19} />Home</Link>
-        <Link to="/store" className={pathname === "/store" || pathname.startsWith("/collection") || pathname.startsWith("/product") ? "is-active" : undefined}><LayoutGrid size={19} />Shop</Link>
-        <a href="/app#finder"><Sparkles size={19} />Finder</a>
-        <Link to="/cart" className={pathname === "/cart" ? "is-active" : undefined}>
-          <span className="relative"><ShoppingCart size={19} />{count > 0 && <span className="ghx-badge ghx-badge-sm">{count}</span>}</span>Order
-        </Link>
-        <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer"><MessageCircle size={19} />WhatsApp</a>
-      </nav>
       {searching && <SearchOverlay onClose={() => setSearching(false)} />}
     </>
   );
