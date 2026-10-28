@@ -13,7 +13,7 @@ import { shopCatalogQuery } from "@/lib/shop-queries";
 import { useHashScroll } from "@/hooks/useHashScroll";
 import { WHATSAPP_NUMBER } from "@/lib/shop";
 import { DEFAULT_SHOP_DETAILS } from "@/lib/shop-details";
-import heroImage from "@/assets/shop-hero.jpg";
+import heroImage from "@/assets/home-hero-916.jpg";
 
 const art = {
   showroom: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a7fbbad-e215-4d63-a8c3-550220dcd0c3.jpg",
@@ -77,7 +77,7 @@ function ShopHome() {
       <main>
         {/* 1. Hero */}
         <section id="top" className="ghx-hero" aria-label="GearHead RC Hub">
-          <img src={siteMedia.hero || heroImage} alt="" className="ghx-hero-img" data-parallax="0.18" width={1920} height={1280} fetchPriority="high" />
+          <img src={siteMedia.hero || heroImage} alt="" className="ghx-hero-img" data-parallax="0.18" width={1080} height={1920} fetchPriority="high" />
           <div className="ghx-hero-shade" aria-hidden="true" />
           <div className="ghx-hero-inner">
             <h1 className="ghx-hero-title gh-hero-brand" aria-label="GearHead RC Hub">
