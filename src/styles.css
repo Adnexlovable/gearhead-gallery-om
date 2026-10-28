@@ -2828,3 +2828,24 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   border: 1px solid rgba(255,255,255,.12) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 0 0 1px rgba(232,108,31,.25), 0 24px 60px rgba(0,0,0,.6) !important; }
 .ghx-shop .ghx-drawer-link { background: rgba(255,255,255,.05) !important; border-color: rgba(255,255,255,.1) !important; color: #fff; }
 .ghx-shop .ghx-drawer-link:hover { border-color: rgba(232,108,31,.7) !important; }
+
+/* ===== Owner 2026-10-28 (strict brief 3): 3D title matching the owner's title photo ===== */
+.ghh-title { font-family: "Saira", "Exo 2", Impact, sans-serif !important; font-stretch: 125%; font-style: italic; font-weight: 900;
+  line-height: .9 !important; letter-spacing: -.01em !important; transform: skew(-4deg) !important; align-items: flex-start; }
+.ghh-steel, .ghh-orange { padding-right: .06em; }
+.ghh-steel { font-size: clamp(2.6rem, 11.6vw, 7.4rem) !important;
+  background-image: linear-gradient(180deg, #ffffff 0%, #f4f6f8 34%, #b9c0c8 48%, #8c949e 52%, #e9edf1 70%, #aab2bb 100%) !important;
+  -webkit-text-stroke: 1px rgba(255,255,255,.55);
+  filter: drop-shadow(0 1px 0 #c6ccd3) drop-shadow(0 2px 0 #6f7781) drop-shadow(0 3px 0 #4a5058) drop-shadow(0 4px 0 #2e3238) drop-shadow(0 10px 14px rgba(0,0,0,.75)) !important; }
+.ghh-orange { font-size: clamp(3.3rem, 14.8vw, 9.4rem) !important; margin-left: .1em !important; margin-top: -.02em;
+  background-image: linear-gradient(180deg, #ffe08a 0%, #ffb02e 30%, #ff7a12 55%, #f26a0c 72%, #ff9a3a 100%) !important;
+  -webkit-text-stroke: 1px rgba(255,214,140,.5);
+  filter: drop-shadow(0 1px 0 #ffb066) drop-shadow(0 2px 0 #b84c00) drop-shadow(0 3px 0 #8a3700) drop-shadow(0 4px 0 #5c2400) drop-shadow(0 0 18px rgba(255,120,20,.45)) drop-shadow(0 10px 14px rgba(0,0,0,.7)) !important; }
+.ghh-tagline { margin-top: .55rem !important; margin-left: .2rem; font: 700 clamp(.62rem, 2.75vw, 1.25rem)/1.2 "Saira", "Bricolage Grotesque", sans-serif !important;
+  font-stretch: 125%; letter-spacing: .2em !important; color: #fff; text-shadow: 0 2px 6px rgba(0,0,0,.9), 0 0 2px rgba(0,0,0,.8); }
+.ghh-brand { margin-top: .35rem !important; font-size: clamp(.66rem, 2.6vw, 1.05rem) !important; }
+@media (min-aspect-ratio: 1/1) {
+  .ghh-steel { font-size: clamp(3.4rem, 7vw, 8rem) !important; }
+  .ghh-orange { font-size: clamp(4.3rem, 8.9vw, 10.1rem) !important; }
+  .ghh-tagline { font-size: clamp(.8rem, 1.45vw, 1.35rem) !important; }
+}
