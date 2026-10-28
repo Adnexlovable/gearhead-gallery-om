@@ -2686,3 +2686,6 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   background: linear-gradient(180deg, rgba(40,16,4,.55), rgba(30,12,4,.45) 50%, rgba(24,10,4,.65)), url("./assets/shop-bg-orange.jpg") center / cover no-repeat !important;
   filter: none !important; opacity: 1 !important;
 }
+
+/* Home cover: 9:16 photo, whole truck visible */
+.gearhead-home .gh-hero-buggy { background-position: center 62% !important; }
