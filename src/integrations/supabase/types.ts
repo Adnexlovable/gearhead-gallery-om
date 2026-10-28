@@ -131,10 +131,12 @@ export type Database = {
           in_stock: boolean
           name: string
           price: number
+          price_band: string
           price_max: number
           scale: string
           selling_price: number | null
           sku: string | null
+          slug: string | null
           sort: number
           stock_quantity: number
           tag: string
@@ -156,10 +158,12 @@ export type Database = {
           in_stock?: boolean
           name: string
           price?: number
+          price_band?: string
           price_max?: number
           scale?: string
           selling_price?: number | null
           sku?: string | null
+          slug?: string | null
           sort?: number
           stock_quantity?: number
           tag?: string
@@ -181,10 +185,12 @@ export type Database = {
           in_stock?: boolean
           name?: string
           price?: number
+          price_band?: string
           price_max?: number
           scale?: string
           selling_price?: number | null
           sku?: string | null
+          slug?: string | null
           sort?: number
           stock_quantity?: number
           tag?: string
@@ -257,6 +263,42 @@ export type Database = {
           verification_method?: string
           verified?: boolean
           verified_on?: string | null
+        }
+        Relationships: []
+      }
+      shop_categories: {
+        Row: {
+          coming_soon: boolean
+          cover: string
+          description: string
+          name: string
+          slug: string
+          sort: number
+          tagline: string
+          updated_at: string
+          visible: boolean
+        }
+        Insert: {
+          coming_soon?: boolean
+          cover?: string
+          description?: string
+          name: string
+          slug: string
+          sort?: number
+          tagline?: string
+          updated_at?: string
+          visible?: boolean
+        }
+        Update: {
+          coming_soon?: boolean
+          cover?: string
+          description?: string
+          name?: string
+          slug?: string
+          sort?: number
+          tagline?: string
+          updated_at?: string
+          visible?: boolean
         }
         Relationships: []
       }
