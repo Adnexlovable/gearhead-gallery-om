@@ -2675,3 +2675,7 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   background: linear-gradient(180deg, rgba(14,10,8,.6), rgba(18,13,10,.4) 35%, rgba(18,13,10,.4) 65%, rgba(14,10,8,.64)), var(--ghx-shop-photo) center / cover no-repeat !important;
 }
 .ghx-shop .ghx-page::before, .gh-admin-shell::before { filter: brightness(1.3) !important; }
+
+/* New single bright cover photo: show whole car, no sky overlay */
+.gearhead-home .gh-hero-buggy { background-size: cover !important; background-position: center 70% !important; opacity: 1 !important; inset: 0 !important; top: 0 !important; }
+.gearhead-home .gh-hero-sky { display: none !important; }
