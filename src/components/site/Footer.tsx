@@ -32,7 +32,7 @@ export function Footer({ variant = "investor" }: { variant?: "investor" | "app" 
             <img
               src={footerLogo}
               width={520}
-              height={393}
+              height={500}
               alt="GearHead RC Hub — Jeep Wrangler, gear ring and mountain emblem"
               loading="lazy"
               decoding="async"
