@@ -53,3 +53,5 @@
 - [x] Home cover: clean sky at top, no dark gap, nothing cropped
 - [x] 5 boxes open their own pages (3 categories, Service, Indoor track)
 - [x] Cover title letters restored in full
+- [x] Google verification tag box in Admin → Search; share picture on every page
+- [ ] Walk through /admin as the owner: edit a product, set OMR price, check it on the shop (needs owner signup)

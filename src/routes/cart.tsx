@@ -1,4 +1,5 @@
 import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
+import { shareMeta } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MessageCircle, Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
 import { AppNavbar } from "@/components/site/AppNavbar";
@@ -17,8 +18,7 @@ export const Route = createFileRoute("/cart")({
       { name: "description", content: "Review the RC items you picked and send your order to GearHead RC Hub on WhatsApp." },
       { property: "og:title", content: "Your Order — GearHead RC Hub" },
       { property: "og:description", content: "Send your RC order to GearHead RC Hub on WhatsApp." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+        ...shareMeta("/cart", "Your Order — GearHead RC Hub", "Send your RC order to GearHead RC Hub on WhatsApp."),
       { name: "robots", content: "noindex" },
     ],
   }),
