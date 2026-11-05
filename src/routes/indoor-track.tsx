@@ -1,3 +1,4 @@
+import { shareMeta } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { InfoPage } from "@/components/shop/InfoPage";
 import bridgeTrack from "@/assets/showroom/shop-bridge-track.jpg.asset.json";
@@ -15,8 +16,7 @@ export const Route = createFileRoute("/indoor-track")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+        ...shareMeta("/indoor-track", title, description),
     ],
     links: [{ rel: "canonical", href: "https://gearheadrc.store/indoor-track" }],
   }),

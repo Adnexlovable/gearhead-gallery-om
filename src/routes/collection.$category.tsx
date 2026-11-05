@@ -1,5 +1,6 @@
 import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { useMemo, useState } from "react";
+import { shareMeta } from "@/lib/seo";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowLeft, ChevronLeft, ChevronRight, MessageCircle } from "lucide-react";
@@ -26,9 +27,7 @@ export const Route = createFileRoute("/collection/$category")({
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
-        { property: "og:type", content: "website" },
-        { property: "og:url", content: `https://gearheadrc.store/collection/${params.category}` },
-        { name: "twitter:card", content: "summary_large_image" },
+        ...shareMeta(`/collection/${params.category}`, title, description),
       ],
       links: [{ rel: "canonical", href: `https://gearheadrc.store/collection/${params.category}` }],
     };

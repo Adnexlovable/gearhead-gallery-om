@@ -1,3 +1,4 @@
+import { shareMeta } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { InfoPage } from "@/components/shop/InfoPage";
 import serviceRoom from "@/assets/showroom/shop-service-room.jpg.asset.json";
@@ -15,8 +16,7 @@ export const Route = createFileRoute("/service")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+        ...shareMeta("/service", title, description),
     ],
     links: [{ rel: "canonical", href: "https://gearheadrc.store/service" }],
   }),
