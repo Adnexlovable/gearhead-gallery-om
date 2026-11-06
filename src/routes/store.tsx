@@ -1,5 +1,4 @@
 import { useSiteMedia, siteMediaStyle, siteMediaQuery } from "@/lib/site-media";
-import { shareMeta } from "@/lib/seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
@@ -19,7 +18,9 @@ export const Route = createFileRoute("/store")({
       { name: "description", content: "The full GearHead RC Hub collection: performance RC, realistic RC, scale crawlers, drift & micro RC, diecast models, construction RC, batteries, spare parts and tools in Bausher, Muscat." },
       { property: "og:title", content: "GearHead RC Hub — Full RC Collection" },
       { property: "og:description", content: "Every GearHead category in one place. Order on WhatsApp." },
-        ...shareMeta("/store", "GearHead RC Hub — Full RC Collection", "Every GearHead category in one place. Order on WhatsApp."),
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://gearheadrc.store/store" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "https://gearheadrc.store/store" }],
   }),

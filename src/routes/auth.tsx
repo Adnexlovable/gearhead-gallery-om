@@ -1,4 +1,3 @@
-import { shareMeta } from "@/lib/seo";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -11,7 +10,8 @@ export const Route = createFileRoute("/auth")({
       { name: "description", content: "Sign in or create your GearHead RC collector account." },
       { property: "og:title", content: "Sign In — GearHead RC" },
       { property: "og:description", content: "Access your GearHead RC collector account." },
-        ...shareMeta("/auth", "Sign In — GearHead RC", "Access your GearHead RC collector account."),
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: AuthPage,

@@ -3,7 +3,6 @@ import { ExternalLink, Save, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
-import { verificationCode } from "@/lib/seo";
 
 type Settings = Tables<"search_console_settings">;
 
@@ -24,7 +23,7 @@ const EMPTY: Settings = {
 const STEPS = [
   { title: "Open Search Console", body: "Sign in at Google Search Console with the Google account that should own the site's search data." },
   { title: "Add your website", body: "Choose “URL prefix” and enter https://gearheadrc.store/ exactly as shown below." },
-  { title: "Pick “HTML tag”", body: "Copy the tag Google shows you, paste it in “Google verification tag” below, save, then publish the site." },
+  { title: "Pick “HTML tag”", body: "Copy the tag Google shows you and send it in chat — it will be added to the site, then publish." },
   { title: "Press Verify", body: "Once the site is published with the tag, press Verify in Search Console and tick “Verified” here." },
   { title: "Submit the sitemap", body: "Under Sitemaps, submit sitemap.xml so Google finds the home page and store." },
   { title: "Check weekly", body: "Performance → Queries shows the searches; Pages shows which pages bring visitors. Data appears after 2–3 days." },
@@ -67,11 +66,7 @@ export function SearchConsolePanel() {
       </section>
 
       <form className="border-t border-border pt-8" onSubmit={async (event) => {
-        event.preventDefault(); setMessage("");
-        const pasted = s.google_verification.trim();
-        const code = pasted ? verificationCode(pasted) : "";
-        if (pasted && !code) { setMessage("That verification tag doesn't look right. Paste the whole <meta …> tag Google gives you."); return; }
-        setBusy(true);
+        event.preventDefault(); setBusy(true); setMessage("");
         const payload = {
           id: "primary",
           property_url: s.property_url.trim().slice(0, 300),
@@ -82,13 +77,11 @@ export function SearchConsolePanel() {
           sitemap_url: s.sitemap_url.trim().slice(0, 300),
           google_account: s.google_account.trim().slice(0, 200),
           notes: s.notes.trim().slice(0, 2000),
-          google_verification: code,
           updated_at: new Date().toISOString(),
         };
         const { error } = await supabase.from("search_console_settings").upsert(payload).select("id").single();
         setBusy(false);
-        if (!error) set("google_verification", code);
-        setMessage(error ? "Unable to save. Please try again." : code ? "Saved. The Google tag goes live on the site after you publish." : "Search Console details saved.");
+        setMessage(error ? "Unable to save. Please try again." : "Search Console details saved.");
       }}>
         <h3 className="mb-5 font-display text-xl font-bold">Your property details</h3>
         <div className="grid gap-4 md:grid-cols-2">
@@ -110,9 +103,6 @@ export function SearchConsolePanel() {
             <input type="checkbox" className="h-4 w-4 accent-primary" checked={s.verified} onChange={(e) => set("verified", e.target.checked)} />Verified in Search Console</label>
           <label className="grid gap-2"><span className="text-xs text-muted-foreground">Verified on</span>
             <input type="date" className={inputCls} value={s.verified_on ?? ""} onChange={(e) => set("verified_on", e.target.value || null)} /></label>
-          <label className="grid gap-2 md:col-span-2"><span className="text-xs text-muted-foreground">Google verification tag (paste the whole HTML tag or just the code)</span>
-            <textarea rows={2} className={`${inputCls} font-mono text-xs`} value={s.google_verification} maxLength={400} spellCheck={false} onChange={(e) => set("google_verification", e.target.value)} placeholder='<meta name="google-site-verification" content="…" />' />
-            <span className="text-xs text-muted-foreground">{s.google_verification.trim() && verificationCode(s.google_verification) ? `Code found: ${verificationCode(s.google_verification)}` : "Leave empty if you verify another way."}</span></label>
           <label className="grid gap-2 md:col-span-2"><span className="text-xs text-muted-foreground">Notes (top searches, pages to watch)</span>
             <textarea rows={4} className={inputCls} value={s.notes} maxLength={2000} onChange={(e) => set("notes", e.target.value)} /></label>
         </div>

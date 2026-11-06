@@ -1,4 +1,3 @@
-import { shareMeta } from "@/lib/seo";
 import { createFileRoute } from "@tanstack/react-router";
 import { CustomCursor } from "@/components/site/CustomCursor";
 import { Navbar } from "@/components/site/Navbar";
@@ -16,7 +15,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Explore GearHead RC Hub, a proposed premium RC retail, crawler-track and service experience near Bousher Sand Dunes, Muscat. A brand of Adnex.World." },
       { property: "og:title", content: "GearHead RC Hub — A New RC Experience for Oman" },
       { property: "og:description", content: "A proposed Bousher-based RC flagship: performance models, scale crawlers, track-to-retail, service and strategic partnership opportunities." },
-        ...shareMeta("/", "GearHead RC Hub — A New RC Experience for Oman", "A proposed Bousher-based RC flagship: performance models, scale crawlers, track-to-retail, service and strategic partnership opportunities."),
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,

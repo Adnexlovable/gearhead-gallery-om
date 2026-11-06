@@ -1,6 +1,5 @@
 import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { useEffect, useRef, useState } from "react";
-import { shareMeta } from "@/lib/seo";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ArrowLeft, Check, MessageCircle, Minus, Plus, ShoppingCart } from "lucide-react";
@@ -31,7 +30,9 @@ export const Route = createFileRoute("/product/$productId")({
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
-        ...shareMeta(`/product/${params.productId}`, title, description, "product"),
+        { property: "og:type", content: "product" },
+        { property: "og:url", content: `https://gearheadrc.store/product/${params.productId}` },
+        { name: "twitter:card", content: "summary_large_image" },
       ],
       links: [{ rel: "canonical", href: `https://gearheadrc.store/product/${params.productId}` }],
     };
