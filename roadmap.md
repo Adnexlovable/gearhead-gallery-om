@@ -53,5 +53,3 @@
 - [x] Home cover: clean sky at top, no dark gap, nothing cropped
 - [x] 5 boxes open their own pages (3 categories, Service, Indoor track)
 - [x] Cover title letters restored in full
-- [x] Logos: header, footer and app icons now transparent/seamless on dark theme (2026-11-07)
-- [x] Email infra for notify.gearheadrc.store verified active; sender name fixed to GearHead RC Hub (2026-11-07)
