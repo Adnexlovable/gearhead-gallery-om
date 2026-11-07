@@ -89,7 +89,7 @@ export function Navbar() {
     <header className={`gh-primary-header fixed inset-x-0 top-0 z-[110] transition-[padding,background-color,border-color] duration-300 ${scrolled || open ? "gh-header-solid py-1" : "gh-header-clear py-1"}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 md:px-8">
         <Link to="/" onClick={() => setOpen(false)} className="gh-navbar-brand flex min-w-0 shrink-0 items-center gap-2.5" aria-label="GearHead RC Hub — Investor Home">
-          <img src={headerLogo} width={900} height={388} decoding="async" alt="GearHead RC Hub, a brand of ADNEX.WORLD" className="gh-header-logo" />
+          <img src={headerLogo} width={1788} height={750} decoding="async" alt="GearHead RC Hub, a brand of ADNEX.WORLD" className="gh-header-logo" />
             <span className="gh-logo-sub">A BRAND OF ADNEX.WORLD</span>
         </Link>
 
