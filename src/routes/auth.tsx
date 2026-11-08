@@ -104,18 +104,20 @@ function AuthPage() {
               placeholder="you@example.com"
             />
           </label>
-          <label className="flex flex-col gap-1.5">
-            <span className="font-mono-tag text-[10px] text-gold-soft/80">Password</span>
-            <input
-              type="password"
-              required
-              minLength={6}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="rounded-xl border border-gold/20 bg-surface px-4 py-3 text-sm text-foreground outline-none focus:border-gold/60"
-              placeholder="••••••••"
-            />
-          </label>
+          {mode !== "forgot" && (
+            <label className="flex flex-col gap-1.5">
+              <span className="font-mono-tag text-[10px] text-gold-soft/80">Password</span>
+              <input
+                type="password"
+                required
+                minLength={6}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="rounded-xl border border-gold/20 bg-surface px-4 py-3 text-sm text-foreground outline-none focus:border-gold/60"
+                placeholder="••••••••"
+              />
+            </label>
+          )}
 
           {message && (
             <p className={`text-sm ${message.kind === "error" ? "text-red-400" : "text-gold-soft"}`}>
@@ -124,9 +126,20 @@ function AuthPage() {
           )}
 
           <button type="submit" disabled={busy} className="btn-gold mt-2 disabled:opacity-60">
-            {busy ? "Please wait…" : mode === "signin" ? "Sign In" : "Sign Up"}
+            {busy ? "Please wait…" : mode === "signin" ? "Sign In" : mode === "signup" ? "Sign Up" : "Send reset link"}
           </button>
         </form>
+
+        {mode === "signin" && (
+          <p className="mt-4 text-center text-sm">
+            <button
+              onClick={() => { setMode("forgot"); setMessage(null); }}
+              className="text-muted-foreground underline-offset-4 hover:text-gold hover:underline"
+            >
+              Forgot your password?
+            </button>
+          </p>
+        )}
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
           {mode === "signin" ? "New to GearHead?" : "Already have an account?"}{" "}
