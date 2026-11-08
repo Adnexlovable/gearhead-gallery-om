@@ -36,6 +36,14 @@ function AuthPage() {
     setBusy(true);
     setMessage(null);
     try {
+      if (mode === "forgot") {
+        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
+        if (error) throw error;
+        setMessage({ kind: "info", text: "Password reset link sent — check your email inbox." });
+        return;
+      }
       if (mode === "signup") {
         const { data, error } = await supabase.auth.signUp({
           email,
@@ -74,12 +82,14 @@ function AuthPage() {
         </Link>
 
         <h1 className="font-display text-2xl font-bold text-foreground">
-          {mode === "signin" ? "Welcome back" : "Create your account"}
+          {mode === "signin" ? "Welcome back" : mode === "signup" ? "Create your account" : "Reset your password"}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
           {mode === "signin"
             ? "Sign in to your collector account."
-            : "Join the GearHead RC collectors."}
+            : mode === "signup"
+              ? "Join the GearHead RC collectors."
+              : "Enter your email and we'll send you a secure reset link."}
         </p>
 
         <form onSubmit={submit} className="mt-6 flex flex-col gap-4">
