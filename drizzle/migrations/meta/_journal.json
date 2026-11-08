@@ -29,13 +29,6 @@
       "when": 1793176383345,
       "tag": "0003_google_verification_tag",
       "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1794147493036,
-      "tag": "0004_update_super_admin_email",
-      "breakpoints": true
     }
   ]
 }

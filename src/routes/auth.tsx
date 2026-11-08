@@ -19,7 +19,7 @@ export const Route = createFileRoute("/auth")({
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
+  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -36,14 +36,6 @@ function AuthPage() {
     setBusy(true);
     setMessage(null);
     try {
-      if (mode === "forgot") {
-        const { error } = await supabase.auth.resetPasswordForEmail(email, {
-          redirectTo: `${window.location.origin}/reset-password`,
-        });
-        if (error) throw error;
-        setMessage({ kind: "info", text: "Password reset link sent — check your email inbox." });
-        return;
-      }
       if (mode === "signup") {
         const { data, error } = await supabase.auth.signUp({
           email,
@@ -82,14 +74,12 @@ function AuthPage() {
         </Link>
 
         <h1 className="font-display text-2xl font-bold text-foreground">
-          {mode === "signin" ? "Welcome back" : mode === "signup" ? "Create your account" : "Reset your password"}
+          {mode === "signin" ? "Welcome back" : "Create your account"}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
           {mode === "signin"
             ? "Sign in to your collector account."
-            : mode === "signup"
-              ? "Join the GearHead RC collectors."
-              : "Enter your email and we'll send you a secure reset link."}
+            : "Join the GearHead RC collectors."}
         </p>
 
         <form onSubmit={submit} className="mt-6 flex flex-col gap-4">
@@ -104,20 +94,18 @@ function AuthPage() {
               placeholder="you@example.com"
             />
           </label>
-          {mode !== "forgot" && (
-            <label className="flex flex-col gap-1.5">
-              <span className="font-mono-tag text-[10px] text-gold-soft/80">Password</span>
-              <input
-                type="password"
-                required
-                minLength={6}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="rounded-xl border border-gold/20 bg-surface px-4 py-3 text-sm text-foreground outline-none focus:border-gold/60"
-                placeholder="••••••••"
-              />
-            </label>
-          )}
+          <label className="flex flex-col gap-1.5">
+            <span className="font-mono-tag text-[10px] text-gold-soft/80">Password</span>
+            <input
+              type="password"
+              required
+              minLength={6}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="rounded-xl border border-gold/20 bg-surface px-4 py-3 text-sm text-foreground outline-none focus:border-gold/60"
+              placeholder="••••••••"
+            />
+          </label>
 
           {message && (
             <p className={`text-sm ${message.kind === "error" ? "text-red-400" : "text-gold-soft"}`}>
@@ -126,20 +114,9 @@ function AuthPage() {
           )}
 
           <button type="submit" disabled={busy} className="btn-gold mt-2 disabled:opacity-60">
-            {busy ? "Please wait…" : mode === "signin" ? "Sign In" : mode === "signup" ? "Sign Up" : "Send reset link"}
+            {busy ? "Please wait…" : mode === "signin" ? "Sign In" : "Sign Up"}
           </button>
         </form>
-
-        {mode === "signin" && (
-          <p className="mt-4 text-center text-sm">
-            <button
-              onClick={() => { setMode("forgot"); setMessage(null); }}
-              className="text-muted-foreground underline-offset-4 hover:text-gold hover:underline"
-            >
-              Forgot your password?
-            </button>
-          </p>
-        )}
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
           {mode === "signin" ? "New to GearHead?" : "Already have an account?"}{" "}

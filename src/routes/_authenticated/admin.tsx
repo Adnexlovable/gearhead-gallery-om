@@ -10,7 +10,7 @@ import { ShopCatalogAdmin } from "@/components/admin/ShopCatalogAdmin";
 import { parseShopDetails } from "@/lib/shop-details";
 import { ENQUIRY_STATUSES, ORDER_STATUSES, formatOMR, type OrderItem } from "@/lib/orders";
 import { toast } from "sonner";
-import { ArrowUpRight, RefreshCw, LogOut, Inbox as InboxIcon, CalendarDays, Package, Layers, ListChecks, Clock, CheckCircle2, Search, Image as ImageIcon, ShoppingCart, LayoutDashboard, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, RefreshCw, LogOut, Inbox as InboxIcon, CalendarDays, Package, Layers, ListChecks, Clock, CheckCircle2, Search, Image as ImageIcon, ShoppingCart } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   staticData: { sitemap: false },
@@ -28,8 +28,8 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-const TABS = ["Dashboard", "Orders", "Enquiries", "Bookings", "Shop catalogue", "Shop photos", "Sections", "Roadmap", "Search", "Security"] as const;
-const TAB_ICONS = [LayoutDashboard, ShoppingCart, InboxIcon, CalendarDays, Package, ImageIcon, Layers, ListChecks, Search, ShieldCheck];
+const TABS = ["Orders", "Enquiries", "Bookings", "Shop catalogue", "Shop photos", "Sections", "Roadmap", "Search"] as const;
+const TAB_ICONS = [ShoppingCart, InboxIcon, CalendarDays, Package, ImageIcon, Layers, ListChecks, Search];
 type Tab = (typeof TABS)[number];
 
 function AdminPage() {
