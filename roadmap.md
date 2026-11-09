@@ -9,10 +9,8 @@
 - [ ] First ad campaign (WhatsApp, dune fans, English + Arabic): approve goal, creative and launch date
 
 ## To do
-- [ ] Verify signed-in admin editing and public price readback — blocked while Lovable Cloud is unavailable
-- [ ] Inspect and tighten the reported public table/file-listing rules — blocked while Lovable Cloud is unavailable
-- [ ] Finish admin sidebar, product cards and security settings
-- [ ] Activate existing share cover tags, verify icons and Google tag, request publishing
+- [ ] Verify signed-in admin editing and public price readback — blocked while Lovable Cloud is paused
+- [ ] Inspect and tighten the reported public table/file-listing rules and complete security scan — blocked while Lovable Cloud is paused
 - [ ] Review gearheadrc.store search results once Google has a few days of data
 - [ ] "GearHead RC" name everywhere + local business details for search (Bausher, Muscat)
 - [ ] Admin AI helper: write search-friendly product titles and descriptions
@@ -20,6 +18,8 @@
 - [ ] Admin: edit section texts and add new pages (not built yet — owner to confirm if wanted)
 
 ## Done
+- [x] Admin sidebar implemented: Dashboard, Manage Products, Manage Categories and Security Settings; uses storefront product cards and confirmed OMR prices (signed-in check still blocked)
+- [x] Existing share cover activated on page metadata; preview cover, four manifest icons and Google verification tag checked
 - [x] Super admin panel: only adnexadmin@gmail.com (database whitelist updated in the previous session)
 - [x] Admin: edit cover, 5 box photos and 4 backgrounds (live on /, /app, /store)
 - [x] Admin: products, photos, categories, OMR prices, stock
