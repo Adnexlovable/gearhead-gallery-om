@@ -3,12 +3,16 @@
 ## Waiting on the owner
 - [ ] Retail prices (OMR) for each product — shop shows "price on request" until confirmed
 - [ ] Opening hours — needed for the website, booking and launch roadmap
-- [ ] Super admin login: sign up at /auth with adkinadnexsolution@gmail.com and confirm the email — admin access switches on by itself
+- [ ] Super admin login: sign up at /auth with adnexadmin@gmail.com and confirm the email — admin access switches on by itself
 - [ ] Email adnex@gearheadrc.store: finish email setup and pick a mailbox provider for receiving
 - [ ] Book a Visit form: decide whether to show it on the shop page again
 - [ ] First ad campaign (WhatsApp, dune fans, English + Arabic): approve goal, creative and launch date
 
 ## To do
+- [ ] Verify signed-in admin editing and public price readback — blocked while Lovable Cloud is unavailable
+- [ ] Inspect and tighten the reported public table/file-listing rules — blocked while Lovable Cloud is unavailable
+- [ ] Finish admin sidebar, product cards and security settings
+- [ ] Activate existing share cover tags, verify icons and Google tag, request publishing
 - [ ] Review gearheadrc.store search results once Google has a few days of data
 - [ ] "GearHead RC" name everywhere + local business details for search (Bausher, Muscat)
 - [ ] Admin AI helper: write search-friendly product titles and descriptions
@@ -16,7 +20,7 @@
 - [ ] Admin: edit section texts and add new pages (not built yet — owner to confirm if wanted)
 
 ## Done
-- [x] Super admin panel: only adkinadnexsolution@gmail.com (checked by the database)
+- [x] Super admin panel: only adnexadmin@gmail.com (database whitelist updated in the previous session)
 - [x] Admin: edit cover, 5 box photos and 4 backgrounds (live on /, /app, /store)
 - [x] Admin: products, photos, categories, OMR prices, stock
 - [x] Admin: Orders tab (saved from the WhatsApp cart) with status, total and customer details
