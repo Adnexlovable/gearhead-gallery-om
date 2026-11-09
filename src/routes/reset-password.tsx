@@ -1,3 +1,4 @@
+import { shareMeta } from "@/lib/seo";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -6,6 +7,9 @@ export const Route = createFileRoute("/reset-password")({
   staticData: { sitemap: false },
   head: () => ({
     meta: [
+      ...shareMeta("/reset-password", "Reset Password — GearHead RC", "Set a new password for your GearHead RC account."),
+      { property: "og:title", content: "Reset Password — GearHead RC" },
+      { property: "og:description", content: "Set a new password for your GearHead RC account." },
       { title: "Reset Password — GearHead RC" },
       { name: "description", content: "Set a new password for your GearHead RC account." },
       { name: "robots", content: "noindex" },

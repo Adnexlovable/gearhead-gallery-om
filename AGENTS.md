@@ -20,3 +20,4 @@
 - Unit tests live next to their module as src/**/*.test.ts and run with vitest via vitest.config.ts, which stays separate from the app's Vite config.
 - Keep owner-replaceable site photos (cover, 5 box photos, 4 backgrounds) in public.site_media slots listed in src/lib/site-media.ts, loaded via the public getSiteMedia server fn in route loaders; pages fall back to built-in photos when a slot is empty.
 - Save WhatsApp cart orders to public.orders through placeOrder in src/lib/shop.functions.ts, pricing items from the database (src/lib/orders.ts), so browser-sent prices are never trusted.
+- Reuse ProductCard and toShopProduct for admin catalogue previews; admin actions replace shopper actions so images and confirmed prices stay consistent with the storefront.
