@@ -64,9 +64,7 @@ export type Database = {
           message: string | null
           name: string
           product: string
-          quoted_price_omr: number | null
           read: boolean
-          status: string
         }
         Insert: {
           contact: string
@@ -75,9 +73,7 @@ export type Database = {
           message?: string | null
           name: string
           product: string
-          quoted_price_omr?: number | null
           read?: boolean
-          status?: string
         }
         Update: {
           contact?: string
@@ -86,9 +82,7 @@ export type Database = {
           message?: string | null
           name?: string
           product?: string
-          quoted_price_omr?: number | null
           read?: boolean
-          status?: string
         }
         Relationships: []
       }
@@ -118,51 +112,6 @@ export type Database = {
           sort_order?: number
           subtitle?: string
           title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      orders: {
-        Row: {
-          created_at: string
-          customer_contact: string
-          customer_name: string
-          id: string
-          item_count: number
-          items: Json
-          notes: string
-          read: boolean
-          ref: string
-          status: string
-          total_omr: number | null
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          customer_contact?: string
-          customer_name?: string
-          id?: string
-          item_count?: number
-          items?: Json
-          notes?: string
-          read?: boolean
-          ref: string
-          status?: string
-          total_omr?: number | null
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          customer_contact?: string
-          customer_name?: string
-          id?: string
-          item_count?: number
-          items?: Json
-          notes?: string
-          read?: boolean
-          ref?: string
-          status?: string
-          total_omr?: number | null
           updated_at?: string
         }
         Relationships: []
@@ -421,11 +370,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      gearhead_is_super_admin_user: {
-        Args: { _user_id: string }
-        Returns: boolean
-      }
-      gearhead_super_admin_email: { Args: never; Returns: string }
       is_admin: { Args: never; Returns: boolean }
     }
     Enums: {

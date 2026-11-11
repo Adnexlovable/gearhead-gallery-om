@@ -8,9 +8,7 @@ import { SearchConsolePanel } from "@/components/admin/SearchConsolePanel";
 import { ShopPhotosAdmin } from "@/components/admin/ShopPhotosAdmin";
 import { ShopCatalogAdmin } from "@/components/admin/ShopCatalogAdmin";
 import { parseShopDetails } from "@/lib/shop-details";
-import { ENQUIRY_STATUSES, ORDER_STATUSES, formatOMR, type OrderItem } from "@/lib/orders";
-import { toast } from "sonner";
-import { ArrowUpRight, RefreshCw, LogOut, Inbox as InboxIcon, CalendarDays, Package, Layers, ListChecks, Clock, CheckCircle2, Search, Image as ImageIcon, ShoppingCart } from "lucide-react";
+import { ArrowUpRight, RefreshCw, LogOut, Inbox as InboxIcon, CalendarDays, Package, Layers, ListChecks, Clock, CheckCircle2, Search, Image as ImageIcon } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   staticData: { sitemap: false },
@@ -28,13 +26,13 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-const TABS = ["Orders", "Enquiries", "Bookings", "Shop catalogue", "Shop photos", "Sections", "Roadmap", "Search"] as const;
-const TAB_ICONS = [ShoppingCart, InboxIcon, CalendarDays, Package, ImageIcon, Layers, ListChecks, Search];
+const TABS = ["Inbox", "Bookings", "Shop catalogue", "Shop photos", "Sections", "Roadmap", "Search"] as const;
+const TAB_ICONS = [InboxIcon, CalendarDays, Package, ImageIcon, Layers, ListChecks, Search];
 type Tab = (typeof TABS)[number];
 
 function AdminPage() {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
-  const [tab, setTab] = useState<Tab>("Orders");
+  const [tab, setTab] = useState<Tab>("Inbox");
   const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
@@ -46,7 +44,7 @@ function AdminPage() {
     return (
       <Shell>
         <h1 className="font-display text-3xl font-bold text-foreground">Access restricted</h1>
-        <p className="mt-2 text-muted-foreground">Only the shop super admin account can open this panel.</p>
+        <p className="mt-2 text-muted-foreground">This account doesn't have admin access.</p>
         <Link to="/" className="btn-gold mt-6 inline-block">Back to gallery</Link>
       </Shell>
     );
@@ -75,8 +73,7 @@ function AdminPage() {
       </div>
       <div key={refresh} className="mt-8">
         <div className="mb-6"><div className="text-xs uppercase text-muted-foreground">{tab === "Sections" ? "Website control" : "Boutique management"}</div><h2 className="mt-2 font-display text-3xl font-bold">{tab}</h2></div>
-        {tab === "Orders" && <Orders />}
-        {tab === "Enquiries" && <Inbox />}
+        {tab === "Inbox" && <Inbox />}
         {tab === "Bookings" && <Bookings />}
         {tab === "Shop catalogue" && <ShopCatalogAdmin />}
         {tab === "Shop photos" && <ShopPhotosAdmin />}
@@ -92,7 +89,7 @@ function Shell({ children }: { children: React.ReactNode }) {
   return <main className="gh-admin-shell min-h-screen bg-background px-5 py-10 md:px-10 md:py-14"><div className="mx-auto max-w-6xl">{children}</div></main>;
 }
 
-function useRows<T>(table: "orders" | "enquiries" | "bookings" | "products" | "site_sections" | "roadmap_tasks", order: string, asc: boolean) {
+function useRows<T>(table: "enquiries" | "bookings" | "products" | "site_sections" | "roadmap_tasks", order: string, asc: boolean) {
   const [rows, setRows] = useState<T[]>([]);
   const load = useCallback(async () => {
     const { data } = await supabase.from(table).select("*").order(order, { ascending: asc });
@@ -121,16 +118,12 @@ function Inbox() {
           <div className="flex flex-wrap justify-between gap-2">
             <div className={small}>{new Date(r.created_at).toLocaleString("en-GB")} · {r.product}</div>
             <div className="flex gap-2">
-              <select className={inputCls} aria-label="Enquiry status" value={r.status} onChange={async (e) => { const { error } = await supabase.from("enquiries").update({ status: e.target.value, read: true }).eq("id", r.id); if (error) toast.error(error.message); load(); }}>
-                {ENQUIRY_STATUSES.map((s) => <option key={s}>{s}</option>)}
-              </select>
               <button className={btn} onClick={async () => { await supabase.from("enquiries").update({ read: !r.read }).eq("id", r.id); load(); }}>{r.read ? "Mark unread" : "Mark read"}</button>
               <button className={btn} onClick={async () => { if (confirm("Delete enquiry?")) { await supabase.from("enquiries").delete().eq("id", r.id); load(); } }}>Delete</button>
             </div>
           </div>
           <div className="mt-2 font-display font-bold text-foreground">{r.name} · <span className="text-gold">{r.contact}</span></div>
           {r.message && <p className="mt-1 text-sm text-muted-foreground">{r.message}</p>}
-          <PriceField label="Quoted price" value={r.quoted_price_omr} onSave={async (v) => { const { error } = await supabase.from("enquiries").update({ quoted_price_omr: v }).eq("id", r.id); if (error) return toast.error(error.message); toast.success("Price saved"); load(); }} />
         </div>
       ))}
     </div>
@@ -220,81 +213,5 @@ function Roadmap() {
         </div>
       ))}
     </div>
-  );
-}
-
-function PriceField({ label, value, onSave }: { label: string; value: number | null; onSave: (v: number | null) => void | Promise<unknown> }) {
-  const [v, setV] = useState(value == null ? "" : String(value));
-  useEffect(() => setV(value == null ? "" : String(value)), [value]);
-  return (
-    <form className="mt-3 flex flex-wrap items-center gap-2" onSubmit={(e) => { e.preventDefault(); const n = v.trim() === "" ? null : Number(v); if (n != null && (!Number.isFinite(n) || n < 0)) return toast.error("Enter a valid OMR amount"); void onSave(n == null ? null : Math.round(n * 1000) / 1000); }}>
-      <span className={small}>{label} (OMR)</span>
-      <input type="number" min={0} step="0.001" inputMode="decimal" className={`${inputCls} w-28`} value={v} onChange={(e) => setV(e.target.value)} placeholder="0.000" />
-      <button className={btn}>Save</button>
-    </form>
-  );
-}
-
-function Orders() {
-  const { rows, load } = useRows<Tables<"orders">>("orders", "created_at", false);
-  const [filter, setFilter] = useState("open");
-  const shown = rows.filter((r) => filter === "all" || (filter === "open" ? !["completed", "cancelled"].includes(r.status) : r.status === filter));
-  const update = async (id: string, patch: Partial<Tables<"orders">>, msg?: string) => {
-    const { error } = await supabase.from("orders").update(patch).eq("id", id);
-    if (error) return toast.error(error.message);
-    if (msg) toast.success(msg);
-    load();
-  };
-  return (
-    <div className="space-y-3">
-      <div className="flex flex-wrap items-center gap-2">
-        {["open", "all", ...ORDER_STATUSES].map((f) => <button key={f} className={btn} aria-pressed={filter === f} onClick={() => setFilter(f)}>{f}</button>)}
-        <span className="text-xs text-muted-foreground">Saved when a shopper taps “Send order on WhatsApp”. Match the order ref in the WhatsApp message.</span>
-      </div>
-      {!shown.length && <Empty text="No orders here yet." />}
-      {shown.map((r) => {
-        const items = (Array.isArray(r.items) ? r.items : []) as unknown as OrderItem[];
-        return (
-          <div key={r.id} className={`${card} ${r.read ? "" : "ring-1 ring-gold/50"}`}>
-            <div className="flex flex-wrap items-start justify-between gap-2">
-              <div className="min-w-0">
-                <div className={small}>{new Date(r.created_at).toLocaleString("en-GB")} · {r.item_count} item{r.item_count === 1 ? "" : "s"}</div>
-                <div className="mt-1 font-display text-lg font-bold text-foreground">{r.ref} · <span className="text-gold">{formatOMR(r.total_omr)}</span></div>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <select className={inputCls} aria-label="Order status" value={r.status} onChange={(e) => update(r.id, { status: e.target.value, read: true })}>
-                  {ORDER_STATUSES.map((s) => <option key={s}>{s}</option>)}
-                </select>
-                <button className={btn} onClick={() => update(r.id, { read: !r.read })}>{r.read ? "Mark unread" : "Mark read"}</button>
-                <button className={btn} onClick={() => { if (confirm(`Delete order ${r.ref}?`)) void supabase.from("orders").delete().eq("id", r.id).then(({ error }) => { if (error) toast.error(error.message); load(); }); }}>Delete</button>
-              </div>
-            </div>
-            <ul className="mt-3 space-y-1 text-sm">
-              {items.map((i, n) => (
-                <li key={n} className="flex flex-wrap justify-between gap-2 border-b border-gold/10 pb-1">
-                  <span className="min-w-0 text-foreground">{i.name} <span className="text-muted-foreground">({i.scale}{i.color ? ` · ${i.color}` : ""}) × {i.qty}</span></span>
-                  <span className="text-gold-soft">{i.line_total_omr == null ? "Price to confirm" : formatOMR(i.line_total_omr)}</span>
-                </li>
-              ))}
-            </ul>
-            <PriceField label="Order total" value={r.total_omr} onSave={(v) => update(r.id, { total_omr: v }, "Total saved")} />
-            <OrderCustomer r={r} onSave={(patch) => update(r.id, patch, "Saved")} />
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function OrderCustomer({ r, onSave }: { r: Tables<"orders">; onSave: (patch: Partial<Tables<"orders">>) => void }) {
-  const [d, setD] = useState({ customer_name: r.customer_name, customer_contact: r.customer_contact, notes: r.notes });
-  useEffect(() => setD({ customer_name: r.customer_name, customer_contact: r.customer_contact, notes: r.notes }), [r]);
-  return (
-    <form className="mt-3 grid gap-2 sm:grid-cols-[1fr_1fr_2fr_auto]" onSubmit={(e) => { e.preventDefault(); onSave({ customer_name: d.customer_name.slice(0, 120), customer_contact: d.customer_contact.slice(0, 120), notes: d.notes.slice(0, 1000) }); }}>
-      <input className={`${inputCls} py-2`} placeholder="Customer name" value={d.customer_name} onChange={(e) => setD({ ...d, customer_name: e.target.value })} />
-      <input className={`${inputCls} py-2`} placeholder="Phone / WhatsApp" value={d.customer_contact} onChange={(e) => setD({ ...d, customer_contact: e.target.value })} />
-      <input className={`${inputCls} py-2`} placeholder="Notes (pickup, delivery…)" value={d.notes} onChange={(e) => setD({ ...d, notes: e.target.value })} />
-      <button className={btn}>Save details</button>
-    </form>
   );
 }

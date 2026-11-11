@@ -1,4 +1,4 @@
-import { useSiteMedia, siteMediaStyle, siteMediaQuery } from "@/lib/site-media";
+import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import {
@@ -37,7 +37,7 @@ const milestones = [
 
 export const Route = createFileRoute("/app")({
   staticData: { sitemap: true },
-  loader: ({ context }) => Promise.all([context.queryClient.ensureQueryData(shopCatalogQuery), context.queryClient.ensureQueryData(siteMediaQuery)]),
+  loader: ({ context }) => context.queryClient.ensureQueryData(shopCatalogQuery),
   head: () => ({
     meta: [
       { title: "GearHead RC Hub — RC Cars, Crawlers, Diecast & Parts Shop in Muscat" },

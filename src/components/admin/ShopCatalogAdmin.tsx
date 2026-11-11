@@ -3,8 +3,6 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { ArrowLeft, ArrowRight, ExternalLink, ImagePlus, Plus, Save, Trash2 } from "lucide-react";
 import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-import { shopCatalogQueryKey } from "@/lib/shop";
 
 type Product = Tables<"products">;
 type Category = Tables<"shop_categories">;
@@ -34,8 +32,7 @@ export function ShopCatalogAdmin() {
   const [view, setView] = useState<"products" | "categories">("products");
   const [cats, setCats] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
-  const qc = useQueryClient();
-  const fetchAll = useCallback(async () => {
+  const load = useCallback(async () => {
     const [c, p] = await Promise.all([
       supabase.from("shop_categories").select("*").order("sort"),
       supabase.from("products").select("*").order("sort"),
@@ -44,13 +41,7 @@ export function ShopCatalogAdmin() {
     setCats(c.data ?? []);
     setProducts(p.data ?? []);
   }, []);
-  // After every save, drop cached shop data so /, /app and /store show the change straight away.
-  const load = useCallback(async () => {
-    await fetchAll();
-    void qc.invalidateQueries({ queryKey: shopCatalogQueryKey });
-    void qc.invalidateQueries({ queryKey: ["shop-product"] });
-  }, [fetchAll, qc]);
-  useEffect(() => { void fetchAll(); }, [fetchAll]);
+  useEffect(() => { void load(); }, [load]);
 
   return (
     <div>
@@ -101,7 +92,7 @@ function CategoryRow({ c, count, reload }: { c: Category; count: number; reload:
   return (
     <div className={`${card} grid gap-4 md:grid-cols-[180px_1fr]`}>
       <div>
-        <div className="aspect-[4/3] overflow-hidden rounded-lg border border-gold/20 bg-surface">{draft.cover && <img src={draft.cover} alt="" className="h-full w-full object-contain" />}</div>
+        <div className="aspect-[4/3] overflow-hidden rounded-lg border border-gold/20 bg-surface">{draft.cover && <img src={draft.cover} alt="" className="h-full w-full object-cover" />}</div>
         <label className={`${chip} mt-2 inline-flex cursor-pointer items-center gap-1`}><ImagePlus size={12} /> Change cover
           <input type="file" accept="image/*" className="sr-only" onChange={async (e) => { const f = e.target.files?.[0]; if (!f) return; try { const url = await uploadPhoto(f, `categories/${c.slug}`); setDraft({ ...draft, cover: url }); await save({ cover: url }); } catch (err) { toast.error((err as Error).message); } }} />
         </label>
@@ -153,10 +144,10 @@ function Products({ products, cats, reload }: { products: Product[]; cats: Categ
       {shown.map((p) => (
         <div key={p.id} className={card}>
           <button className="flex w-full items-center gap-3 text-left" onClick={() => setOpen(open === p.id ? null : p.id)} aria-expanded={open === p.id}>
-            <div className="h-12 w-[72px] shrink-0 overflow-hidden rounded border border-gold/20 bg-surface">{strings(p.gallery)[0] && <img src={strings(p.gallery)[0]} alt="" className="h-full w-full object-contain" />}</div>
+            <div className="h-12 w-[72px] shrink-0 overflow-hidden rounded border border-gold/20 bg-surface">{strings(p.gallery)[0] && <img src={strings(p.gallery)[0]} alt="" className="h-full w-full object-cover" />}</div>
             <div className="min-w-0 flex-1">
               <div className="truncate font-display font-bold text-foreground">{p.name}</div>
-              <div className={label}>{cats.find((c) => c.slug === p.category)?.name ?? p.category} · {p.scale} · {strings(p.gallery).length} photos · {p.ask_price || !p.selling_price ? "price on request" : `OMR ${Number(p.selling_price).toFixed(3)}`} · stock {p.stock_quantity} · {p.visible ? "visible" : "hidden"}{p.in_stock ? "" : " · preorder"}</div>
+              <div className={label}>{cats.find((c) => c.slug === p.category)?.name ?? p.category} · {p.scale} · {strings(p.gallery).length} photos · {p.visible ? "visible" : "hidden"}{p.in_stock ? "" : " · preorder"}</div>
             </div>
             <span className="text-xs text-gold">{open === p.id ? "Close" : "Edit"}</span>
           </button>
@@ -173,7 +164,7 @@ function ProductEditor({ p, cats, reload, onDeleted }: { p: Product; cats: Categ
     name: p.name, category: p.category, scale: p.scale, type: p.type, description: p.description,
     features: strings(p.features).join("\n"), gallery: strings(p.gallery), colors: colors(p.color_variants),
     price_band: p.price_band, in_stock: p.in_stock, visible: p.visible, featured: p.featured,
-    ask_price: p.ask_price, selling_price: p.selling_price ?? 0, stock_quantity: p.stock_quantity,
+    ask_price: p.ask_price, selling_price: p.selling_price ?? 0,
   });
   const [busy, setBusy] = useState(false);
   const set = <K extends keyof typeof d>(k: K, v: (typeof d)[K]) => setD((x) => ({ ...x, [k]: v }));
@@ -188,8 +179,7 @@ function ProductEditor({ p, cats, reload, onDeleted }: { p: Product; cats: Categ
       description: d.description.slice(0, 1200), features: d.features.split("\n").map((s) => s.trim()).filter(Boolean).slice(0, 12),
       gallery: d.gallery, img: d.gallery[0] ?? "", color_variants: d.colors.filter((c) => c.name.trim()),
       price_band: d.price_band, edition: d.price_band, in_stock: d.in_stock, visible: d.visible, featured: d.featured,
-      ask_price: d.ask_price, selling_price: d.ask_price ? null : Math.round(Number(d.selling_price) * 1000) / 1000,
-      stock_quantity: Math.max(0, Math.floor(Number(d.stock_quantity) || 0)), updated_at: new Date().toISOString(),
+      ask_price: d.ask_price, selling_price: d.ask_price ? null : Number(d.selling_price), updated_at: new Date().toISOString(),
     }).eq("id", p.id);
     setBusy(false);
     if (error) return toast.error(error.message);
@@ -218,7 +208,7 @@ function ProductEditor({ p, cats, reload, onDeleted }: { p: Product; cats: Categ
         <div className="mt-2 flex flex-wrap gap-2">
           {d.gallery.map((g, i) => (
             <div key={g + i} className="w-32 overflow-hidden rounded-lg border border-gold/20">
-              <img src={g} alt="" className="aspect-[3/2] w-full bg-surface object-contain" />
+              <img src={g} alt="" className="aspect-[3/2] w-full object-cover" />
               <div className="flex justify-between bg-surface px-1 py-1">
                 <button aria-label="Move left" onClick={() => move(i, -1)} className="p-1 text-muted-foreground hover:text-gold"><ArrowLeft size={13} /></button>
                 <button aria-label="Remove photo" onClick={() => set("gallery", d.gallery.filter((_, j) => j !== i))} className="p-1 text-muted-foreground hover:text-destructive"><Trash2 size={13} /></button>
@@ -265,7 +255,6 @@ function ProductEditor({ p, cats, reload, onDeleted }: { p: Product; cats: Categ
         <button className={chip} onClick={() => set("in_stock", !d.in_stock)}>{d.in_stock ? "Opening stock" : "Preorder"}</button>
         <button className={chip} onClick={() => set("featured", !d.featured)}>{d.featured ? "Featured" : "Not featured"}</button>
         <button className={chip} onClick={() => set("ask_price", !d.ask_price)}>{d.ask_price ? "Price on request" : "Show price"}</button>
-        <span className="flex items-center gap-1 text-sm">Stock <input type="number" min={0} step={1} inputMode="numeric" className={`${input} !w-20`} value={d.stock_quantity} onChange={(e) => set("stock_quantity", Number(e.target.value))} aria-label="Stock quantity" /></span>
         {!d.ask_price && <span className="flex items-center gap-1 text-sm">OMR <input type="number" min={0} step="0.001" className={`${input} !w-28`} value={d.selling_price} onChange={(e) => set("selling_price", Number(e.target.value))} /></span>}
         {p.slug && <a className={chip} href={`/product/${p.slug}`} target="_blank" rel="noreferrer">View page</a>}
         <div className="ml-auto flex gap-2">

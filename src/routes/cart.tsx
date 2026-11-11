@@ -6,8 +6,6 @@ import { Footer } from "@/components/site/Footer";
 import { SectionHead } from "@/components/shop/SectionHead";
 import { clearCart, setCartQty, useCart } from "@/lib/cart";
 import { cartWhatsAppURL } from "@/lib/shop";
-import { newOrderRef } from "@/lib/orders";
-import { placeOrder } from "@/lib/shop.functions";
 
 export const Route = createFileRoute("/cart")({
   staticData: { sitemap: false },
@@ -62,13 +60,7 @@ function CartPage() {
             <div className="ghx-cart-foot">
               <span>{total} item{total === 1 ? "" : "s"}</span>
               <button type="button" className="ghx-btn ghx-btn-ghost" onClick={() => clearCart()}>Clear</button>
-              <a href={cartWhatsAppURL(lines)} target="_blank" rel="noopener noreferrer" className="ghx-btn ghx-btn-primary ghx-btn-lg"
-                onClick={(e) => {
-                  // Save the order for the shop admin, then open WhatsApp with the same order ref.
-                  const ref = newOrderRef();
-                  e.currentTarget.href = cartWhatsAppURL(lines, ref);
-                  void placeOrder({ data: { ref, lines: lines.map((l) => ({ slug: l.slug, qty: l.qty, color: l.color })) } }).catch(() => undefined);
-                }}><MessageCircle size={18} /> Send order on WhatsApp</a>
+              <a href={cartWhatsAppURL(lines)} target="_blank" rel="noopener noreferrer" className="ghx-btn ghx-btn-primary ghx-btn-lg"><MessageCircle size={18} /> Send order on WhatsApp</a>
             </div>
           </>
         )}

@@ -7,7 +7,6 @@ import {
 } from "lucide-react";
 import { InvestorDeckRequest } from "./InvestorDeckRequest";
 import { CinematicScene } from "./CinematicScene";
-import { useSiteMedia } from "@/lib/site-media";
 
 // Images are visual concepts from the GearHead RC shop-design references.
 // They do not represent photographs of a finished or trading storefront.
@@ -20,7 +19,7 @@ const art = {
 };
 
 // Owner's real shop interior photos — the background theme behind every section.
-const defaultShopBg = {
+const shopBg = {
   floor: "/__l5e/assets-v1/ccc97a20-b247-4797-af26-9f43ea2c54ff/shop-bridge-track.jpg",
   service: "/__l5e/assets-v1/6fbcc918-b427-4625-8ee8-8f2bbd38c4c0/shop-service-room.jpg",
   counter: "/__l5e/assets-v1/bde5ca85-8db4-46fd-9b1d-74f4533e2e6b/shop-counter.jpg",
@@ -115,13 +114,6 @@ const milestones = [
 
 export function HomeExperience() {
   const [deckOpen, setDeckOpen] = useState(false);
-  const media = useSiteMedia();
-  const shopBg = {
-    floor: media.bg1 || defaultShopBg.floor,
-    counter: media.bg2 || defaultShopBg.counter,
-    service: media.bg3 || defaultShopBg.service,
-    shelves: media.bg4 || defaultShopBg.shelves,
-  };
 
 
   return (
