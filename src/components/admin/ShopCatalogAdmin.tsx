@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { ArrowLeft, ArrowRight, ExternalLink, ImagePlus, Plus, Save, Trash2 } from "lucide-react";
@@ -130,6 +130,11 @@ function Products({ products, cats, reload }: { products: Product[]; cats: Categ
   const [q, setQ] = useState("");
   const [open, setOpen] = useState<string | null>(null);
   const [newName, setNewName] = useState("");
+  const editorRef = useRef<HTMLElement | null>(null);
+  // The editor sits below the whole grid, so bring it into view whenever it opens.
+  useEffect(() => {
+    if (open) editorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [open]);
   const shown = useMemo(() => products.filter((p) => (filter === "all" || p.category === filter) && (!q || p.name.toLowerCase().includes(q.toLowerCase()))), [products, filter, q]);
   const add = async () => {
     const name = newName.trim().slice(0, 120);
@@ -165,7 +170,7 @@ function Products({ products, cats, reload }: { products: Product[]; cats: Categ
             }}><Trash2 size={14} />Delete</Button>
           </>} />)}
       </div>
-      {products.filter((p) => p.id === open).map((p) => <section key={p.id} aria-label={`Edit ${p.name}`} className="border-t border-border pt-5">
+      {products.filter((p) => p.id === open).map((p) => <section key={p.id} ref={editorRef} aria-label={`Edit ${p.name}`} className="scroll-mt-6 border-t border-border pt-5">
         <h3 className="font-display text-xl font-bold">{p.name}</h3>
         <p className="mt-1 text-sm text-muted-foreground">Stock {p.stock_quantity} · {p.visible ? "Visible" : "Hidden"}</p>
         <ProductEditor p={p} cats={cats} reload={reload} onDeleted={() => setOpen(null)} />
