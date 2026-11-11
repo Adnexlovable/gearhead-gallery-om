@@ -10,7 +10,7 @@ import { ShopCatalogAdmin } from "@/components/admin/ShopCatalogAdmin";
 import { parseShopDetails } from "@/lib/shop-details";
 import { ENQUIRY_STATUSES, ORDER_STATUSES, formatOMR, type OrderItem } from "@/lib/orders";
 import { toast } from "sonner";
-import { ArrowUpRight, RefreshCw, LogOut, Inbox as InboxIcon, CalendarDays, Package, Layers, ListChecks, Clock, CheckCircle2, Search, Image as ImageIcon, ShoppingCart, LayoutDashboard, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, RefreshCw, LogOut, Inbox as InboxIcon, CalendarDays, Package, Layers, ListChecks, Clock, CheckCircle2, Search, Image as ImageIcon, ShoppingCart } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   staticData: { sitemap: false },
@@ -28,13 +28,13 @@ export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
 });
 
-const TABS = ["Dashboard", "Manage Products", "Manage Categories", "Security Settings", "Orders", "Enquiries", "Bookings", "Shop photos", "Sections", "Roadmap", "Search"] as const;
-const TAB_ICONS = [LayoutDashboard, Package, Layers, ShieldCheck, ShoppingCart, InboxIcon, CalendarDays, ImageIcon, Layers, ListChecks, Search];
+const TABS = ["Orders", "Enquiries", "Bookings", "Shop catalogue", "Shop photos", "Sections", "Roadmap", "Search"] as const;
+const TAB_ICONS = [ShoppingCart, InboxIcon, CalendarDays, Package, ImageIcon, Layers, ListChecks, Search];
 type Tab = (typeof TABS)[number];
 
 function AdminPage() {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
-  const [tab, setTab] = useState<Tab>("Dashboard");
+  const [tab, setTab] = useState<Tab>("Orders");
   const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
@@ -64,66 +64,32 @@ function AdminPage() {
           <Button variant="outline" size="icon" title="Sign out" aria-label="Sign out" onClick={() => supabase.auth.signOut()}><LogOut /></Button>
         </div>
       </div>
-      <div className="mt-8 grid gap-6 lg:grid-cols-[220px_minmax(0,1fr)]">
-      <nav aria-label="Admin navigation" className="flex gap-1 overflow-x-auto border-y border-border py-2 lg:sticky lg:top-6 lg:flex-col lg:self-start lg:border-y-0 lg:border-r lg:pr-4">
+      <div className="mt-8 flex overflow-x-auto border-y border-border">
         {TABS.map((t, i) => {
           const Icon = TAB_ICONS[i];
-          if (!Icon) return null;
           return <Button variant="ghost" key={t} onClick={() => setTab(t)} aria-pressed={tab === t}
-            className={`h-12 shrink-0 justify-start rounded-md px-3 text-xs ${tab === t ? "bg-surface-2 text-gold" : "text-muted-foreground"}`}>
+            className={`h-14 shrink-0 rounded-none border-r border-border px-5 text-xs uppercase ${tab === t ? "bg-surface-2 text-gold" : "text-muted-foreground"}`}>
             <Icon />{t}
           </Button>;
         })}
-      </nav>
-      <div key={`${refresh}-${tab}`} className="min-w-0">
+      </div>
+      <div key={refresh} className="mt-8">
         <div className="mb-6"><div className="text-xs uppercase text-muted-foreground">{tab === "Sections" ? "Website control" : "Boutique management"}</div><h2 className="mt-2 font-display text-3xl font-bold">{tab}</h2></div>
         {tab === "Orders" && <Orders />}
         {tab === "Enquiries" && <Inbox />}
         {tab === "Bookings" && <Bookings />}
-        {tab === "Dashboard" && <Overview onSelect={setTab} />}
-        {tab === "Manage Products" && <ShopCatalogAdmin section="products" />}
-        {tab === "Manage Categories" && <ShopCatalogAdmin section="categories" />}
-        {tab === "Security Settings" && <SecuritySettings />}
+        {tab === "Shop catalogue" && <ShopCatalogAdmin />}
         {tab === "Shop photos" && <ShopPhotosAdmin />}
         {tab === "Sections" && <Sections />}
         {tab === "Roadmap" && <Roadmap />}
         {tab === "Search" && <SearchConsolePanel />}
-      </div>
       </div>
     </Shell>
   );
 }
 
 function Shell({ children }: { children: React.ReactNode }) {
-  return <main className="gh-admin-shell ghx-shop min-h-screen bg-background px-5 py-10 md:px-10 md:py-14"><div className="mx-auto max-w-7xl">{children}</div></main>;
-}
-
-function Overview({ onSelect }: { onSelect: (tab: Tab) => void }) {
-  const { rows: products } = useRows<Tables<"products">>("products", "sort", true);
-  const { rows: orders } = useRows<Tables<"orders">>("orders", "created_at", false);
-  const { rows: enquiries } = useRows<Tables<"enquiries">>("enquiries", "created_at", false);
-  return <div>
-    <div className="grid gap-4 sm:grid-cols-3">
-      {[["Products", products.length], ["Open orders", orders.filter((r) => !["completed", "cancelled"].includes(r.status)).length], ["Unread enquiries", enquiries.filter((r) => !r.read).length]].map(([label, value]) => <div key={label} className="vitrine p-5"><p className="text-sm text-muted-foreground">{label}</p><strong className="mt-3 block text-3xl text-gold">{value}</strong></div>)}
-    </div>
-    <div className="mt-6 flex flex-wrap gap-3"><Button onClick={() => onSelect("Manage Products")}><Package />Manage Products</Button><Button variant="outline" onClick={() => onSelect("Orders")}><ShoppingCart />View Orders</Button></div>
-  </div>;
-}
-
-function SecuritySettings() {
-  const [email, setEmail] = useState("");
-  const [busy, setBusy] = useState(false);
-  useEffect(() => { void supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? "")); }, []);
-  return <div className="space-y-6">
-    <dl className="grid gap-4 border-b border-border pb-6"><div><dt className="text-sm text-muted-foreground">Signed-in account</dt><dd className="mt-1 break-all">{email || "Checking…"}</dd></div><div><dt className="text-sm text-muted-foreground">Access</dt><dd className="mt-1">Super admin</dd></div></dl>
-    <Button variant="outline" disabled={busy || !email} onClick={async () => {
-      setBusy(true);
-      const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/reset-password` });
-      setBusy(false);
-      if (error) toast.error(error.message); else toast.success("Password reset link sent. Check your inbox.");
-    }}><ShieldCheck />{busy ? "Sending…" : "Send password reset link"}</Button>
-    <Button variant="outline" onClick={() => supabase.auth.signOut()}><LogOut />Sign out</Button>
-  </div>;
+  return <main className="gh-admin-shell min-h-screen bg-background px-5 py-10 md:px-10 md:py-14"><div className="mx-auto max-w-6xl">{children}</div></main>;
 }
 
 function useRows<T>(table: "orders" | "enquiries" | "bookings" | "products" | "site_sections" | "roadmap_tasks", order: string, asc: boolean) {

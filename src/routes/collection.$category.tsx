@@ -1,4 +1,3 @@
-import { shareMeta } from "@/lib/seo";
 import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { useMemo, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
@@ -23,11 +22,13 @@ export const Route = createFileRoute("/collection/$category")({
     const description = loaderData ? `${loaderData.description} Browse scales and models at GearHead RC Hub, Bausher, Muscat. Order on WhatsApp.` : "GearHead RC Hub category.";
     return {
       meta: [
-      ...shareMeta(`/collection/${params.category}`, title, description),
         { title },
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: `https://gearheadrc.store/collection/${params.category}` },
+        { name: "twitter:card", content: "summary_large_image" },
       ],
       links: [{ rel: "canonical", href: `https://gearheadrc.store/collection/${params.category}` }],
     };

@@ -16,7 +16,6 @@ const EMPTY: Settings = {
   sitemap_url: "https://gearheadrc.store/sitemap.xml",
   google_account: "",
   notes: "",
-  google_verification: "",
   updated_at: new Date().toISOString(),
 };
 

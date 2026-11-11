@@ -281,7 +281,6 @@ export type Database = {
       search_console_settings: {
         Row: {
           google_account: string
-          google_verification: string
           id: string
           notes: string
           property_type: string
@@ -294,7 +293,6 @@ export type Database = {
         }
         Insert: {
           google_account?: string
-          google_verification?: string
           id?: string
           notes?: string
           property_type?: string
@@ -307,7 +305,6 @@ export type Database = {
         }
         Update: {
           google_account?: string
-          google_verification?: string
           id?: string
           notes?: string
           property_type?: string
@@ -424,7 +421,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      gearhead_google_verification: { Args: never; Returns: string }
       gearhead_is_super_admin_user: {
         Args: { _user_id: string }
         Returns: boolean

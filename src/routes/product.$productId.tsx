@@ -1,4 +1,3 @@
-import { shareMeta } from "@/lib/seo";
 import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { useEffect, useRef, useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
@@ -27,11 +26,13 @@ export const Route = createFileRoute("/product/$productId")({
     const description = loaderData ? `${loaderData.description} Ask for price and availability at GearHead RC Hub, Muscat.` : "GearHead RC Hub product.";
     return {
       meta: [
-      ...shareMeta(`/product/${params.productId}`, title, description, "product"),
         { title },
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
+        { property: "og:type", content: "product" },
+        { property: "og:url", content: `https://gearheadrc.store/product/${params.productId}` },
+        { name: "twitter:card", content: "summary_large_image" },
       ],
       links: [{ rel: "canonical", href: `https://gearheadrc.store/product/${params.productId}` }],
     };

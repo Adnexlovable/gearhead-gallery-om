@@ -2175,8 +2175,8 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghx-shop .ghx-card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border-radius: .95rem; border: 1px solid var(--ghx-border); background: var(--ghx-surface); transition: border-color .2s ease; }
 .ghx-shop .ghx-card:hover { border-color: var(--ghx-accent); }
 .ghx-shop .ghx-card-media { position: relative; display: block; aspect-ratio: 3/2; overflow: hidden; background: var(--ghx-surface-2); }
-.ghx-shop .ghx-card-media img { width: 100%; height: 100%; object-fit: contain; transition: transform .6s ease; }
-.ghx-shop .ghx-card:hover .ghx-card-media img { transform: none; }
+.ghx-shop .ghx-card-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+.ghx-shop .ghx-card:hover .ghx-card-media img { transform: scale(1.05); }
 .ghx-shop .ghx-card-media .ghx-chip { position: absolute; left: .5rem; top: .5rem; }
 .ghx-shop .ghx-card-media .ghx-chip-right { left: auto; right: .5rem; }
 .ghx-shop .ghx-card-body { display: flex; flex: 1; flex-direction: column; padding: .7rem .75rem .8rem; }
@@ -2591,6 +2591,9 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 @media (max-width: 767px) { .ghx-shop .ghx-hero-inner { padding-bottom: 2.6rem !important; } .ghx-shop .ghx-hero { min-height: 100svh !important; } }
 .ghx-shop #top .ghx-hero-tagline { margin-top: 1.1rem !important; }
 @media (max-width: 767px) { .ghx-shop section#top.ghx-hero { min-height: 0 !important; height: auto !important; max-height: none !important; } .ghx-shop section#top .ghx-hero-inner { padding-top: calc(48px + 86vw) !important; padding-bottom: 2.6rem !important; } }
+.ghx-shop .ghx-brand, .gearhead-home .gh-navbar-brand { position: relative; }
+.gh-logo-sub { position: absolute; left: 30%; right: 2%; bottom: -1px; text-align: center; font: 800 6.4px/1 "Bricolage Grotesque", sans-serif; letter-spacing: .06em; color: #ffd21f; text-shadow: 0 1px 2px rgba(0,0,0,.9); white-space: nowrap; pointer-events: none; }
+@media (min-width: 768px) { .gh-logo-sub { font-size: 7.4px; } }
 /* Owner: RC car a bit lower, dark orange sky above */
 @media (max-width: 767px) {
   .ghx-shop .ghx-hero-img { top: 104px !important; -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 100%); mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 100%); }
@@ -2739,6 +2742,7 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   height: 54px !important; max-width: 62vw;
   filter: drop-shadow(0 0 5px rgba(255,140,30,.4)) drop-shadow(0 2px 3px rgba(0,0,0,.55)) brightness(1.08) saturate(1.1) !important; }
 @media (min-width: 768px) { .ghx-shop .ghx-brand img.ghx-brand-logo, .gearhead-home .gh-header-logo { height: 62px !important; } }
+.gh-logo-sub { left: 38%; right: 0; bottom: 2px; }
 /* Phone fixes: no repeated photo above the cover; title on one line each */
 .ghh-hero { background: linear-gradient(180deg, #17161b 0%, #2e3140 55%, #4b4c5a 100%) !important; }
 .ghh-copy { right: 12px; }
@@ -2902,11 +2906,12 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghs-tile .ghs-tile-photo { width: calc(100% + 0rem); aspect-ratio: 1 / 1; object-fit: cover; border-radius: .55rem; border: 1px solid rgba(232,108,31,.6); margin-bottom: .15rem; }
 
 /* ===== Owner 2026-10-28 (3 small fixes) ===== */
-/* 1) Header logo sub-line: one final rule — exactly logo width, centered, scales with logo height */
-.ghx-shop .ghx-brand, .gearhead-home .gh-navbar-brand { --logo-h: 54px; position: relative; display: inline-flex !important; flex-direction: column; align-items: stretch !important; justify-content: center; gap: 0 !important; flex: 0 0 auto; }
-.gh-logo-sub { position: static; display: block; width: 0; min-width: 100%; margin: 2px 0 0; padding: 0; text-align: center; white-space: nowrap; overflow: visible;
-  font: 800 calc(var(--logo-h) * 0.145)/1 "Bricolage Grotesque", sans-serif; letter-spacing: .06em; color: #ffd21f; text-shadow: 0 1px 2px rgba(0,0,0,.9); pointer-events: none; }
-@media (min-width: 768px) { .ghx-shop .ghx-brand, .gearhead-home .gh-navbar-brand { --logo-h: 62px; } }
+/* 1) Small yellow "A BRAND OF ADNEX.WORLD" line, left-aligned directly under the logo, max ~65% of logo width */
+.ghx-shop .ghx-brand, .gearhead-home .gh-navbar-brand { display: inline-flex !important; flex-direction: column; align-items: flex-start !important; justify-content: center; gap: 2px !important; }
+.gh-logo-sub { position: static !important; display: block; width: max-content; max-width: none; margin: 0; padding: 0 0 0 1px; text-align: left !important;
+  font-size: 8px !important; letter-spacing: .03em !important; line-height: 1 !important; overflow: visible;
+  transform: scale(.62); transform-origin: left top; margin-bottom: -3px; }
+@media (min-width: 768px) { .gh-logo-sub { font-size: 9px !important; transform: scale(.6); margin-bottom: -3.5px; } }
 /* 2) 2 buttons + 5 boxes at the very bottom of the cover, subtle dark fade behind for readability */
 .ghh-hero.ghh-poster .ghh-showcase-on { background: linear-gradient(180deg, rgba(10,6,4,0) 0%, rgba(10,6,4,.45) 30%, rgba(10,6,4,.72) 100%); padding-bottom: env(safe-area-inset-bottom, 0px); }
 /* ===== Owner 2026-10-28 Part 1: wide screens — side areas beside the uncropped poster use the shop photo theme (~65% dark) ===== */
@@ -2914,12 +2919,3 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   .ghh-hero.ghh-poster { background: linear-gradient(rgba(14,8,4,.65), rgba(14,8,4,.65)), url("/__l5e/assets-v1/ccc97a20-b247-4797-af26-9f43ea2c54ff/shop-bridge-track.jpg") center / cover no-repeat, #1a0f08 !important; }
   .ghh-hero.ghh-poster .ghh-poster-img { box-shadow: 0 0 0 1px rgba(232,108,31,.35), 0 30px 80px rgba(0,0,0,.55); }
 }
-
-/* ===== Installed-app splash (once per session, ~1.5s, fades into the page) ===== */
-.gh-splash { display: none; }
-html.gh-splash-on .gh-splash { display: grid; place-items: center; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
-  background: radial-gradient(circle at 50% 46%, rgba(232,108,31,.32), rgba(20,11,6,0) 42%), #140b06; opacity: 1; transition: opacity .55s ease; }
-html.gh-splash-on .gh-splash img { width: min(46vw, 210px); height: auto; object-fit: contain; filter: drop-shadow(0 0 22px rgba(232,108,31,.55)); animation: gh-splash-pop 1.4s ease-out both; }
-html.gh-splash-out .gh-splash { opacity: 0; }
-@keyframes gh-splash-pop { from { transform: scale(.86); opacity: 0; } 35% { opacity: 1; } to { transform: scale(1); opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { html.gh-splash-on .gh-splash img { animation: none; } }

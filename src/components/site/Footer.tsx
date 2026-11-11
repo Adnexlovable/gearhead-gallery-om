@@ -18,6 +18,7 @@ const appLinks = [
   { label: "Scale Crawlers", href: "/collection/crawlers" },
   { label: "Diecast Models", href: "/collection/diecast" },
   { label: "Spare Parts & Upgrades", href: "/collection/parts" },
+  { label: "Product Finder", href: "/app#finder" },
   { label: "Your Order", href: "/cart" },
 ];
 

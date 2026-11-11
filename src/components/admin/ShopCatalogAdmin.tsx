@@ -1,12 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { ArrowLeft, ArrowRight, ExternalLink, ImagePlus, Plus, Save, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
-import { shopCatalogQueryKey, toShopProduct } from "@/lib/shop";
-import { ProductCard } from "@/components/shop/ProductCard";
-import { Button } from "@/components/ui/button";
+import { shopCatalogQueryKey } from "@/lib/shop";
 
 type Product = Tables<"products">;
 type Category = Tables<"shop_categories">;
@@ -32,7 +30,7 @@ async function uploadPhoto(file: File, folder: string) {
   return supabase.storage.from("gearhead-product-images").getPublicUrl(path).data.publicUrl;
 }
 
-export function ShopCatalogAdmin({ section = "products" }: { section?: "products" | "categories" }) {
+export function ShopCatalogAdmin() {
   const [view, setView] = useState<"products" | "categories">("products");
   const [cats, setCats] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
@@ -53,7 +51,6 @@ export function ShopCatalogAdmin({ section = "products" }: { section?: "products
     void qc.invalidateQueries({ queryKey: ["shop-product"] });
   }, [fetchAll, qc]);
   useEffect(() => { void fetchAll(); }, [fetchAll]);
-  useEffect(() => setView(section), [section]);
 
   return (
     <div>
@@ -130,11 +127,6 @@ function Products({ products, cats, reload }: { products: Product[]; cats: Categ
   const [q, setQ] = useState("");
   const [open, setOpen] = useState<string | null>(null);
   const [newName, setNewName] = useState("");
-  const editorRef = useRef<HTMLElement | null>(null);
-  // The editor sits below the whole grid, so bring it into view whenever it opens.
-  useEffect(() => {
-    if (open) editorRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [open]);
   const shown = useMemo(() => products.filter((p) => (filter === "all" || p.category === filter) && (!q || p.name.toLowerCase().includes(q.toLowerCase()))), [products, filter, q]);
   const add = async () => {
     const name = newName.trim().slice(0, 120);
@@ -158,23 +150,19 @@ function Products({ products, cats, reload }: { products: Product[]; cats: Categ
           <button className="btn-gold !px-4 !py-2 !text-[10px]" onClick={add}><Plus size={14} /> Add product</button>
         </div>
       </div>
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {shown.map((p) => <ProductCard key={p.id} product={toShopProduct(p)} categoryName={cats.find((c) => c.slug === p.category)?.name}
-          adminActions={<>
-            <Button variant="outline" onClick={() => setOpen(open === p.id ? null : p.id)} aria-expanded={open === p.id}>Edit</Button>
-            <Button variant="outline" aria-label={`Delete ${p.name}`} onClick={async () => {
-              if (!confirm(`Delete ${p.name}? This cannot be undone.`)) return;
-              const { error } = await supabase.from("products").delete().eq("id", p.id);
-              if (error) return toast.error(error.message);
-              setOpen(null); toast.success("Product deleted"); void reload();
-            }}><Trash2 size={14} />Delete</Button>
-          </>} />)}
-      </div>
-      {products.filter((p) => p.id === open).map((p) => <section key={p.id} ref={editorRef} aria-label={`Edit ${p.name}`} className="scroll-mt-6 border-t border-border pt-5">
-        <h3 className="font-display text-xl font-bold">{p.name}</h3>
-        <p className="mt-1 text-sm text-muted-foreground">Stock {p.stock_quantity} · {p.visible ? "Visible" : "Hidden"}</p>
-        <ProductEditor p={p} cats={cats} reload={reload} onDeleted={() => setOpen(null)} />
-      </section>)}
+      {shown.map((p) => (
+        <div key={p.id} className={card}>
+          <button className="flex w-full items-center gap-3 text-left" onClick={() => setOpen(open === p.id ? null : p.id)} aria-expanded={open === p.id}>
+            <div className="h-12 w-[72px] shrink-0 overflow-hidden rounded border border-gold/20 bg-surface">{strings(p.gallery)[0] && <img src={strings(p.gallery)[0]} alt="" className="h-full w-full object-contain" />}</div>
+            <div className="min-w-0 flex-1">
+              <div className="truncate font-display font-bold text-foreground">{p.name}</div>
+              <div className={label}>{cats.find((c) => c.slug === p.category)?.name ?? p.category} · {p.scale} · {strings(p.gallery).length} photos · {p.ask_price || !p.selling_price ? "price on request" : `OMR ${Number(p.selling_price).toFixed(3)}`} · stock {p.stock_quantity} · {p.visible ? "visible" : "hidden"}{p.in_stock ? "" : " · preorder"}</div>
+            </div>
+            <span className="text-xs text-gold">{open === p.id ? "Close" : "Edit"}</span>
+          </button>
+          {open === p.id && <ProductEditor p={p} cats={cats} reload={reload} onDeleted={() => setOpen(null)} />}
+        </div>
+      ))}
       {!shown.length && <p className="text-sm text-muted-foreground">No products match.</p>}
     </div>
   );

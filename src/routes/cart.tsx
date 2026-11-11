@@ -1,4 +1,3 @@
-import { shareMeta } from "@/lib/seo";
 import { useSiteMedia, siteMediaStyle } from "@/lib/site-media";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MessageCircle, Minus, Plus, ShoppingCart, Trash2 } from "lucide-react";
@@ -14,11 +13,12 @@ export const Route = createFileRoute("/cart")({
   staticData: { sitemap: false },
   head: () => ({
     meta: [
-      ...shareMeta("/cart", "Your Order — GearHead RC Hub", "Send your RC order to GearHead RC Hub on WhatsApp."),
       { title: "Your Order — GearHead RC Hub" },
       { name: "description", content: "Review the RC items you picked and send your order to GearHead RC Hub on WhatsApp." },
       { property: "og:title", content: "Your Order — GearHead RC Hub" },
       { property: "og:description", content: "Send your RC order to GearHead RC Hub on WhatsApp." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
   }),

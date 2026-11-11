@@ -93,6 +93,7 @@ export function AppNavbar() {
                 <Link key={n.label} to={n.to} params={"params" in n ? n.params : undefined} className="ghx-drawer-link">{n.label}</Link>
               ))}
               <a href="/app#contact" className="ghx-drawer-link" onClick={() => setOpen(false)}>Contact</a>
+              <a href="/app#finder" className="ghx-drawer-link" onClick={() => setOpen(false)}>Product finder</a>
             </div>
             {data && (
               <>

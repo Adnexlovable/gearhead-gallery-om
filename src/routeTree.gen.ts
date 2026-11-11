@@ -15,7 +15,6 @@ import { Route as AppRouteImport } from './routes/app'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as IndoorTrackRouteImport } from './routes/indoor-track'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as ServiceRouteImport } from './routes/service'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StoreRouteImport } from './routes/store'
@@ -53,11 +52,6 @@ const CartRoute = CartRouteImport.update({
 const IndoorTrackRoute = IndoorTrackRouteImport.update({
   id: '/indoor-track',
   path: '/indoor-track',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ServiceRoute = ServiceRouteImport.update({
@@ -113,7 +107,6 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/cart': typeof CartRoute
   '/indoor-track': typeof IndoorTrackRoute
-  '/reset-password': typeof ResetPasswordRoute
   '/service': typeof ServiceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
@@ -130,7 +123,6 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/cart': typeof CartRoute
   '/indoor-track': typeof IndoorTrackRoute
-  '/reset-password': typeof ResetPasswordRoute
   '/service': typeof ServiceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
@@ -149,7 +141,6 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/cart': typeof CartRoute
   '/indoor-track': typeof IndoorTrackRoute
-  '/reset-password': typeof ResetPasswordRoute
   '/service': typeof ServiceRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
@@ -168,7 +159,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cart'
     | '/indoor-track'
-    | '/reset-password'
     | '/service'
     | '/sitemap.xml'
     | '/store'
@@ -185,7 +175,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cart'
     | '/indoor-track'
-    | '/reset-password'
     | '/service'
     | '/sitemap.xml'
     | '/store'
@@ -203,7 +192,6 @@ export interface FileRouteTypes {
     | '/auth'
     | '/cart'
     | '/indoor-track'
-    | '/reset-password'
     | '/service'
     | '/sitemap.xml'
     | '/store'
@@ -222,7 +210,6 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   CartRoute: typeof CartRoute
   IndoorTrackRoute: typeof IndoorTrackRoute
-  ResetPasswordRoute: typeof ResetPasswordRoute
   ServiceRoute: typeof ServiceRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StoreRoute: typeof StoreRoute
@@ -275,13 +262,6 @@ declare module '@tanstack/react-router' {
       path: '/indoor-track'
       fullPath: '/indoor-track'
       preLoaderRoute: typeof IndoorTrackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/service': {
@@ -368,7 +348,6 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   CartRoute: CartRoute,
   IndoorTrackRoute: IndoorTrackRoute,
-  ResetPasswordRoute: ResetPasswordRoute,
   ServiceRoute: ServiceRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   StoreRoute: StoreRoute,
