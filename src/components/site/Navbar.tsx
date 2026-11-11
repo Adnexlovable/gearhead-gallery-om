@@ -1,6 +1,6 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ChevronDown, ChevronRight, Menu, X, User, LogOut } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, X, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useActivePageSection, type PageSection } from "@/hooks/useActivePageSection";
 
