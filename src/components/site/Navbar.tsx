@@ -1,6 +1,6 @@
 import { useEffect, useState, type MouseEvent } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { ChevronDown, ChevronRight, Menu, X, User, LogOut } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, X, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useActivePageSection, type PageSection } from "@/hooks/useActivePageSection";
 
@@ -115,9 +115,7 @@ export function Navbar() {
           {isAdmin && <Link to="/admin" className="px-2 py-1 text-xs font-bold text-[#ffb970]">Dashboard</Link>}
           {signedIn ? (
             <button onClick={signOut} className="inline-flex items-center gap-1 px-2 text-xs text-[#e9ddce]"><LogOut size={14}/> Sign out</button>
-          ) : (
-            <Link to="/auth" className="inline-flex items-center gap-1 px-2 text-xs text-[#e9ddce]"><User size={14}/> Sign in</Link>
-          )}
+          ) : null}
         </nav>
 
         <button type="button" aria-expanded={open} aria-controls="gh-investor-mobile-menu" aria-label={open ? "Close main menu" : "Open main menu"}
@@ -154,7 +152,7 @@ export function Navbar() {
           </div>
           <div className="mt-5 flex items-center justify-between border-t border-[#f4983e]/30 pt-4">
             {isAdmin ? <Link to="/admin" onClick={()=>setOpen(false)} className="text-xs font-bold text-[#ffbb64]">Admin Dashboard</Link> : <span className="text-xs text-[#d4c3b3]">GearHead RC Hub · Muscat</span>}
-            {signedIn ? <button onClick={signOut} className="text-xs font-bold text-[#ffcf99]">Sign out</button> : <Link to="/auth" onClick={()=>setOpen(false)} className="text-xs font-bold text-[#ffcf99]">Sign in</Link>}
+            {signedIn ? <button onClick={signOut} className="text-xs font-bold text-[#ffcf99]">Sign out</button> : null}
           </div>
         </nav>
       )}
