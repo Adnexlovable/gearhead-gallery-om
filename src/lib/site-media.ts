@@ -2,11 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
 export const SITE_MEDIA_SLOTS = [
-  { slot: "hero", label: "Cover photo (shop home)" },
-  { slot: "bg1", label: "Background photo 1" },
-  { slot: "bg2", label: "Background photo 2" },
-  { slot: "bg3", label: "Background photo 3" },
-  { slot: "bg4", label: "Background photo 4" },
+  { slot: "hero", label: "Cover photo (shop home)", type: "image" },
+  { slot: "bg1", label: "Background photo 1", type: "image" },
+  { slot: "bg2", label: "Background photo 2", type: "image" },
+  { slot: "bg3", label: "Background photo 3", type: "image" },
+  { slot: "bg4", label: "Background photo 4", type: "image" },
+  { slot: "video_track", label: "Home video: Indoor track", type: "video" },
+  { slot: "video_service", label: "Home video: Service bench", type: "video" },
+  { slot: "video_retail", label: "Home video: Display racks", type: "video" },
 ] as const;
 
 export const siteMediaQueryKey = ["site-media"] as const;
@@ -18,7 +21,7 @@ export async function fetchSiteMedia(): Promise<Record<string, string>> {
   return out;
 }
 
-/** Owner-uploaded shop photos; empty map means "use the built-in photos". */
+/** Owner-uploaded shop photos & videos; empty map means "use the built-in media". */
 export function useSiteMedia() {
   return useQuery({ queryKey: siteMediaQueryKey, queryFn: fetchSiteMedia, staleTime: 60_000 }).data ?? {};
 }
