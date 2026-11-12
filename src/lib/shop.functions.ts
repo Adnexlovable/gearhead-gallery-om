@@ -5,23 +5,25 @@ import type { Database } from "@/integrations/supabase/types";
 import { toShopCategory, toShopProduct, type ShopCategory, type ShopProduct } from "@/lib/shop";
 import { FALLBACK_CATALOG, FALLBACK_PRODUCTS } from "@/lib/shop-fallback";
 
-// Public shop reads use the publishable key and the "public read visible" policies,
-// so hidden products/categories never reach anonymous visitors.
 function publicClient() {
-  const url = process.env["SUPABASE_URL"];
-  const key = process.env["SUPABASE_PUBLISHABLE_KEY"];
-  if (!url || !key) throw new Error("Shop data is not configured.");
-  return createClient<Database>(url, key, {
-    auth: { persistSession: false, autoRefreshToken: false, storage: undefined },
-    global: {
-      fetch: (input, init) => {
-        const headers = new Headers(init?.headers);
-        if (key.startsWith("sb_") && headers.get("Authorization") === `Bearer ${key}`) headers.delete("Authorization");
-        headers.set("apikey", key);
-        return fetch(input, { ...init, headers });
+  try {
+    const url = process.env["SUPABASE_URL"];
+    const key = process.env["SUPABASE_PUBLISHABLE_KEY"];
+    if (!url || !key) return null;
+    return createClient<Database>(url, key, {
+      auth: { persistSession: false, autoRefreshToken: false, storage: undefined },
+      global: {
+        fetch: (input, init) => {
+          const headers = new Headers(init?.headers);
+          if (key.startsWith("sb_") && headers.get("Authorization") === `Bearer ${key}`) headers.delete("Authorization");
+          headers.set("apikey", key);
+          return fetch(input, { ...init, headers });
+        },
       },
-    },
-  });
+    });
+  } catch {
+    return null;
+  }
 }
 
 const PRODUCT_COLUMNS =
@@ -31,25 +33,32 @@ export const getShopCatalog = createServerFn({ method: "GET" }).handler(
   async (): Promise<{ categories: ShopCategory[]; products: ShopProduct[] }> => {
     try {
       const db = publicClient();
+      if (!db) {
+        console.warn("[getShopCatalog] No Supabase client — using fallback");
+        return FALLBACK_CATALOG;
+      }
+
       const [cats, prods] = await Promise.all([
         db.from("shop_categories").select("slug,name,tagline,description,cover,sort,coming_soon").eq("visible", true).order("sort"),
         db.from("products").select(PRODUCT_COLUMNS).eq("visible", true).not("slug", "is", null).order("sort"),
       ]);
-      if (cats.error) throw new Error("Could not load categories: " + cats.error.message);
-      if (prods.error) throw new Error("Could not load products: " + prods.error.message);
+
+      if (cats.error || prods.error) {
+        console.warn("[getShopCatalog] Query error — using fallback", cats.error || prods.error);
+        return FALLBACK_CATALOG;
+      }
 
       const categories = (cats.data ?? []).map(toShopCategory);
       const products = (prods.data ?? []).map(toShopProduct);
 
-      // If cloud is empty (credits paused etc), use static fallback so the shop is not blank
       if (categories.length === 0 && products.length === 0) {
-        console.warn("[getShopCatalog] Supabase returned empty — using fallback catalog");
+        console.warn("[getShopCatalog] Empty result — using fallback");
         return FALLBACK_CATALOG;
       }
 
       return { categories, products };
     } catch (err) {
-      console.error("[getShopCatalog] Supabase error, using fallback catalog:", err);
+      console.error("[getShopCatalog] Unexpected error — using fallback", err);
       return FALLBACK_CATALOG;
     }
   },
@@ -60,14 +69,16 @@ export const getShopProduct = createServerFn({ method: "GET" })
   .handler(async ({ data }): Promise<ShopProduct | null> => {
     try {
       const db = publicClient();
-      const { data: row, error } = await db.from("products").select(PRODUCT_COLUMNS).eq("visible", true).eq("slug", data.slug).maybeSingle();
-      if (error) throw new Error("Could not load product: " + error.message);
-      if (row) return toShopProduct(row);
+      if (!db) {
+        return FALLBACK_PRODUCTS.find((p) => p.slug === data.slug) ?? null;
+      }
 
-      // Fallback lookup
-      return FALLBACK_PRODUCTS.find((p) => p.slug === data.slug) ?? null;
-    } catch (err) {
-      console.error("[getShopProduct] Supabase error, checking fallback:", err);
+      const { data: row, error } = await db.from("products").select(PRODUCT_COLUMNS).eq("visible", true).eq("slug", data.slug).maybeSingle();
+      if (error || !row) {
+        return FALLBACK_PRODUCTS.find((p) => p.slug === data.slug) ?? null;
+      }
+      return toShopProduct(row);
+    } catch {
       return FALLBACK_PRODUCTS.find((p) => p.slug === data.slug) ?? null;
     }
   });
