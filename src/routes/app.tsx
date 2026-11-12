@@ -21,7 +21,7 @@ const art = {
   workshop: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/f92c9489-55d1-4c7d-9819-a7294ce8a7cd.jpg",
   terrain: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a42db62-b4c4-4df2-b2e1-d82e50c20cb4.png",
 };
-const motion = {
+const defaultMotion = {
   track: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/19986706-a56f-4ac1-8542-9f1a432b8c92.mp4",
   service: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/3b8318e1-4713-4c93-9673-c8c1798ac307.mp4",
   retail: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/c396cda3-deca-4982-8354-ebe8d13e06d8.mp4",
@@ -66,6 +66,12 @@ function ShopHome() {
   const d = DEFAULT_SHOP_DETAILS;
 
   const siteMedia = useSiteMedia();
+  const motion = {
+    track: siteMedia.video_track || defaultMotion.track,
+    service: siteMedia.video_service || defaultMotion.service,
+    retail: siteMedia.video_retail || defaultMotion.retail,
+  };
+
   return (
     <div className="gearhead-home ghx-shop" style={siteMediaStyle(siteMedia)}>
       <AppNavbar />
