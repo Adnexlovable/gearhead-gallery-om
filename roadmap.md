@@ -50,5 +50,5 @@
 - [x] Cover title letters restored in full
 
 - [x] Admin login page built (backend paused — needs Cloud credits to send email): only adnexadmin@gmail.com, verification email, auto-open /admin after sign-in
-- [ ] Fix app error the owner reported
+- [ ] Fix app error: database paused — owner must add Cloud credits
 - [ ] Short launch video for LinkedIn / X / Product Hunt in brand style
