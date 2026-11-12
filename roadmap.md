@@ -49,6 +49,6 @@
 - [x] 5 boxes open their own pages (3 categories, Service, Indoor track)
 - [x] Cover title letters restored in full
 
-- [ ] Admin login: only adnexadmin@gmail.com, verification email, auto-open /admin after sign-in
+- [x] Admin login page built (backend paused — needs Cloud credits to send email): only adnexadmin@gmail.com, verification email, auto-open /admin after sign-in
 - [ ] Fix app error the owner reported
 - [ ] Short launch video for LinkedIn / X / Product Hunt in brand style
