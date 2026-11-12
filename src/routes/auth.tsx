@@ -29,7 +29,6 @@ function AuthPage() {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ kind: "error" | "info"; text: string } | null>(null);
 
-  // Open /admin as soon as the owner is signed in (also after clicking the email link).
   useEffect(() => {
     const go = async () => {
       const { data } = await supabase.auth.getUser();
@@ -63,9 +62,22 @@ function AuthPage() {
           password,
           options: { emailRedirectTo: `${window.location.origin}/auth` },
         });
-        if (error) throw error;
-        if (!data.session) {
-          setMessage({ kind: "info", text: `Verification email sent to ${cleanEmail}. Open it, tap the link, and the admin page opens.` });
+        if (error) {
+          if (/already registered|user already|exists/i.test(error.message)) {
+            const { error: signInError } = await supabase.auth.signInWithPassword({ email: cleanEmail, password });
+            if (signInError) throw signInError;
+            navigate({ to: "/admin", replace: true });
+            return;
+          }
+          throw error;
+        }
+        if (data.session) {
+          navigate({ to: "/admin", replace: true });
+        } else {
+          setMessage({
+            kind: "info",
+            text: `Account created. If no verification email arrives, go to Lovable Cloud / Supabase dashboard → Authentication → Users, find ${cleanEmail}, and confirm the email manually. Then come back and sign in.`
+          });
         }
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email: cleanEmail, password });
@@ -74,7 +86,12 @@ function AuthPage() {
       }
     } catch (err) {
       const text = err instanceof Error ? err.message : "Something went wrong.";
-      setMessage({ kind: "error", text: /fetch|network/i.test(text) ? "Can't reach the shop's server right now. Please try again later." : text });
+      setMessage({
+        kind: "error",
+        text: /fetch|network|paused|credit/i.test(text)
+          ? "Can't reach the shop server right now. Add Cloud credits in Lovable, then try again."
+          : text,
+      });
     } finally {
       setBusy(false);
     }
@@ -82,8 +99,16 @@ function AuthPage() {
 
   const resend = async () => {
     setMessage(null);
-    const { error } = await supabase.auth.resend({ type: "signup", email: ADMIN_EMAIL, options: { emailRedirectTo: `${window.location.origin}/auth` } });
-    setMessage(error ? { kind: "error", text: error.message } : { kind: "info", text: `Verification email sent again to ${ADMIN_EMAIL}.` });
+    const { error } = await supabase.auth.resend({
+      type: "signup",
+      email: ADMIN_EMAIL,
+      options: { emailRedirectTo: `${window.location.origin}/auth` },
+    });
+    setMessage(
+      error
+        ? { kind: "error", text: error.message }
+        : { kind: "info", text: `Resend requested. If nothing arrives, confirm the user manually in the Supabase dashboard.` }
+    );
   };
 
   return (
@@ -105,7 +130,7 @@ function AuthPage() {
         <p className="mt-1 text-sm text-muted-foreground">
           {mode === "signin"
             ? "Owner only. You'll go straight to the admin page."
-            : "We'll send a verification email. Tap the link to open the admin page."}
+            : "Create the owner account. If no email arrives, confirm it manually in the Supabase dashboard."}
         </p>
 
         <form onSubmit={submit} className="mt-6 flex flex-col gap-4">
@@ -125,12 +150,12 @@ function AuthPage() {
             <input
               type="password"
               required
-              minLength={6}
+              minLength={8}
               autoComplete={mode === "signin" ? "current-password" : "new-password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="rounded-xl border border-gold/20 bg-surface px-4 py-3 text-sm text-foreground outline-none focus:border-gold/60"
-              placeholder="••••••••"
+              placeholder="At least 8 characters"
             />
           </label>
 
@@ -141,7 +166,7 @@ function AuthPage() {
           )}
 
           <button type="submit" disabled={busy} className="btn-gold mt-2 disabled:opacity-60">
-            {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Send verification email"}
+            {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}
           </button>
         </form>
 
@@ -150,11 +175,11 @@ function AuthPage() {
             onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setMessage(null); }}
             className="text-gold underline-offset-4 hover:underline"
           >
-            {mode === "signin" ? "First time? Create the admin account" : "Already verified? Sign in"}
+            {mode === "signin" ? "First time? Create the admin account" : "Already have account? Sign in"}
           </button>
           {mode === "signup" && (
             <button onClick={resend} className="text-gold-soft underline-offset-4 hover:underline">
-              Didn't get the email? Send again
+              Didn't get the email? Try resend
             </button>
           )}
         </div>
