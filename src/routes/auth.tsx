@@ -1,63 +1,89 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { ADMIN_EMAIL, isAdminEmail } from "@/lib/admin-email";
 
 export const Route = createFileRoute("/auth")({
   staticData: { sitemap: false },
   head: () => ({
     meta: [
-      { title: "Sign In — GearHead RC · Muscat" },
-      { name: "description", content: "Sign in or create your GearHead RC collector account." },
-      { property: "og:title", content: "Sign In — GearHead RC" },
-      { property: "og:description", content: "Access your GearHead RC collector account." },
+      { title: "Admin Sign In — GearHead RC" },
+      { name: "description", content: "Owner sign-in for the GearHead RC admin dashboard." },
+      { property: "og:title", content: "Admin Sign In — GearHead RC" },
+      { property: "og:description", content: "Owner-only access to the GearHead RC dashboard." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "robots", content: "noindex" },
     ],
   }),
   component: AuthPage,
 });
 
+const BLOCKED = "This sign-in is only for the GearHead RC owner. Other emails can't be used.";
+
 function AuthPage() {
   const navigate = useNavigate();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(ADMIN_EMAIL);
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ kind: "error" | "info"; text: string } | null>(null);
 
+  // Open /admin as soon as the owner is signed in (also after clicking the email link).
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      if (data.user) navigate({ to: "/", replace: true });
+    const go = async () => {
+      const { data } = await supabase.auth.getUser();
+      if (!data.user) return;
+      if (isAdminEmail(data.user.email ?? "")) navigate({ to: "/admin", replace: true });
+      else {
+        await supabase.auth.signOut();
+        setMessage({ kind: "error", text: BLOCKED });
+      }
+    };
+    void go();
+    const { data: sub } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "SIGNED_IN") window.setTimeout(() => void go(), 0);
     });
+    return () => sub.subscription.unsubscribe();
   }, [navigate]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setBusy(true);
     setMessage(null);
+    if (!isAdminEmail(email)) {
+      setMessage({ kind: "error", text: BLOCKED });
+      return;
+    }
+    setBusy(true);
     try {
+      const cleanEmail = email.trim().toLowerCase();
       if (mode === "signup") {
         const { data, error } = await supabase.auth.signUp({
-          email,
+          email: cleanEmail,
           password,
-          options: { emailRedirectTo: window.location.origin },
+          options: { emailRedirectTo: `${window.location.origin}/auth` },
         });
         if (error) throw error;
         if (!data.session) {
-          setMessage({ kind: "info", text: "Check your email to confirm your account, then sign in." });
-        } else {
-          navigate({ to: "/" });
+          setMessage({ kind: "info", text: `Verification email sent to ${cleanEmail}. Open it, tap the link, and the admin page opens.` });
         }
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await supabase.auth.signInWithPassword({ email: cleanEmail, password });
         if (error) throw error;
-        navigate({ to: "/" });
+        navigate({ to: "/admin", replace: true });
       }
     } catch (err) {
-      setMessage({ kind: "error", text: err instanceof Error ? err.message : "Something went wrong." });
+      const text = err instanceof Error ? err.message : "Something went wrong.";
+      setMessage({ kind: "error", text: /fetch|network/i.test(text) ? "Can't reach the shop's server right now. Please try again later." : text });
     } finally {
       setBusy(false);
     }
+  };
+
+  const resend = async () => {
+    setMessage(null);
+    const { error } = await supabase.auth.resend({ type: "signup", email: ADMIN_EMAIL, options: { emailRedirectTo: `${window.location.origin}/auth` } });
+    setMessage(error ? { kind: "error", text: error.message } : { kind: "info", text: `Verification email sent again to ${ADMIN_EMAIL}.` });
   };
 
   return (
@@ -68,18 +94,18 @@ function AuthPage() {
             <span className="font-display text-sm font-bold text-gold-gradient">G</span>
           </div>
           <div className="leading-tight">
-            <div className="font-display text-sm font-bold tracking-wide text-foreground">GearHead</div>
-            <div className="font-mono-tag text-[9px] text-gold-soft/80">Gallery · Muscat</div>
+            <div className="font-display text-sm font-bold tracking-wide text-foreground">GearHead RC</div>
+            <div className="font-mono-tag text-[9px] text-gold-soft/80">Owner admin</div>
           </div>
         </Link>
 
         <h1 className="font-display text-2xl font-bold text-foreground">
-          {mode === "signin" ? "Welcome back" : "Create your account"}
+          {mode === "signin" ? "Admin sign in" : "Create admin account"}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
           {mode === "signin"
-            ? "Sign in to your collector account."
-            : "Join the GearHead RC collectors."}
+            ? "Owner only. You'll go straight to the admin page."
+            : "We'll send a verification email. Tap the link to open the admin page."}
         </p>
 
         <form onSubmit={submit} className="mt-6 flex flex-col gap-4">
@@ -88,10 +114,10 @@ function AuthPage() {
             <input
               type="email"
               required
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="rounded-xl border border-gold/20 bg-surface px-4 py-3 text-sm text-foreground outline-none focus:border-gold/60"
-              placeholder="you@example.com"
             />
           </label>
           <label className="flex flex-col gap-1.5">
@@ -100,6 +126,7 @@ function AuthPage() {
               type="password"
               required
               minLength={6}
+              autoComplete={mode === "signin" ? "current-password" : "new-password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="rounded-xl border border-gold/20 bg-surface px-4 py-3 text-sm text-foreground outline-none focus:border-gold/60"
@@ -108,25 +135,29 @@ function AuthPage() {
           </label>
 
           {message && (
-            <p className={`text-sm ${message.kind === "error" ? "text-red-400" : "text-gold-soft"}`}>
+            <p role="status" className={`text-sm ${message.kind === "error" ? "text-destructive" : "text-gold-soft"}`}>
               {message.text}
             </p>
           )}
 
           <button type="submit" disabled={busy} className="btn-gold mt-2 disabled:opacity-60">
-            {busy ? "Please wait…" : mode === "signin" ? "Sign In" : "Sign Up"}
+            {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Send verification email"}
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-muted-foreground">
-          {mode === "signin" ? "New to GearHead?" : "Already have an account?"}{" "}
+        <div className="mt-6 flex flex-col items-center gap-2 text-sm text-muted-foreground">
           <button
             onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setMessage(null); }}
             className="text-gold underline-offset-4 hover:underline"
           >
-            {mode === "signin" ? "Create an account" : "Sign in"}
+            {mode === "signin" ? "First time? Create the admin account" : "Already verified? Sign in"}
           </button>
-        </p>
+          {mode === "signup" && (
+            <button onClick={resend} className="text-gold-soft underline-offset-4 hover:underline">
+              Didn't get the email? Send again
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
