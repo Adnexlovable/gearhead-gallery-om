@@ -13,6 +13,7 @@ import { useHashScroll } from "@/hooks/useHashScroll";
 import { WHATSAPP_NUMBER } from "@/lib/shop";
 import { DEFAULT_SHOP_DETAILS } from "@/lib/shop-details";
 import { VisionHero } from "@/components/site/VisionHero";
+import { FALLBACK_CATALOG } from "@/lib/shop-fallback";
 
 const art = {
   showroom: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a7fbbad-e215-4d63-a8c3-550220dcd0c3.jpg",
@@ -24,8 +25,6 @@ const motion = {
   track: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/19986706-a56f-4ac1-8542-9f1a432b8c92.mp4",
   service: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/3b8318e1-4713-4c93-9673-c8c1798ac307.mp4",
   retail: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/c396cda3-deca-4982-8354-ebe8d13e06d8.mp4",
-
-
 };
 
 const milestones = [
@@ -37,7 +36,13 @@ const milestones = [
 
 export const Route = createFileRoute("/app")({
   staticData: { sitemap: true },
-  loader: ({ context }) => context.queryClient.ensureQueryData(shopCatalogQuery),
+  loader: async ({ context }) => {
+    try {
+      return await context.queryClient.ensureQueryData(shopCatalogQuery);
+    } catch {
+      return FALLBACK_CATALOG;
+    }
+  },
   head: () => ({
     meta: [
       { title: "GearHead RC Hub — RC Cars, Crawlers, Diecast & Parts Shop in Muscat" },
@@ -58,7 +63,6 @@ function ShopHome() {
   const { data } = useSuspenseQuery(shopCatalogQuery);
   const count = (slug: string) => data.products.filter((p) => p.category === slug).length;
   const scales = (slug: string) => [...new Set(data.products.filter((p) => p.category === slug).map((p) => p.scale))].slice(0, 4).join(" · ");
-  const cover = (slug: string) => data.categories.find((c) => c.slug === slug)?.cover;
   const d = DEFAULT_SHOP_DETAILS;
 
   const siteMedia = useSiteMedia();
@@ -66,12 +70,8 @@ function ShopHome() {
     <div className="gearhead-home ghx-shop" style={siteMediaStyle(siteMedia)}>
       <AppNavbar />
       <main>
-        {/* 1. Hero — same 9:16 cover as the investor home */}
         <VisionHero mode="app" portraitSrc={siteMedia.hero} />
 
-
-
-        {/* 2. About / Explore RC World */}
         <section id="explore-rc-world" className="ghx-section" data-parallax-section>
           <div className="ghx-wrap">
             <SectionHead kicker="About the shop" title={<>Explore the <em>RC world.</em></>}
@@ -100,7 +100,6 @@ function ShopHome() {
           </div>
         </section>
 
-        {/* 3. Categories */}
         <section id="categories" className="ghx-section ghx-section-alt" data-parallax-section>
           <div className="ghx-wrap">
             <div className="ghx-head-row">
@@ -125,9 +124,6 @@ function ShopHome() {
           </div>
         </section>
 
-
-
-        {/* Service */}
         <section id="service" className="ghx-section" data-parallax-section>
           <div className="ghx-wrap ghx-split">
             <div>
@@ -141,7 +137,6 @@ function ShopHome() {
           </div>
         </section>
 
-        {/* Roadmap */}
         <section id="roadmap" className="ghx-section ghx-section-alt">
           <div className="ghx-wrap">
             <SectionHead kicker="Opening roadmap" title={<>From plan <em>to opening day.</em></>} />
@@ -154,7 +149,6 @@ function ShopHome() {
           </div>
         </section>
 
-        {/* Contact */}
         <section id="contact" className="ghx-section">
           <div className="ghx-wrap ghx-contact">
             <SectionHead kicker="Get in touch" title={<>Visit <em>GearHead RC Hub.</em></>} text={d.address} />
