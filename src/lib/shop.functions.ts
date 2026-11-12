@@ -3,6 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
 import type { Database } from "@/integrations/supabase/types";
 import { toShopCategory, toShopProduct, type ShopCategory, type ShopProduct } from "@/lib/shop";
+import { FALLBACK_CATALOG, FALLBACK_PRODUCTS } from "@/lib/shop-fallback";
 
 // Public shop reads use the publishable key and the "public read visible" policies,
 // so hidden products/categories never reach anonymous visitors.
@@ -26,8 +27,6 @@ function publicClient() {
 const PRODUCT_COLUMNS =
   "slug,name,category,scale,type,description,features,gallery,color_variants,in_stock,price_band,featured,ask_price,selling_price,sort" as const;
 
-const emptyCatalog = { categories: [] as ShopCategory[], products: [] as ShopProduct[] };
-
 export const getShopCatalog = createServerFn({ method: "GET" }).handler(
   async (): Promise<{ categories: ShopCategory[]; products: ShopProduct[] }> => {
     try {
@@ -38,13 +37,20 @@ export const getShopCatalog = createServerFn({ method: "GET" }).handler(
       ]);
       if (cats.error) throw new Error("Could not load categories: " + cats.error.message);
       if (prods.error) throw new Error("Could not load products: " + prods.error.message);
-      return {
-        categories: (cats.data ?? []).map(toShopCategory),
-        products: (prods.data ?? []).map(toShopProduct),
-      };
+
+      const categories = (cats.data ?? []).map(toShopCategory);
+      const products = (prods.data ?? []).map(toShopProduct);
+
+      // If cloud is empty (credits paused etc), use static fallback so the shop is not blank
+      if (categories.length === 0 && products.length === 0) {
+        console.warn("[getShopCatalog] Supabase returned empty — using fallback catalog");
+        return FALLBACK_CATALOG;
+      }
+
+      return { categories, products };
     } catch (err) {
-      console.error("[getShopCatalog] Supabase error, returning empty catalog:", err);
-      return emptyCatalog;
+      console.error("[getShopCatalog] Supabase error, using fallback catalog:", err);
+      return FALLBACK_CATALOG;
     }
   },
 );
@@ -56,9 +62,12 @@ export const getShopProduct = createServerFn({ method: "GET" })
       const db = publicClient();
       const { data: row, error } = await db.from("products").select(PRODUCT_COLUMNS).eq("visible", true).eq("slug", data.slug).maybeSingle();
       if (error) throw new Error("Could not load product: " + error.message);
-      return row ? toShopProduct(row) : null;
+      if (row) return toShopProduct(row);
+
+      // Fallback lookup
+      return FALLBACK_PRODUCTS.find((p) => p.slug === data.slug) ?? null;
     } catch (err) {
-      console.error("[getShopProduct] Supabase error, returning null:", err);
-      return null;
+      console.error("[getShopProduct] Supabase error, checking fallback:", err);
+      return FALLBACK_PRODUCTS.find((p) => p.slug === data.slug) ?? null;
     }
   });
