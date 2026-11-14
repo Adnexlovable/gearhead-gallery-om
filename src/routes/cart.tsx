@@ -6,6 +6,8 @@ import { Footer } from "@/components/site/Footer";
 import { SectionHead } from "@/components/shop/SectionHead";
 import { clearCart, setCartQty, useCart } from "@/lib/cart";
 import { cartWhatsAppURL } from "@/lib/shop";
+import { placeOrder } from "@/lib/shop.functions";
+import { newOrderRef } from "@/lib/orders";
 
 export const Route = createFileRoute("/cart")({
   staticData: { sitemap: false },
@@ -60,7 +62,12 @@ function CartPage() {
             <div className="ghx-cart-foot">
               <span>{total} item{total === 1 ? "" : "s"}</span>
               <button type="button" className="ghx-btn ghx-btn-ghost" onClick={() => clearCart()}>Clear</button>
-              <a href={cartWhatsAppURL(lines)} target="_blank" rel="noopener noreferrer" className="ghx-btn ghx-btn-primary ghx-btn-lg"><MessageCircle size={18} /> Send order on WhatsApp</a>
+              <a href={cartWhatsAppURL(lines)} target="_blank" rel="noopener noreferrer" onClick={(e) => {
+                e.preventDefault();
+                const ref = newOrderRef();
+                window.open(cartWhatsAppURL(lines, ref), "_blank", "noopener,noreferrer");
+                void placeOrder({ data: { ref, lines: lines.map((l) => ({ slug: l.slug, qty: l.qty, ...(l.color ? { color: l.color } : {}) })) } }).catch((err) => console.error("[orders] save failed", err));
+              }} className="ghx-btn ghx-btn-primary ghx-btn-lg"><MessageCircle size={18} /> Send order on WhatsApp</a>
             </div>
           </>
         )}
