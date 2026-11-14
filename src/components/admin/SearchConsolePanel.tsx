@@ -8,6 +8,7 @@ type Settings = Tables<"search_console_settings">;
 
 const EMPTY: Settings = {
   id: "primary",
+  google_verification: "",
   property_url: "https://gearheadrc.store/",
   property_type: "url_prefix",
   verification_method: "meta_tag",
