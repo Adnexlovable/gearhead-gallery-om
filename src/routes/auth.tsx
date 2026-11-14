@@ -23,7 +23,7 @@ const BLOCKED = "This sign-in is only for the GearHead RC owner. Other emails ca
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
+  const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
   const [email, setEmail] = useState(ADMIN_EMAIL);
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -56,6 +56,12 @@ function AuthPage() {
     setBusy(true);
     try {
       const cleanEmail = email.trim().toLowerCase();
+      if (mode === "forgot") {
+        const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, { redirectTo: `${window.location.origin}/reset-password` });
+        if (error) throw error;
+        setMessage({ kind: "info", text: "Password reset link sent. Check your inbox." });
+        return;
+      }
       if (mode === "signup") {
         const { data, error } = await supabase.auth.signUp({
           email: cleanEmail,
@@ -125,7 +131,7 @@ function AuthPage() {
         </Link>
 
         <h1 className="font-display text-2xl font-bold text-foreground">
-          {mode === "signin" ? "Admin sign in" : "Create admin account"}
+          {mode === "signin" ? "Admin sign in" : mode === "forgot" ? "Reset password" : "Create admin account"}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
           {mode === "signin"
@@ -145,7 +151,7 @@ function AuthPage() {
               className="rounded-xl border border-gold/20 bg-surface px-4 py-3 text-sm text-foreground outline-none focus:border-gold/60"
             />
           </label>
-          <label className="flex flex-col gap-1.5">
+          {mode !== "forgot" && <label className="flex flex-col gap-1.5">
             <span className="font-mono-tag text-[10px] text-gold-soft/80">Password</span>
             <input
               type="password"
@@ -157,7 +163,7 @@ function AuthPage() {
               className="rounded-xl border border-gold/20 bg-surface px-4 py-3 text-sm text-foreground outline-none focus:border-gold/60"
               placeholder="At least 8 characters"
             />
-          </label>
+          </label>}
 
           {message && (
             <p role="status" className={`text-sm ${message.kind === "error" ? "text-destructive" : "text-gold-soft"}`}>
@@ -166,17 +172,27 @@ function AuthPage() {
           )}
 
           <button type="submit" disabled={busy} className="btn-gold mt-2 disabled:opacity-60">
-            {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}
+            {busy ? "Please wait…" : mode === "signin" ? "Sign in" : mode === "forgot" ? "Send reset link" : "Create account"}
           </button>
         </form>
 
         <div className="mt-6 flex flex-col items-center gap-2 text-sm text-muted-foreground">
           <button
-            onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setMessage(null); }}
+            onClick={() => { setMode(mode === "signup" ? "signin" : "signup"); setMessage(null); }}
             className="text-gold underline-offset-4 hover:underline"
           >
-            {mode === "signin" ? "First time? Create the admin account" : "Already have account? Sign in"}
+            {mode === "signup" ? "Already have account? Sign in" : "First time? Create the admin account"}
           </button>
+          {mode === "signin" && (
+            <button onClick={() => { setMode("forgot"); setMessage(null); }} className="text-gold-soft underline-offset-4 hover:underline">
+              Forgot your password?
+            </button>
+          )}
+          {mode === "forgot" && (
+            <button onClick={() => { setMode("signin"); setMessage(null); }} className="text-gold-soft underline-offset-4 hover:underline">
+              Back to sign in
+            </button>
+          )}
           {mode === "signup" && (
             <button onClick={resend} className="text-gold-soft underline-offset-4 hover:underline">
               Didn't get the email? Try resend

@@ -82,3 +82,29 @@ export const getShopProduct = createServerFn({ method: "GET" })
       return FALLBACK_PRODUCTS.find((p) => p.slug === data.slug) ?? null;
     }
   });
+
+const orderInput = z.object({
+  ref: z.string().regex(/^GH-[A-Z0-9]{4,10}$/),
+  lines: z.array(z.object({
+    slug: z.string().min(1).max(120),
+    qty: z.number().int().min(1).max(99),
+    color: z.string().max(60).optional(),
+  })).min(1).max(50),
+});
+
+/** Saves the WhatsApp cart as an order for the admin panel. Prices come from the database, never the browser. */
+export const placeOrder = createServerFn({ method: "POST" })
+  .inputValidator((data: unknown) => orderInput.parse(data))
+  .handler(async ({ data }) => {
+    const { priceOrder } = await import("@/lib/orders");
+    const db = publicClient();
+    if (!db) return { ok: false as const };
+    const slugs = [...new Set(data.lines.map((l) => l.slug))];
+    const { data: rows, error } = await db.from("products").select("slug,name,scale,ask_price,selling_price").eq("visible", true).in("slug", slugs);
+    if (error) { console.error("[orders] product lookup failed", error); return { ok: false as const }; }
+    const priced = priceOrder(data.lines, rows ?? []);
+    if (!priced.items.length) return { ok: false as const };
+    const { error: insertError } = await db.from("orders").insert({ ref: data.ref, items: priced.items, item_count: priced.item_count, total_omr: priced.total_omr });
+    if (insertError) { console.error("[orders] insert failed", insertError); return { ok: false as const }; }
+    return { ok: true as const };
+  });

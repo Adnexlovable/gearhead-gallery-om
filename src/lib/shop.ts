@@ -83,13 +83,13 @@ export function productWhatsAppURL(product: Pick<ShopProduct, "name" | "scale">,
 
 export type CartLine = { slug: string; name: string; scale: string; qty: number; color?: string };
 
-export function cartWhatsAppText(lines: CartLine[]) {
+export function cartWhatsAppText(lines: CartLine[], ref?: string) {
   const items = lines.map((l, i) => `${i + 1}. ${l.name} (${l.scale})${l.color ? ` — ${l.color}` : ""} × ${l.qty}`);
-  return ["Hello GearHead RC Hub, I would like to order:", ...items, "Please confirm availability, price and pickup/delivery."].join("\n");
+  return ["Hello GearHead RC Hub, I would like to order:", ...(ref ? [`Order ref: ${ref}`] : []), ...items, "Please confirm availability, price and pickup/delivery."].join("\n");
 }
 
-export function cartWhatsAppURL(lines: CartLine[]) {
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(cartWhatsAppText(lines))}`;
+export function cartWhatsAppURL(lines: CartLine[], ref?: string) {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(cartWhatsAppText(lines, ref))}`;
 }
 
 export const shopCatalogQueryKey = ["shop-catalog"] as const;
