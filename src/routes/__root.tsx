@@ -104,12 +104,19 @@ function RootComponent() {
   const router = useRouter();
   useEffect(() => {
     setupErrorMonitoring();
+    const channel = supabase.channel(`shop-live-${Math.random().toString(36).slice(2)}`);
+    for (const table of ["products", "shop_categories", "site_media", "site_sections"]) {
+      channel.on("postgres_changes", { event: "*", schema: "public", table }, () => {
+        void queryClient.invalidateQueries({ predicate: (q) => ["shop-catalog", "shop-product", "site-media", "site-sections"].includes(String(q.queryKey[0])) });
+      });
+    }
+    channel.subscribe();
     const { data: sub } = supabase.auth.onAuthStateChange((event) => {
       if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
       router.invalidate();
       if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
     });
-    return () => sub.subscription.unsubscribe();
+    return () => { sub.subscription.unsubscribe(); void supabase.removeChannel(channel); };
   }, [router, queryClient]);
   return (
     <QueryClientProvider client={queryClient}>
