@@ -19,3 +19,5 @@
 - Keep the shop app theme scoped under the .ghx-shop wrapper in src/styles.css so investor pages keep their own look.
 - Unit tests live next to their module as src/**/*.test.ts and run with vitest via vitest.config.ts, which stays separate from the app's Vite config.
 - Keep owner-replaceable shop photos (cover + 4 backgrounds) in public.site_media slots, edited in the admin Shop photos tab; pages fall back to the built-in photos when a slot is empty so nothing breaks.
+- Use a single root Realtime subscription to invalidate shop, product and homepage content queries after saved edits, so separate storefront sessions update without reloading.
+- Account password maintenance runs only through an authenticated server function that checks the database admin role, so no public account-setup endpoint or password is shipped.

@@ -1,5 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { updateAdminPassword } from "@/lib/admin-account.functions";
 import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { Button } from "@/components/ui/button";
@@ -33,6 +37,8 @@ const TAB_ICONS = [LayoutDashboard, ShoppingCart, InboxIcon, CalendarDays, Packa
 type Tab = (typeof TABS)[number];
 
 function AdminPage() {
+  const qc = useQueryClient();
+  const navigate = useNavigate();
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [tab, setTab] = useState<Tab>("Dashboard");
   const [refresh, setRefresh] = useState(0);
@@ -61,7 +67,7 @@ function AdminPage() {
         <div className="flex gap-2">
           <Button variant="outline" size="icon" title="Refresh dashboard" aria-label="Refresh dashboard" onClick={() => setRefresh((r) => r + 1)}><RefreshCw /></Button>
           <Button variant="outline" size="icon" asChild><Link to="/" title="View website" aria-label="View website"><ArrowUpRight /></Link></Button>
-          <Button variant="outline" size="icon" title="Sign out" aria-label="Sign out" onClick={() => supabase.auth.signOut()}><LogOut /></Button>
+          <Button variant="outline" size="icon" title="Sign out" aria-label="Sign out" onClick={async () => { await qc.cancelQueries(); qc.clear(); await supabase.auth.signOut(); await navigate({ to: "/auth", replace: true }); }}><LogOut /></Button>
         </div>
       </div>
       <div className="mt-8 flex overflow-x-auto border-y border-border">
@@ -103,10 +109,16 @@ function Overview({ onSelect }: { onSelect: (tab: Tab) => void }) {
 }
 
 function SecuritySettings() {
+  const changePassword = useServerFn(updateAdminPassword);
+  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [busy, setBusy] = useState(false);
   useEffect(() => { void supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? "")); }, []);
   return <div className="space-y-6">
+    <form className="flex flex-wrap gap-3" onSubmit={async (e) => { e.preventDefault(); setBusy(true); try { await changePassword({ data: { password } }); setPassword(""); toast.success("Admin password updated"); } catch { toast.error("Could not update password"); } finally { setBusy(false); } }}>
+      <label className="grid gap-2 text-sm">New admin password<input type="password" minLength={8} required autoComplete="new-password" className={inputCls} value={password} onChange={(e) => setPassword(e.target.value)} /></label>
+      <Button disabled={busy} type="submit" className="self-end">Update admin password</Button>
+    </form>
     <dl className="grid gap-4 border-b border-border pb-6"><div><dt className="text-sm text-muted-foreground">Signed-in account</dt><dd className="mt-1 break-all">{email || "Checking…"}</dd></div><div><dt className="text-sm text-muted-foreground">Access</dt><dd className="mt-1">Super admin</dd></div></dl>
     <Button variant="outline" disabled={busy || !email} onClick={async () => {
       setBusy(true);
