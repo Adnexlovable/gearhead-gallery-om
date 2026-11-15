@@ -11,6 +11,7 @@ import { ShopDetailsEditor } from "@/components/admin/ShopDetailsEditor";
 import { SearchConsolePanel } from "@/components/admin/SearchConsolePanel";
 import { ShopPhotosAdmin } from "@/components/admin/ShopPhotosAdmin";
 import { ShopCatalogAdmin } from "@/components/admin/ShopCatalogAdmin";
+import { SectionContentEditor } from "@/components/admin/SectionContentEditor";
 import { parseShopDetails } from "@/lib/shop-details";
 import { ENQUIRY_STATUSES, ORDER_STATUSES, formatOMR, type OrderItem } from "@/lib/orders";
 import { toast } from "sonner";
@@ -207,6 +208,7 @@ function Sections() {
   const { rows, load } = useRows<Tables<"site_sections">>("site_sections", "sort", true);
   return (
     <div className="space-y-2">
+      <SectionContentEditor />
       {rows.find((r) => r.id === "contact") && <ShopDetailsEditor value={rows.find((r) => r.id === "contact")?.contact_details} onSaved={load} />}
       {rows.map((r) => (
         <div key={r.id} className={`${card} flex items-center justify-between gap-4`}>

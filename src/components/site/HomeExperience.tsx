@@ -7,6 +7,9 @@ import {
 } from "lucide-react";
 import { InvestorDeckRequest } from "./InvestorDeckRequest";
 import { CinematicScene } from "./CinematicScene";
+import { useSiteMedia, useSiteSections } from "@/lib/site-media";
+import { useQuery } from "@tanstack/react-query";
+import { shopCatalogQuery } from "@/lib/shop-queries";
 
 // Images are visual concepts from the GearHead RC shop-design references.
 // They do not represent photographs of a finished or trading storefront.
@@ -114,6 +117,11 @@ const milestones = [
 
 export function HomeExperience() {
   const [deckOpen, setDeckOpen] = useState(false);
+  const media = useSiteMedia();
+  const sections = useSiteSections();
+  const { data: catalog } = useQuery(shopCatalogQuery);
+  const section = (id: string) => sections.find((s) => s.id === id);
+  const inventory = catalog?.categories.map((c, i) => ({ icon: categories[i % categories.length].icon, cover: c.cover, href: `/collection/${c.slug}`, eyebrow: `${String(i + 1).padStart(2, "0")} / Inventory`, title: c.name, subtitle: c.tagline, models: catalog.products.filter((p) => p.category === c.slug).slice(0, 4).map((p) => p.name) })) ?? categories;
 
 
   return (
@@ -121,14 +129,14 @@ export function HomeExperience() {
 
 
 
-      <section id="catalog" className="gh-chapter gh-chapter-catalog">
+      <section id="catalog" hidden={section("catalog")?.visible === false} className="gh-chapter gh-chapter-catalog">
         <Atmosphere image={shopBg.floor} position="center" />
         <div className="gh-chapter-inner">
-          <Heading eyebrow="03 / Inventory Blueprint">Explore the <em>RC world.</em> 
+          <Heading eyebrow="03 / Inventory Blueprint">{section("catalog")?.label || <>Explore the <em>RC world.</em></>}
           </Heading>
-          <p className="gh-chapter-desc">Four focused product departments from the GearHead inventory plan. These are proposed sourcing categories, not a claim of stock availability or retail pricing.</p>
+          <p className="gh-chapter-desc">{section("catalog")?.note || "Explore the GearHead RC catalogue by category. Contact the shop for availability and confirmed pricing."}</p>
           <div className="gh-category-grid" data-lenis-prevent-wheel>
-            {categories.map(({ icon: Icon, cover, href, eyebrow, title, subtitle, models }) => (
+            {inventory.map(({ icon: Icon, cover, href, eyebrow, title, subtitle, models }) => (
               <article className="gh-category-card gh-metal-frame" key={title}>
                 <a href={href} className="gh-category-cover" aria-label={"Explore " + title}>
                   <img src={cover} alt={title + " GearHead RC concept cover"} loading="lazy" />
@@ -173,11 +181,11 @@ export function HomeExperience() {
         </div>
       </section>
 
-      <section id="foundation" className="gh-chapter gh-chapter-foundation">
+      <section id="foundation" hidden={section("foundation")?.visible === false} className="gh-chapter gh-chapter-foundation">
         <Atmosphere image={shopBg.counter} position="center" />
         <div className="gh-chapter-inner gh-feature-grid">
           <div className="gh-metal-frame gh-frame-dark">
-            <Heading eyebrow="01 / The Vision">Built for <em>real RC adventure.</em></Heading>
+            <Heading eyebrow="01 / The Vision" description={section("foundation")?.note}>{section("foundation")?.label || <>Built for <em>real RC adventure.</em></>}</Heading>
             <p className="gh-prose">
               GearHead RC Hub brings performance RC vehicles, scale crawlers, hands-on
               experiences, spare parts and workshop expertise together in one proposed
@@ -191,32 +199,32 @@ export function HomeExperience() {
             <div className="gh-brand-line"><ShieldCheck size={16} /> Project of Adnan Trading Services LLC <span>CR 1634293</span></div>
           </div>
           <div className="gh-feature-photo gh-industrial-border">
-            <img src={art.showroom} loading="lazy" alt="Proposed GearHead Bousher RC flagship showroom concept" />
+            <img src={media.showroom_design || art.showroom} loading="lazy" alt="Proposed GearHead Bousher RC flagship showroom concept" />
             <div className="gh-photo-caption"><span>DESIGN CONCEPT</span><strong>Bousher RC flagship</strong></div>
           </div>
         </div>
       </section>
 
-      <section id="experience-detail" className="gh-chapter gh-chapter-experience">
+      <section id="experience-detail" hidden={section("experience-detail")?.visible === false} className="gh-chapter gh-chapter-experience">
         <Atmosphere image={shopBg.shelves} position="center" />
         <div className="gh-chapter-inner">
-          <Heading eyebrow="02 / Bousher Showroom">The <em>shop experience.</em></Heading>
+          <Heading eyebrow="02 / Bousher Showroom" description={section("experience-detail")?.note}>{section("experience-detail")?.label || <>The <em>shop experience.</em></>}</Heading>
           <p className="gh-chapter-desc">The proposed 84 m² site combines retail displays, an RC trial course, a dedicated service workshop and a practical customer journey.</p>
           <div className="gh-experience-grid gh-four-media-grid">
             <figure className="gh-showcase-main gh-industrial-border">
-              <CinematicScene className="gh-showcase-motion" poster={art.concept} mobileSrc={motion.track} />
+              {media.showroom_track ? <img src={media.showroom_track} alt="Indoor track" /> : <CinematicScene className="gh-showcase-motion" poster={art.concept} mobileSrc={motion.track} />}
               <figcaption><strong>TRACK-TO-RETAIL</strong><span>Test drive • Experience</span></figcaption>
             </figure>
             <figure className="gh-industrial-border">
-              <CinematicScene className="gh-showcase-motion" poster={art.display} mobileSrc={motion.retail} />
+              {media.showroom_retail ? <img src={media.showroom_retail} alt="Retail display" /> : <CinematicScene className="gh-showcase-motion" poster={art.display} mobileSrc={motion.retail} />}
               <figcaption><strong>Retail Display</strong><span>RC cars • Parts</span></figcaption>
             </figure>
             <figure className="gh-industrial-border">
-              <CinematicScene className="gh-showcase-motion" poster={art.concept} mobileSrc={motion.track} />
+              {media.showroom_terrain ? <img src={media.showroom_terrain} alt="Indoor terrain" /> : <CinematicScene className="gh-showcase-motion" poster={art.concept} mobileSrc={motion.track} />}
               <figcaption><strong>Indoor Terrain</strong><span>Obstacles • Crawlers</span></figcaption>
             </figure>
             <figure className="gh-industrial-border">
-              <CinematicScene className="gh-showcase-motion" poster={art.interior} mobileSrc={motion.service} />
+              {media.showroom_service ? <img src={media.showroom_service} alt="RC service" /> : <CinematicScene className="gh-showcase-motion" poster={art.interior} mobileSrc={motion.service} />}
               <figcaption><strong>RC Service & Tuning</strong><span>Maintenance • Upgrades</span></figcaption>
             </figure>
           </div>
