@@ -51,11 +51,6 @@ export const getShopCatalog = createServerFn({ method: "GET" }).handler(
       const categories = (cats.data ?? []).map(toShopCategory);
       const products = (prods.data ?? []).map(toShopProduct);
 
-      if (categories.length === 0 && products.length === 0) {
-        console.warn("[getShopCatalog] Empty result — using fallback");
-        return FALLBACK_CATALOG;
-      }
-
       return { categories, products };
     } catch (err) {
       console.error("[getShopCatalog] Unexpected error — using fallback", err);
@@ -74,9 +69,10 @@ export const getShopProduct = createServerFn({ method: "GET" })
       }
 
       const { data: row, error } = await db.from("products").select(PRODUCT_COLUMNS).eq("visible", true).eq("slug", data.slug).maybeSingle();
-      if (error || !row) {
+      if (error) {
         return FALLBACK_PRODUCTS.find((p) => p.slug === data.slug) ?? null;
       }
+      if (!row) return null;
       return toShopProduct(row);
     } catch {
       return FALLBACK_PRODUCTS.find((p) => p.slug === data.slug) ?? null;

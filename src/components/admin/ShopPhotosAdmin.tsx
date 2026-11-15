@@ -49,7 +49,7 @@ export function ShopPhotosAdmin() {
               type === "video" ? (
                 <video src={media[slot]} className="h-full w-full object-cover" controls muted />
               ) : (
-                <img src={media[slot]} alt={label} className="h-full w-full object-cover" />
+                <img src={media[slot]} alt={label} className="h-full w-full object-contain" />
               )
             ) : (
               <div className="grid h-full place-items-center text-xs text-muted-foreground">Using the original {type}</div>
