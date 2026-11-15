@@ -3,6 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import type { Tables } from "@/integrations/supabase/types";
 import { ArrowLeft, ArrowRight, ExternalLink, ImagePlus, Plus, Save, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Product = Tables<"products">;
 type Category = Tables<"shop_categories">;
@@ -29,6 +31,7 @@ async function uploadPhoto(file: File, folder: string) {
 }
 
 export function ShopCatalogAdmin() {
+  const qc = useQueryClient();
   const [view, setView] = useState<"products" | "categories">("products");
   const [cats, setCats] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
@@ -40,14 +43,15 @@ export function ShopCatalogAdmin() {
     if (c.error || p.error) toast.error("Could not load the catalogue: " + (c.error ?? p.error)?.message);
     setCats(c.data ?? []);
     setProducts(p.data ?? []);
-  }, []);
+    await qc.invalidateQueries({ predicate: (q) => ["shop-catalog", "shop-product"].includes(String(q.queryKey[0])) });
+  }, [qc]);
   useEffect(() => { void load(); }, [load]);
 
   return (
     <div>
       <div className="mb-6 flex flex-wrap items-center gap-2">
-        <button className={chip} aria-pressed={view === "products"} onClick={() => setView("products")}>Products ({products.length})</button>
-        <button className={chip} aria-pressed={view === "categories"} onClick={() => setView("categories")}>Categories ({cats.length})</button>
+        <Button className={chip} aria-pressed={view === "products"} onClick={() => setView("products")}>Products ({products.length})</Button>
+        <Button className={chip} aria-pressed={view === "categories"} onClick={() => setView("categories")}>Categories ({cats.length})</Button>
         <a href="/app" target="_blank" rel="noreferrer" className={`${chip} inline-flex items-center gap-1`}>Open shop app <ExternalLink size={11} /></a>
         <span className="text-xs text-muted-foreground">Changes go live on the shop app straight away. Names and descriptions are also used as each page's Google title and description.</span>
       </div>
@@ -70,7 +74,7 @@ function Categories({ cats, reload, productCount }: { cats: Category[]; reload: 
     <div className="space-y-4">
       <div className={`${card} flex flex-wrap gap-2`}>
         <input className={`${input} flex-1`} placeholder="New category name, e.g. RC Boats" value={name} onChange={(e) => setName(e.target.value)} maxLength={80} />
-        <button className="btn-gold !px-4 !py-2 !text-[10px]" onClick={add}><Plus size={14} /> Add category</button>
+        <Button className="btn-gold !px-4 !py-2 !text-[10px]" onClick={add}><Plus size={14} /> Add category</Button>
       </div>
       {cats.map((c) => <CategoryRow key={c.slug} c={c} count={productCount(c.slug)} reload={reload} />)}
     </div>
@@ -92,7 +96,7 @@ function CategoryRow({ c, count, reload }: { c: Category; count: number; reload:
   return (
     <div className={`${card} grid gap-4 md:grid-cols-[180px_1fr]`}>
       <div>
-        <div className="aspect-[4/3] overflow-hidden rounded-lg border border-gold/20 bg-surface">{draft.cover && <img src={draft.cover} alt="" className="h-full w-full object-cover" />}</div>
+        <div className="aspect-[4/3] overflow-hidden rounded-lg border border-gold/20 bg-surface">{draft.cover && <img src={draft.cover} alt="" className="h-full w-full object-contain" />}</div>
         <label className={`${chip} mt-2 inline-flex cursor-pointer items-center gap-1`}><ImagePlus size={12} /> Change cover
           <input type="file" accept="image/*" className="sr-only" onChange={async (e) => { const f = e.target.files?.[0]; if (!f) return; try { const url = await uploadPhoto(f, `categories/${c.slug}`); setDraft({ ...draft, cover: url }); await save({ cover: url }); } catch (err) { toast.error((err as Error).message); } }} />
         </label>
@@ -103,10 +107,10 @@ function CategoryRow({ c, count, reload }: { c: Category; count: number; reload:
         <div className="sm:col-span-2"><div className={label}>Description (also the Google description)</div><textarea className={input} rows={2} value={draft.description} onChange={(e) => setDraft({ ...draft, description: e.target.value })} /></div>
         <div className="flex flex-wrap items-center gap-2 sm:col-span-2">
           <span className={label}>Order</span><input type="number" className={`${input} !w-20`} value={draft.sort} onChange={(e) => setDraft({ ...draft, sort: Number(e.target.value) })} />
-          <button className={chip} onClick={() => save({ visible: !draft.visible })}>{draft.visible ? "Visible" : "Hidden"}</button>
-          <button className={chip} onClick={() => save({ coming_soon: !draft.coming_soon })}>{draft.coming_soon ? "Coming soon" : "Open"}</button>
+          <Button className={chip} onClick={() => save({ visible: !draft.visible })}>{draft.visible ? "Visible" : "Hidden"}</Button>
+          <Button className={chip} onClick={() => save({ coming_soon: !draft.coming_soon })}>{draft.coming_soon ? "Coming soon" : "Open"}</Button>
           <a className={chip} href={`/collection/${c.slug}`} target="_blank" rel="noreferrer">View page</a>
-          <button className="btn-gold ml-auto !px-4 !py-2 !text-[10px]" disabled={busy} onClick={() => save()}><Save size={13} /> Save</button>
+          <Button className="btn-gold ml-auto !px-4 !py-2 !text-[10px]" disabled={busy} onClick={() => save()}><Save size={13} /> Save</Button>
         </div>
       </div>
     </div>
@@ -138,22 +142,25 @@ function Products({ products, cats, reload }: { products: Product[]; cats: Categ
         </select>
         <div className="flex gap-2 md:col-span-2">
           <input className={`${input} flex-1`} placeholder="New product name" value={newName} onChange={(e) => setNewName(e.target.value)} maxLength={120} />
-          <button className="btn-gold !px-4 !py-2 !text-[10px]" onClick={add}><Plus size={14} /> Add product</button>
+          <Button className="btn-gold !px-4 !py-2 !text-[10px]" onClick={add}><Plus size={14} /> Add product</Button>
         </div>
       </div>
-      {shown.map((p) => (
+      {(filter === "all" ? [...cats.map((c) => ({ slug: c.slug, name: c.name })), ...Array.from(new Set(shown.filter((p) => !cats.some((c) => c.slug === p.category)).map((p) => p.category))).map((slug) => ({ slug, name: slug }))] : cats.filter((c) => c.slug === filter)).map((group) => <section key={group.slug} className="space-y-3">
+      <h3 className="border-b border-border py-3 font-display text-xl font-bold">{group.name} <span className="text-sm text-muted-foreground">({shown.filter((p) => p.category === group.slug).length})</span></h3>
+      {shown.filter((p) => p.category === group.slug).map((p) => (
         <div key={p.id} className={card}>
-          <button className="flex w-full items-center gap-3 text-left" onClick={() => setOpen(open === p.id ? null : p.id)} aria-expanded={open === p.id}>
-            <div className="h-12 w-[72px] shrink-0 overflow-hidden rounded border border-gold/20 bg-surface">{strings(p.gallery)[0] && <img src={strings(p.gallery)[0]} alt="" className="h-full w-full object-cover" />}</div>
+          <Button className="flex w-full items-center gap-3 text-left" onClick={() => setOpen(open === p.id ? null : p.id)} aria-expanded={open === p.id}>
+            <div className="h-12 w-[72px] shrink-0 overflow-hidden rounded border border-gold/20 bg-surface">{(strings(p.gallery)[0] || p.img) && <img src={strings(p.gallery)[0] || p.img} alt="" className="h-full w-full object-contain" />}</div>
             <div className="min-w-0 flex-1">
               <div className="truncate font-display font-bold text-foreground">{p.name}</div>
               <div className={label}>{cats.find((c) => c.slug === p.category)?.name ?? p.category} · {p.scale} · {strings(p.gallery).length} photos · {p.visible ? "visible" : "hidden"}{p.in_stock ? "" : " · preorder"}</div>
             </div>
             <span className="text-xs text-gold">{open === p.id ? "Close" : "Edit"}</span>
-          </button>
+          </Button>
           {open === p.id && <ProductEditor p={p} cats={cats} reload={reload} onDeleted={() => setOpen(null)} />}
         </div>
       ))}
+      </section>)}
       {!shown.length && <p className="text-sm text-muted-foreground">No products match.</p>}
     </div>
   );
@@ -162,7 +169,7 @@ function Products({ products, cats, reload }: { products: Product[]; cats: Categ
 function ProductEditor({ p, cats, reload, onDeleted }: { p: Product; cats: Category[]; reload: () => Promise<void>; onDeleted: () => void }) {
   const [d, setD] = useState({
     name: p.name, category: p.category, scale: p.scale, type: p.type, description: p.description,
-    features: strings(p.features).join("\n"), gallery: strings(p.gallery), colors: colors(p.color_variants),
+    tag: p.tag, features: strings(p.features).join("\n"), gallery: strings(p.gallery).length ? strings(p.gallery) : p.img ? [p.img] : [], colors: colors(p.color_variants),
     price_band: p.price_band, in_stock: p.in_stock, visible: p.visible, featured: p.featured,
     ask_price: p.ask_price, selling_price: p.selling_price ?? 0,
   });
@@ -175,7 +182,7 @@ function ProductEditor({ p, cats, reload, onDeleted }: { p: Product; cats: Categ
     if (!d.ask_price && !(Number(d.selling_price) > 0)) return toast.error("Enter a selling price, or switch back to price on request.");
     setBusy(true);
     const { error } = await supabase.from("products").update({
-      name: d.name.trim().slice(0, 120), category: d.category, scale: d.scale.slice(0, 40), tag: d.scale.slice(0, 40), type: d.type.slice(0, 80),
+      name: d.name.trim().slice(0, 120), category: d.category, scale: d.scale.slice(0, 40), tag: d.tag.slice(0, 200), type: d.type.slice(0, 80),
       description: d.description.slice(0, 1200), features: d.features.split("\n").map((s) => s.trim()).filter(Boolean).slice(0, 12),
       gallery: d.gallery, img: d.gallery[0] ?? "", color_variants: d.colors.filter((c) => c.name.trim()),
       price_band: d.price_band, edition: d.price_band, in_stock: d.in_stock, visible: d.visible, featured: d.featured,
@@ -208,11 +215,12 @@ function ProductEditor({ p, cats, reload, onDeleted }: { p: Product; cats: Categ
         <div className="mt-2 flex flex-wrap gap-2">
           {d.gallery.map((g, i) => (
             <div key={g + i} className="w-32 overflow-hidden rounded-lg border border-gold/20">
-              <img src={g} alt="" className="aspect-[3/2] w-full object-cover" />
+              <img src={g} alt="" className="aspect-[3/2] w-full object-contain" />
               <div className="flex justify-between bg-surface px-1 py-1">
-                <button aria-label="Move left" onClick={() => move(i, -1)} className="p-1 text-muted-foreground hover:text-gold"><ArrowLeft size={13} /></button>
-                <button aria-label="Remove photo" onClick={() => set("gallery", d.gallery.filter((_, j) => j !== i))} className="p-1 text-muted-foreground hover:text-destructive"><Trash2 size={13} /></button>
-                <button aria-label="Move right" onClick={() => move(i, 1)} className="p-1 text-muted-foreground hover:text-gold"><ArrowRight size={13} /></button>
+                <Button aria-label="Move left" onClick={() => move(i, -1)} className="p-1 text-muted-foreground hover:text-gold"><ArrowLeft size={13} /></Button>
+                <label title="Replace photo" className="cursor-pointer p-1 text-gold"><ImagePlus size={13} /><input type="file" accept="image/*" className="sr-only" aria-label={`Replace photo ${i + 1}`} onChange={async (e) => { const f = e.target.files?.[0]; if (!f) return; try { const url = await uploadPhoto(f, p.slug ?? p.id); set("gallery", d.gallery.map((x, j) => j === i ? url : x)); } catch (err) { toast.error((err as Error).message); } }} /></label>
+                <Button aria-label="Remove photo" onClick={() => set("gallery", d.gallery.filter((_, j) => j !== i))} className="p-1 text-muted-foreground hover:text-destructive"><Trash2 size={13} /></Button>
+                <Button aria-label="Move right" onClick={() => move(i, 1)} className="p-1 text-muted-foreground hover:text-gold"><ArrowRight size={13} /></Button>
               </div>
             </div>
           ))}
@@ -229,6 +237,7 @@ function ProductEditor({ p, cats, reload, onDeleted }: { p: Product; cats: Categ
           <div><div className={label}>Scale / size</div><input className={input} value={d.scale} onChange={(e) => set("scale", e.target.value)} placeholder="1:10" /></div>
           <div><div className={label}>Level</div><select className={input} value={d.price_band} onChange={(e) => set("price_band", e.target.value)}>{BANDS.map(([v, l]) => <option key={v} value={v}>{l}</option>)}</select></div>
         </div>
+        <div className="md:col-span-2"><div className={label}>Sub-category / Tags</div><input className={input} value={d.tag} onChange={(e) => set("tag", e.target.value)} placeholder="Electric / Drift, Opening Stock" /></div>
         <div className="md:col-span-2"><div className={label}>Type</div><input className={input} value={d.type} onChange={(e) => set("type", e.target.value)} placeholder="Brushless / Buggy" /></div>
         <div className="md:col-span-2"><div className={label}>Description (also the Google description)</div><textarea className={input} rows={3} value={d.description} onChange={(e) => set("description", e.target.value)} /></div>
         <div><div className={label}>Features (one per line)</div><textarea className={input} rows={4} value={d.features} onChange={(e) => set("features", e.target.value)} /></div>
@@ -243,23 +252,23 @@ function ProductEditor({ p, cats, reload, onDeleted }: { p: Product; cats: Categ
                   <option value="">No photo</option>
                   {d.gallery.map((g, gi) => <option key={g} value={g}>Photo {gi + 1}</option>)}
                 </select>
-                <button aria-label="Remove colour" onClick={() => set("colors", d.colors.filter((_, j) => j !== i))} className="p-1 text-muted-foreground hover:text-destructive"><Trash2 size={14} /></button>
+                <Button aria-label="Remove colour" onClick={() => set("colors", d.colors.filter((_, j) => j !== i))} className="p-1 text-muted-foreground hover:text-destructive"><Trash2 size={14} /></Button>
               </div>
             ))}
-            <button className={chip} onClick={() => set("colors", [...d.colors, { name: "", hex: "#ff951f" }])}><Plus size={11} className="inline" /> Add colour</button>
+            <Button className={chip} onClick={() => set("colors", [...d.colors, { name: "", hex: "#ff951f" }])}><Plus size={11} className="inline" /> Add colour</Button>
           </div>
         </div>
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        <button className={chip} onClick={() => set("visible", !d.visible)}>{d.visible ? "Visible in shop" : "Hidden"}</button>
-        <button className={chip} onClick={() => set("in_stock", !d.in_stock)}>{d.in_stock ? "Opening stock" : "Preorder"}</button>
-        <button className={chip} onClick={() => set("featured", !d.featured)}>{d.featured ? "Featured" : "Not featured"}</button>
-        <button className={chip} onClick={() => set("ask_price", !d.ask_price)}>{d.ask_price ? "Price on request" : "Show price"}</button>
+        <Button className={chip} onClick={() => set("visible", !d.visible)}>{d.visible ? "Visible in shop" : "Hidden"}</Button>
+        <Button className={chip} onClick={() => set("in_stock", !d.in_stock)}>{d.in_stock ? "Opening stock" : "Preorder"}</Button>
+        <Button className={chip} onClick={() => set("featured", !d.featured)}>{d.featured ? "Featured" : "Not featured"}</Button>
+        <Button className={chip} onClick={() => set("ask_price", !d.ask_price)}>{d.ask_price ? "Price on request" : "Show price"}</Button>
         {!d.ask_price && <span className="flex items-center gap-1 text-sm">OMR <input type="number" min={0} step="0.001" className={`${input} !w-28`} value={d.selling_price} onChange={(e) => set("selling_price", Number(e.target.value))} /></span>}
         {p.slug && <a className={chip} href={`/product/${p.slug}`} target="_blank" rel="noreferrer">View page</a>}
         <div className="ml-auto flex gap-2">
-          <button className={chip} onClick={remove}><Trash2 size={11} className="inline" /> Delete</button>
-          <button className="btn-gold !px-4 !py-2 !text-[10px]" disabled={busy} onClick={save}><Save size={13} /> {busy ? "Saving…" : "Save"}</button>
+          <Button className={chip} onClick={remove}><Trash2 size={11} className="inline" /> Delete</Button>
+          <Button className="btn-gold !px-4 !py-2 !text-[10px]" disabled={busy} onClick={save}><Save size={13} /> {busy ? "Saving…" : "Save"}</Button>
         </div>
       </div>
     </div>
