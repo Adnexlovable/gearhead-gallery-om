@@ -2,6 +2,8 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ADMIN_EMAIL, isAdminEmail } from "@/lib/admin-email";
+import { Button } from "@/components/ui/button";
+import { Eye, EyeOff } from "lucide-react";
 
 export const Route = createFileRoute("/auth")({
   staticData: { sitemap: false },
@@ -26,6 +28,7 @@ function AuthPage() {
   const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
   const [email, setEmail] = useState(ADMIN_EMAIL);
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<{ kind: "error" | "info"; text: string } | null>(null);
 
@@ -82,7 +85,7 @@ function AuthPage() {
         } else {
           setMessage({
             kind: "info",
-            text: `Account created. If no verification email arrives, go to Lovable Cloud / Supabase dashboard → Authentication → Users, find ${cleanEmail}, and confirm the email manually. Then come back and sign in.`
+            text: "Account created. Check your email to confirm. If you already have the owner account, return to sign in."
           });
         }
       } else {
@@ -113,7 +116,7 @@ function AuthPage() {
     setMessage(
       error
         ? { kind: "error", text: error.message }
-        : { kind: "info", text: `Resend requested. If nothing arrives, confirm the user manually in the Supabase dashboard.` }
+        : { kind: "info", text: "Confirmation email requested. Check your inbox and spam folder." }
     );
   };
 
@@ -136,7 +139,7 @@ function AuthPage() {
         <p className="mt-1 text-sm text-muted-foreground">
           {mode === "signin"
             ? "Owner only. You'll go straight to the admin page."
-            : "Create the owner account. If no email arrives, confirm it manually in the Supabase dashboard."}
+            : mode === "forgot" ? "Request a password reset link for your owner account." : "Register the GearHead RC owner account."}
         </p>
 
         <form onSubmit={submit} className="mt-6 flex flex-col gap-4">
@@ -153,16 +156,16 @@ function AuthPage() {
           </label>
           {mode !== "forgot" && <label className="flex flex-col gap-1.5">
             <span className="font-mono-tag text-[10px] text-gold-soft/80">Password</span>
-            <input
-              type="password"
+            <div className="relative"><input
+              type={showPassword ? "text" : "password"}
               required
               minLength={8}
               autoComplete={mode === "signin" ? "current-password" : "new-password"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="rounded-xl border border-gold/20 bg-surface px-4 py-3 text-sm text-foreground outline-none focus:border-gold/60"
+              className="w-full rounded-md border border-gold/20 bg-surface py-3 pl-4 pr-12 text-sm text-foreground outline-none focus:border-gold/60"
               placeholder="At least 8 characters"
-            />
+            /><Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1" aria-label={showPassword ? "Hide password" : "Show password"} title={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword((v) => !v)}>{showPassword ? <EyeOff /> : <Eye />}</Button></div>
           </label>}
 
           {message && (
@@ -171,9 +174,9 @@ function AuthPage() {
             </p>
           )}
 
-          <button type="submit" disabled={busy} className="btn-gold mt-2 disabled:opacity-60">
+          <Button type="submit" disabled={busy} className="btn-gold mt-2 disabled:opacity-60">
             {busy ? "Please wait…" : mode === "signin" ? "Sign in" : mode === "forgot" ? "Send reset link" : "Create account"}
-          </button>
+          </Button>
         </form>
 
         <div className="mt-6 flex flex-col items-center gap-2 text-sm text-muted-foreground">
