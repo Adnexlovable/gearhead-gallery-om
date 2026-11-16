@@ -2904,3 +2904,46 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 /* real photos inside the 5 boxes (rail track, crawler, service room, parts, RC car) */
 .ghs-tile { padding-top: .25rem !important; }
 .ghs-tile .ghs-tile-photo { width: calc(100% + 0rem); aspect-ratio: 1 / 1; object-fit: cover; border-radius: .55rem; border: 1px solid rgba(232,108,31,.6); margin-bottom: .15rem; }
+
+/* Desktop-only poster fit; the existing phone and tablet cover stays untouched. */
+.ghh-poster-backdrop { display: none; }
+@media (min-width: 1024px) {
+  .ghh-hero.ghh-poster {
+    --ghh-backdrop-grade: linear-gradient(90deg, color-mix(in oklab, var(--gh-deep) 78%, transparent), color-mix(in oklab, var(--gh-deep) 35%, transparent) 50%, color-mix(in oklab, var(--gh-deep) 78%, transparent));
+    height: 100vh !important;
+    height: 100dvh !important;
+  }
+  .ghh-poster-backdrop {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(24px) brightness(.5);
+    transform: scale(1.08);
+    z-index: -2;
+    pointer-events: none;
+  }
+  .ghh-hero.ghh-poster::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--ghh-backdrop-grade);
+    pointer-events: none;
+  }
+  .ghh-hero.ghh-poster .ghh-poster-img {
+    position: relative;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+  }
+  .ghh-hero.ghh-poster .ghh-showcase-on { max-width: 720px; }
+  .ghh-showcase-on .ghs-showcase { padding: .75rem 0 1rem; }
+  .ghh-showcase-on .ghs-tile .ghs-tile-photo { width: 56px; height: 56px; }
+  .ghh-showcase-on .ghs-tile { padding-bottom: .5rem; }
+  .ghh-showcase-on .ghs-tile strong { font-size: .82rem; letter-spacing: 0; }
+  .ghh-showcase-on .ghs-tile span { font-size: .7rem; }
+  .ghh-showcase-on .ghs-btn { font-size: .98rem; }
+}
