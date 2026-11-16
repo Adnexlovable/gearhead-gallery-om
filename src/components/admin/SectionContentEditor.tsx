@@ -19,7 +19,7 @@ export function SectionContentEditor() {
     const saved = rows.find((r) => r.id === s.id);
     return <Editor key={`${s.id}-${saved?.label}-${saved?.note}-${saved?.visible}`} id={s.id} title={saved?.label ?? s.label} note={saved?.note ?? ""} visible={saved?.visible ?? true} onSave={async (label, note, visible) => {
       const { error } = await supabase.from("site_sections").upsert({ id: s.id, label, note, visible });
-      if (error) return toast.error("Could not save section");
+      if (error) { toast.error("Could not save section"); return; }
       await qc.invalidateQueries({ queryKey: ["site-sections"] }); toast.success("Section saved");
     }} />;
   })}</div>;
