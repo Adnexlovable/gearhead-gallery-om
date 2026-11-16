@@ -9,8 +9,8 @@
 - [ ] First ad campaign (WhatsApp, dune fans, English + Arabic): approve goal, creative and launch date
 
 ## To do
-- [ ] Desktop-only cover fit and blended sides; preserve mobile cover layout
-- [ ] Landscape social preview and homepage sharing metadata
+- [x] Desktop-only cover fit and blended sides; mobile screenshots verified identical at 390×844
+- [x] Landscape 1200×630 social preview and both homepage sharing tags; reaches live site on next publish
 - [ ] Verify the owner's requested password and direct admin sign-in
 - [ ] Add password visibility, grouped catalogue editing, homepage content controls and live updates
 - [ ] Review gearheadrc.store search results once Google has a few days of data
