@@ -9,6 +9,7 @@ export function VisionHero({ mode }: { mode?: "investor" | "app"; portraitSrc?: 
   return (
     <section id="top" className="ghh-hero ghh-poster" aria-label="GearHead RC Hub — A New RC Experience for Oman">
       <h1 className="sr-only">GEARHEAD RC HUB — A New RC Experience for Oman</h1>
+      <img src={media.hero || posterAsset.url} alt="" aria-hidden="true" className="ghh-poster-backdrop" />
       <img src={media.hero || posterAsset.url} alt="GEARHEAD RC HUB poster with RC crawler and flag" className="ghh-poster-img" width={1072} height={2400} fetchPriority="high" />
       <div className="ghh-showcase-on">
         <HeroShowcase variant={mode === "app" ? "app" : "investor"} />

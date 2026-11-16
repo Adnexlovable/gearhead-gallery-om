@@ -21,3 +21,5 @@
 - Keep owner-replaceable shop photos (cover + 4 backgrounds) in public.site_media slots, edited in the admin Shop photos tab; pages fall back to the built-in photos when a slot is empty so nothing breaks.
 - Use a single root Realtime subscription to invalidate shop, product and homepage content queries after saved edits, so separate storefront sessions update without reloading.
 - Account password maintenance runs only through an authenticated server function that checks the database admin role, so no public account-setup endpoint or password is shipped.
+- Keep viewport-fitting poster overrides inside the min-width: 1024px media query; desktop fixes must not alter the established phone/tablet cover.
+- Home sharing images use a static landscape composition of the original artwork, tagged only in the homepage leaf heads so other pages retain their own previews.
