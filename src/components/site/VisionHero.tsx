@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { HeroShowcase } from "./HeroShowcase";
 import { useSiteMedia } from "@/lib/site-media";
-import mobileDefault from "@/assets/home-hero-916-flag.jpg";
+import mobileDefault from "@/assets/home-hero-916-v2.jpg";
 import desktopDefault from "@/assets/home-hero-169-flag.jpg";
 
 const DEFAULT_TITLE = "GearHead RC Hub — A New RC Experience for Oman";
@@ -48,7 +48,6 @@ export function VisionHero({ mode }: { mode?: "investor" | "app" }) {
       className={`ghh-hero ghh-dual-hero ${mode === "app" ? "ghh-shop-hero" : ""}`}
       aria-label="GearHead RC Hub — A New RC Experience for Oman"
     >
-      <h1 className="sr-only">GEARHEAD RC HUB — A New RC Experience for Oman</h1>
       <img
         src={media.hero_mobile || mobileDefault}
         alt=""
@@ -74,10 +73,10 @@ export function VisionHero({ mode }: { mode?: "investor" | "app" }) {
       )}
       <div className="ghh-dual-shade" aria-hidden="true" />
       <div className="ghh-dual-copy">
-        <strong className="ghh-dual-title">
+        <h1 className="ghh-dual-title">
           <span className="ghh-dual-title-main">GEARHEAD</span>
           <span className="ghh-dual-title-accent">RC HUB</span>
-        </strong>
+        </h1>
         <span className="ghh-dual-brand">A brand of <span className="ghh-dual-brand-accent">ADNEX.WORLD</span></span>
         <span className="ghh-dual-tagline">A NEW RC EXPERIENCE FOR OMAN</span>
       </div>
