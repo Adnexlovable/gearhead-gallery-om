@@ -74,7 +74,10 @@ export function VisionHero({ mode }: { mode?: "investor" | "app" }) {
       )}
       <div className="ghh-dual-shade" aria-hidden="true" />
       <div className="ghh-dual-copy">
-        <strong className="ghh-dual-title">GEARHEAD RC HUB</strong>
+        <strong className="ghh-dual-title">
+          <span className="ghh-dual-title-main">GEARHEAD</span>
+          <span className="ghh-dual-title-accent">RC HUB</span>
+        </strong>
         <span className="ghh-dual-brand">A brand of ADNEX.WORLD</span>
         <span className="ghh-dual-tagline">A NEW RC EXPERIENCE FOR OMAN</span>
       </div>
