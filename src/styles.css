@@ -2963,7 +2963,7 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   background: linear-gradient(180deg,rgba(0,0,0,.46),transparent 30%,transparent 55%,rgba(0,0,0,.24)); }
 .ghh-dual-copy { position: absolute; z-index: 3; top: max(94px, calc(env(safe-area-inset-top) + 88px)); left: 1rem; right: 1rem;
   display: flex; flex-direction: column; align-items: center; color: #fff; text-align: center; text-shadow: 0 3px 12px #000; }
-.ghh-dual-title { font: italic 900 clamp(1.65rem,7vw,4rem)/.95 "Saira", "Exo 2", sans-serif; letter-spacing: .015em; }
+.ghh-dual-title { font: 800 clamp(1.65rem,7vw,4rem)/.98 "Bricolage Grotesque", "Exo 2", sans-serif; letter-spacing: .025em; text-transform: uppercase; }
 .ghh-dual-brand { margin-top: .45rem; font: 800 clamp(.72rem,2.8vw,1rem)/1.2 "Bricolage Grotesque",sans-serif; letter-spacing: .1em; text-transform: uppercase; }
 .ghh-dual-tagline { margin-top: .65rem; font: 900 clamp(.75rem,3vw,1.15rem)/1.2 "Bricolage Grotesque",sans-serif; letter-spacing: .11em; }
 .ghh-dual-hero .ghh-showcase-on { position: absolute; z-index: 4; left: 0; right: 0; bottom: max(0px, env(safe-area-inset-bottom)); width: 100%; }
