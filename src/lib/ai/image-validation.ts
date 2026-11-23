@@ -25,22 +25,23 @@ export function getCarImageDataUrlError(value: string): string | null {
   }
 
   const mimeType = match[1].toLowerCase();
-  const isJpeg = mimeType === "jpeg" &&
+  const isJpeg =
+    mimeType === "jpeg" &&
     bytes.length >= 3 &&
     bytes.charCodeAt(0) === 0xff &&
     bytes.charCodeAt(1) === 0xd8 &&
     bytes.charCodeAt(2) === 0xff;
-  const isPng = mimeType === "png" &&
+  const isPng =
+    mimeType === "png" &&
     bytes.length >= 8 &&
     [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a].every(
       (byte, index) => bytes.charCodeAt(index) === byte,
     );
-  const isWebp = mimeType === "webp" &&
+  const isWebp =
+    mimeType === "webp" &&
     bytes.length >= 12 &&
     bytes.slice(0, 4) === "RIFF" &&
     bytes.slice(8, 12) === "WEBP";
 
-  return isJpeg || isPng || isWebp
-    ? null
-    : "Please choose a valid JPG, PNG, or WebP image.";
+  return isJpeg || isPng || isWebp ? null : "Please choose a valid JPG, PNG, or WebP image.";
 }

@@ -2,23 +2,74 @@ import { createServerFn } from "@tanstack/react-start";
 import { setResponseHeader, setResponseStatus } from "@tanstack/react-start/server";
 import { z } from "zod";
 import { protectAiRequest } from "@/lib/ai/request-protection.server";
-import {
-  getCarImageDataUrlError,
-  MAX_CAR_IMAGE_DATA_URL_LENGTH,
-} from "@/lib/ai/image-validation";
+import { getCarImageDataUrlError, MAX_CAR_IMAGE_DATA_URL_LENGTH } from "@/lib/ai/image-validation";
 
 const CATALOG = [
   { id: "sf24", name: "Ferrari SF-24", tag: "F1 Scale 1:43", price: "OMR 89", category: "F1" },
   { id: "w15", name: "Mercedes-AMG W15", tag: "F1 Scale 1:43", price: "OMR 89", category: "F1" },
-  { id: "sf90", name: "Ferrari SF90 Stradale", tag: "Supercar 1:24", price: "OMR 145", category: "Supercars" },
-  { id: "huracan", name: "Lamborghini Huracán Sterrato", tag: "Supercar 1:24", price: "OMR 160", category: "Supercars" },
-  { id: "wrangler", name: "Jeep Wrangler Rubicon RC", tag: "RC Rally Edition", price: "OMR 220", category: "4x4 Off-Road" },
-  { id: "defender", name: "Land Rover Defender 130 V8", tag: "Shadow-Box · Gold Edition", price: "OMR 395", category: "4x4 Off-Road" },
-  { id: "gto", name: "Ferrari 250 GTO", tag: "Heritage 1:18", price: "OMR 310", category: "Vintage Classics" },
-  { id: "silverghost", name: "Rolls-Royce Silver Ghost", tag: "Heritage 1:18", price: "OMR 340", category: "Vintage Classics" },
-  { id: "frame-bmw", name: "BMW M3 — LED Vitrine", tag: "Framed Art", price: "OMR 480", category: "Framed Art" },
-  { id: "frame-batmobile", name: "The Dark Knight Rises — Batmobile Set", tag: "Framed Art · Limited", price: "OMR 690", category: "Framed Art" },
-  { id: "frame-porsche", name: "Porsche 911 Trinity", tag: "Framed Art · Trinity Series", price: "OMR 620", category: "Framed Art" },
+  {
+    id: "sf90",
+    name: "Ferrari SF90 Stradale",
+    tag: "Supercar 1:24",
+    price: "OMR 145",
+    category: "Supercars",
+  },
+  {
+    id: "huracan",
+    name: "Lamborghini Huracán Sterrato",
+    tag: "Supercar 1:24",
+    price: "OMR 160",
+    category: "Supercars",
+  },
+  {
+    id: "wrangler",
+    name: "Jeep Wrangler Rubicon RC",
+    tag: "RC Rally Edition",
+    price: "OMR 220",
+    category: "4x4 Off-Road",
+  },
+  {
+    id: "defender",
+    name: "Land Rover Defender 130 V8",
+    tag: "Shadow-Box · Gold Edition",
+    price: "OMR 395",
+    category: "4x4 Off-Road",
+  },
+  {
+    id: "gto",
+    name: "Ferrari 250 GTO",
+    tag: "Heritage 1:18",
+    price: "OMR 310",
+    category: "Vintage Classics",
+  },
+  {
+    id: "silverghost",
+    name: "Rolls-Royce Silver Ghost",
+    tag: "Heritage 1:18",
+    price: "OMR 340",
+    category: "Vintage Classics",
+  },
+  {
+    id: "frame-bmw",
+    name: "BMW M3 — LED Vitrine",
+    tag: "Framed Art",
+    price: "OMR 480",
+    category: "Framed Art",
+  },
+  {
+    id: "frame-batmobile",
+    name: "The Dark Knight Rises — Batmobile Set",
+    tag: "Framed Art · Limited",
+    price: "OMR 690",
+    category: "Framed Art",
+  },
+  {
+    id: "frame-porsche",
+    name: "Porsche 911 Trinity",
+    tag: "Framed Art · Trinity Series",
+    price: "OMR 620",
+    category: "Framed Art",
+  },
 ];
 
 const RESULT_SCHEMA = {

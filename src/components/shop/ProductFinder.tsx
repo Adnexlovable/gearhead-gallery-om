@@ -26,36 +26,94 @@ export function ProductFinder() {
       setResult(await find({ data: { query: q } }));
     } catch (error) {
       const requestError = error as { status?: unknown; statusCode?: unknown; message?: unknown };
-      const isRateLimited = requestError.status === 429 || requestError.statusCode === 429 ||
-        (typeof requestError.message === "string" && /429|too many requests|rate limit/i.test(requestError.message));
-      setResult(isRateLimited
-        ? { ok: false, status: 429, retryAfterSeconds: 60, error: "The product finder is busy. Please wait 60 seconds and try again." }
-        : { ok: false, error: "The product finder could not answer right now. Please try again." });
+      const isRateLimited =
+        requestError.status === 429 ||
+        requestError.statusCode === 429 ||
+        (typeof requestError.message === "string" &&
+          /429|too many requests|rate limit/i.test(requestError.message));
+      setResult(
+        isRateLimited
+          ? {
+              ok: false,
+              status: 429,
+              retryAfterSeconds: 60,
+              error: "The product finder is busy. Please wait 60 seconds and try again.",
+            }
+          : {
+              ok: false,
+              error: "The product finder could not answer right now. Please try again.",
+            },
+      );
     } finally {
       setBusy(false);
     }
   };
-  const submit = (e: FormEvent) => { e.preventDefault(); void run(query); };
+  const submit = (e: FormEvent) => {
+    e.preventDefault();
+    void run(query);
+  };
 
   return (
     <div className="ghx-finder">
       <form onSubmit={submit} className="ghx-finder-form">
-        <label htmlFor="ghx-finder-input" className="sr-only">Describe the RC car, model or budget you want</label>
-        <textarea id="ghx-finder-input" value={query} onChange={(e) => setQuery(e.target.value)} maxLength={500} rows={2}
-          placeholder="Describe the vehicle, scale model or budget you want…" onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing && e.keyCode !== 229) { e.preventDefault(); void run(query); } }} />
-        <button type="submit" className="ghx-btn ghx-btn-primary" disabled={busy || query.trim().length < 3}>
-          {busy ? <Loader2 size={16} className="animate-spin" aria-hidden="true" /> : <Sparkles size={16} aria-hidden="true" />}
+        <label htmlFor="ghx-finder-input" className="sr-only">
+          Describe the RC car, model or budget you want
+        </label>
+        <textarea
+          id="ghx-finder-input"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          maxLength={500}
+          rows={2}
+          placeholder="Describe the vehicle, scale model or budget you want…"
+          onKeyDown={(e) => {
+            if (
+              e.key === "Enter" &&
+              !e.shiftKey &&
+              !e.nativeEvent.isComposing &&
+              e.keyCode !== 229
+            ) {
+              e.preventDefault();
+              void run(query);
+            }
+          }}
+        />
+        <button
+          type="submit"
+          className="ghx-btn ghx-btn-primary"
+          disabled={busy || query.trim().length < 3}
+        >
+          {busy ? (
+            <Loader2 size={16} className="animate-spin" aria-hidden="true" />
+          ) : (
+            <Sparkles size={16} aria-hidden="true" />
+          )}
           {busy ? "Finding…" : "Find my RC"}
         </button>
       </form>
       <div className="ghx-finder-examples">
         {EXAMPLES.map((ex) => (
-          <button key={ex} type="button" className="ghx-pill" onClick={() => { setQuery(ex); void run(ex); }} disabled={busy}>{ex}</button>
+          <button
+            key={ex}
+            type="button"
+            className="ghx-pill"
+            onClick={() => {
+              setQuery(ex);
+              void run(ex);
+            }}
+            disabled={busy}
+          >
+            {ex}
+          </button>
         ))}
       </div>
       <div aria-live="polite">
         {busy && <p className="ghx-muted mt-5">Looking through the GearHead catalogue…</p>}
-        {result && !result.ok && <p className="ghx-finder-error" role="alert">{result.error}</p>}
+        {result && !result.ok && (
+          <p className="ghx-finder-error" role="alert">
+            {result.error}
+          </p>
+        )}
         {result && result.ok && (
           <div className="mt-6">
             <p className="ghx-finder-summary">{result.summary}</p>

@@ -1,10 +1,6 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { Redis } from "@upstash/redis";
-import {
-  getRequest,
-  setResponseHeader,
-  setResponseStatus,
-} from "@tanstack/react-start/server";
+import { getRequest, setResponseHeader, setResponseStatus } from "@tanstack/react-start/server";
 
 type Endpoint = "product-finder" | "car-identifier";
 
@@ -53,9 +49,7 @@ function isSameOrigin(request: Request): boolean {
       .split(",", 1)[0]
       .trim()
       .toLowerCase();
-    const expectedProtocol = (
-      request.headers.get("x-forwarded-proto") ?? requestUrl.protocol
-    )
+    const expectedProtocol = (request.headers.get("x-forwarded-proto") ?? requestUrl.protocol)
       .split(",", 1)[0]
       .trim()
       .replace(/:$/, "")
@@ -73,8 +67,7 @@ function isSameOrigin(request: Request): boolean {
 
 function getClientIp(request: Request): string | null {
   const ip = (
-    request.headers.get("x-real-ip") ??
-    request.headers.get("x-forwarded-for")?.split(",", 1)[0]
+    request.headers.get("x-real-ip") ?? request.headers.get("x-forwarded-for")?.split(",", 1)[0]
   )?.trim();
 
   if (ip && ip.length <= 64 && /^[0-9a-fA-F:.]+$/.test(ip)) {
@@ -92,20 +85,14 @@ async function hashIp(ip: string, token: string): Promise<string> {
     false,
     ["sign"],
   );
-  const signature = await crypto.subtle.sign(
-    "HMAC",
-    key,
-    new TextEncoder().encode(ip),
-  );
+  const signature = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(ip));
 
-  return Array.from(new Uint8Array(signature), (byte) =>
-    byte.toString(16).padStart(2, "0"),
-  ).join("");
+  return Array.from(new Uint8Array(signature), (byte) => byte.toString(16).padStart(2, "0")).join(
+    "",
+  );
 }
 
-export async function protectAiRequest(
-  endpoint: Endpoint,
-): Promise<ProtectionResult> {
+export async function protectAiRequest(endpoint: Endpoint): Promise<ProtectionResult> {
   const request = getRequest();
   if (!isSameOrigin(request)) {
     setResponseStatus(403);
@@ -130,10 +117,7 @@ export async function protectAiRequest(
     const result = await limiter.limit(await hashIp(ip, token));
     if (result.success) return { allowed: true };
 
-    const retryAfterSeconds = Math.max(
-      1,
-      Math.ceil((result.reset - Date.now()) / 1000),
-    );
+    const retryAfterSeconds = Math.max(1, Math.ceil((result.reset - Date.now()) / 1000));
     setResponseStatus(429);
     setResponseHeader("Retry-After", String(retryAfterSeconds));
     return { allowed: false, status: 429, retryAfterSeconds };
