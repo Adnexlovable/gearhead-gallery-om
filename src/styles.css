@@ -2947,3 +2947,50 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   .ghh-showcase-on .ghs-tile span { font-size: .7rem; }
   .ghh-showcase-on .ghs-btn { font-size: .98rem; }
 }
+
+/* Locked dual-slot home cover: portrait below 1024px, landscape at desktop. */
+.ghh-dual-hero {
+  width: 100%; height: 100vh; height: 100dvh; min-height: 620px !important;
+  padding: 0 !important; margin: 0; background: #120d09 !important; overflow: hidden;
+}
+.ghh-dual-image, .ghh-dual-video {
+  position: absolute; inset: 0; display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: center; max-width: none; z-index: 0;
+}
+.ghh-desktop-image { display: none; }
+.ghh-dual-video { z-index: 1; }
+.ghh-dual-shade { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(180deg,rgba(0,0,0,.46),transparent 30%,transparent 55%,rgba(0,0,0,.24)); }
+.ghh-dual-copy { position: absolute; z-index: 3; top: max(94px, calc(env(safe-area-inset-top) + 88px)); left: 1rem; right: 1rem;
+  display: flex; flex-direction: column; align-items: center; color: #fff; text-align: center; text-shadow: 0 3px 12px #000; }
+.ghh-dual-title { font: italic 900 clamp(1.65rem,7vw,4rem)/.95 "Saira", "Exo 2", sans-serif; letter-spacing: .015em; }
+.ghh-dual-brand { margin-top: .45rem; font: 800 clamp(.72rem,2.8vw,1rem)/1.2 "Bricolage Grotesque",sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+.ghh-dual-tagline { margin-top: .65rem; font: 900 clamp(.75rem,3vw,1.15rem)/1.2 "Bricolage Grotesque",sans-serif; letter-spacing: .11em; }
+.ghh-dual-hero .ghh-showcase-on { position: absolute; z-index: 4; left: 0; right: 0; bottom: max(0px, env(safe-area-inset-bottom)); width: 100%; }
+.ghh-dual-hero .ghs-showcase { padding: .5rem .35rem .7rem; background: linear-gradient(180deg,transparent,rgba(9,7,5,.72)) !important; }
+.ghh-dual-hero .ghs-inner { width: min(100% - .75rem, 72rem); gap: .48rem; }
+.ghh-dual-hero .ghs-ctas { gap: .4rem; }
+.ghh-dual-hero .ghs-btn { min-height: 42px; padding-inline: .35rem; font-size: clamp(.58rem,2.8vw,.9rem); }
+.ghh-dual-hero .ghs-tiles { gap: .25rem; }
+.ghh-dual-hero .ghs-tile { padding: .3rem .1rem .35rem !important; gap: .2rem; border-radius: .5rem; }
+.ghh-dual-hero .ghs-tile .ghs-tile-photo { width: 100%; aspect-ratio: 1/1; height: auto; margin: 0; object-fit: cover; }
+.ghh-dual-hero .ghs-tile strong { font-size: clamp(.42rem,2.05vw,.75rem); letter-spacing: 0; }
+.ghh-dual-hero .ghs-tile span { font-size: clamp(.38rem,1.75vw,.65rem); }
+@media (min-width: 1024px) {
+  .ghh-dual-hero { min-height: 0 !important; height: 100vh !important; height: 100dvh !important; }
+  .ghh-dual-hero .ghh-mobile-image { display: none; }
+  .ghh-dual-hero .ghh-desktop-image { display: block; }
+  .ghh-dual-copy { top: clamp(112px,16vh,180px); }
+  .ghh-dual-title { font-size: clamp(3rem,5vw,5.5rem); }
+  .ghh-dual-hero .ghh-showcase-on { bottom: 0; }
+  .ghh-dual-hero .ghs-showcase { padding: .5rem 0 1rem; }
+  .ghh-dual-hero .ghs-inner { width: min(100% - 2rem, 72rem); gap: .6rem; }
+  .ghh-dual-hero .ghs-ctas { grid-template-columns: repeat(2,minmax(0,22rem)); }
+  .ghh-dual-hero .ghs-tiles { gap: .6rem; }
+  .ghh-dual-hero .ghs-tile { padding: .4rem !important; }
+  .ghh-dual-hero .ghs-tile .ghs-tile-photo { width: 54px; height: 54px; }
+}
+@media (max-width: 380px) {
+  .ghh-dual-hero .ghs-tile span { display: none; }
+  .ghh-dual-copy { top: calc(env(safe-area-inset-top) + 76px); }
+}
