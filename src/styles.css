@@ -2963,12 +2963,12 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   background: linear-gradient(180deg,rgba(0,0,0,.46),transparent 30%,transparent 55%,rgba(0,0,0,.24)); }
 .ghh-dual-copy { position: absolute; z-index: 3; top: max(132px, calc(env(safe-area-inset-top) + 124px)); left: clamp(1.5rem,7vw,6rem); right: 1rem;
   display: flex; flex-direction: column; align-items: flex-start; color: #fff; text-align: left; text-shadow: 0 3px 12px #000; }
-.ghh-dual-title { display: flex; flex-direction: column; align-items: center; font-family: "Saira", "Exo 2", sans-serif; font-size: clamp(2.3rem,12vw,5.8rem); font-style: italic; font-weight: 900; font-stretch: 125%; line-height: .76; letter-spacing: -.035em; text-transform: uppercase; transform: skew(-6deg); filter: drop-shadow(0 8px 3px rgba(0,0,0,.72)) drop-shadow(0 16px 18px rgba(0,0,0,.6)); }
-.ghh-dual-title-main { color: #fff; background: linear-gradient(180deg,#fff 0%,#fff 30%,#e6e8eb 44%,#8c939b 53%,#fff 66%,#aab0b7 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; -webkit-text-stroke: 1px rgba(20,18,16,.8); text-shadow: none; }
-.ghh-dual-title-accent { margin-top: .02em; color: #ff8a00; background: linear-gradient(180deg,#fff0a0 0%,#ffc238 24%,#ff8a00 58%,#f04400 82%,#bd2800 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; -webkit-text-stroke: 1px rgba(57,19,5,.82); text-shadow: none; }
-.ghh-dual-brand { margin-top: .45rem; font: 700 clamp(.78rem,2.8vw,1rem)/1.2 "Bricolage Grotesque",sans-serif; letter-spacing: .045em; text-transform: none; }
-.ghh-dual-brand-accent { color: #ff7a18; font-weight: 800; letter-spacing: .08em; }
-.ghh-dual-tagline { margin-top: .65rem; font: 900 clamp(.75rem,3vw,1.15rem)/1.2 "Bricolage Grotesque",sans-serif; letter-spacing: .11em; }
+.ghh-dual-hero .ghh-dual-title { display: flex; flex-direction: column; align-items: center; font-family: "Saira", "Exo 2", sans-serif; font-size: clamp(2.3rem,12vw,5.8rem); font-style: italic; font-weight: 900; font-stretch: 125%; line-height: .76; letter-spacing: -.035em; text-transform: uppercase; transform: skew(-6deg); filter: drop-shadow(0 8px 3px rgba(0,0,0,.72)) drop-shadow(0 16px 18px rgba(0,0,0,.6)); }
+.ghh-dual-hero .ghh-dual-title-main { color: #fff; background: linear-gradient(180deg,#fff 0%,#fff 30%,#e6e8eb 44%,#8c939b 53%,#fff 66%,#aab0b7 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; -webkit-text-stroke: 1px rgba(20,18,16,.8); text-shadow: none; }
+.ghh-dual-hero .ghh-dual-title-accent { margin-top: .02em; color: #f5223b; background: linear-gradient(180deg,#ff5365 0%,#f5223b 35%,#d90f2b 68%,#970018 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; -webkit-text-stroke: 1px rgba(57,5,13,.86); text-shadow: none; }
+.ghh-dual-hero .ghh-dual-brand { margin-top: .45rem; font: 700 clamp(.78rem,2.8vw,1rem)/1.2 "Bricolage Grotesque",sans-serif; letter-spacing: .045em; text-transform: none; }
+.ghh-dual-hero .ghh-dual-brand-accent { color: #ff7a18; font-weight: 800; letter-spacing: .08em; }
+.ghh-dual-hero .ghh-dual-tagline { margin-top: .65rem; font: 900 clamp(.75rem,3vw,1.15rem)/1.2 "Bricolage Grotesque",sans-serif; letter-spacing: .11em; }
 .ghh-dual-hero .ghh-showcase-on { position: absolute; z-index: 4; left: 0; right: 0; bottom: max(0px, env(safe-area-inset-bottom)); width: 100%; }
 .ghh-dual-hero .ghs-showcase { padding: .5rem .35rem .7rem; background: linear-gradient(180deg,transparent,rgba(9,7,5,.72)) !important; }
 .ghh-dual-hero .ghs-inner { width: min(100% - .75rem, 72rem); gap: .48rem; }
@@ -2984,7 +2984,7 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   .ghh-dual-hero .ghh-mobile-image { display: none; }
   .ghh-dual-hero .ghh-desktop-image { display: block; }
   .ghh-dual-copy { top: clamp(140px,16vh,190px); }
-  .ghh-dual-title { font-size: clamp(5rem,8vw,8rem); }
+  .ghh-dual-hero .ghh-dual-title { font-size: clamp(5rem,8vw,8rem); }
   .ghh-dual-hero .ghh-showcase-on { bottom: 0; }
   .ghh-dual-hero .ghs-showcase { padding: .5rem 0 1rem; }
   .ghh-dual-hero .ghs-inner { width: min(100% - 2rem, 72rem); gap: .6rem; }
