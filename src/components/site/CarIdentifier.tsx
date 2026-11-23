@@ -40,29 +40,41 @@ export function CarIdentifier() {
   };
 
   const onFile = async (file: File) => {
-    if (!file.type.startsWith("image/")) {
-      setError("Please choose a photo file.");
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      setError("Please choose a JPG, PNG, or WebP photo.");
       return;
     }
-    if (file.size > 6_000_000) {
-      setError("That photo is a bit large — please use one under 6MB.");
+    if (file.size > 5 * 1024 * 1024) {
+      setError("That photo is a bit large — please use one under 5 MB.");
       return;
     }
     setError(null);
     setResult(null);
-    const dataUrl = await new Promise<string>((resolve, reject) => {
-      const fr = new FileReader();
-      fr.onload = () => resolve(fr.result as string);
-      fr.onerror = () => reject(new Error("Could not read that file."));
-      fr.readAsDataURL(file);
-    });
+    let dataUrl: string;
+    try {
+      dataUrl = await new Promise<string>((resolve, reject) => {
+        const fr = new FileReader();
+        fr.onload = () => resolve(fr.result as string);
+        fr.onerror = () => reject(new Error("Could not read that file."));
+        fr.readAsDataURL(file);
+      });
+    } catch {
+      setError("That photo could not be read. Please choose another file.");
+      return;
+    }
     setPreview(dataUrl);
     setLoading(true);
     try {
       const res = await identify({ data: { imageDataUrl: dataUrl } });
-      setResult(res);
+      if (res.ok) setResult(res);
+      else setError(res.error);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
+      const error = e as { status?: unknown; statusCode?: unknown; message?: unknown };
+      const isRateLimited = error.status === 429 || error.statusCode === 429 ||
+        (typeof error.message === "string" && /429|too many requests|rate limit/i.test(error.message));
+      setError(isRateLimited
+        ? "Too many photo requests. Please wait a moment before trying again."
+        : "Photo identification could not complete. Please try again shortly.");
     } finally {
       setLoading(false);
     }
@@ -116,14 +128,15 @@ export function CarIdentifier() {
                   >
                     Upload a car photo
                   </button>
-                  <p className="font-mono-tag mt-4 text-[10px] text-muted-foreground">JPG or PNG · up to 6MB</p>
+                  <p className="font-mono-tag mt-4 text-[10px] text-muted-foreground">JPG, PNG, or WebP · up to 5 MB</p>
                 </div>
               )}
               <input
                 ref={inputRef}
                 type="file"
-                accept="image/*"
+                accept="image/jpeg,image/png,image/webp"
                 className="hidden"
+                disabled={loading}
                 onChange={(e) => {
                   const f = e.target.files?.[0];
                   if (f) void onFile(f);
@@ -133,7 +146,7 @@ export function CarIdentifier() {
 
             {/* Result panel */}
             <div className="vitrine relative min-h-[320px] p-6">
-              {error && <p className="text-sm text-gold-soft">{error}</p>}
+              {error && <p className="text-sm text-gold-soft" role="alert">{error}</p>}
 
               {!error && !result && (
                 <p className="text-sm text-muted-foreground">
@@ -143,13 +156,13 @@ export function CarIdentifier() {
                 </p>
               )}
 
-              {result && !result.is_car && (
+              {result?.ok && !result.is_car && (
                 <p className="text-sm text-muted-foreground">
                   We couldn't find a car in that photo. Try a clearer shot of the vehicle.
                 </p>
               )}
 
-              {result?.is_car && (
+              {result?.ok && result.is_car && (
                 <div>
                   <div className="flex items-center gap-2">
                     <Sparkles size={14} className="text-gold" />

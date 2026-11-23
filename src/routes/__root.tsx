@@ -15,6 +15,7 @@ import { reportLovableError, setupErrorMonitoring } from "../lib/lovable-error-r
 import { supabase } from "@/integrations/supabase/client";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react";
 
 function NotFoundComponent() {
   return (
@@ -123,6 +124,7 @@ function RootComponent() {
       <Outlet />
       <SmoothScroll />
       <Toaster position="top-center" richColors />
+      <Analytics />
     </QueryClientProvider>
   );
 }

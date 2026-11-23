@@ -1,5 +1,11 @@
 import { createServerFn } from "@tanstack/react-start";
+import { setResponseHeader, setResponseStatus } from "@tanstack/react-start/server";
 import { z } from "zod";
+import { protectAiRequest } from "@/lib/ai/request-protection.server";
+import {
+  getCarImageDataUrlError,
+  MAX_CAR_IMAGE_DATA_URL_LENGTH,
+} from "@/lib/ai/image-validation";
 
 const CATALOG = [
   { id: "sf24", name: "Ferrari SF-24", tag: "F1 Scale 1:43", price: "OMR 89", category: "F1" },
@@ -42,20 +48,81 @@ const RESULT_SCHEMA = {
   required: ["is_car", "make", "model", "era", "category", "confidence", "notes", "matches"],
 } as const;
 
+export type CarIdentificationResult =
+  | {
+      ok: true;
+      is_car: boolean;
+      make: string | null;
+      model: string | null;
+      era: string | null;
+      category: string | null;
+      confidence: "low" | "medium" | "high";
+      notes: string;
+      matches: ((typeof CATALOG)[number] & { reason: string })[];
+    }
+  | {
+      ok: false;
+      status: 403 | 429 | 503;
+      error: string;
+      retryAfterSeconds?: number;
+    };
+
+function failedResult(
+  status: 403 | 429 | 503,
+  error: string,
+  retryAfterSeconds?: number,
+): CarIdentificationResult {
+  setResponseStatus(status);
+  if (status === 429 && retryAfterSeconds) {
+    setResponseHeader("Retry-After", String(retryAfterSeconds));
+  }
+  return { ok: false, status, error, retryAfterSeconds };
+}
+
+function getRetryAfterSeconds(value: string | null): number | undefined {
+  if (!value) return undefined;
+  const seconds = Number(value);
+  if (Number.isFinite(seconds) && seconds > 0) return Math.ceil(seconds);
+  const timestamp = Date.parse(value);
+  return Number.isNaN(timestamp)
+    ? undefined
+    : Math.max(1, Math.ceil((timestamp - Date.now()) / 1000));
+}
+
 export const identifyCar = createServerFn({ method: "POST" })
   .inputValidator((data) =>
     z
       .object({
         imageDataUrl: z
           .string()
-          .startsWith("data:image/")
-          .max(8_000_000, "Image is too large — please use a photo under 6MB."),
+          .max(MAX_CAR_IMAGE_DATA_URL_LENGTH, "Photo is too large. Please use an image under 5 MB.")
+          .superRefine((value, ctx) => {
+            const error = getCarImageDataUrlError(value);
+            if (error) ctx.addIssue({ code: "custom", message: error });
+          }),
       })
       .parse(data),
   )
-  .handler(async ({ data }) => {
+  .handler(async ({ data }): Promise<CarIdentificationResult> => {
+    const protection = await protectAiRequest("car-identifier");
+    if (!protection.allowed) {
+      if (protection.status === 429) {
+        return failedResult(
+          429,
+          `Too many photo requests. Please wait ${protection.retryAfterSeconds} seconds before trying again.`,
+          protection.retryAfterSeconds,
+        );
+      }
+      return failedResult(
+        protection.status,
+        protection.status === 403
+          ? "This request could not be verified. Please reload the page and try again."
+          : "Photo identification is temporarily unavailable. Please try again shortly.",
+      );
+    }
+
     const apiKey = process.env["LOVABLE_API_KEY"];
-    if (!apiKey) throw new Error("AI is not configured for this project yet.");
+    if (!apiKey) return failedResult(503, "Photo identification is temporarily unavailable.");
 
     const res = await fetch("https://ai.gateway.lovable.dev/v1/responses", {
       method: "POST",
@@ -99,13 +166,18 @@ export const identifyCar = createServerFn({ method: "POST" })
     });
 
     if (!res.ok || !res.body) {
-      const detail = await res.text().catch(() => "");
-      throw new Error(
+      if (res.status === 429) {
+        return failedResult(
+          429,
+          "The photo identifier is busy. Please wait a moment and try again.",
+          getRetryAfterSeconds(res.headers.get("retry-after")),
+        );
+      }
+      return failedResult(
+        503,
         res.status === 402
-          ? "AI credits are exhausted for this workspace."
-          : res.status === 429
-            ? "Too many requests right now — please try again in a moment."
-            : `Identification failed (${res.status}). ${detail.slice(0, 200)}`,
+          ? "Photo identification is temporarily unavailable. Please message us on WhatsApp."
+          : "Photo identification could not complete. Please try again shortly.",
       );
     }
 
@@ -145,7 +217,7 @@ export const identifyCar = createServerFn({ method: "POST" })
     try {
       parsed = JSON.parse(text);
     } catch {
-      throw new Error("The curator could not read that photo. Please try another image.");
+      return failedResult(503, "The curator could not read that photo. Please try another image.");
     }
 
     const shape = z.object({
@@ -162,6 +234,7 @@ export const identifyCar = createServerFn({ method: "POST" })
 
     return {
       ...result,
+      ok: true,
       matches: result.matches
         .map((m) => {
           const item = CATALOG.find((c) => c.id === m.id);

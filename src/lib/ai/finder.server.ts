@@ -82,14 +82,14 @@ export async function recommendProducts(apiKey: string, query: string, catalog: 
     return await result.output;
   } catch (error) {
     if (APICallError.isInstance(error)) {
-      console.error(`Product finder gateway error [${error.statusCode}]: ${error.responseBody ?? error.message}`);
+      console.error(`Product finder gateway error [${error.statusCode ?? "unknown"}]`);
       const status = error.statusCode ?? 500;
       if (status === 429) throw new FinderError("The product finder is busy right now. Please try again in a minute.", 429);
       if (status === 402) throw new FinderError("The product finder is paused at the moment. Please message us on WhatsApp.", 402);
       if (status === 403) throw new FinderError("The product finder is not available right now. Please message us on WhatsApp.", 403);
       throw new FinderError("The product finder could not answer right now. Please try again.", status);
     }
-    console.error("Product finder failed:", error);
+    console.error("Product finder failed with an unexpected gateway error.");
     throw new FinderError("The product finder could not answer right now. Please try again.", 500);
   }
 }
