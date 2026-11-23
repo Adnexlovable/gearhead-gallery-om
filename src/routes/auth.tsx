@@ -25,7 +25,7 @@ const BLOCKED = "This sign-in is only for the GearHead RC owner. Other emails ca
 
 function AuthPage() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup" | "forgot">("signin");
+  const [mode, setMode] = useState<"signin" | "forgot">("signin");
   const [email, setEmail] = useState(ADMIN_EMAIL);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -60,34 +60,11 @@ function AuthPage() {
     try {
       const cleanEmail = email.trim().toLowerCase();
       if (mode === "forgot") {
-        const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, { redirectTo: `${window.location.origin}/reset-password` });
+        const { error } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
+          redirectTo: `${window.location.origin}/reset-password`,
+        });
         if (error) throw error;
         setMessage({ kind: "info", text: "Password reset link sent. Check your inbox." });
-        return;
-      }
-      if (mode === "signup") {
-        const { data, error } = await supabase.auth.signUp({
-          email: cleanEmail,
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/auth` },
-        });
-        if (error) {
-          if (/already registered|user already|exists/i.test(error.message)) {
-            const { error: signInError } = await supabase.auth.signInWithPassword({ email: cleanEmail, password });
-            if (signInError) throw signInError;
-            navigate({ to: "/admin", replace: true });
-            return;
-          }
-          throw error;
-        }
-        if (data.session) {
-          navigate({ to: "/admin", replace: true });
-        } else {
-          setMessage({
-            kind: "info",
-            text: "Account created. Check your email to confirm. If you already have the owner account, return to sign in."
-          });
-        }
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email: cleanEmail, password });
         if (error) throw error;
@@ -98,26 +75,14 @@ function AuthPage() {
       setMessage({
         kind: "error",
         text: /fetch|network|paused|credit/i.test(text)
-          ? "Can't reach the shop server right now. Add Cloud credits in Lovable, then try again."
-          : text,
+          ? "Can't reach the shop server right now. Try again shortly."
+          : /invalid login credentials/i.test(text)
+            ? "Invalid email or password."
+            : text,
       });
     } finally {
       setBusy(false);
     }
-  };
-
-  const resend = async () => {
-    setMessage(null);
-    const { error } = await supabase.auth.resend({
-      type: "signup",
-      email: ADMIN_EMAIL,
-      options: { emailRedirectTo: `${window.location.origin}/auth` },
-    });
-    setMessage(
-      error
-        ? { kind: "error", text: error.message }
-        : { kind: "info", text: "Confirmation email requested. Check your inbox and spam folder." }
-    );
   };
 
   return (
@@ -128,23 +93,23 @@ function AuthPage() {
             <span className="font-display text-sm font-bold text-gold-gradient">G</span>
           </div>
           <div className="leading-tight">
-            <div className="font-display text-sm font-bold tracking-wide text-foreground">GearHead RC</div>
+            <div className="font-display text-sm font-bold tracking-wide text-foreground">
+              GearHead RC
+            </div>
             <div className="font-mono-tag text-[9px] text-gold-soft/80">Owner admin</div>
           </div>
         </Link>
-
         <h1 className="font-display text-2xl font-bold text-foreground">
-          {mode === "signin" ? "Admin sign in" : mode === "forgot" ? "Reset password" : "Create admin account"}
+          {mode === "signin" ? "Admin sign in" : "Reset password"}
         </h1>
         <p className="mt-1 text-sm text-muted-foreground">
           {mode === "signin"
-            ? "Owner only. You'll go straight to the admin page."
-            : mode === "forgot" ? "Request a password reset link for your owner account." : "Register the GearHead RC owner account."}
+            ? "Owner only. Sign in to manage the site."
+            : "Request a password reset link for the owner account."}
         </p>
-
         <form onSubmit={submit} className="mt-6 flex flex-col gap-4">
           <label className="flex flex-col gap-1.5">
-            <span className="font-mono-tag text-[10px] text-gold-soft/80">Email</span>
+            <span className="font-mono-tag text-[10px] text-gold-soft/80">Owner email</span>
             <input
               type="email"
               required
@@ -154,51 +119,64 @@ function AuthPage() {
               className="rounded-xl border border-gold/20 bg-surface px-4 py-3 text-sm text-foreground outline-none focus:border-gold/60"
             />
           </label>
-          {mode !== "forgot" && <label className="flex flex-col gap-1.5">
-            <span className="font-mono-tag text-[10px] text-gold-soft/80">Password</span>
-            <div className="relative"><input
-              type={showPassword ? "text" : "password"}
-              required
-              minLength={8}
-              autoComplete={mode === "signin" ? "current-password" : "new-password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full rounded-md border border-gold/20 bg-surface py-3 pl-4 pr-12 text-sm text-foreground outline-none focus:border-gold/60"
-              placeholder="At least 8 characters"
-            /><Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1" aria-label={showPassword ? "Hide password" : "Show password"} title={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword((v) => !v)}>{showPassword ? <EyeOff /> : <Eye />}</Button></div>
-          </label>}
-
+          {mode === "signin" && (
+            <label className="flex flex-col gap-1.5">
+              <span className="font-mono-tag text-[10px] text-gold-soft/80">Password</span>
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  required
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full rounded-md border border-gold/20 bg-surface py-3 pl-4 pr-12 text-sm text-foreground outline-none focus:border-gold/60"
+                  placeholder="Your password"
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  className="absolute right-1 top-1"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  onClick={() => setShowPassword((v) => !v)}
+                >
+                  {showPassword ? <EyeOff /> : <Eye />}
+                </Button>
+              </div>
+            </label>
+          )}
           {message && (
-            <p role="status" className={`text-sm ${message.kind === "error" ? "text-destructive" : "text-gold-soft"}`}>
+            <p
+              role="status"
+              className={`text-sm ${message.kind === "error" ? "text-destructive" : "text-gold-soft"}`}
+            >
               {message.text}
             </p>
           )}
-
           <Button type="submit" disabled={busy} className="btn-gold mt-2 disabled:opacity-60">
-            {busy ? "Please wait…" : mode === "signin" ? "Sign in" : mode === "forgot" ? "Send reset link" : "Create account"}
+            {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Send reset link"}
           </Button>
         </form>
-
         <div className="mt-6 flex flex-col items-center gap-2 text-sm text-muted-foreground">
-          <button
-            onClick={() => { setMode(mode === "signup" ? "signin" : "signup"); setMessage(null); }}
-            className="text-gold underline-offset-4 hover:underline"
-          >
-            {mode === "signup" ? "Already have account? Sign in" : "First time? Create the admin account"}
-          </button>
-          {mode === "signin" && (
-            <button onClick={() => { setMode("forgot"); setMessage(null); }} className="text-gold-soft underline-offset-4 hover:underline">
+          {mode === "signin" ? (
+            <button
+              onClick={() => {
+                setMode("forgot");
+                setMessage(null);
+              }}
+              className="text-gold-soft underline-offset-4 hover:underline"
+            >
               Forgot your password?
             </button>
-          )}
-          {mode === "forgot" && (
-            <button onClick={() => { setMode("signin"); setMessage(null); }} className="text-gold-soft underline-offset-4 hover:underline">
+          ) : (
+            <button
+              onClick={() => {
+                setMode("signin");
+                setMessage(null);
+              }}
+              className="text-gold-soft underline-offset-4 hover:underline"
+            >
               Back to sign in
-            </button>
-          )}
-          {mode === "signup" && (
-            <button onClick={resend} className="text-gold-soft underline-offset-4 hover:underline">
-              Didn't get the email? Try resend
             </button>
           )}
         </div>
