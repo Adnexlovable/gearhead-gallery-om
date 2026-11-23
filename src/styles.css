@@ -2961,11 +2961,14 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 .ghh-dual-video { z-index: 1; }
 .ghh-dual-shade { position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background: linear-gradient(180deg,rgba(0,0,0,.46),transparent 30%,transparent 55%,rgba(0,0,0,.24)); }
-.ghh-dual-copy { position: absolute; z-index: 3; top: max(94px, calc(env(safe-area-inset-top) + 88px)); left: 1rem; right: 1rem;
-  display: flex; flex-direction: column; align-items: center; color: #fff; text-align: center; text-shadow: 0 3px 12px #000; }
-.ghh-dual-title { font: italic 900 clamp(1.65rem,7vw,4rem)/.95 "Saira", "Exo 2", sans-serif; letter-spacing: .015em; }
-.ghh-dual-brand { margin-top: .45rem; font: 800 clamp(.72rem,2.8vw,1rem)/1.2 "Bricolage Grotesque",sans-serif; letter-spacing: .1em; text-transform: uppercase; }
-.ghh-dual-tagline { margin-top: .65rem; font: 900 clamp(.75rem,3vw,1.15rem)/1.2 "Bricolage Grotesque",sans-serif; letter-spacing: .11em; }
+.ghh-dual-copy { position: absolute; z-index: 3; top: max(132px, calc(env(safe-area-inset-top) + 124px)); left: clamp(1.5rem,7vw,6rem); right: 1rem;
+  display: flex; flex-direction: column; align-items: flex-start; color: #fff; text-align: left; text-shadow: 0 2px 2px rgba(0,0,0,.98), 0 4px 10px rgba(0,0,0,.92); }
+.ghh-dual-hero .ghh-dual-title { display: flex; flex-direction: column; align-items: flex-start; width: max-content; max-width: 100%; margin: 0; text-align: left; font-family: "Saira", "Exo 2", sans-serif; font-size: clamp(2.3rem,12vw,5.8rem); font-style: italic; font-weight: 900; font-stretch: 125%; line-height: .9; letter-spacing: -.035em; text-transform: uppercase; transform: rotate(-4deg) skewX(-8deg); transform-origin: left center; filter: drop-shadow(0 1px 0 rgba(0,0,0,.98)) drop-shadow(0 4px 0 #181818) drop-shadow(0 7px 2px rgba(0,0,0,.82)) drop-shadow(0 14px 16px rgba(0,0,0,.65)); }
+.ghh-dual-hero .ghh-dual-title-main { display: block; align-self: flex-start; color: #fff; background: linear-gradient(180deg,#fff 0%,#fff 36%,#e5e7eb 55%,#fff 70%,#d1d5db 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; -webkit-text-stroke: 1.25px rgba(20,18,16,.88); text-shadow: none; }
+.ghh-dual-hero .ghh-dual-title-accent { display: block; align-self: flex-start; margin-top: .02em; color: #ff1e1e; background: linear-gradient(180deg,#ff6262 0%,#ff1e1e 44%,#c8102e 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; -webkit-text-stroke: 1.25px rgba(79,0,15,.94); text-shadow: none; filter: drop-shadow(0 2px 0 rgba(69,4,13,.95)) drop-shadow(0 5px 0 rgba(30,5,9,.95)); }
+.ghh-dual-hero .ghh-dual-brand { margin-top: .45rem; font: 700 clamp(.78rem,2.8vw,1rem)/1.2 "Bricolage Grotesque",sans-serif; letter-spacing: .045em; text-transform: none; }
+.ghh-dual-hero .ghh-dual-brand-accent { color: #ff7a18; font-weight: 800; letter-spacing: .08em; }
+.ghh-dual-hero .ghh-dual-tagline { margin-top: .65rem; font: 900 clamp(.75rem,3vw,1.15rem)/1.2 "Bricolage Grotesque",sans-serif; letter-spacing: .11em; }
 .ghh-dual-hero .ghh-showcase-on { position: absolute; z-index: 4; left: 0; right: 0; bottom: max(0px, env(safe-area-inset-bottom)); width: 100%; }
 .ghh-dual-hero .ghs-showcase { padding: .5rem .35rem .7rem; background: linear-gradient(180deg,transparent,rgba(9,7,5,.72)) !important; }
 .ghh-dual-hero .ghs-inner { width: min(100% - .75rem, 72rem); gap: .48rem; }
@@ -2980,8 +2983,8 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
   .ghh-dual-hero { min-height: 0 !important; height: 100vh !important; height: 100dvh !important; }
   .ghh-dual-hero .ghh-mobile-image { display: none; }
   .ghh-dual-hero .ghh-desktop-image { display: block; }
-  .ghh-dual-copy { top: clamp(112px,16vh,180px); }
-  .ghh-dual-title { font-size: clamp(3rem,5vw,5.5rem); }
+  .ghh-dual-copy { top: clamp(140px,16vh,190px); }
+  .ghh-dual-hero .ghh-dual-title { font-size: clamp(5rem,8vw,8rem); }
   .ghh-dual-hero .ghh-showcase-on { bottom: 0; }
   .ghh-dual-hero .ghs-showcase { padding: .5rem 0 1rem; }
   .ghh-dual-hero .ghs-inner { width: min(100% - 2rem, 72rem); gap: .6rem; }
@@ -2992,5 +2995,5 @@ html { scroll-padding-top: calc(100px + env(safe-area-inset-top)); }
 }
 @media (max-width: 380px) {
   .ghh-dual-hero .ghs-tile span { display: none; }
-  .ghh-dual-copy { top: calc(env(safe-area-inset-top) + 76px); }
+  .ghh-dual-copy { top: max(132px, calc(env(safe-area-inset-top) + 124px)); }
 }

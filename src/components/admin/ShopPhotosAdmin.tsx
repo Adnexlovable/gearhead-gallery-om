@@ -3,7 +3,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import mobileDefault from "@/assets/home-hero-916-flag.jpg";
+import mobileDefault from "@/assets/home-hero-916-v2.jpg";
 import desktopDefault from "@/assets/home-hero-169-flag.jpg";
 import { SITE_MEDIA_SLOTS, siteMediaQueryKey, useSiteMedia } from "@/lib/site-media";
 
