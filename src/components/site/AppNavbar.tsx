@@ -1,7 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useRouter, useRouterState } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, ArrowLeftRight, Home, LayoutGrid, Menu, MessageCircle, Phone, Search, ShoppingCart, Sparkles, X } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowLeftRight,
+  Home,
+  LayoutGrid,
+  Menu,
+  MessageCircle,
+  Phone,
+  Search,
+  ShoppingCart,
+  Sparkles,
+  X,
+} from "lucide-react";
 import { SearchOverlay } from "@/components/shop/SearchOverlay";
 import { useCartCount } from "@/lib/cart";
 import { shopCatalogQuery } from "@/lib/shop-queries";
@@ -38,10 +50,14 @@ export function AppNavbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
@@ -53,34 +69,83 @@ export function AppNavbar() {
     <>
       <header
         className={`ghx-header gh-primary-header ${overHero && !scrolled && !open ? "is-clear" : ""}`}
-        style={overHero && !scrolled && !open ? { backdropFilter: "none", WebkitBackdropFilter: "none", boxShadow: "none" } : undefined}
+        style={
+          overHero && !scrolled && !open
+            ? { backdropFilter: "none", WebkitBackdropFilter: "none", boxShadow: "none" }
+            : undefined
+        }
       >
         <div className="ghx-header-row">
           <div className="ghx-brand-wrap">
-          {showBack && (
-            <button type="button" onClick={goBack} className="ghx-icon-btn ghx-back-btn" aria-label="Go back">
-              <ArrowLeft size={20} aria-hidden="true" />
-            </button>
-          )}
-          <Link to="/app" className="ghx-brand" aria-label="GearHead RC Hub shop home">
-            <img src={headerLogo} alt="GearHead RC Hub, a brand of ADNEX.WORLD" width={900} height={388} className="ghx-brand-logo" />
-            <span className="gh-logo-sub">A BRAND OF ADNEX.WORLD</span>
-          </Link>
+            {showBack && (
+              <button
+                type="button"
+                onClick={goBack}
+                className="ghx-icon-btn ghx-back-btn"
+                aria-label="Go back"
+              >
+                <ArrowLeft size={20} aria-hidden="true" />
+              </button>
+            )}
+            <Link to="/app" className="ghx-brand" aria-label="GearHead RC Hub shop home">
+              <img
+                src={headerLogo}
+                alt="GearHead RC Hub, a brand of ADNEX.WORLD"
+                width={900}
+                height={388}
+                className="ghx-brand-logo"
+              />
+              <span className="gh-logo-sub">A BRAND OF ADNEX.WORLD</span>
+            </Link>
           </div>
           <nav className="ghx-nav" aria-label="Shop pages">
             {NAV.map((n) => (
-              <Link key={n.label} to={n.to} params={"params" in n ? n.params : undefined} className={isActive(n.to, "params" in n ? n.params : undefined) ? "is-active" : undefined}>{n.label}</Link>
+              <Link
+                key={n.label}
+                to={n.to}
+                params={"params" in n ? n.params : undefined}
+                className={
+                  isActive(n.to, "params" in n ? n.params : undefined) ? "is-active" : undefined
+                }
+              >
+                {n.label}
+              </Link>
             ))}
             <a href="/app#contact">Contact</a>
           </nav>
           <div className="ghx-header-tools">
-            <button type="button" className="ghx-icon-btn" onClick={() => setSearching(true)} aria-label="Search products"><Search size={20} /></button>
-            <Link to="/cart" className="ghx-icon-btn ghx-cart-btn" aria-label={`Your order, ${count} items`}>
+            <button
+              type="button"
+              className="ghx-icon-btn"
+              onClick={() => setSearching(true)}
+              aria-label="Search products"
+            >
+              <Search size={20} />
+            </button>
+            <Link
+              to="/cart"
+              className="ghx-icon-btn ghx-cart-btn"
+              aria-label={`Your order, ${count} items`}
+            >
               <ShoppingCart size={20} />
               {count > 0 && <span className="ghx-badge">{count}</span>}
             </Link>
-            <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noopener noreferrer" className="ghx-btn ghx-btn-primary ghx-hide-sm">Get in touch</a>
-            <button type="button" className="ghx-icon-btn ghx-menu-btn" aria-expanded={open} aria-controls="ghx-drawer" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen((v) => !v)}>
+            <a
+              href={`https://wa.me/${WHATSAPP_NUMBER}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ghx-btn ghx-btn-primary ghx-hide-sm"
+            >
+              Get in touch
+            </a>
+            <button
+              type="button"
+              className="ghx-icon-btn ghx-menu-btn"
+              aria-expanded={open}
+              aria-controls="ghx-drawer"
+              aria-label={open ? "Close menu" : "Open menu"}
+              onClick={() => setOpen((v) => !v)}
+            >
               {open ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
@@ -90,24 +155,46 @@ export function AppNavbar() {
             <div className="ghx-drawer-caption">Pages</div>
             <div className="grid gap-1.5">
               {NAV.map((n) => (
-                <Link key={n.label} to={n.to} params={"params" in n ? n.params : undefined} className="ghx-drawer-link">{n.label}</Link>
+                <Link
+                  key={n.label}
+                  to={n.to}
+                  params={"params" in n ? n.params : undefined}
+                  className="ghx-drawer-link"
+                >
+                  {n.label}
+                </Link>
               ))}
-              <a href="/app#contact" className="ghx-drawer-link" onClick={() => setOpen(false)}>Contact</a>
-              <a href="/app#finder" className="ghx-drawer-link" onClick={() => setOpen(false)}>Product finder</a>
+              <a href="/app#contact" className="ghx-drawer-link" onClick={() => setOpen(false)}>
+                Contact
+              </a>
+              <a href="/app#finder" className="ghx-drawer-link" onClick={() => setOpen(false)}>
+                Product finder
+              </a>
             </div>
             {data && (
               <>
                 <div className="ghx-drawer-caption">Categories</div>
                 <div className="grid grid-cols-2 gap-1.5">
                   {data.categories.map((c) => (
-                    <Link key={c.slug} to="/collection/$category" params={{ category: c.slug }} className="ghx-drawer-link ghx-drawer-small">{c.name}</Link>
+                    <Link
+                      key={c.slug}
+                      to="/collection/$category"
+                      params={{ category: c.slug }}
+                      className="ghx-drawer-link ghx-drawer-small"
+                    >
+                      {c.name}
+                    </Link>
                   ))}
                 </div>
               </>
             )}
             <div className="ghx-drawer-foot">
-              <a href="tel:+96878308991"><Phone size={14} /> +968 7830 8991</a>
-              <Link to="/" className="ghx-switch"><ArrowLeftRight size={14} /> Investor site</Link>
+              <a href="tel:+96878308991">
+                <Phone size={14} /> +968 7830 8991
+              </a>
+              <Link to="/" className="ghx-switch">
+                <ArrowLeftRight size={14} /> Investor site
+              </Link>
             </div>
           </nav>
         )}

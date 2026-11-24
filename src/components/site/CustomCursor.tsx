@@ -11,12 +11,15 @@ export function CustomCursor() {
     setEnabled(true);
     document.documentElement.classList.add("no-cursor");
 
-    let x = window.innerWidth / 2, y = window.innerHeight / 2;
-    let rx = x, ry = y;
+    let x = window.innerWidth / 2,
+      y = window.innerHeight / 2;
+    let rx = x,
+      ry = y;
     let raf = 0;
 
     const onMove = (e: MouseEvent) => {
-      x = e.clientX; y = e.clientY;
+      x = e.clientX;
+      y = e.clientY;
       if (dot.current) {
         dot.current.style.transform = `translate(${x}px, ${y}px) translate(-50%,-50%)`;
       }
@@ -58,7 +61,9 @@ export function CustomCursor() {
         style={{
           width: hovering ? 56 : 32,
           height: hovering ? 56 : 32,
-          background: hovering ? "color-mix(in oklab, var(--gold) 12%, transparent)" : "transparent",
+          background: hovering
+            ? "color-mix(in oklab, var(--gold) 12%, transparent)"
+            : "transparent",
         }}
       />
     </>

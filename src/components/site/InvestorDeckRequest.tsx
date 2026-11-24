@@ -32,28 +32,27 @@ export function InvestorDeckRequest({ open, onClose }: { open: boolean; onClose:
   if (!open) return null;
 
   const ready =
-    agreed &&
-    name.trim().length >= 2 &&
-    contact.trim().length >= 5 &&
-    company.trim().length >= 2;
+    agreed && name.trim().length >= 2 && contact.trim().length >= 5 && company.trim().length >= 2;
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!ready) return;
     setState("sending");
     try {
-      const res = await submitEnquiry({ data: {
-      product: "Strategic Investor Deck — NDA request",
-      name: name.trim().slice(0, 120),
-      contact: contact.trim().slice(0, 120),
-      message: [
-        company.trim() ? `Company: ${company.trim().slice(0, 160)}` : "",
-        message.trim() ? `Note: ${message.trim().slice(0, 1600)}` : "",
-        "NDA acknowledged — investor deck requested.",
-      ]
-        .filter(Boolean)
-        .join("\n"),
-      } });
+      const res = await submitEnquiry({
+        data: {
+          product: "Strategic Investor Deck — NDA request",
+          name: name.trim().slice(0, 120),
+          contact: contact.trim().slice(0, 120),
+          message: [
+            company.trim() ? `Company: ${company.trim().slice(0, 160)}` : "",
+            message.trim() ? `Note: ${message.trim().slice(0, 1600)}` : "",
+            "NDA acknowledged — investor deck requested.",
+          ]
+            .filter(Boolean)
+            .join("\n"),
+        },
+      });
       setState(res.ok ? "sent" : "error");
     } catch {
       setState("error");
@@ -101,15 +100,18 @@ export function InvestorDeckRequest({ open, onClose }: { open: boolean; onClose:
           <div className="mt-7 flex items-start gap-3 rounded-sm border border-primary/40 bg-primary/10 p-5 text-sm leading-6 text-foreground">
             <Check size={18} className="mt-0.5 shrink-0 text-primary" />
             <span>
-              Request received. Our team will contact you to confirm the NDA and
-              share the deck with the strategic overview.
+              Request received. Our team will contact you to confirm the NDA and share the deck with
+              the strategic overview.
             </span>
           </div>
         ) : (
           <>
             <ul className="mt-6 space-y-3 border-y border-border py-5">
               {NDA_POINTS.map((p) => (
-                <li key={p} className="flex items-start gap-3 text-sm leading-6 text-muted-foreground">
+                <li
+                  key={p}
+                  className="flex items-start gap-3 text-sm leading-6 text-muted-foreground"
+                >
                   <span className="mt-2 h-1 w-1 shrink-0 bg-primary" />
                   {p}
                 </li>
@@ -179,8 +181,8 @@ export function InvestorDeckRequest({ open, onClose }: { open: boolean; onClose:
                   onChange={(e) => setAgreed(e.target.checked)}
                 />
                 <span>
-                  I acknowledge the deck is confidential and agree to execute a
-                  mutual NDA before it is shared.
+                  I acknowledge the deck is confidential and agree to execute a mutual NDA before it
+                  is shared.
                 </span>
               </label>
 

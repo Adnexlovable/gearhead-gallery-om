@@ -77,7 +77,9 @@ export function VisionHero({ mode }: { mode?: "investor" | "app" }) {
           <span className="ghh-dual-title-main">GEARHEAD</span>
           <span className="ghh-dual-title-accent">RC HUB</span>
         </h1>
-        <span className="ghh-dual-brand">A brand of <span className="ghh-dual-brand-accent">ADNEX.WORLD</span></span>
+        <span className="ghh-dual-brand">
+          A brand of <span className="ghh-dual-brand-accent">ADNEX.WORLD</span>
+        </span>
         <span className="ghh-dual-tagline">A NEW RC EXPERIENCE FOR OMAN</span>
       </div>
       <div className="ghh-showcase-on">

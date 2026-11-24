@@ -28,7 +28,11 @@ async function publicClient() {
 /** Owner inbox = the email saved in the dashboard's shop details, so there is one source of truth. */
 async function ownerInbox(client: Awaited<ReturnType<typeof publicClient>>) {
   const { parseShopDetails } = await import("@/lib/shop-details");
-  const { data } = await client.from("site_sections").select("contact_details").eq("id", "contact").maybeSingle();
+  const { data } = await client
+    .from("site_sections")
+    .select("contact_details")
+    .eq("id", "contact")
+    .maybeSingle();
   const email = parseShopDetails(data?.contact_details).email.trim();
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : null;
 }
@@ -45,7 +49,11 @@ async function notifyOwner(
     if (!to) return;
     const { sendTemplateEmail } = await import("@/lib/email-templates/send-email");
     const replyTo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(visitorContact) ? visitorContact : undefined;
-    await sendTemplateEmail(template, to, { templateData: data, idempotencyKey: `${template}-${id}`, replyTo });
+    await sendTemplateEmail(template, to, {
+      templateData: data,
+      idempotencyKey: `${template}-${id}`,
+      replyTo,
+    });
   } catch (error) {
     // The request is already saved in the dashboard; a failed email must not lose it.
     console.error(`[inbox] ${template} email failed`, error);

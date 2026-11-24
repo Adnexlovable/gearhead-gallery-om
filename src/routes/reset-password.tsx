@@ -50,7 +50,10 @@ function ResetPasswordPage() {
       setMessage({ kind: "info", text: "Password updated. Taking you to sign in…" });
       setTimeout(() => navigate({ to: "/auth", replace: true }), 1200);
     } catch (err) {
-      setMessage({ kind: "error", text: err instanceof Error ? err.message : "Something went wrong." });
+      setMessage({
+        kind: "error",
+        text: err instanceof Error ? err.message : "Something went wrong.",
+      });
     } finally {
       setBusy(false);
     }
@@ -64,7 +67,9 @@ function ResetPasswordPage() {
             <span className="font-display text-sm font-bold text-gold-gradient">G</span>
           </div>
           <div className="leading-tight">
-            <div className="font-display text-sm font-bold tracking-wide text-foreground">GearHead</div>
+            <div className="font-display text-sm font-bold tracking-wide text-foreground">
+              GearHead
+            </div>
             <div className="font-mono-tag text-[9px] text-gold-soft/80">Gallery · Muscat</div>
           </div>
         </Link>
@@ -96,7 +101,9 @@ function ResetPasswordPage() {
               />
             </label>
             <label className="flex flex-col gap-1.5">
-              <span className="font-mono-tag text-[10px] text-gold-soft/80">Repeat new password</span>
+              <span className="font-mono-tag text-[10px] text-gold-soft/80">
+                Repeat new password
+              </span>
               <input
                 type="password"
                 required
@@ -109,7 +116,9 @@ function ResetPasswordPage() {
             </label>
 
             {message && (
-              <p className={`text-sm ${message.kind === "error" ? "text-red-400" : "text-gold-soft"}`}>
+              <p
+                className={`text-sm ${message.kind === "error" ? "text-red-400" : "text-gold-soft"}`}
+              >
                 {message.text}
               </p>
             )}

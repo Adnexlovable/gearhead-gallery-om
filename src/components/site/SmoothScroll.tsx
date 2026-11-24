@@ -20,10 +20,17 @@ export function SmoothScroll() {
     let cancelled = false;
     const finePointer = window.matchMedia("(pointer: fine)").matches;
     if (finePointer) {
-      import("lenis").then(({ default: Lenis }) => {
-        if (cancelled) return;
-        lenis = new Lenis({ lerp: 0.11, wheelMultiplier: 0.95, anchors: { offset: -90 }, prevent: (node: HTMLElement) => !!node.closest?.("[data-lenis-prevent], [role=dialog]") });
-      }).catch(() => undefined);
+      import("lenis")
+        .then(({ default: Lenis }) => {
+          if (cancelled) return;
+          lenis = new Lenis({
+            lerp: 0.11,
+            wheelMultiplier: 0.95,
+            anchors: { offset: -90 },
+            prevent: (node: HTMLElement) => !!node.closest?.("[data-lenis-prevent], [role=dialog]"),
+          });
+        })
+        .catch(() => undefined);
     }
 
     const sectionSel = ".gh-chapter, .gh-approved-showroom, .ghx-section, [data-parallax-section]";
@@ -39,7 +46,10 @@ export function SmoothScroll() {
         if (!hydrated(el)) return;
         const box = el.getBoundingClientRect();
         if (box.bottom < -200 || box.top > vh + 200) return;
-        const target = Math.max(-70, Math.min(70, ((box.top + box.height / 2 - vh / 2) / vh) * -36));
+        const target = Math.max(
+          -70,
+          Math.min(70, ((box.top + box.height / 2 - vh / 2) / vh) * -36),
+        );
         const prev = current.get(el) ?? target;
         const next = prev + (target - prev) * 0.14;
         current.set(el, next);

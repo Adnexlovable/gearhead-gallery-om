@@ -1,6 +1,7 @@
 # Roadmap
 
 ## Waiting on the owner
+
 - [ ] Retail prices (OMR) for each product — shop shows "price on request" until confirmed
 - [ ] Opening hours — needed for the website, booking and launch roadmap
 - [ ] Admin account: owner signs up at /auth and confirms the email, then I switch on admin access (add, edit, delete products)
@@ -9,6 +10,7 @@
 - [ ] First ad campaign (WhatsApp, dune fans, English + Arabic): approve goal, creative and launch date
 
 ## To do
+
 - [x] Desktop-only cover fit and blended sides; mobile screenshots verified identical at 390×844
 - [x] Landscape 1200×630 social preview and both homepage sharing tags; reaches live site on next publish
 - [ ] Verify the owner's requested password and direct admin sign-in
@@ -20,6 +22,7 @@
 - [ ] Admin: edit section texts and add new pages (not built yet — owner to confirm if wanted)
 
 ## Done
+
 - [x] Admin Shop photos tab: change cover + 4 background photos
 - [x] Brighter orange sky; hero name centred, no black outline, animated shine
 - [x] Bigger category cards on phones; finder section removed from shop home

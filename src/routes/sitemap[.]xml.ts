@@ -2,7 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { getRouterInstance } from "@tanstack/react-start";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "@/integrations/supabase/types";
-import { sitemapPathForLocation, sitemapStaticPaths, sitemapXML, type SitemapEntry } from "@/lib/sitemap";
+import {
+  sitemapPathForLocation,
+  sitemapStaticPaths,
+  sitemapXML,
+  type SitemapEntry,
+} from "@/lib/sitemap";
 
 async function shopPaths() {
   const url = process.env["SUPABASE_URL"];
@@ -10,13 +15,24 @@ async function shopPaths() {
   if (!url || !key) return { categories: [] as string[], products: [] as string[] };
   const db = createClient<Database>(url, key, {
     auth: { persistSession: false, autoRefreshToken: false, storage: undefined },
-    global: { fetch: (input, init) => { const h = new Headers(init?.headers); if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`) h.delete("Authorization"); h.set("apikey", key); return fetch(input, { ...init, headers: h }); } },
+    global: {
+      fetch: (input, init) => {
+        const h = new Headers(init?.headers);
+        if (key.startsWith("sb_") && h.get("Authorization") === `Bearer ${key}`)
+          h.delete("Authorization");
+        h.set("apikey", key);
+        return fetch(input, { ...init, headers: h });
+      },
+    },
   });
   const [c, p] = await Promise.all([
     db.from("shop_categories").select("slug").eq("visible", true),
     db.from("products").select("slug").eq("visible", true).not("slug", "is", null),
   ]);
-  return { categories: (c.data ?? []).map((r) => r.slug), products: (p.data ?? []).flatMap((r) => (r.slug ? [r.slug] : [])) };
+  return {
+    categories: (c.data ?? []).map((r) => r.slug),
+    products: (p.data ?? []).flatMap((r) => (r.slug ? [r.slug] : [])),
+  };
 }
 
 // TODO: If empty, configure the public site origin before publishing.
@@ -38,11 +54,19 @@ export const Route = createFileRoute("/sitemap.xml")({
         // Shop category and product pages from the live catalogue.
         const shop = await shopPaths();
         for (const category of shop.categories) {
-          const path = sitemapPathForLocation(router, router.buildLocation({ to: "/collection/$category", params: { category } }), "/collection/$category");
+          const path = sitemapPathForLocation(
+            router,
+            router.buildLocation({ to: "/collection/$category", params: { category } }),
+            "/collection/$category",
+          );
           if (path) entries.push({ path });
         }
         for (const productId of shop.products) {
-          const path = sitemapPathForLocation(router, router.buildLocation({ to: "/product/$productId", params: { productId } }), "/product/$productId");
+          const path = sitemapPathForLocation(
+            router,
+            router.buildLocation({ to: "/product/$productId", params: { productId } }),
+            "/product/$productId",
+          );
           if (path) entries.push({ path });
         }
         if (entries.length === 0) {

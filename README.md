@@ -3,6 +3,7 @@
 Build a premium automotive collector's gallery website called "GearHead Gallery" for a Muscat, Oman-based scale model car shop. Use a dark forest-green and gold luxury color palette (background #0B1D15 / #0E2219, gold accent #C9A84C, off-white text #EDE7DC, silver #B0B0B0). Use bold display typography for headlines and a mono font for labels/tags.
 
 MOST IMPORTANT — HERO SECTION must be fully cinematic and 3D animated:
+
 - Full-viewport hero with a looping background video (car/garage footage) with a cinematic letterbox gradient top and bottom and a dark radial color-grade overlay.
 - On mouse move, the hero video/background should tilt subtly in 3D (perspective + rotateX/rotateY) following the cursor, like a parallax showroom display.
 - On scroll, the video should slowly zoom in and parallax-shift while the headline text fades and slides up and out (scroll-scrubbed).
@@ -16,6 +17,7 @@ MOST IMPORTANT — HERO SECTION must be fully cinematic and 3D animated:
 - Use glassmorphism for badges/pills (frosted glass with subtle border).
 
 OTHER SECTIONS (after hero):
+
 1. Marquee band — scrolling ticker of car brand names.
 2. Garage Scroll — horizontal/pinned scroll experience showcasing vehicles as you scroll, museum-style.
 3. Video Sections — full-bleed video showcases with text overlays.
@@ -26,6 +28,7 @@ OTHER SECTIONS (after hero):
 8. Footer.
 
 Also include:
+
 - A custom animated cursor that reacts to hoverable elements.
 - A loading screen/preloader shown briefly on first load before the hero reveals.
 - A sticky navbar with logo, links (Collection, Framed Art, Experience, Shop, Contact), that adds a glass background once scrolled, and a mobile hamburger menu.

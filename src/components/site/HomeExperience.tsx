@@ -1,8 +1,18 @@
 import { useState, type CSSProperties, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import {
-  ArrowUpRight, BatteryCharging, CarFront, CheckCircle2, ChevronRight,
-  Gauge, Handshake, MapPin, Mountain, PackageCheck, ShieldCheck, Sparkles,
+  ArrowUpRight,
+  BatteryCharging,
+  CarFront,
+  CheckCircle2,
+  ChevronRight,
+  Gauge,
+  Handshake,
+  MapPin,
+  Mountain,
+  PackageCheck,
+  ShieldCheck,
+  Sparkles,
   Zap,
 } from "lucide-react";
 import { InvestorDeckRequest } from "./InvestorDeckRequest";
@@ -14,11 +24,16 @@ import { shopCatalogQuery } from "@/lib/shop-queries";
 // Images are visual concepts from the GearHead RC shop-design references.
 // They do not represent photographs of a finished or trading storefront.
 const art = {
-  desert: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/0530ccd4-2eb8-4d34-98b7-c890ccb70c38.png",
-  showroom: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a7fbbad-e215-4d63-a8c3-550220dcd0c3.jpg",
-  display: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
-  interior: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/f92c9489-55d1-4c7d-9819-a7294ce8a7cd.jpg",
-  concept: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a42db62-b4c4-4df2-b2e1-d82e50c20cb4.png",
+  desert:
+    "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/0530ccd4-2eb8-4d34-98b7-c890ccb70c38.png",
+  showroom:
+    "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a7fbbad-e215-4d63-a8c3-550220dcd0c3.jpg",
+  display:
+    "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
+  interior:
+    "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/f92c9489-55d1-4c7d-9819-a7294ce8a7cd.jpg",
+  concept:
+    "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a42db62-b4c4-4df2-b2e1-d82e50c20cb4.png",
 };
 
 // Owner's real shop interior photos — the background theme behind every section.
@@ -30,33 +45,66 @@ const shopBg = {
 };
 
 const motion = {
-  showroomMobile: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/68499411-3243-4bb8-b263-693c499e95ef.mp4",
-  showroomDesktop: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/240fa4da-8a24-4bd5-b52d-ec77257493fd.mp4",
-  track: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/19986706-a56f-4ac1-8542-9f1a432b8c92.mp4",
-  service: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/3b8318e1-4713-4c93-9673-c8c1798ac307.mp4",
-  retail: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/c396cda3-deca-4982-8354-ebe8d13e06d8.mp4",
+  showroomMobile:
+    "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/68499411-3243-4bb8-b263-693c499e95ef.mp4",
+  showroomDesktop:
+    "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/240fa4da-8a24-4bd5-b52d-ec77257493fd.mp4",
+  track:
+    "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/19986706-a56f-4ac1-8542-9f1a432b8c92.mp4",
+  service:
+    "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/3b8318e1-4713-4c93-9673-c8c1798ac307.mp4",
+  retail:
+    "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/c396cda3-deca-4982-8354-ebe8d13e06d8.mp4",
 };
 
-function Atmosphere({ image, position = "center", video }: {
-  image: string; position?: string; video?: "showroom" | "track";
+function Atmosphere({
+  image,
+  position = "center",
+  video,
+}: {
+  image: string;
+  position?: string;
+  video?: "showroom" | "track";
 }) {
   if (video) {
-    return <CinematicScene className="gh-chapter-visual" poster={image}
-      mobileSrc={video === "track" ? motion.track : motion.showroomMobile}
-      desktopSrc={video === "track" ? motion.track : motion.showroomDesktop} />;
+    return (
+      <CinematicScene
+        className="gh-chapter-visual"
+        poster={image}
+        mobileSrc={video === "track" ? motion.track : motion.showroomMobile}
+        desktopSrc={video === "track" ? motion.track : motion.showroomDesktop}
+      />
+    );
   }
   return (
-    <div aria-hidden="true" className="gh-chapter-visual" style={{
-      backgroundImage: "url('" + image + "')",
-      backgroundPosition: position,
-    } as CSSProperties} />
+    <div
+      aria-hidden="true"
+      className="gh-chapter-visual"
+      style={
+        {
+          backgroundImage: "url('" + image + "')",
+          backgroundPosition: position,
+        } as CSSProperties
+      }
+    />
   );
 }
 
-function Heading({ eyebrow, children, description }: { eyebrow: string; children: ReactNode; description?: string }) {
+function Heading({
+  eyebrow,
+  children,
+  description,
+}: {
+  eyebrow: string;
+  children: ReactNode;
+  description?: string;
+}) {
   return (
     <div className="gh-intro">
-      <div className="gh-eyebrow"><span className="gh-eyebrow-bolt" />{eyebrow}</div>
+      <div className="gh-eyebrow">
+        <span className="gh-eyebrow-bolt" />
+        {eyebrow}
+      </div>
       <h2 className="gh-chapter-title">{children}</h2>
       {description && <p className="gh-chapter-desc">{description}</p>}
     </div>
@@ -71,7 +119,12 @@ const categories = [
     eyebrow: "01 / Speed",
     title: "Performance RC",
     subtitle: "Built for speed and control",
-    models: ["Nitro Gas Buggy · 1:8", "Brushless Speed Truck · 1:10", "Rally Truggy · 1:14", "RC Drift Car · 1:10"],
+    models: [
+      "Nitro Gas Buggy · 1:8",
+      "Brushless Speed Truck · 1:10",
+      "Rally Truggy · 1:14",
+      "RC Drift Car · 1:10",
+    ],
   },
   {
     icon: Mountain,
@@ -80,7 +133,12 @@ const categories = [
     eyebrow: "02 / Adventure",
     title: "Scale Crawlers",
     subtitle: "Trail realism and technical terrain",
-    models: ["Wrangler Metal · 1:10", "Land Cruiser LC80 · 1:12", "Ultra4 Bronco · 1:18", "Defender D110 · 1:10"],
+    models: [
+      "Wrangler Metal · 1:10",
+      "Land Cruiser LC80 · 1:12",
+      "Ultra4 Bronco · 1:18",
+      "Defender D110 · 1:10",
+    ],
   },
   {
     icon: CarFront,
@@ -89,7 +147,12 @@ const categories = [
     eyebrow: "03 / Collectors",
     title: "Diecast Gallery",
     subtitle: "Automotive collection and display",
-    models: ["F1 Championship Editions", "Premium Exotic Supercars", "Hot Wheels Premium Sets", "Limited-Edition Series"],
+    models: [
+      "F1 Championship Editions",
+      "Premium Exotic Supercars",
+      "Hot Wheels Premium Sets",
+      "Limited-Edition Series",
+    ],
   },
   {
     icon: BatteryCharging,
@@ -98,21 +161,54 @@ const categories = [
     eyebrow: "04 / Workshop",
     title: "Parts & Upgrades",
     subtitle: "Maintain, tune and personalise",
-    models: ["LiPo 3S–6S Batteries", "Smart Fast Chargers", "Precision RC Tool Kits", "Custom Body Paint & Accessories"],
+    models: [
+      "LiPo 3S–6S Batteries",
+      "Smart Fast Chargers",
+      "Precision RC Tool Kits",
+      "Custom Body Paint & Accessories",
+    ],
   },
 ];
 
 const experiences = [
-  { num: "01", title: "Explore", desc: "Discover curated RC vehicles and scale models in the planned retail display." },
-  { num: "02", title: "Experience", desc: "See crawler capability on a modular indoor micro-dune and rocky obstacle course." },
-  { num: "03", title: "Tune", desc: "Get workshop advice, spare parts and performance-upgrade support." },
+  {
+    num: "01",
+    title: "Explore",
+    desc: "Discover curated RC vehicles and scale models in the planned retail display.",
+  },
+  {
+    num: "02",
+    title: "Experience",
+    desc: "See crawler capability on a modular indoor micro-dune and rocky obstacle course.",
+  },
+  {
+    num: "03",
+    title: "Tune",
+    desc: "Get workshop advice, spare parts and performance-upgrade support.",
+  },
 ];
 
 const milestones = [
-  { no: "01", title: "Secure the flagship", note: "Finalise the Bousher premises agreement and statutory approvals." },
-  { no: "02", title: "Build the experience", note: "Complete the shopfront, RC terrain, display racks and service area." },
-  { no: "03", title: "Stock & test", note: "Verify supplier orders, inventory quality, POS and customer journeys." },
-  { no: "04", title: "Open & learn", note: "Activate the local off-road community and refine the retail model." },
+  {
+    no: "01",
+    title: "Secure the flagship",
+    note: "Finalise the Bousher premises agreement and statutory approvals.",
+  },
+  {
+    no: "02",
+    title: "Build the experience",
+    note: "Complete the shopfront, RC terrain, display racks and service area.",
+  },
+  {
+    no: "03",
+    title: "Stock & test",
+    note: "Verify supplier orders, inventory quality, POS and customer journeys.",
+  },
+  {
+    no: "04",
+    title: "Open & learn",
+    note: "Activate the local off-road community and refine the retail model.",
+  },
 ];
 
 export function HomeExperience() {
@@ -121,39 +217,72 @@ export function HomeExperience() {
   const sections = useSiteSections();
   const { data: catalog } = useQuery(shopCatalogQuery);
   const section = (id: string) => sections.find((s) => s.id === id);
-  const inventory = catalog?.categories.map((c, i) => ({ icon: categories[i % categories.length].icon, cover: c.cover, href: `/collection/${c.slug}`, eyebrow: `${String(i + 1).padStart(2, "0")} / Inventory`, title: c.name, subtitle: c.tagline, models: catalog.products.filter((p) => p.category === c.slug).slice(0, 4).map((p) => p.name) })) ?? categories;
-
+  const inventory =
+    catalog?.categories.map((c, i) => ({
+      icon: categories[i % categories.length].icon,
+      cover: c.cover,
+      href: `/collection/${c.slug}`,
+      eyebrow: `${String(i + 1).padStart(2, "0")} / Inventory`,
+      title: c.name,
+      subtitle: c.tagline,
+      models: catalog.products
+        .filter((p) => p.category === c.slug)
+        .slice(0, 4)
+        .map((p) => p.name),
+    })) ?? categories;
 
   return (
     <>
-
-
-
-      <section id="catalog" hidden={section("catalog")?.visible === false} className="gh-chapter gh-chapter-catalog">
+      <section
+        id="catalog"
+        hidden={section("catalog")?.visible === false}
+        className="gh-chapter gh-chapter-catalog"
+      >
         <Atmosphere image={shopBg.floor} position="center" />
         <div className="gh-chapter-inner">
-          <Heading eyebrow="03 / Inventory Blueprint">{section("catalog")?.label || <>Explore the <em>RC world.</em></>}
+          <Heading eyebrow="03 / Inventory Blueprint">
+            {section("catalog")?.label || (
+              <>
+                Explore the <em>RC world.</em>
+              </>
+            )}
           </Heading>
-          <p className="gh-chapter-desc">{section("catalog")?.note || "Explore the GearHead RC catalogue by category. Contact the shop for availability and confirmed pricing."}</p>
+          <p className="gh-chapter-desc">
+            {section("catalog")?.note ||
+              "Explore the GearHead RC catalogue by category. Contact the shop for availability and confirmed pricing."}
+          </p>
           <div className="gh-category-grid" data-lenis-prevent-wheel>
             {inventory.map(({ icon: Icon, cover, href, eyebrow, title, subtitle, models }) => (
               <article className="gh-category-card gh-metal-frame" key={title}>
                 <a href={href} className="gh-category-cover" aria-label={"Explore " + title}>
                   <img src={cover} alt={title + " GearHead RC concept cover"} loading="lazy" />
-                  <div className="gh-category-icon"><Icon size={25} strokeWidth={1.65} aria-hidden="true" /></div>
+                  <div className="gh-category-icon">
+                    <Icon size={25} strokeWidth={1.65} aria-hidden="true" />
+                  </div>
                 </a>
                 <div className="gh-category-body">
                   <span className="gh-card-eyebrow">{eyebrow}</span>
                   <h3>{title}</h3>
                   <p>{subtitle}</p>
-                  <ul>{models.map(model => <li key={model}><ChevronRight size={13} aria-hidden="true" />{model}</li>)}</ul>
-                  <a href={href} className="gh-category-open">Explore Products <ArrowUpRight size={15} aria-hidden="true" /></a>
+                  <ul>
+                    {models.map((model) => (
+                      <li key={model}>
+                        <ChevronRight size={13} aria-hidden="true" />
+                        {model}
+                      </li>
+                    ))}
+                  </ul>
+                  <a href={href} className="gh-category-open">
+                    Explore Products <ArrowUpRight size={15} aria-hidden="true" />
+                  </a>
                 </div>
               </article>
             ))}
           </div>
           <div className="gh-small-action">
-            <Link to="/store" className="gh-outline-action">Explore the online catalogue <ArrowUpRight size={17} /></Link>
+            <Link to="/store" className="gh-outline-action">
+              Explore the online catalogue <ArrowUpRight size={17} />
+            </Link>
           </div>
         </div>
       </section>
@@ -161,19 +290,33 @@ export function HomeExperience() {
       <section id="commercial-thesis" className="gh-chapter gh-chapter-track">
         <Atmosphere image={shopBg.service} position="center" />
         <div className="gh-chapter-inner">
-          <Heading eyebrow="04 / Our Model">More than a store. <em>A place to drive.</em></Heading>
+          <Heading eyebrow="04 / Our Model">
+            More than a store. <em>A place to drive.</em>
+          </Heading>
           <div className="gh-track-grid">
             <div className="gh-metal-frame gh-track-summary">
-              <div className="gh-big-number">84 <span>m²</span></div>
+              <div className="gh-big-number">
+                84 <span>m²</span>
+              </div>
               <h3>One connected RC experience</h3>
-              <p>Planned as an integrated 7 m × 12 m retail and experience environment, with RC showcases, a compact track, service facilities and customer circulation.</p>
-              <div className="gh-track-capsules"><span>INDOOR TERRAIN</span><span>PRODUCT DEMO</span><span>RC SERVICE</span></div>
+              <p>
+                Planned as an integrated 7 m × 12 m retail and experience environment, with RC
+                showcases, a compact track, service facilities and customer circulation.
+              </p>
+              <div className="gh-track-capsules">
+                <span>INDOOR TERRAIN</span>
+                <span>PRODUCT DEMO</span>
+                <span>RC SERVICE</span>
+              </div>
             </div>
             <div className="gh-track-steps">
               {experiences.map((item) => (
                 <div className="gh-metal-frame gh-track-step" key={item.num}>
                   <div className="gh-track-num">{item.num}</div>
-                  <div><h3>{item.title}</h3><p>{item.desc}</p></div>
+                  <div>
+                    <h3>{item.title}</h3>
+                    <p>{item.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -181,75 +324,216 @@ export function HomeExperience() {
         </div>
       </section>
 
-      <section id="foundation" hidden={section("foundation")?.visible === false} className="gh-chapter gh-chapter-foundation">
+      <section
+        id="foundation"
+        hidden={section("foundation")?.visible === false}
+        className="gh-chapter gh-chapter-foundation"
+      >
         <Atmosphere image={shopBg.counter} position="center" />
         <div className="gh-chapter-inner gh-feature-grid">
           <div className="gh-metal-frame gh-frame-dark">
-            <Heading eyebrow="01 / The Vision" description={section("foundation")?.note}>{section("foundation")?.label || <>Built for <em>real RC adventure.</em></>}</Heading>
+            <Heading eyebrow="01 / The Vision" description={section("foundation")?.note}>
+              {section("foundation")?.label || (
+                <>
+                  Built for <em>real RC adventure.</em>
+                </>
+              )}
+            </Heading>
             <p className="gh-prose">
-              GearHead RC Hub brings performance RC vehicles, scale crawlers, hands-on
-              experiences, spare parts and workshop expertise together in one proposed
-              flagship destination near Bousher Sand Dunes, Muscat.
+              GearHead RC Hub brings performance RC vehicles, scale crawlers, hands-on experiences,
+              spare parts and workshop expertise together in one proposed flagship destination near
+              Bousher Sand Dunes, Muscat.
             </p>
             <div className="gh-stat-row">
-              <div><strong>84 <small>m²</small></strong><span>Proposed flagship</span></div>
-              <div><strong>7 × 12 <small>m</small></strong><span>Shop dimensions</span></div>
-              <div><strong>13+ <small>yrs</small></strong><span>Founder Oman experience</span></div>
+              <div>
+                <strong>
+                  84 <small>m²</small>
+                </strong>
+                <span>Proposed flagship</span>
+              </div>
+              <div>
+                <strong>
+                  7 × 12 <small>m</small>
+                </strong>
+                <span>Shop dimensions</span>
+              </div>
+              <div>
+                <strong>
+                  13+ <small>yrs</small>
+                </strong>
+                <span>Founder Oman experience</span>
+              </div>
             </div>
-            <div className="gh-brand-line"><ShieldCheck size={16} /> Project of Adnan Trading Services LLC <span>CR 1634293</span></div>
+            <div className="gh-brand-line">
+              <ShieldCheck size={16} /> Project of Adnan Trading Services LLC{" "}
+              <span>CR 1634293</span>
+            </div>
           </div>
           <div className="gh-feature-photo gh-industrial-border">
-            <img src={media.showroom_design || art.showroom} loading="lazy" alt="Proposed GearHead Bousher RC flagship showroom concept" />
-            <div className="gh-photo-caption"><span>DESIGN CONCEPT</span><strong>Bousher RC flagship</strong></div>
+            <img
+              src={media.showroom_design || art.showroom}
+              loading="lazy"
+              alt="Proposed GearHead Bousher RC flagship showroom concept"
+            />
+            <div className="gh-photo-caption">
+              <span>DESIGN CONCEPT</span>
+              <strong>Bousher RC flagship</strong>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="experience-detail" hidden={section("experience-detail")?.visible === false} className="gh-chapter gh-chapter-experience">
+      <section
+        id="experience-detail"
+        hidden={section("experience-detail")?.visible === false}
+        className="gh-chapter gh-chapter-experience"
+      >
         <Atmosphere image={shopBg.shelves} position="center" />
         <div className="gh-chapter-inner">
-          <Heading eyebrow="02 / Bousher Showroom" description={section("experience-detail")?.note}>{section("experience-detail")?.label || <>The <em>shop experience.</em></>}</Heading>
-          <p className="gh-chapter-desc">The proposed 84 m² site combines retail displays, an RC trial course, a dedicated service workshop and a practical customer journey.</p>
+          <Heading eyebrow="02 / Bousher Showroom" description={section("experience-detail")?.note}>
+            {section("experience-detail")?.label || (
+              <>
+                The <em>shop experience.</em>
+              </>
+            )}
+          </Heading>
+          <p className="gh-chapter-desc">
+            The proposed 84 m² site combines retail displays, an RC trial course, a dedicated
+            service workshop and a practical customer journey.
+          </p>
           <div className="gh-experience-grid gh-four-media-grid">
             <figure className="gh-showcase-main gh-industrial-border">
-              {media.showroom_track ? <img src={media.showroom_track} alt="Indoor track" /> : <CinematicScene className="gh-showcase-motion" poster={art.concept} mobileSrc={motion.track} />}
-              <figcaption><strong>TRACK-TO-RETAIL</strong><span>Test drive • Experience</span></figcaption>
+              {media.showroom_track ? (
+                <img src={media.showroom_track} alt="Indoor track" />
+              ) : (
+                <CinematicScene
+                  className="gh-showcase-motion"
+                  poster={art.concept}
+                  mobileSrc={motion.track}
+                />
+              )}
+              <figcaption>
+                <strong>TRACK-TO-RETAIL</strong>
+                <span>Test drive • Experience</span>
+              </figcaption>
             </figure>
             <figure className="gh-industrial-border">
-              {media.showroom_retail ? <img src={media.showroom_retail} alt="Retail display" /> : <CinematicScene className="gh-showcase-motion" poster={art.display} mobileSrc={motion.retail} />}
-              <figcaption><strong>Retail Display</strong><span>RC cars • Parts</span></figcaption>
+              {media.showroom_retail ? (
+                <img src={media.showroom_retail} alt="Retail display" />
+              ) : (
+                <CinematicScene
+                  className="gh-showcase-motion"
+                  poster={art.display}
+                  mobileSrc={motion.retail}
+                />
+              )}
+              <figcaption>
+                <strong>Retail Display</strong>
+                <span>RC cars • Parts</span>
+              </figcaption>
             </figure>
             <figure className="gh-industrial-border">
-              {media.showroom_terrain ? <img src={media.showroom_terrain} alt="Indoor terrain" /> : <CinematicScene className="gh-showcase-motion" poster={art.concept} mobileSrc={motion.track} />}
-              <figcaption><strong>Indoor Terrain</strong><span>Obstacles • Crawlers</span></figcaption>
+              {media.showroom_terrain ? (
+                <img src={media.showroom_terrain} alt="Indoor terrain" />
+              ) : (
+                <CinematicScene
+                  className="gh-showcase-motion"
+                  poster={art.concept}
+                  mobileSrc={motion.track}
+                />
+              )}
+              <figcaption>
+                <strong>Indoor Terrain</strong>
+                <span>Obstacles • Crawlers</span>
+              </figcaption>
             </figure>
             <figure className="gh-industrial-border">
-              {media.showroom_service ? <img src={media.showroom_service} alt="RC service" /> : <CinematicScene className="gh-showcase-motion" poster={art.interior} mobileSrc={motion.service} />}
-              <figcaption><strong>RC Service & Tuning</strong><span>Maintenance • Upgrades</span></figcaption>
+              {media.showroom_service ? (
+                <img src={media.showroom_service} alt="RC service" />
+              ) : (
+                <CinematicScene
+                  className="gh-showcase-motion"
+                  poster={art.interior}
+                  mobileSrc={motion.service}
+                />
+              )}
+              <figcaption>
+                <strong>RC Service & Tuning</strong>
+                <span>Maintenance • Upgrades</span>
+              </figcaption>
             </figure>
           </div>
-          <p className="gh-disclaimer">Interior images are design concepts for the planned shop, not photographs of a completed business.</p>
+          <p className="gh-disclaimer">
+            Interior images are design concepts for the planned shop, not photographs of a completed
+            business.
+          </p>
         </div>
       </section>
 
       <section id="investor-deck" className="gh-chapter gh-chapter-investors">
         <Atmosphere image={shopBg.floor} position="center" />
         <div className="gh-chapter-inner gh-investor-grid">
-          <div className="gh-metal-frame gh-investor-copy" style={{ backdropFilter: "none", WebkitBackdropFilter: "none" }}>
-            <Heading eyebrow="05 / Investment Opportunity">Fuel the next <em>RC destination.</em></Heading>
-            <p className="gh-prose">GearHead RC Hub is preparing a Bousher-based track-to-retail concept designed around four complementary revenue streams: RC vehicles, parts and batteries, testing experiences and workshop services.</p>
-            <div className="gh-investment-number"><span>PROPOSED LAUNCH FUNDING FRAMEWORK</span><strong>15,000 <small>OMR</small></strong></div>
-            <p className="gh-disclaimer">The 15,000 OMR figure is a planning target from the investor documents. Funding, returns and partnership terms remain subject to verification and a formal agreement; no return is guaranteed.</p>
-            <button type="button" className="gh-solid-action" onClick={() => setDeckOpen(true)}>Request strategic investor deck <ArrowUpRight size={18} /></button>
+          <div
+            className="gh-metal-frame gh-investor-copy"
+            style={{ backdropFilter: "none", WebkitBackdropFilter: "none" }}
+          >
+            <Heading eyebrow="05 / Investment Opportunity">
+              Fuel the next <em>RC destination.</em>
+            </Heading>
+            <p className="gh-prose">
+              GearHead RC Hub is preparing a Bousher-based track-to-retail concept designed around
+              four complementary revenue streams: RC vehicles, parts and batteries, testing
+              experiences and workshop services.
+            </p>
+            <div className="gh-investment-number">
+              <span>PROPOSED LAUNCH FUNDING FRAMEWORK</span>
+              <strong>
+                15,000 <small>OMR</small>
+              </strong>
+            </div>
+            <p className="gh-disclaimer">
+              The 15,000 OMR figure is a planning target from the investor documents. Funding,
+              returns and partnership terms remain subject to verification and a formal agreement;
+              no return is guaranteed.
+            </p>
+            <button type="button" className="gh-solid-action" onClick={() => setDeckOpen(true)}>
+              Request strategic investor deck <ArrowUpRight size={18} />
+            </button>
           </div>
           <div className="gh-investor-points">
             {[
-              { icon: PackageCheck, title: "Curated RC inventory", body: "Performance vehicles, crawlers, collectibles and parts." },
-              { icon: Sparkles, title: "Immersive retail", body: "A premium 84 m² planned destination close to the dunes." },
-              { icon: Zap, title: "Integrated demonstration", body: "An indoor track-to-retail product experience." },
-              { icon: Handshake, title: "Strategic partners", body: "Private investment discussions, subject to due diligence." },
+              {
+                icon: PackageCheck,
+                title: "Curated RC inventory",
+                body: "Performance vehicles, crawlers, collectibles and parts.",
+              },
+              {
+                icon: Sparkles,
+                title: "Immersive retail",
+                body: "A premium 84 m² planned destination close to the dunes.",
+              },
+              {
+                icon: Zap,
+                title: "Integrated demonstration",
+                body: "An indoor track-to-retail product experience.",
+              },
+              {
+                icon: Handshake,
+                title: "Strategic partners",
+                body: "Private investment discussions, subject to due diligence.",
+              },
             ].map(({ icon: Icon, title, body }) => (
-              <div className="gh-metal-frame gh-investor-point" key={title} style={{ backdropFilter: "blur(2px)", WebkitBackdropFilter: "blur(2px)" }}><Icon size={22} aria-hidden="true" /><div><strong>{title}</strong><span>{body}</span></div></div>
+              <div
+                className="gh-metal-frame gh-investor-point"
+                key={title}
+                style={{ backdropFilter: "blur(2px)", WebkitBackdropFilter: "blur(2px)" }}
+              >
+                <Icon size={22} aria-hidden="true" />
+                <div>
+                  <strong>{title}</strong>
+                  <span>{body}</span>
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -258,7 +542,9 @@ export function HomeExperience() {
       <section id="future-roadmap" className="gh-chapter gh-chapter-roadmap">
         <Atmosphere image={shopBg.counter} position="center" />
         <div className="gh-chapter-inner">
-          <Heading eyebrow="06 / Launch Roadmap">From blueprint <em>to reality.</em></Heading>
+          <Heading eyebrow="06 / Launch Roadmap">
+            From blueprint <em>to reality.</em>
+          </Heading>
           <div className="gh-milestones">
             {milestones.map(({ no, title, note }) => (
               <article className="gh-metal-frame gh-milestone" key={no}>
@@ -269,21 +555,43 @@ export function HomeExperience() {
               </article>
             ))}
           </div>
-          <p className="gh-disclaimer">Roadmap milestones describe intended work, not completed work or confirmed launch dates.</p>
+          <p className="gh-disclaimer">
+            Roadmap milestones describe intended work, not completed work or confirmed launch dates.
+          </p>
         </div>
       </section>
 
       <section id="partnerships" className="gh-chapter gh-chapter-contact">
         <Atmosphere image={shopBg.service} position="center" />
         <div className="gh-chapter-inner">
-          <div className="gh-metal-frame gh-contact-box" style={{ backdropFilter: "none", WebkitBackdropFilter: "none" }}>
-            <Heading eyebrow="07 / Connect With GearHead">Let's build the <em>RC future.</em></Heading>
-            <p className="gh-prose">For strategic investment, distribution, off-road community or supplier partnerships, connect with the GearHead RC Hub team in Muscat.</p>
+          <div
+            className="gh-metal-frame gh-contact-box"
+            style={{ backdropFilter: "none", WebkitBackdropFilter: "none" }}
+          >
+            <Heading eyebrow="07 / Connect With GearHead">
+              Let's build the <em>RC future.</em>
+            </Heading>
+            <p className="gh-prose">
+              For strategic investment, distribution, off-road community or supplier partnerships,
+              connect with the GearHead RC Hub team in Muscat.
+            </p>
             <div className="gh-contact-actions">
-              <button className="gh-solid-action" type="button" onClick={() => setDeckOpen(true)}>Request investor information <ArrowUpRight size={17} /></button>
-              <a className="gh-outline-action" href="https://wa.me/96898675132" target="_blank" rel="noopener noreferrer">WhatsApp GearHead <ArrowUpRight size={17} /></a>
+              <button className="gh-solid-action" type="button" onClick={() => setDeckOpen(true)}>
+                Request investor information <ArrowUpRight size={17} />
+              </button>
+              <a
+                className="gh-outline-action"
+                href="https://wa.me/96898675132"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                WhatsApp GearHead <ArrowUpRight size={17} />
+              </a>
             </div>
-            <div className="gh-contact-location"><MapPin size={16} /> Bousher Sand Dunes, Muscat, Oman <span>· A brand of Adnex.World</span></div>
+            <div className="gh-contact-location">
+              <MapPin size={16} /> Bousher Sand Dunes, Muscat, Oman{" "}
+              <span>· A brand of Adnex.World</span>
+            </div>
           </div>
         </div>
       </section>

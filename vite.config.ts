@@ -12,7 +12,11 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 const root = path.dirname(fileURLToPath(import.meta.url));
 
 // Server-only env (no VITE_ prefix) for server routes/functions. Never add these to client defines.
-const serverEnv = loadEnv(process.env.NODE_ENV === "production" ? "production" : "development", root, "");
+const serverEnv = loadEnv(
+  process.env.NODE_ENV === "production" ? "production" : "development",
+  root,
+  "",
+);
 for (const [key, value] of Object.entries(serverEnv)) {
   if (process.env[key] === undefined) process.env[key] = value;
 }

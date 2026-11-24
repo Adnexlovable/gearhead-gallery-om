@@ -5,10 +5,22 @@ import defender from "@/assets/defender.jpg";
 import gto from "@/assets/250gto.jpg";
 
 const ITEMS = [
-  { img: sf90, title: "Hall I — Hypercars", caption: "Engineering as art. Carbon, fire, and obsession." },
+  {
+    img: sf90,
+    title: "Hall I — Hypercars",
+    caption: "Engineering as art. Carbon, fire, and obsession.",
+  },
   { img: huracan, title: "Hall II — Off-Road", caption: "Where the road ends, the legend begins." },
-  { img: defender, title: "Hall III — Expeditions", caption: "Built for continents, scaled for the shelf." },
-  { img: gto, title: "Hall IV — Vintage", caption: "Time-honored silhouettes, lovingly preserved." },
+  {
+    img: defender,
+    title: "Hall III — Expeditions",
+    caption: "Built for continents, scaled for the shelf.",
+  },
+  {
+    img: gto,
+    title: "Hall IV — Vintage",
+    caption: "Time-honored silhouettes, lovingly preserved.",
+  },
 ];
 
 export function GarageScroll() {
@@ -29,7 +41,10 @@ export function GarageScroll() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
-    return () => { window.removeEventListener("scroll", onScroll); window.removeEventListener("resize", onScroll); };
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   return (
@@ -48,14 +63,28 @@ export function GarageScroll() {
             </p>
           </div>
         </div>
-        <div ref={trackRef} className="flex h-full items-center gap-8 pl-[8vw] pr-[20vw] pt-32 will-change-transform">
+        <div
+          ref={trackRef}
+          className="flex h-full items-center gap-8 pl-[8vw] pr-[20vw] pt-32 will-change-transform"
+        >
           {ITEMS.map((it, i) => (
-            <article key={i} className="vitrine vitrine-light scanlines relative h-[70vh] w-[80vw] shrink-0 md:w-[55vw] lg:w-[40vw]">
-              <img src={it.img} alt={it.title} className="absolute inset-0 h-full w-full object-cover opacity-90" />
+            <article
+              key={i}
+              className="vitrine vitrine-light scanlines relative h-[70vh] w-[80vw] shrink-0 md:w-[55vw] lg:w-[40vw]"
+            >
+              <img
+                src={it.img}
+                alt={it.title}
+                className="absolute inset-0 h-full w-full object-cover opacity-90"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B1D15] via-transparent to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 z-10 p-8">
-                <div className="font-mono-tag text-[10px] text-gold-soft/80">Hall {String(i + 1).padStart(2, "0")}</div>
-                <h3 className="mt-2 font-display text-3xl md:text-4xl font-bold text-foreground">{it.title}</h3>
+                <div className="font-mono-tag text-[10px] text-gold-soft/80">
+                  Hall {String(i + 1).padStart(2, "0")}
+                </div>
+                <h3 className="mt-2 font-display text-3xl md:text-4xl font-bold text-foreground">
+                  {it.title}
+                </h3>
                 <p className="mt-2 max-w-md text-sm text-muted-foreground">{it.caption}</p>
               </div>
             </article>

@@ -26,16 +26,25 @@ export function socialUrl(value: string) {
   try {
     const url = new URL(value);
     return url.protocol === "https:" ? url.href : undefined;
-  } catch { return undefined; }
+  } catch {
+    return undefined;
+  }
 }
 export function useShopDetails() {
   const [details, setDetails] = useState(DEFAULT_SHOP_DETAILS);
   useEffect(() => {
     let active = true;
-    supabase.from("site_sections").select("contact_details").eq("id", "contact").maybeSingle().then(({ data }) => {
-      if (active && data) setDetails(parseShopDetails(data.contact_details));
-    });
-    return () => { active = false; };
+    supabase
+      .from("site_sections")
+      .select("contact_details")
+      .eq("id", "contact")
+      .maybeSingle()
+      .then(({ data }) => {
+        if (active && data) setDetails(parseShopDetails(data.contact_details));
+      });
+    return () => {
+      active = false;
+    };
   }, []);
   return details;
 }

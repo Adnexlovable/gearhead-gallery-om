@@ -12,36 +12,99 @@ import silverghost from "@/assets/silverghost.jpg";
 type Category = "All" | "F1" | "Supercars" | "4x4 Off-Road" | "Vintage Classics";
 
 interface Vehicle {
-  img: string; make: string; year: string; title: string;
-  desc: string; spec: string; origin: string;
-  category: Exclude<Category, "All">; featured?: boolean;
+  img: string;
+  make: string;
+  year: string;
+  title: string;
+  desc: string;
+  spec: string;
+  origin: string;
+  category: Exclude<Category, "All">;
+  featured?: boolean;
 }
 
 const VEHICLES: Vehicle[] = [
-  { img: sf24, make: "Ferrari", year: "2024", title: "SF-24", category: "F1",
+  {
+    img: sf24,
+    make: "Ferrari",
+    year: "2024",
+    title: "SF-24",
+    category: "F1",
     desc: "Maranello's silver-jubilee challenger — sharp aero, fierce posture.",
-    spec: "1.6L V6 Hybrid · 1000 hp", origin: "Maranello, Italy" },
-  { img: w15, make: "Mercedes-AMG", year: "2024", title: "W15 E Performance", category: "F1",
+    spec: "1.6L V6 Hybrid · 1000 hp",
+    origin: "Maranello, Italy",
+  },
+  {
+    img: w15,
+    make: "Mercedes-AMG",
+    year: "2024",
+    title: "W15 E Performance",
+    category: "F1",
     desc: "Brackley's precision instrument, recast in matte stealth.",
-    spec: "1.6L V6 Hybrid · 1000 hp", origin: "Brackley, UK" },
-  { img: huracan, make: "Lamborghini", year: "2023", title: "Huracán Sterrato", category: "Supercars",
+    spec: "1.6L V6 Hybrid · 1000 hp",
+    origin: "Brackley, UK",
+  },
+  {
+    img: huracan,
+    make: "Lamborghini",
+    year: "2023",
+    title: "Huracán Sterrato",
+    category: "Supercars",
     desc: "A supercar that bites gravel — raised, ridged, untamed.",
-    spec: "5.2L V10 · 610 hp", origin: "Sant'Agata Bolognese" },
-  { img: sf90, make: "Ferrari", year: "2022", title: "SF90 Stradale", category: "Supercars",
+    spec: "5.2L V10 · 610 hp",
+    origin: "Sant'Agata Bolognese",
+  },
+  {
+    img: sf90,
+    make: "Ferrari",
+    year: "2022",
+    title: "SF90 Stradale",
+    category: "Supercars",
     desc: "Plug-in apex predator — three motors, one thesis.",
-    spec: "4.0L V8 Hybrid · 986 hp", origin: "Maranello, Italy" },
-  { img: wrangler, make: "Jeep", year: "2024", title: "Wrangler Rubicon 4xe", category: "4x4 Off-Road", featured: true,
+    spec: "4.0L V8 Hybrid · 986 hp",
+    origin: "Maranello, Italy",
+  },
+  {
+    img: wrangler,
+    make: "Jeep",
+    year: "2024",
+    title: "Wrangler Rubicon 4xe",
+    category: "4x4 Off-Road",
+    featured: true,
     desc: "Flagship of the gallery — electrified torque meets icon silhouette.",
-    spec: "2.0L Turbo PHEV · 375 hp", origin: "Toledo, Ohio" },
-  { img: defender, make: "Land Rover", year: "2024", title: "Defender 130 V8", category: "4x4 Off-Road",
+    spec: "2.0L Turbo PHEV · 375 hp",
+    origin: "Toledo, Ohio",
+  },
+  {
+    img: defender,
+    make: "Land Rover",
+    year: "2024",
+    title: "Defender 130 V8",
+    category: "4x4 Off-Road",
     desc: "Eight cylinders of expedition-grade composure.",
-    spec: "5.0L Supercharged V8 · 525 hp", origin: "Solihull, UK" },
-  { img: gto, make: "Ferrari", year: "1962", title: "250 GTO", category: "Vintage Classics",
+    spec: "5.0L Supercharged V8 · 525 hp",
+    origin: "Solihull, UK",
+  },
+  {
+    img: gto,
+    make: "Ferrari",
+    year: "1962",
+    title: "250 GTO",
+    category: "Vintage Classics",
     desc: "The grail. A racing soul wrapped in Pininfarina silk.",
-    spec: "3.0L V12 · 296 hp", origin: "Maranello, Italy" },
-  { img: silverghost, make: "Rolls-Royce", year: "1907", title: "Silver Ghost", category: "Vintage Classics",
+    spec: "3.0L V12 · 296 hp",
+    origin: "Maranello, Italy",
+  },
+  {
+    img: silverghost,
+    make: "Rolls-Royce",
+    year: "1907",
+    title: "Silver Ghost",
+    category: "Vintage Classics",
     desc: "The best car in the world — when the world was just learning to drive.",
-    spec: "7.0L Inline-6 · 48 hp", origin: "Manchester, UK" },
+    spec: "7.0L Inline-6 · 48 hp",
+    origin: "Manchester, UK",
+  },
 ];
 
 const CATEGORIES: Category[] = ["All", "F1", "Supercars", "4x4 Off-Road", "Vintage Classics"];
@@ -50,7 +113,7 @@ export function Gallery() {
   const [active, setActive] = useState<Category>("All");
   const filtered = useMemo(
     () => (active === "All" ? VEHICLES : VEHICLES.filter((v) => v.category === active)),
-    [active]
+    [active],
   );
 
   return (
@@ -59,10 +122,12 @@ export function Gallery() {
         <Reveal className="text-center">
           <div className="pill mx-auto mb-4 inline-flex">The Automotive Museum</div>
           <h2 className="font-display text-4xl md:text-6xl font-extrabold tracking-tight text-foreground">
-            Every <span className="italic text-gold-gradient">vitrine</span>,<br className="md:hidden" /> a love letter.
+            Every <span className="italic text-gold-gradient">vitrine</span>,
+            <br className="md:hidden" /> a love letter.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm md:text-base text-muted-foreground">
-            Filter by chapter and step closer. Each card responds to your cursor like a real display case under museum glass.
+            Filter by chapter and step closer. Each card responds to your cursor like a real display
+            case under museum glass.
           </p>
         </Reveal>
 
@@ -139,7 +204,8 @@ function VehicleCard({ v, index }: { v: Vehicle; index: number }) {
           <div
             className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             style={{
-              background: "radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,235,180,0.35), transparent 45%)",
+              background:
+                "radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgba(255,235,180,0.35), transparent 45%)",
               mixBlendMode: "screen",
             }}
           />
@@ -149,7 +215,9 @@ function VehicleCard({ v, index }: { v: Vehicle; index: number }) {
         </div>
         <div className="relative z-10 p-5">
           <div className="flex items-baseline justify-between gap-2">
-            <div className="font-mono-tag text-[10px] text-gold-soft/80">{v.make} · {v.year}</div>
+            <div className="font-mono-tag text-[10px] text-gold-soft/80">
+              {v.make} · {v.year}
+            </div>
           </div>
           <h3 className="mt-1 font-display text-xl font-bold text-foreground">{v.title}</h3>
           <p className="mt-2 text-xs text-muted-foreground line-clamp-2">{v.desc}</p>
