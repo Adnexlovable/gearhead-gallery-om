@@ -9,6 +9,7 @@ import {
   type ErrorComponentProps,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError, setupErrorMonitoring } from "../lib/lovable-error-reporting";
@@ -123,6 +124,7 @@ function RootComponent() {
       <Outlet />
       <SmoothScroll />
       <Toaster position="top-center" richColors />
+      <SpeedInsights />
     </QueryClientProvider>
   );
 }
