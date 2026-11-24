@@ -16,7 +16,14 @@ import frameBatmobile from "@/assets/frame-batmobile.jpg";
 import framePorsche from "@/assets/frame-porsche.jpg";
 
 const IMAGES: Record<string, string> = {
-  sf24, w15, huracan, sf90, wrangler, defender, gto, silverghost,
+  sf24,
+  w15,
+  huracan,
+  sf90,
+  wrangler,
+  defender,
+  gto,
+  silverghost,
   "frame-bmw": frameBmw,
   "frame-batmobile": frameBatmobile,
   "frame-porsche": framePorsche,
@@ -40,29 +47,46 @@ export function CarIdentifier() {
   };
 
   const onFile = async (file: File) => {
-    if (!file.type.startsWith("image/")) {
-      setError("Please choose a photo file.");
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      setError("Please choose a JPG, PNG, or WebP photo.");
       return;
     }
-    if (file.size > 6_000_000) {
-      setError("That photo is a bit large — please use one under 6MB.");
+    if (file.size > 5 * 1024 * 1024) {
+      setError("That photo is a bit large — please use one under 5 MB.");
       return;
     }
     setError(null);
     setResult(null);
-    const dataUrl = await new Promise<string>((resolve, reject) => {
-      const fr = new FileReader();
-      fr.onload = () => resolve(fr.result as string);
-      fr.onerror = () => reject(new Error("Could not read that file."));
-      fr.readAsDataURL(file);
-    });
+    let dataUrl: string;
+    try {
+      dataUrl = await new Promise<string>((resolve, reject) => {
+        const fr = new FileReader();
+        fr.onload = () => resolve(fr.result as string);
+        fr.onerror = () => reject(new Error("Could not read that file."));
+        fr.readAsDataURL(file);
+      });
+    } catch {
+      setError("That photo could not be read. Please choose another file.");
+      return;
+    }
     setPreview(dataUrl);
     setLoading(true);
     try {
       const res = await identify({ data: { imageDataUrl: dataUrl } });
-      setResult(res);
+      if (res.ok) setResult(res);
+      else setError(res.error);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Something went wrong. Please try again.");
+      const error = e as { status?: unknown; statusCode?: unknown; message?: unknown };
+      const isRateLimited =
+        error.status === 429 ||
+        error.statusCode === 429 ||
+        (typeof error.message === "string" &&
+          /429|too many requests|rate limit/i.test(error.message));
+      setError(
+        isRateLimited
+          ? "Too many photo requests. Please wait a moment before trying again."
+          : "Photo identification could not complete. Please try again shortly.",
+      );
     } finally {
       setLoading(false);
     }
@@ -77,7 +101,8 @@ export function CarIdentifier() {
             Snap it, <span className="italic text-gold-gradient">name it</span>, own it.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm md:text-base text-muted-foreground">
-            Upload a photo of any car. Our curator identifies the machine and points you to the pieces in the gallery that match it.
+            Upload a photo of any car. Our curator identifies the machine and points you to the
+            pieces in the gallery that match it.
           </p>
         </Reveal>
 
@@ -87,7 +112,11 @@ export function CarIdentifier() {
             <div className="vitrine relative flex min-h-[320px] flex-col items-center justify-center overflow-hidden p-6">
               {preview ? (
                 <>
-                  <img src={preview} alt="Your uploaded car" className="absolute inset-0 h-full w-full object-cover opacity-70" />
+                  <img
+                    src={preview}
+                    alt="Your uploaded car"
+                    className="absolute inset-0 h-full w-full object-cover opacity-70"
+                  />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B1D15]/90 via-[#0B1D15]/40 to-transparent" />
                   <button
                     onClick={reset}
@@ -100,7 +129,9 @@ export function CarIdentifier() {
                   {loading && (
                     <div className="relative z-10 flex items-center gap-3 rounded-full border border-gold/30 glass px-5 py-3">
                       <Loader2 size={16} className="animate-spin text-gold" />
-                      <span className="font-mono-tag text-[10px] text-foreground/80">Examining the bodywork…</span>
+                      <span className="font-mono-tag text-[10px] text-foreground/80">
+                        Examining the bodywork…
+                      </span>
                     </div>
                   )}
                 </>
@@ -116,14 +147,17 @@ export function CarIdentifier() {
                   >
                     Upload a car photo
                   </button>
-                  <p className="font-mono-tag mt-4 text-[10px] text-muted-foreground">JPG or PNG · up to 6MB</p>
+                  <p className="font-mono-tag mt-4 text-[10px] text-muted-foreground">
+                    JPG, PNG, or WebP · up to 5 MB
+                  </p>
                 </div>
               )}
               <input
                 ref={inputRef}
                 type="file"
-                accept="image/*"
+                accept="image/jpeg,image/png,image/webp"
                 className="hidden"
+                disabled={loading}
                 onChange={(e) => {
                   const f = e.target.files?.[0];
                   if (f) void onFile(f);
@@ -133,7 +167,11 @@ export function CarIdentifier() {
 
             {/* Result panel */}
             <div className="vitrine relative min-h-[320px] p-6">
-              {error && <p className="text-sm text-gold-soft">{error}</p>}
+              {error && (
+                <p className="text-sm text-gold-soft" role="alert">
+                  {error}
+                </p>
+              )}
 
               {!error && !result && (
                 <p className="text-sm text-muted-foreground">
@@ -143,13 +181,13 @@ export function CarIdentifier() {
                 </p>
               )}
 
-              {result && !result.is_car && (
+              {result?.ok && !result.is_car && (
                 <p className="text-sm text-muted-foreground">
                   We couldn't find a car in that photo. Try a clearer shot of the vehicle.
                 </p>
               )}
 
-              {result?.is_car && (
+              {result?.ok && result.is_car && (
                 <div>
                   <div className="flex items-center gap-2">
                     <Sparkles size={14} className="text-gold" />
@@ -161,13 +199,19 @@ export function CarIdentifier() {
                     {[result.make, result.model].filter(Boolean).join(" ") || "Unidentified"}
                   </h3>
                   {result.era && (
-                    <div className="font-mono-tag mt-1 text-[10px] text-muted-foreground">{result.era}</div>
+                    <div className="font-mono-tag mt-1 text-[10px] text-muted-foreground">
+                      {result.era}
+                    </div>
                   )}
-                  <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{result.notes}</p>
+                  <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+                    {result.notes}
+                  </p>
 
                   {result.matches.length > 0 && (
                     <div className="mt-5 border-t border-gold/15 pt-4">
-                      <div className="font-mono-tag mb-3 text-[9px] text-gold/70">MATCHING PIECES</div>
+                      <div className="font-mono-tag mb-3 text-[9px] text-gold/70">
+                        MATCHING PIECES
+                      </div>
                       <ul className="space-y-3">
                         {result.matches.map((m) => (
                           <li key={m.id} className="flex items-center gap-3">
@@ -177,9 +221,15 @@ export function CarIdentifier() {
                               className="h-14 w-20 flex-none rounded-sm object-cover"
                             />
                             <div className="min-w-0">
-                              <div className="truncate font-display text-sm font-bold text-foreground">{m.name}</div>
-                              <div className="font-mono-tag text-[9px] text-gold-soft">{m.tag} · {m.price}</div>
-                              <p className="mt-0.5 line-clamp-2 text-[11px] text-muted-foreground">{m.reason}</p>
+                              <div className="truncate font-display text-sm font-bold text-foreground">
+                                {m.name}
+                              </div>
+                              <div className="font-mono-tag text-[9px] text-gold-soft">
+                                {m.tag} · {m.price}
+                              </div>
+                              <p className="mt-0.5 line-clamp-2 text-[11px] text-muted-foreground">
+                                {m.reason}
+                              </p>
                             </div>
                           </li>
                         ))}
@@ -189,7 +239,9 @@ export function CarIdentifier() {
                         data-cursor="hover"
                         onClick={(e) => {
                           e.preventDefault();
-                          document.querySelector("#shop")?.scrollIntoView({ behavior: "smooth", block: "start" });
+                          document
+                            .querySelector("#shop")
+                            ?.scrollIntoView({ behavior: "smooth", block: "start" });
                         }}
                         className="btn-gold mt-5 inline-flex !py-2.5 !px-5 !text-[10px]"
                       >

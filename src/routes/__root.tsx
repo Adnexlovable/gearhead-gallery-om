@@ -15,6 +15,7 @@ import { reportLovableError, setupErrorMonitoring } from "../lib/lovable-error-r
 import { supabase } from "@/integrations/supabase/client";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { Toaster } from "@/components/ui/sonner";
+import { Analytics } from "@vercel/analytics/react";
 
 function NotFoundComponent() {
   return (
@@ -26,7 +27,9 @@ function NotFoundComponent() {
           The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="mt-6">
-          <Link to="/" className="btn-gold">Go home</Link>
+          <Link to="/" className="btn-gold">
+            Go home
+          </Link>
         </div>
       </div>
     </div>
@@ -43,11 +46,25 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">This page didn't load</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Something went wrong. Try refreshing or head home.</p>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          This page didn't load
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Something went wrong. Try refreshing or head home.
+        </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
-          <button onClick={() => { router.invalidate(); reset(); }} className="btn-gold">Try again</button>
-          <a href="/" className="btn-ghost-gold">Go home</a>
+          <button
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
+            className="btn-gold"
+          >
+            Try again
+          </button>
+          <a href="/" className="btn-ghost-gold">
+            Go home
+          </a>
         </div>
       </div>
     </div>
@@ -67,21 +84,40 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "apple-mobile-web-app-title", content: "GearHead RC" },
       { name: "google-site-verification", content: "onFo_S52MbEFzFkgQlc8PnpmvUOoF5wf1jgZgGtFqOs" },
       { title: "GearHead RC Hub — A New RC Experience for Oman" },
-      { name: "description", content: "GearHead RC Hub — performance RC cars, scale crawlers, parts and an indoor track experience planned for Bousher, Muscat, Oman." },
+      {
+        name: "description",
+        content:
+          "GearHead RC Hub — performance RC cars, scale crawlers, parts and an indoor track experience planned for Bousher, Muscat, Oman.",
+      },
       { name: "author", content: "GearHead RC" },
       { property: "og:title", content: "GearHead RC Hub — RC Cars & Track, Muscat" },
-      { property: "og:description", content: "RC vehicles, parts, service and an indoor track planned near Bousher Sand Dunes in Muscat." },
+      {
+        property: "og:description",
+        content:
+          "RC vehicles, parts, service and an indoor track planned near Bousher Sand Dunes in Muscat.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
-      { rel: "icon", type: "image/png", href: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/7a9feae0-8f03-4152-b52c-8f109c2253b1.png" },
-      { rel: "apple-touch-icon", sizes: "180x180", href: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/7a9feae0-8f03-4152-b52c-8f109c2253b1.png" },
+      {
+        rel: "icon",
+        type: "image/png",
+        href: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/7a9feae0-8f03-4152-b52c-8f109c2253b1.png",
+      },
+      {
+        rel: "apple-touch-icon",
+        sizes: "180x180",
+        href: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/7a9feae0-8f03-4152-b52c-8f109c2253b1.png",
+      },
       { rel: "manifest", href: "/manifest.webmanifest" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,800;1,900&family=Saira:ital,wdth,wght@1,125,800;1,125,900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,800;1,900&family=Saira:ital,wdth,wght@1,125,800;1,125,900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
+      },
     ],
   }),
   shellComponent: RootShell,
@@ -93,8 +129,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="dark">
-      <head><HeadContent /></head>
-      <body>{children}<Scripts /></body>
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        {children}
+        <Scripts />
+      </body>
     </html>
   );
 }
@@ -107,7 +148,12 @@ function RootComponent() {
     const channel = supabase.channel(`shop-live-${Math.random().toString(36).slice(2)}`);
     for (const table of ["products", "shop_categories", "site_media", "site_sections"]) {
       channel.on("postgres_changes", { event: "*", schema: "public", table }, () => {
-        void queryClient.invalidateQueries({ predicate: (q) => ["shop-catalog", "shop-product", "site-media", "site-sections"].includes(String(q.queryKey[0])) });
+        void queryClient.invalidateQueries({
+          predicate: (q) =>
+            ["shop-catalog", "shop-product", "site-media", "site-sections"].includes(
+              String(q.queryKey[0]),
+            ),
+        });
       });
     }
     channel.subscribe();
@@ -116,13 +162,17 @@ function RootComponent() {
       router.invalidate();
       if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
     });
-    return () => { sub.subscription.unsubscribe(); void supabase.removeChannel(channel); };
+    return () => {
+      sub.subscription.unsubscribe();
+      void supabase.removeChannel(channel);
+    };
   }, [router, queryClient]);
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
       <SmoothScroll />
       <Toaster position="top-center" richColors />
+      <Analytics />
     </QueryClientProvider>
   );
 }

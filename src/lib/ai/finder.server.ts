@@ -51,10 +51,19 @@ Rules:
 - Reply in the same language the shopper used (English or Arabic).`;
 
 export class FinderError extends Error {
-  constructor(message: string, readonly status: number) { super(message); }
+  constructor(
+    message: string,
+    readonly status: number,
+  ) {
+    super(message);
+  }
 }
 
-export async function recommendProducts(apiKey: string, query: string, catalog: FinderCatalogItem[]): Promise<FinderAnswer> {
+export async function recommendProducts(
+  apiKey: string,
+  query: string,
+  catalog: FinderCatalogItem[],
+): Promise<FinderAnswer> {
   const runIdFetch = createLovableAiGatewayRunIdFetch();
   const provider = createOpenAI({
     baseURL: "https://ai.gateway.lovable.dev/v1",
@@ -66,7 +75,12 @@ export async function recommendProducts(apiKey: string, query: string, catalog: 
     const result = streamText({
       model: provider.responses("openai/gpt-6-astra"),
       instructions: INSTRUCTIONS,
-      messages: [{ role: "user", content: `Catalogue (JSON):\n${JSON.stringify(catalog)}\n\nShopper request:\n${query}` }],
+      messages: [
+        {
+          role: "user",
+          content: `Catalogue (JSON):\n${JSON.stringify(catalog)}\n\nShopper request:\n${query}`,
+        },
+      ],
       output: Output.object({ schema: SCHEMA }),
       maxRetries: 0,
       providerOptions: {
@@ -82,14 +96,29 @@ export async function recommendProducts(apiKey: string, query: string, catalog: 
     return await result.output;
   } catch (error) {
     if (APICallError.isInstance(error)) {
-      console.error(`Product finder gateway error [${error.statusCode}]: ${error.responseBody ?? error.message}`);
+      console.error(`Product finder gateway error [${error.statusCode ?? "unknown"}]`);
       const status = error.statusCode ?? 500;
-      if (status === 429) throw new FinderError("The product finder is busy right now. Please try again in a minute.", 429);
-      if (status === 402) throw new FinderError("The product finder is paused at the moment. Please message us on WhatsApp.", 402);
-      if (status === 403) throw new FinderError("The product finder is not available right now. Please message us on WhatsApp.", 403);
-      throw new FinderError("The product finder could not answer right now. Please try again.", status);
+      if (status === 429)
+        throw new FinderError(
+          "The product finder is busy right now. Please try again in a minute.",
+          429,
+        );
+      if (status === 402)
+        throw new FinderError(
+          "The product finder is paused at the moment. Please message us on WhatsApp.",
+          402,
+        );
+      if (status === 403)
+        throw new FinderError(
+          "The product finder is not available right now. Please message us on WhatsApp.",
+          403,
+        );
+      throw new FinderError(
+        "The product finder could not answer right now. Please try again.",
+        status,
+      );
     }
-    console.error("Product finder failed:", error);
+    console.error("Product finder failed with an unexpected gateway error.");
     throw new FinderError("The product finder could not answer right now. Please try again.", 500);
   }
 }
