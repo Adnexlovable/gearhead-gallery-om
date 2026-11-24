@@ -25,24 +25,47 @@ export function InfoPage(props: {
       <main className="ghx-page">
         <section className="ghx-section">
           <div className="ghx-wrap">
-            <Link to="/app" className="ghx-back"><ArrowLeft size={15} /> Back to home</Link>
+            <Link to="/app" className="ghx-back">
+              <ArrowLeft size={15} /> Back to home
+            </Link>
             <SectionHead as="h1" kicker={props.kicker} title={props.title} text={props.text} />
             <div className="ghx-media-grid">
               {props.photos.map((p, i) => (
                 <figure key={p.src} className={`ghx-media${i === 0 ? " ghx-media-wide" : ""}`}>
                   <img src={p.src} alt={p.label} loading={i === 0 ? "eager" : "lazy"} />
-                  <figcaption><strong>{p.label}</strong></figcaption>
+                  <figcaption>
+                    <strong>{p.label}</strong>
+                  </figcaption>
                 </figure>
               ))}
             </div>
             <div className="ghx-offer-grid">
               {props.points.map(([t, s]) => (
-                <div key={t} className="ghx-offer"><CheckCircle2 size={18} aria-hidden="true" /><div><strong>{t}</strong><span>{s}</span></div></div>
+                <div key={t} className="ghx-offer">
+                  <CheckCircle2 size={18} aria-hidden="true" />
+                  <div>
+                    <strong>{t}</strong>
+                    <span>{s}</span>
+                  </div>
+                </div>
               ))}
             </div>
             <div className="ghx-hero-ctas mt-6">
-              <a href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(props.whatsappText)}`} target="_blank" rel="noopener noreferrer" className="ghx-btn ghx-btn-primary"><MessageCircle size={16} /> {props.ctaLabel}</a>
-              <Link to="/collection/$category" params={{ category: props.more.category }} className="ghx-btn ghx-btn-outline">{props.more.label} <ArrowRight size={16} /></Link>
+              <a
+                href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(props.whatsappText)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ghx-btn ghx-btn-primary"
+              >
+                <MessageCircle size={16} /> {props.ctaLabel}
+              </a>
+              <Link
+                to="/collection/$category"
+                params={{ category: props.more.category }}
+                className="ghx-btn ghx-btn-outline"
+              >
+                {props.more.label} <ArrowRight size={16} />
+              </Link>
             </div>
           </div>
         </section>

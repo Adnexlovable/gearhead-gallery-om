@@ -1,7 +1,20 @@
 const BRANDS = [
-  "Ferrari", "Lamborghini", "Porsche", "Mercedes-AMG", "BMW M", "Aston Martin",
-  "Bugatti", "McLaren", "Land Rover", "Jeep", "Rolls-Royce", "Bentley",
-  "Pagani", "Koenigsegg", "Alpine", "Lotus",
+  "Ferrari",
+  "Lamborghini",
+  "Porsche",
+  "Mercedes-AMG",
+  "BMW M",
+  "Aston Martin",
+  "Bugatti",
+  "McLaren",
+  "Land Rover",
+  "Jeep",
+  "Rolls-Royce",
+  "Bentley",
+  "Pagani",
+  "Koenigsegg",
+  "Alpine",
+  "Lotus",
 ];
 
 export function Marquee() {

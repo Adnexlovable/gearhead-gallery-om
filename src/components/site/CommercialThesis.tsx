@@ -62,7 +62,10 @@ const PHASES: {
     items: [
       { icon: Boxes, text: "54 Sqm retail floor with an indoor micro-dune and rock crawler track" },
       { icon: Wrench, text: "Test-drive and tuning bay feeding the purchase decision" },
-      { icon: Warehouse, text: "Direct-supply catalogue of RC, off-road and scale collector models" },
+      {
+        icon: Warehouse,
+        text: "Direct-supply catalogue of RC, off-road and scale collector models",
+      },
     ],
   },
   {
@@ -283,7 +286,9 @@ export function CommercialThesis() {
                 <div
                   key={title}
                   className="executive-card flex gap-4 p-5"
-                  style={{ animation: `executive-arrive 700ms cubic-bezier(.16,1,.3,1) ${i * 90}ms both` }}
+                  style={{
+                    animation: `executive-arrive 700ms cubic-bezier(.16,1,.3,1) ${i * 90}ms both`,
+                  }}
                 >
                   <div className="grid h-10 w-10 shrink-0 place-items-center rounded-sm border border-primary/35 bg-primary/10">
                     <Icon size={18} className="text-primary" />

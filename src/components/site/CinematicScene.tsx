@@ -21,7 +21,8 @@ export function CinematicScene({
     const el = videoRef.current;
     if (!el || typeof window === "undefined") return;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } })
+      .connection;
     if (reducedMotion || connection?.saveData) return;
 
     let visible = false;
@@ -29,10 +30,13 @@ export function CinematicScene({
       if (document.hidden || !visible) el.pause();
       else void el.play().catch(() => undefined);
     };
-    const observer = new IntersectionObserver(([entry]) => {
-      visible = Boolean(entry?.isIntersecting);
-      onVisibility();
-    }, { rootMargin: "160px 0px" });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = Boolean(entry?.isIntersecting);
+        onVisibility();
+      },
+      { rootMargin: "160px 0px" },
+    );
     observer.observe(el);
     document.addEventListener("visibilitychange", onVisibility);
     return () => {

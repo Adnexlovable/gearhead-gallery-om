@@ -24,7 +24,10 @@ const TRUST_BADGES = [
 
 export function CorporateFoundation() {
   return (
-    <section id="foundation" className="carbon-surface scroll-mt-24 border-b border-border py-20 md:py-28">
+    <section
+      id="foundation"
+      className="carbon-surface scroll-mt-24 border-b border-border py-20 md:py-28"
+    >
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <Reveal className="deck-label">
           <ShieldCheck size={15} /> Corporate foundation
@@ -49,27 +52,20 @@ export function CorporateFoundation() {
                 <span className="font-display text-lg font-semibold text-foreground md:text-xl">
                   Adnan Trading Services LLC
                 </span>
-                <span className="font-mono-tag ml-3 text-[10px] text-primary">
-                  CR: 1634293
-                </span>
+                <span className="font-mono-tag ml-3 text-[10px] text-primary">CR: 1634293</span>
               </span>
             </div>
             <p className="mt-7 max-w-xl text-sm leading-7 text-muted-foreground">
-              GearHead RC is developed and operated under a registered
-              Omani LLC with an established commercial base. The corporate
-              structure, registration and compliance position give partners,
-              suppliers and investors a clear, verifiable entity to deal with
-              from day one.
+              GearHead RC is developed and operated under a registered Omani LLC with an established
+              commercial base. The corporate structure, registration and compliance position give
+              partners, suppliers and investors a clear, verifiable entity to deal with from day
+              one.
             </p>
           </div>
 
           <div className="grid gap-4">
             {TRUST_BADGES.map(({ icon: Icon, title, body, tag }, i) => (
-              <Reveal
-                key={title}
-                delay={i * 90}
-                className="executive-card flex gap-4 p-5 md:p-6"
-              >
+              <Reveal key={title} delay={i * 90} className="executive-card flex gap-4 p-5 md:p-6">
                 <div className="grid h-10 w-10 shrink-0 place-items-center rounded-sm border border-primary/35 bg-primary/10">
                   <Icon size={18} className="text-primary" />
                 </div>

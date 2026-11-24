@@ -6,7 +6,8 @@ export const FALLBACK_CATEGORIES: ShopCategory[] = [
     name: "RC Cars",
     tagline: "Racing & Fun",
     description: "Performance RC cars, buggies and trucks for track and off-road.",
-    cover: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
+    cover:
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
     comingSoon: false,
   },
   {
@@ -14,7 +15,8 @@ export const FALLBACK_CATEGORIES: ShopCategory[] = [
     name: "Crawlers",
     tagline: "Scale & Adventure",
     description: "Scale crawlers and rock racers for trails and indoor track.",
-    cover: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a42db62-b4c4-4df2-b2e1-d82e50c20cb4.png",
+    cover:
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a42db62-b4c4-4df2-b2e1-d82e50c20cb4.png",
     comingSoon: false,
   },
   {
@@ -22,7 +24,8 @@ export const FALLBACK_CATEGORIES: ShopCategory[] = [
     name: "Spare Parts & Upgrades",
     tagline: "Repair · Upgrade",
     description: "Tyres, gears, servos, body shells and upgrade parts.",
-    cover: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/f92c9489-55d1-4c7d-9819-a7294ce8a7cd.jpg",
+    cover:
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/f92c9489-55d1-4c7d-9819-a7294ce8a7cd.jpg",
     comingSoon: false,
   },
   {
@@ -30,7 +33,8 @@ export const FALLBACK_CATEGORIES: ShopCategory[] = [
     name: "Batteries & Charging",
     tagline: "Power · Charge · Safety",
     description: "LiPo packs, chargers and power accessories.",
-    cover: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
+    cover:
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
     comingSoon: false,
   },
   {
@@ -38,7 +42,8 @@ export const FALLBACK_CATEGORIES: ShopCategory[] = [
     name: "Construction RC",
     tagline: "Dig · Load · Tip",
     description: "RC excavators, dump trucks and construction models.",
-    cover: "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a7fbbad-e215-4d63-a8c3-550220dcd0c3.jpg",
+    cover:
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a7fbbad-e215-4d63-a8c3-550220dcd0c3.jpg",
     comingSoon: false,
   },
 ];
@@ -52,7 +57,9 @@ export const FALLBACK_PRODUCTS: ShopProduct[] = [
     type: "Brushless / Truggy",
     description: "High-power 8S brushless monster truck. Premium performance.",
     features: ["8S capable", "Brushless", "Monster truck chassis"],
-    gallery: ["https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg"],
+    gallery: [
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
+    ],
     colors: [],
     inStock: true,
     priceBand: "premium",
@@ -67,7 +74,9 @@ export const FALLBACK_PRODUCTS: ShopProduct[] = [
     type: "Brushless / Buggy",
     description: "1:10 scale brushless racing buggy.",
     features: ["1:10 scale", "Brushless", "Racing setup"],
-    gallery: ["https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg"],
+    gallery: [
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
+    ],
     colors: [],
     inStock: true,
     priceBand: "premium",
@@ -82,7 +91,9 @@ export const FALLBACK_PRODUCTS: ShopProduct[] = [
     type: "Brushless / Truggy",
     description: "6S brushless monster truggy for big power.",
     features: ["6S", "Brushless", "Monster truggy"],
-    gallery: ["https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg"],
+    gallery: [
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
+    ],
     colors: [],
     inStock: true,
     priceBand: "premium",
@@ -97,7 +108,9 @@ export const FALLBACK_PRODUCTS: ShopProduct[] = [
     type: "Brushless / Truggy",
     description: "HSP 94603PRO brushless truggy.",
     features: ["Brushless", "HSP 94603PRO", "1:10"],
-    gallery: ["https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg"],
+    gallery: [
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
+    ],
     colors: [],
     inStock: true,
     priceBand: "mid",
@@ -112,7 +125,9 @@ export const FALLBACK_PRODUCTS: ShopProduct[] = [
     type: "Brushless / Buggy",
     description: "HSP 94602PRO brushless buggy.",
     features: ["Brushless", "HSP 94602PRO"],
-    gallery: ["https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg"],
+    gallery: [
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
+    ],
     colors: [],
     inStock: true,
     priceBand: "mid",
@@ -127,7 +142,9 @@ export const FALLBACK_PRODUCTS: ShopProduct[] = [
     type: "Brushed / Truggy",
     description: "Entry-level brushed electric truggy.",
     features: ["Brushed motor", "HSP 94603"],
-    gallery: ["https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg"],
+    gallery: [
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
+    ],
     colors: [],
     inStock: true,
     priceBand: "entry",
@@ -142,7 +159,9 @@ export const FALLBACK_PRODUCTS: ShopProduct[] = [
     type: "Battery",
     description: "3S-4S LiPo battery for RC cars.",
     features: ["3S-4S", "LiPo"],
-    gallery: ["https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg"],
+    gallery: [
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
+    ],
     colors: [],
     inStock: true,
     priceBand: "mid",
@@ -157,7 +176,9 @@ export const FALLBACK_PRODUCTS: ShopProduct[] = [
     type: "Battery",
     description: "High-voltage 6S-8S LiPo pack.",
     features: ["6S-8S", "High power"],
-    gallery: ["https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg"],
+    gallery: [
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/143af584-f2db-4030-9dee-dea755f2bcac.jpg",
+    ],
     colors: [],
     inStock: true,
     priceBand: "premium",
@@ -172,7 +193,9 @@ export const FALLBACK_PRODUCTS: ShopProduct[] = [
     type: "Construction",
     description: "1:14 scale RC excavator.",
     features: ["1:14", "Digging arm"],
-    gallery: ["https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a7fbbad-e215-4d63-a8c3-550220dcd0c3.jpg"],
+    gallery: [
+      "https://d2ol7oe51mr4n9.cloudfront.net/user_3KtZITH2XBnLOogmIhMqcChJhCe/6a7fbbad-e215-4d63-a8c3-550220dcd0c3.jpg",
+    ],
     colors: [],
     inStock: true,
     priceBand: "premium",

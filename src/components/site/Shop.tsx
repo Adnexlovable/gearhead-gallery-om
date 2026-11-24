@@ -33,7 +33,15 @@ interface Product {
   inStock: boolean;
 }
 
-const P = (img: { url: string }, tag: string, name: string, price: number, priceMax: number, type: VehicleType, edition: Edition): Product => ({ img: img.url, tag, name, price, priceMax, type, edition, inStock: true });
+const P = (
+  img: { url: string },
+  tag: string,
+  name: string,
+  price: number,
+  priceMax: number,
+  type: VehicleType,
+  edition: Edition,
+): Product => ({ img: img.url, tag, name, price, priceMax, type, edition, inStock: true });
 
 const PRODUCTS: Product[] = [
   P(p6, "1/8 · Nitro RTR", "Nitro Gas Buggy", 140, 180, "High-Performance", "RC Edition"),
@@ -55,7 +63,13 @@ const PRODUCTS: Product[] = [
   P(p22, "Airbrush / Spray", "Custom Polycarbonate Paint", 2.5, 5, "Parts & Spares", "Accessory"),
 ];
 
-const TYPES: Array<VehicleType | "All"> = ["All", "High-Performance", "Scale Realism", "Diecast Gallery", "Parts & Spares"];
+const TYPES: Array<VehicleType | "All"> = [
+  "All",
+  "High-Performance",
+  "Scale Realism",
+  "Diecast Gallery",
+  "Parts & Spares",
+];
 const EDITIONS: Array<Edition | "All"> = ["All", "RC Edition", "Scale Model", "Accessory"];
 const PRICES: Array<{ label: string; min: number; max: number }> = [
   { label: "All", min: 0, max: Infinity },
@@ -74,18 +88,23 @@ export function Shop() {
   const [live, setLive] = useState<Product[]>(PRODUCTS);
 
   useEffect(() => {
-    supabase.from("products").select("name,price,price_max,in_stock,visible").then(({ data }) => {
-      if (!data?.length) return;
-      const byName = new Map(data.map((d) => [d.name, d]));
-      setLive(
-        PRODUCTS.flatMap((p) => {
-          const d = byName.get(p.name);
-          if (!d) return [p];
-          if (!d.visible) return [];
-          return [{ ...p, price: Number(d.price), priceMax: Number(d.price_max), inStock: d.in_stock }];
-        }),
-      );
-    });
+    supabase
+      .from("products")
+      .select("name,price,price_max,in_stock,visible")
+      .then(({ data }) => {
+        if (!data?.length) return;
+        const byName = new Map(data.map((d) => [d.name, d]));
+        setLive(
+          PRODUCTS.flatMap((p) => {
+            const d = byName.get(p.name);
+            if (!d) return [p];
+            if (!d.visible) return [];
+            return [
+              { ...p, price: Number(d.price), priceMax: Number(d.price_max), inStock: d.in_stock },
+            ];
+          }),
+        );
+      });
   }, []);
 
   const filtered = useMemo(() => {
@@ -118,15 +137,31 @@ export function Shop() {
             </h2>
           </div>
           <p className="max-w-sm text-sm text-muted-foreground">
-            Nitro & brushless RC, scale-realism crawlers, diecast and parts — shipped across the GCC, hand-delivered in Muscat.
+            Nitro & brushless RC, scale-realism crawlers, diecast and parts — shipped across the
+            GCC, hand-delivered in Muscat.
           </p>
         </Reveal>
 
         <Reveal delay={120} className="mt-12 rounded-2xl border border-gold/20 glass p-5 md:p-6">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
-            <FilterGroup label="Vehicle Type" options={TYPES} value={type} onChange={(v) => setType(v as VehicleType | "All")} />
-            <FilterGroup label="Edition" options={EDITIONS} value={edition} onChange={(v) => setEdition(v as Edition | "All")} />
-            <FilterGroup label="Price (OMR)" options={PRICES.map((p) => p.label)} value={price} onChange={setPrice} />
+            <FilterGroup
+              label="Vehicle Type"
+              options={TYPES}
+              value={type}
+              onChange={(v) => setType(v as VehicleType | "All")}
+            />
+            <FilterGroup
+              label="Edition"
+              options={EDITIONS}
+              value={edition}
+              onChange={(v) => setEdition(v as Edition | "All")}
+            />
+            <FilterGroup
+              label="Price (OMR)"
+              options={PRICES.map((p) => p.label)}
+              value={price}
+              onChange={setPrice}
+            />
             <FilterGroup
               label="Availability"
               options={[...AVAILABILITY]}
@@ -150,18 +185,32 @@ export function Shop() {
 
         {filtered.length === 0 ? (
           <Reveal delay={120} className="mt-12 rounded-2xl border border-gold/15 p-12 text-center">
-            <div className="font-display text-xl font-bold text-foreground">No pieces match that combination.</div>
-            <p className="mt-2 text-sm text-muted-foreground">Loosen a filter — or ask our curator to source it for you.</p>
+            <div className="font-display text-xl font-bold text-foreground">
+              No pieces match that combination.
+            </div>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Loosen a filter — or ask our curator to source it for you.
+            </p>
           </Reveal>
         ) : (
           <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {filtered.map((p, i) => (
               <Reveal key={p.name} delay={i * 60}>
-                <article data-cursor="hover" className="group vitrine relative h-full overflow-hidden">
+                <article
+                  data-cursor="hover"
+                  className="group vitrine relative h-full overflow-hidden"
+                >
                   <div className="relative aspect-[4/3] overflow-hidden">
-                    <img src={p.img} alt={p.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                    <img
+                      src={p.img}
+                      alt={p.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0B1D15]/80 via-transparent to-transparent" />
-                    <div className="absolute left-3 top-3 pill !py-1 !px-2 !text-[8px]">{p.tag}</div>
+                    <div className="absolute left-3 top-3 pill !py-1 !px-2 !text-[8px]">
+                      {p.tag}
+                    </div>
                     <div className="absolute right-3 top-3 font-mono-tag rounded-full border border-gold/30 bg-[#0B1D15]/70 px-2 py-1 text-[8px] text-gold-soft">
                       {p.inStock ? "IN STOCK" : "PRE-ORDER"}
                     </div>
@@ -169,9 +218,17 @@ export function Shop() {
                   <div className="flex items-center justify-between gap-4 p-5">
                     <div>
                       <h3 className="font-display text-lg font-bold text-foreground">{p.name}</h3>
-                      <div className="font-mono-tag mt-1 text-[10px] text-gold-soft">OMR {p.price.toFixed(3)} – {p.priceMax.toFixed(3)}</div>
+                      <div className="font-mono-tag mt-1 text-[10px] text-gold-soft">
+                        OMR {p.price.toFixed(3)} – {p.priceMax.toFixed(3)}
+                      </div>
                     </div>
-                    <button onClick={() => setEnquire(p.name)} data-cursor="hover" className="btn-gold !py-2 !px-4 !text-[10px]">Enquire</button>
+                    <button
+                      onClick={() => setEnquire(p.name)}
+                      data-cursor="hover"
+                      className="btn-gold !py-2 !px-4 !text-[10px]"
+                    >
+                      Enquire
+                    </button>
                   </div>
                 </article>
               </Reveal>

@@ -81,7 +81,8 @@ export function Booking() {
             Reserve your hour <span className="italic text-gold-gradient">under the glass</span>.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-sm md:text-base text-muted-foreground">
-            The Bausher boutique receives guests by appointment. Choose an experience, a day and a time — we confirm within a few hours.
+            The Bausher boutique receives guests by appointment. Choose an experience, a day and a
+            time — we confirm within a few hours.
           </p>
         </Reveal>
 
@@ -96,11 +97,15 @@ export function Booking() {
                     data-cursor="hover"
                     aria-pressed={experience === e.id}
                     className={`rounded-xl border p-4 text-left transition-all ${
-                      experience === e.id ? "border-gold bg-gold/10" : "border-gold/20 hover:border-gold/50"
+                      experience === e.id
+                        ? "border-gold bg-gold/10"
+                        : "border-gold/20 hover:border-gold/50"
                     }`}
                   >
                     <div className="font-display text-sm font-bold text-foreground">{e.label}</div>
-                    <div className="font-mono-tag mt-1 text-[9px] text-muted-foreground">{e.note}</div>
+                    <div className="font-mono-tag mt-1 text-[9px] text-muted-foreground">
+                      {e.note}
+                    </div>
                   </button>
                 ))}
               </div>
@@ -115,7 +120,9 @@ export function Booking() {
                     data-cursor="hover"
                     aria-pressed={date === d.value}
                     className={`w-16 rounded-xl border py-2 text-center transition-all ${
-                      date === d.value ? "border-gold bg-gold text-[#0B1D15]" : "border-gold/20 text-foreground hover:border-gold/50"
+                      date === d.value
+                        ? "border-gold bg-gold text-[#0B1D15]"
+                        : "border-gold/20 text-foreground hover:border-gold/50"
                     }`}
                   >
                     <div className="font-mono-tag text-[9px] opacity-80">{d.day}</div>
@@ -136,8 +143,18 @@ export function Booking() {
 
             <Group label="Your details">
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field label="Full name" value={name} onChange={setName} placeholder="Khalid Al-Hinai" />
-                <Field label="Email or WhatsApp" value={contact} onChange={setContact} placeholder="+968 7830 8991" />
+                <Field
+                  label="Full name"
+                  value={name}
+                  onChange={setName}
+                  placeholder="Khalid Al-Hinai"
+                />
+                <Field
+                  label="Email or WhatsApp"
+                  value={contact}
+                  onChange={setContact}
+                  placeholder="+968 7830 8991"
+                />
               </div>
               <textarea
                 rows={3}
@@ -152,7 +169,9 @@ export function Booking() {
           <Reveal delay={150}>
             <div className="vitrine sticky top-28 p-6 md:p-8">
               <div className="font-mono-tag text-[10px] text-gold-soft">Your appointment</div>
-              <h3 className="mt-3 font-display text-2xl font-bold text-foreground">{chosenExperience.label}</h3>
+              <h3 className="mt-3 font-display text-2xl font-bold text-foreground">
+                {chosenExperience.label}
+              </h3>
               <div className="mt-6 space-y-4 border-t border-gold/15 pt-5">
                 <Row icon={<CalendarCheck size={16} className="text-gold" />} label="Date">
                   {chosenDay.day} {chosenDay.date} {chosenDay.month}
@@ -166,16 +185,29 @@ export function Booking() {
               </div>
               <div className="mt-6 rounded-lg border border-gold/15 bg-surface/50 p-4 text-xs text-muted-foreground">
                 <div>{details.address}</div>
-                {details.hours && <div className="mt-3 whitespace-pre-line"><span className="font-semibold text-foreground">Opening hours</span><br />{details.hours}</div>}
-                {details.phone && <a className="mt-3 block hover:text-gold" href={`tel:${details.phone.replace(/[^+\d]/g, "")}`}>{details.phone}</a>}
+                {details.hours && (
+                  <div className="mt-3 whitespace-pre-line">
+                    <span className="font-semibold text-foreground">Opening hours</span>
+                    <br />
+                    {details.hours}
+                  </div>
+                )}
+                {details.phone && (
+                  <a
+                    className="mt-3 block hover:text-gold"
+                    href={`tel:${details.phone.replace(/[^+\d]/g, "")}`}
+                  >
+                    {details.phone}
+                  </a>
+                )}
               </div>
 
               {confirmed ? (
                 <div className="mt-6 flex items-start gap-3 rounded-lg border border-gold/40 bg-gold/10 p-4">
                   <Check size={18} className="mt-0.5 text-gold" />
                   <div className="text-xs text-foreground">
-                    Request sent. We'll confirm your {chosenExperience.label.toLowerCase()} on {chosenDay.day} {chosenDay.date}{" "}
-                    {chosenDay.month} at {time} shortly.
+                    Request sent. We'll confirm your {chosenExperience.label.toLowerCase()} on{" "}
+                    {chosenDay.day} {chosenDay.date} {chosenDay.month} at {time} shortly.
                   </div>
                 </div>
               ) : (
@@ -210,7 +242,15 @@ function Group({ label, children }: { label: string; children: React.ReactNode }
   );
 }
 
-function Chips({ options, value, onChange }: { options: string[]; value: string; onChange: (v: string) => void }) {
+function Chips({
+  options,
+  value,
+  onChange,
+}: {
+  options: string[];
+  value: string;
+  onChange: (v: string) => void;
+}) {
   return (
     <div className="flex flex-wrap gap-2">
       {options.map((o) => (
@@ -220,7 +260,9 @@ function Chips({ options, value, onChange }: { options: string[]; value: string;
           data-cursor="hover"
           aria-pressed={value === o}
           className={`font-mono-tag rounded-full border px-4 py-2 text-[10px] transition-all ${
-            value === o ? "border-gold bg-gold text-[#0B1D15]" : "border-gold/25 text-muted-foreground hover:border-gold/60 hover:text-gold"
+            value === o
+              ? "border-gold bg-gold text-[#0B1D15]"
+              : "border-gold/25 text-muted-foreground hover:border-gold/60 hover:text-gold"
           }`}
         >
           {o}
@@ -254,7 +296,15 @@ function Field({
   );
 }
 
-function Row({ icon, label, children }: { icon: React.ReactNode; label: string; children: React.ReactNode }) {
+function Row({
+  icon,
+  label,
+  children,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
     <div className="flex items-start gap-3">
       <div className="mt-0.5">{icon}</div>

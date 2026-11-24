@@ -6,23 +6,47 @@ import bmw from "@/assets/frame-bmw.jpg";
 import por from "@/assets/frame-porsche.jpg";
 
 interface Piece {
-  img: string; title: string; subtitle: string; tag: string;
-  tagColor: string; desc: string;
+  img: string;
+  title: string;
+  subtitle: string;
+  tag: string;
+  tagColor: string;
+  desc: string;
 }
 
 const PIECES: Piece[] = [
-  { img: bat, title: "The Dark Knight Rises", subtitle: "Batmobile · Six-Generation Evolution",
-    tag: "Limited Set", tagColor: "from-amber-300 to-yellow-500",
-    desc: "Six era-defining Batmobiles, mounted in a single deep-set vitrine. From 1966 lacquer to Tumbler tactical." },
-  { img: def, title: "Land Rover Defender", subtitle: "Gold Edition · Hand-leafed",
-    tag: "Gold Edition", tagColor: "from-yellow-400 to-amber-600",
-    desc: "A Defender re-finished in 24k leaf, suspended on Omani green velvet. One of twelve." },
-  { img: bmw, title: "BMW M3 Competition", subtitle: "Backlit · LED Vitrine",
-    tag: "Backlit · LED", tagColor: "from-sky-300 to-blue-500",
-    desc: "Cool LED edge-lighting throws the alpine-white M3 into icy relief. Wall-mount, dimmable." },
-  { img: por, title: "Porsche 911 Trinity", subtitle: "Black · White · Red",
-    tag: "Trinity Series", tagColor: "from-rose-300 to-red-600",
-    desc: "Three flat-six silhouettes, one frame. A study in restraint and proportion." },
+  {
+    img: bat,
+    title: "The Dark Knight Rises",
+    subtitle: "Batmobile · Six-Generation Evolution",
+    tag: "Limited Set",
+    tagColor: "from-amber-300 to-yellow-500",
+    desc: "Six era-defining Batmobiles, mounted in a single deep-set vitrine. From 1966 lacquer to Tumbler tactical.",
+  },
+  {
+    img: def,
+    title: "Land Rover Defender",
+    subtitle: "Gold Edition · Hand-leafed",
+    tag: "Gold Edition",
+    tagColor: "from-yellow-400 to-amber-600",
+    desc: "A Defender re-finished in 24k leaf, suspended on Omani green velvet. One of twelve.",
+  },
+  {
+    img: bmw,
+    title: "BMW M3 Competition",
+    subtitle: "Backlit · LED Vitrine",
+    tag: "Backlit · LED",
+    tagColor: "from-sky-300 to-blue-500",
+    desc: "Cool LED edge-lighting throws the alpine-white M3 into icy relief. Wall-mount, dimmable.",
+  },
+  {
+    img: por,
+    title: "Porsche 911 Trinity",
+    subtitle: "Black · White · Red",
+    tag: "Trinity Series",
+    tagColor: "from-rose-300 to-red-600",
+    desc: "Three flat-six silhouettes, one frame. A study in restraint and proportion.",
+  },
 ];
 
 export function FramedArt() {
@@ -40,7 +64,9 @@ export function FramedArt() {
         </Reveal>
 
         <div className="mt-14 grid grid-cols-1 gap-8 md:grid-cols-2">
-          {PIECES.map((p, i) => <FrameCard key={p.title} p={p} index={i} />)}
+          {PIECES.map((p, i) => (
+            <FrameCard key={p.title} p={p} index={i} />
+          ))}
         </div>
       </div>
     </section>
@@ -78,21 +104,37 @@ function FrameCard({ p, index }: { p: Piece; index: number }) {
         style={{ transformStyle: "preserve-3d" }}
       >
         <div className="relative aspect-[4/3] overflow-hidden">
-          <img src={p.img} alt={p.title} loading="lazy" width={1024} height={1024} className="h-full w-full object-cover" />
+          <img
+            src={p.img}
+            alt={p.title}
+            loading="lazy"
+            width={1024}
+            height={1024}
+            className="h-full w-full object-cover"
+          />
           {/* Cursor-following glare */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
-              background: "radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,235,180,0.28), transparent 40%)",
+              background:
+                "radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,235,180,0.28), transparent 40%)",
               mixBlendMode: "screen",
               opacity: hover ? 1 : 0.3,
               transition: "opacity .3s",
             }}
           />
           {/* glass reflection */}
-          <div className="pointer-events-none absolute inset-0" style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 45%, transparent 75%, rgba(255,255,255,0.05) 100%)" }} />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(255,255,255,0.08) 0%, transparent 45%, transparent 75%, rgba(255,255,255,0.05) 100%)",
+            }}
+          />
           <div className="absolute left-4 top-4">
-            <span className={`inline-block rounded-full bg-gradient-to-r ${p.tagColor} px-3 py-1 font-mono-tag text-[9px] font-bold text-[#0B1D15]`}>
+            <span
+              className={`inline-block rounded-full bg-gradient-to-r ${p.tagColor} px-3 py-1 font-mono-tag text-[9px] font-bold text-[#0B1D15]`}
+            >
               {p.tag}
             </span>
           </div>

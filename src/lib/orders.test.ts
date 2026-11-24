@@ -2,7 +2,13 @@ import { describe, expect, it } from "vitest";
 import { newOrderRef, priceOrder } from "./orders";
 
 const buggy = { slug: "buggy", name: "Buggy", scale: "1:8", ask_price: false, selling_price: 45.5 };
-const crawler = { slug: "crawler", name: "Crawler", scale: "1:10", ask_price: true, selling_price: 120 };
+const crawler = {
+  slug: "crawler",
+  name: "Crawler",
+  scale: "1:10",
+  ask_price: true,
+  selling_price: 120,
+};
 
 describe("order pricing (OMR)", () => {
   it("totals confirmed OMR prices × quantity", () => {
@@ -12,7 +18,13 @@ describe("order pricing (OMR)", () => {
   });
 
   it("leaves the total open when any item is price on request", () => {
-    const o = priceOrder([{ slug: "buggy", qty: 1 }, { slug: "crawler", qty: 1 }], [buggy, crawler]);
+    const o = priceOrder(
+      [
+        { slug: "buggy", qty: 1 },
+        { slug: "crawler", qty: 1 },
+      ],
+      [buggy, crawler],
+    );
     expect(o.total_omr).toBeNull();
     expect(o.items[1].unit_price_omr).toBeNull();
   });

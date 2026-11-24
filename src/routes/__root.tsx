@@ -16,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { Toaster } from "@/components/ui/sonner";
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function NotFoundComponent() {
   return (
@@ -173,6 +174,7 @@ function RootComponent() {
       <SmoothScroll />
       <Toaster position="top-center" richColors />
       <Analytics />
+      <SpeedInsights />
     </QueryClientProvider>
   );
 }

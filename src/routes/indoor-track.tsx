@@ -5,7 +5,8 @@ import floor from "@/assets/showroom/shop-floor-wide.jpg.asset.json";
 import shelves from "@/assets/showroom/shop-shelves.jpg.asset.json";
 
 const title = "Indoor RC Crawler Track — GearHead RC Hub, Muscat";
-const description = "Test-drive RC crawlers on the indoor bridge and rock track at GearHead RC Hub, Bausher, Muscat. Ask us on WhatsApp.";
+const description =
+  "Test-drive RC crawlers on the indoor bridge and rock track at GearHead RC Hub, Bausher, Muscat. Ask us on WhatsApp.";
 
 export const Route = createFileRoute("/indoor-track")({
   staticData: { sitemap: true },
@@ -23,7 +24,11 @@ export const Route = createFileRoute("/indoor-track")({
   component: () => (
     <InfoPage
       kicker="Indoor track"
-      title={<>Test it on <em>our track.</em></>}
+      title={
+        <>
+          Test it on <em>our track.</em>
+        </>
+      }
       text="Our indoor crawler track has a bridge rail, rocks, ramps and obstacles. Try a crawler before you buy, or bring your own and play."
       photos={[
         { src: bridgeTrack.url, label: "Crawler bridge track" },

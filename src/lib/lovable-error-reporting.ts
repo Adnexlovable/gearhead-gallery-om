@@ -45,28 +45,36 @@ export function setupErrorMonitoring() {
 
   window.addEventListener("error", (event) => {
     const err = event.error ?? new Error(event.message || "Unknown error");
-    reportLovableError(err, {
-      source: "window.onerror",
-      filename: event.filename,
-      lineno: event.lineno,
-      colno: event.colno,
-    }, {
-      mechanism: "onerror",
-      handled: false,
-      severity: "error",
-    });
+    reportLovableError(
+      err,
+      {
+        source: "window.onerror",
+        filename: event.filename,
+        lineno: event.lineno,
+        colno: event.colno,
+      },
+      {
+        mechanism: "onerror",
+        handled: false,
+        severity: "error",
+      },
+    );
   });
 
   window.addEventListener("unhandledrejection", (event) => {
     const reason = event.reason;
     const err = reason instanceof Error ? reason : new Error(String(reason));
-    reportLovableError(err, {
-      source: "unhandledrejection",
-    }, {
-      mechanism: "unhandledrejection",
-      handled: false,
-      severity: "error",
-    });
+    reportLovableError(
+      err,
+      {
+        source: "unhandledrejection",
+      },
+      {
+        mechanism: "unhandledrejection",
+        handled: false,
+        severity: "error",
+      },
+    );
   });
 
   console.info("[Error monitoring] Client-side handlers installed");

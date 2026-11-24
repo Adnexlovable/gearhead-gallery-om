@@ -7,7 +7,10 @@ export function Preloader() {
   useEffect(() => {
     const t1 = setTimeout(() => setHidden(true), 1600);
     const t2 = setTimeout(() => setGone(true), 2400);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
   }, []);
 
   if (gone) return null;

@@ -1,10 +1,21 @@
 // Order pricing for WhatsApp cart orders. OMR uses 3 decimals (baisa).
 
 export type OrderLineInput = { slug: string; qty: number; color?: string };
-export type OrderProduct = { slug: string | null; name: string; scale: string; ask_price: boolean; selling_price: number | null };
+export type OrderProduct = {
+  slug: string | null;
+  name: string;
+  scale: string;
+  ask_price: boolean;
+  selling_price: number | null;
+};
 export type OrderItem = {
-  slug: string; name: string; scale: string; color: string | null; qty: number;
-  unit_price_omr: number | null; line_total_omr: number | null;
+  slug: string;
+  name: string;
+  scale: string;
+  color: string | null;
+  qty: number;
+  unit_price_omr: number | null;
+  line_total_omr: number | null;
 };
 
 export const ORDER_STATUSES = ["new", "confirmed", "ready", "completed", "cancelled"] as const;
@@ -19,16 +30,25 @@ export function priceOrder(lines: OrderLineInput[], products: OrderProduct[]) {
   for (const l of lines) {
     const p = bySlug.get(l.slug);
     if (!p) continue;
-    const unit = !p.ask_price && p.selling_price != null && Number(p.selling_price) > 0 ? Number(p.selling_price) : null;
+    const unit =
+      !p.ask_price && p.selling_price != null && Number(p.selling_price) > 0
+        ? Number(p.selling_price)
+        : null;
     items.push({
-      slug: l.slug, name: p.name, scale: p.scale, color: l.color ?? null, qty: l.qty,
-      unit_price_omr: unit, line_total_omr: unit == null ? null : roundOMR(unit * l.qty),
+      slug: l.slug,
+      name: p.name,
+      scale: p.scale,
+      color: l.color ?? null,
+      qty: l.qty,
+      unit_price_omr: unit,
+      line_total_omr: unit == null ? null : roundOMR(unit * l.qty),
     });
   }
   const item_count = items.reduce((n, i) => n + i.qty, 0);
-  const total_omr = items.length && items.every((i) => i.line_total_omr != null)
-    ? roundOMR(items.reduce((n, i) => n + (i.line_total_omr ?? 0), 0))
-    : null;
+  const total_omr =
+    items.length && items.every((i) => i.line_total_omr != null)
+      ? roundOMR(items.reduce((n, i) => n + (i.line_total_omr ?? 0), 0))
+      : null;
   return { items, item_count, total_omr };
 }
 
@@ -39,4 +59,5 @@ export function newOrderRef() {
   return "GH-" + Array.from(bytes, (b) => chars[b % chars.length]).join("");
 }
 
-export const formatOMR = (n: number | null | undefined) => (n == null ? "Price to confirm" : `OMR ${Number(n).toFixed(3)}`);
+export const formatOMR = (n: number | null | undefined) =>
+  n == null ? "Price to confirm" : `OMR ${Number(n).toFixed(3)}`;
