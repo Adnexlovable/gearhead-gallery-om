@@ -21,6 +21,25 @@ for (const [key, value] of Object.entries(serverEnv)) {
   if (process.env[key] === undefined) process.env[key] = value;
 }
 
+function isHttpUrl(value: string | undefined): value is string {
+  if (!value) return false;
+  try {
+    const { protocol } = new URL(value);
+    return protocol === "http:" || protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+const publicSupabaseUrl = [
+  serverEnv["NEXT_PUBLIC_SUPABASE_URL"],
+  serverEnv["SUPABASE_URL"],
+].find(isHttpUrl);
+
+if (!isHttpUrl(process.env["VITE_SUPABASE_URL"]) && publicSupabaseUrl) {
+  process.env["VITE_SUPABASE_URL"] = publicSupabaseUrl;
+}
+
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
